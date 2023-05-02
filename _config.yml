@@ -1,5 +1,5 @@
 # theme: jekyll-theme-cayman
-remote_theme: github/pages-gem #poole/hyde pages-themes/leap-day@v0.2.0
+remote_theme: jeromelachaud/freelancer-theme #github/pages-gem poole/hyde pages-themes/leap-day@v0.2.0
 title: MENTORING3
 description: Creative coding with unity
 show_downloads: "true"
