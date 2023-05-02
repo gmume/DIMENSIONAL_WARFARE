@@ -1,7 +1,7 @@
 # theme: jekyll-theme-cayman
-remote_theme: hydecorp/hydejack #github/pages-gem poole/hyde pages-themes/leap-day@v0.2.0
-title: MENTORING3
-description: Creative coding with unity
+remote_theme: hydecorp/hydejack
+title: DIMENSIONAL WAREFARE
+description: A local multiplayer game on PC with controllers.
 show_downloads: "true"
 plugins:
   - jemoji
