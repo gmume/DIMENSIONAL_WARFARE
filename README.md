@@ -9,4 +9,6 @@ This website is all about DIMENSIONAL WAREFARE, a game, that I started to build 
 2. Simple orientation and overview for players
 3. Learn more about Unity
 
-## 
+## Starting point
+Up until now, you can play the start phace of DIMENSIONAL WAREFER and you can shoot at your opponents fleet, even there isn't a hit detection implemented yet. If you are courious about the building process until here, you can read about it on the game blog of Digital Ideation.
+
