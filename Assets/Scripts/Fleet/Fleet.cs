@@ -33,8 +33,16 @@ public class Fleet : ScriptableObject
     {
         GameObject shipObj = (GameObject)fleet[shipNr];
         shipObj.GetComponent<Ship>().Activate(player.GetComponent<PlayerScript>());
-        player.GetComponent<PlayerInput>().SwitchCurrentActionMap("GameStart");
-        player.GetComponent<InputHandling>().SwitchActionMap("GameStart");
+
+        if(OverworldData.GamePhase == GamePhases.Start) { 
+            player.GetComponent<PlayerInput>().SwitchCurrentActionMap("GameStart");
+            player.GetComponent<InputHandling>().SwitchActionMap("GameStart");
+        }
+        else
+        {
+            player.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+            player.GetComponent<InputHandling>().SwitchActionMap("Player");
+        }
     }
 
     public ArrayList GetFleet()

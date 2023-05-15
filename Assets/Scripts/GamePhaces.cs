@@ -1,3 +1,3 @@
 using UnityEngine;
 
-public enum GamePhaces { Armed, Attacked, End }
+public enum GamePhases { Start, Battle, Armed, Attacked, End }

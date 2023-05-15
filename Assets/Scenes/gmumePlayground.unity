@@ -814,6 +814,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnReturnToFleetMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
+        type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnDimensionUp
       objectReference: {fileID: 0}
@@ -2177,6 +2182,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 016909d2aa06e924bafe346c71006b79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GamePhase: 
+  playerData1: {fileID: 0}
+  playerData2: {fileID: 0}
+  activeShip1: {fileID: 0}
+  activeShip2: {fileID: 0}
   inputEnabled1: 0
   inputEnabled2: 0
   actionMapPlayer1: 
@@ -4177,7 +4187,7 @@ PrefabInstance:
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnCancel
+      value: OnReturnToFleetMenu
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}

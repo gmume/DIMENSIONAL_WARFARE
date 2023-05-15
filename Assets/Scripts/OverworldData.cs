@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class OverworldData
 {
-    public static GamePhaces GamePhace { get; set; }
+    public static GamePhases GamePhase { get; set; }
     public static int DimensionsCount { get; set; }
     public static int DimensionSize { get; set; }
     public static float DimensionDiagonal { get; set; }

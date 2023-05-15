@@ -114,7 +114,7 @@
             "id": "964d7577-f862-4426-86f6-4365a6c45a29",
             "actions": [
                 {
-                    "name": "Submit",
+                    "name": "SubmitAttackingShip",
                     "type": "Button",
                     "id": "4a55198c-bbed-4ac1-85de-12aff0b234cd",
                     "expectedControlType": "Button",
@@ -123,7 +123,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Cancel",
+                    "name": "ReturnToFleetMenu",
                     "type": "Button",
                     "id": "8b69f10b-ad79-4619-94fa-8d44e6cbf095",
                     "expectedControlType": "Button",
@@ -176,7 +176,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Submit",
+                    "action": "SubmitAttackingShip",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -187,7 +187,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Cancel",
+                    "action": "ReturnToFleetMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

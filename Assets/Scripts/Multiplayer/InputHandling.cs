@@ -14,16 +14,25 @@ public class InputHandling : MonoBehaviour
     private PlayerScript playerScript, opponent;
     private PlayerInput playerInput, opponentInput;
     private InputActionMap gameStartMap, playerMap, fleetMenuMap;
+    //private InputAction moveShipAction;
     private CameraBehavior cameraBehavior1, cameraBehavior2;
     private FleetMenuScript fleetMenuScript1, fleetMenuScript2;
 
-    private void Start()
+    private void Awake()
     {
         playerScript = GetComponent<PlayerScript>();
         playerInput = GetComponent<PlayerInput>();
         gameStartMap = playerInput.actions.FindActionMap("GameStart");
         playerMap = playerInput.actions.FindActionMap("Player");
         fleetMenuMap = playerInput.actions.FindActionMap("FleetMenu");
+       // moveShipAction = gameStartMap.FindAction("MoveShip", true);
+       //// moveShipAction.performed += OnMoveShip;
+       // Debug.Log("moveShipAction: " + moveShipAction);
+    }
+
+    private void Start()
+    {
+        
         cameraBehavior1 = GameObject.Find("Camera1").GetComponent<CameraBehavior>();
         cameraBehavior2 = GameObject.Find("Camera2").GetComponent<CameraBehavior>();
         fleetMenuScript1 = GameObject.Find("FleetMenu1").GetComponent<FleetMenuScript>();
@@ -64,26 +73,19 @@ public class InputHandling : MonoBehaviour
         SwitchActionMap("FleetMenu");
     }
 
+    //private void OnEnable()
+    //{
+    //    if(OverworldData.GamePhase == GamePhases.Start)
+    //    {
+    //        Debug.Log("entred if GamePhases.Start");
+    //        moveShipAction.Disable();
+    //        Debug.Log("moveShipAction: " + moveShipAction+", enabled? " +moveShipAction.enabled);
+            
+    //    }
+        
+    //}
+
     //StartGame actionMap
-    public void OnReturnToFleetMenu(CallbackContext ctx)
-    {
-        if (ctx.performed)
-        {
-            playerScript.playerData.ActiveShip.Deactivate(playerScript);
-            playerInput.SwitchCurrentActionMap("FleetMenu");
-            SwitchActionMap("FleetMenu");
-
-            if (name == "Player1")
-            {
-                GameObject.Find("FleetMenu1").GetComponent<FleetMenuScript>().SetFirstSelecetedButton();
-            }
-            else
-            {
-                GameObject.Find("FleetMenu2").GetComponent<FleetMenuScript>().SetFirstSelecetedButton();
-            }
-        }
-    }
-
     public void OnMoveShip(CallbackContext ctx)
     {
         if (ctx.performed)
@@ -188,33 +190,54 @@ public class InputHandling : MonoBehaviour
         Debug.Log("Your opponent is ready. Let's go!");
 
         CameraBehavior behavior1 = GameObject.Find("Camera1").GetComponent<CameraBehavior>();
-        behavior1.UpdateCamera(GamePhaces.Armed);
+        behavior1.UpdateCamera(GamePhases.Armed);
         CameraBehavior behavior2 = GameObject.Find("Camera2").GetComponent<CameraBehavior>();
-        behavior2.UpdateCamera(GamePhaces.Attacked);
+        behavior2.UpdateCamera(GamePhases.Attacked);
 
+        OverworldData.GamePhase = GamePhases.Battle;
         playerInput.enabled = true;
-        playerInput.SwitchCurrentActionMap("Player");
-        opponentInput.SwitchCurrentActionMap("Player");
-        SwitchActionMap("Player");
+
+        if(playerScript.name == "Player1")
+        {
+            playerInput.SwitchCurrentActionMap("FleetMenu");
+            opponentInput.SwitchCurrentActionMap("Player");
+        }
+        else
+        {
+            playerInput.SwitchCurrentActionMap("Player");
+            opponentInput.SwitchCurrentActionMap("FleetMenu");
+        }
+        
+        //SwitchActionMap("Player");
+    }
+
+    //StartGame and Player actionMap
+    public void OnReturnToFleetMenu(CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            playerScript.playerData.ActiveShip.Deactivate(playerScript);
+            playerInput.SwitchCurrentActionMap("FleetMenu");
+
+            if (name == "Player1")
+            {
+                GameObject.Find("FleetMenu1").GetComponent<FleetMenuScript>().SetFirstSelecetedButton();
+            }
+            else
+            {
+                GameObject.Find("FleetMenu2").GetComponent<FleetMenuScript>().SetFirstSelecetedButton();
+            }
+        }
     }
 
     //Player actionMap
-    public void OnSubmit(CallbackContext ctx)
-    {
-        if (ctx.performed)
-        {
-            Debug.Log("OnSubmit!");
-        }
-    }
-
-    public void OnCancel(CallbackContext ctx)
-    {
-        if (ctx.performed)
-        {
-            //close ship menu
-            Debug.Log("OnCancel!");
-        }
-    }
+    //public void OnSubmitAttackingShip(CallbackContext ctx)
+    //{
+    //    if (ctx.performed)
+    //    {
+    //        Debug.Log("OnSubmit!");
+    //    }
+    //}
 
     public void OnMoveSelection(CallbackContext ctx)
     {
@@ -291,15 +314,17 @@ public class InputHandling : MonoBehaviour
                 if (name == "Player1")
                 {
                     OverworldData.PlayerTurn = 2;
-                    cameraBehavior1.UpdateCamera(GamePhaces.Attacked);
-                    cameraBehavior2.UpdateCamera(GamePhaces.Armed);
+                    cameraBehavior1.UpdateCamera(GamePhases.Attacked);
+                    cameraBehavior2.UpdateCamera(GamePhases.Armed);
                 }
                 else
                 {
                     OverworldData.PlayerTurn = 1;
-                    cameraBehavior2.UpdateCamera(GamePhaces.Attacked);
-                    cameraBehavior1.UpdateCamera(GamePhaces.Armed);
+                    cameraBehavior2.UpdateCamera(GamePhases.Attacked);
+                    cameraBehavior1.UpdateCamera(GamePhases.Armed);
                 }
+                playerInput.SwitchCurrentActionMap("Player");
+                opponentInput.SwitchCurrentActionMap("FleetMenu");
             }
             else
             {
@@ -323,14 +348,14 @@ public class InputHandling : MonoBehaviour
     //    if (name == "Player1")
     //    {
     //        OverworldData.PlayerTurn = 2;
-    //        cameraBehavior1.UpdateCamera(GamePhaces.Attacked);
-    //        cameraBehavior2.UpdateCamera(GamePhaces.Armed);
+    //        cameraBehavior1.UpdateCamera(GamePhases.Attacked);
+    //        cameraBehavior2.UpdateCamera(GamePhases.Armed);
     //    }
     //    else
     //    {
     //        OverworldData.PlayerTurn = 1;
-    //        cameraBehavior2.UpdateCamera(GamePhaces.Attacked);
-    //        cameraBehavior1.UpdateCamera(GamePhaces.Armed);
+    //        cameraBehavior2.UpdateCamera(GamePhases.Attacked);
+    //        cameraBehavior1.UpdateCamera(GamePhases.Armed);
     //    }
 
     //    playerInput.enabled = true;

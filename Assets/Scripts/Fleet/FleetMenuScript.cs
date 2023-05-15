@@ -100,6 +100,11 @@ public class FleetMenuScript : MonoBehaviour
             fleet.ActivateShip(currentButton.ShipButtonNr, playerObj);
 
             UpdateFleetMenuCoords(playerScript.playerData.ActiveShip.X, playerScript.playerData.ActiveShip.Z);
+
+            if(OverworldData.GamePhase == GamePhases.Battle)
+            {
+                playerScript.SetNewCell(playerScript.playerData.ActiveShip.X, playerScript.playerData.ActiveShip.Z);
+            }
         }
     }
 

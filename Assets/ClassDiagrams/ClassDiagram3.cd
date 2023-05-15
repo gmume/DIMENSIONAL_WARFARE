@@ -162,7 +162,7 @@
       <FileName>Assets\Scripts\OverworldData.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="GamePhace" />
+      <Property Name="GamePhase" />
     </ShowAsAssociation>
   </Class>
   <Class Name="VehicleBehavior">
@@ -183,11 +183,11 @@
       <FileName>Assets\Scripts\CameraBehavior.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Enum Name="GamePhaces" Collapsed="true">
+  <Enum Name="GamePhases" Collapsed="true">
     <Position X="2.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAABAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\Scripts\GamePhaces.cs</FileName>
+      <FileName>Assets\Scripts\GamePhases.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="Directions" Collapsed="true">

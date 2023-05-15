@@ -22,18 +22,18 @@ public class CameraBehavior : MonoBehaviour
         armed.SetActive(false);
     }
 
-    public void UpdateCamera(GamePhaces phace)
+    public void UpdateCamera(GamePhases phase)
     {
-        switch (phace)
+        switch (phase)
         {
-            case GamePhaces.Armed:
+            case GamePhases.Armed:
                 if(name == "Camera1")
                 {
-                    camera.cullingMask = LayerMask.GetMask("Default", "TransparentFX", "Ignore Raycast", "Water", "UI", "Player2", "VisibleShips", "FleetMenu1", "Armed");
+                    camera.cullingMask = LayerMask.GetMask("Default", "TransparentFX", "Ignore Raycast", "Water", "UI", "Player2", "Fleet1", "VisibleShips", "FleetMenu1", "Armed");
                 }
                 else
                 {
-                    camera.cullingMask = LayerMask.GetMask("Default", "TransparentFX", "Ignore Raycast", "Water", "UI", "Player1", "VisibleShips", "FleetMenu2", "Armed");
+                    camera.cullingMask = LayerMask.GetMask("Default", "TransparentFX", "Ignore Raycast", "Water", "UI", "Player1", "Fleet2", "VisibleShips", "FleetMenu2", "Armed");
                 }
 
                 if (!armed.activeSelf)
@@ -42,7 +42,7 @@ public class CameraBehavior : MonoBehaviour
                 }
                 break;
 
-            case GamePhaces.Attacked:
+            case GamePhases.Attacked:
                 if (name == "Camera1")
                 {
                     camera.cullingMask = LayerMask.GetMask("Default", "TransparentFX", "Ignore Raycast", "Water", "UI", "Player1", "Fleet1", "FleetMenu1");
@@ -58,7 +58,7 @@ public class CameraBehavior : MonoBehaviour
                 }
                 break;
 
-            case GamePhaces.End:
+            case GamePhases.End:
                 if (name == "Camera1")
                 {
                     camera.cullingMask = LayerMask.GetMask("Default", "TransparentFX", "Ignore Raycast", "Water", "UI", "Player1", "Fleet1", "VisibleShips", "FleetMenu1");
@@ -73,7 +73,7 @@ public class CameraBehavior : MonoBehaviour
                 }
                 break;
             default:
-                Debug.Log("No game phace found!");
+                Debug.Log("No game phase found!");
                 break;
         }
     }
