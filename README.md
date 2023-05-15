@@ -10,9 +10,12 @@ This website is all about DIMENSIONAL WAREFARE, a game, that I started to build 
 3. Learn more about Unity
 
 ## Starting point
-Up until now, you can play the start phace of DIMENSIONAL WAREFER and you can shoot at your opponents fleet, even there isn't a hit detection implemented yet. If you are courious about the building process until here, you can read about it on the game blog of Digital Ideation.
+Up until now, you can play the start phace of DIMENSIONAL WAREFER and you can shoot at your opponents fleet, even there isn't a hit detection implemented yet. If you are courious about the building process until here, you can read about it on the game blog of Digital Ideation.  
 [Game blog Digital Ideation, author: Melanie Gmünder](https://blog.hslu.ch/games/author/melaniegmuender/)  
   
 <video width="480" height="320" controls="controls">
   <source src="video/startingPoint.mp4" type="video/mp4">
 </video> 
+
+## 15.05.2023
+Fixed turn issues
