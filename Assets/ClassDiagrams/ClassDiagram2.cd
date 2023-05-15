@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="CameraBehavior">
+    <Position X="1" Y="4" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAQAAAAAAAAAAAAAQAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\CameraBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cell">
+    <Position X="7.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAABAAAAAAAAAAAAAAAAAAAAABAAAYAA=</HashCode>
+      <FileName>Assets\Scripts\Cell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dimension">
+    <Position X="7.25" Y="10.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAQAAAAAACAAAACgAAEAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Dimension.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dimensions">
+    <Position X="5.75" Y="7.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAgEICAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Dimensions.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="fleet" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Fleet">
+    <Position X="4.75" Y="10.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAACAAAAIAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Fleet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerControls">
+    <Position X="3.5" Y="4" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAKAAACIAJAAABSAAAAAAAAAAAAABAAgAAAgAAAA=</HashCode>
+      <FileName>Assets\Scripts\Multiplayer\PlayerControls.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Overworld">
+    <Position X="6" Y="1.25" Width="2" />
+    <AssociationLine Name="player1" Type="PlayerScript" FixedFromPoint="true">
+      <Path>
+        <Point X="6.75" Y="3.511" />
+        <Point X="6.75" Y="4" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>wAAAAAAAAAAAAAAAAAEAAABAAAAAAAAAAIAAAAAAIEA=</HashCode>
+      <FileName>Assets\Scripts\Overworld.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="player1" />
+      <Field Name="player2" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="OverworldData">
+    <Position X="8.5" Y="1.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAgAAAAAAgAAAgBAA=</HashCode>
+      <FileName>Assets\Scripts\OverworldData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerData">
+    <Position X="9.5" Y="4" Width="2.25" />
+    <AssociationLine Name="ActiveCell" Type="Cell" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="11.188" Y="4.997" />
+        <Point X="11.188" Y="14.751" />
+        <Point X="9" Y="14.751" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\PlayerData.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ActiveDimension" />
+      <Property Name="ActiveCell" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PlayerScript">
+    <Position X="5.75" Y="4" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAAAiCQAAAAAgAAAAIAAAAgBAAAAAAAgAACAAA=</HashCode>
+      <FileName>Assets\Scripts\PlayerScript.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="playerData" />
+      <Field Name="dimensions" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Ship">
+    <Position X="4.5" Y="12.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>FAAACAAAAAAAAAAAAiAAAAAAEAAAQgAAAABAAAAAQAE=</HashCode>
+      <FileName>Assets\Scripts\Ship.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Direction" />
+    </ShowAsAssociation>
+  </Class>
+  <Enum Name="Directions">
+    <Position X="2.25" Y="12.75" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAABAAQ=</HashCode>
+      <FileName>Assets\Scripts\Directions.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

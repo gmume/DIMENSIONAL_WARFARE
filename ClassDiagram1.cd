@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access">
+  <Class Name="Cell">
+    <Position X="2.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAABABAAAdAACIAQAAAAAAAAAAEYABgAQACAAA=</HashCode>
+      <FileName>Assets\Scripts\Cell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dimension">
+    <Position X="3.25" Y="3.25" Width="1.5" />
+    <AssociationLine Name="ships" Type="System.Collections.ArrayList" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.75" Y="4.381" />
+        <Point X="5" Y="4.381" />
+        <Point X="5" Y="8" />
+        <Point X="5.25" Y="8" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAQAAAAAACAAAACgAAAAAAABIAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Dimension.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="cells" />
+      <Field Name="ships" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Dimensions">
+    <Position X="5.75" Y="3.25" Width="1.75" />
+    <AssociationLine Name="dimensions" Type="System.Collections.ArrayList">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.069" Y="0.971" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAgEICAAAAAAAAQAAAIIAAAAAIAA=</HashCode>
+      <FileName>Assets\Scripts\Dimensions.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="fleet" />
+      <Field Name="dimensions" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Event" Collapsed="true">
+    <Position X="14.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Event.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EventHandler">
+    <Position X="16.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EventHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Fleet">
+    <Position X="8.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAABAAAAAACAAQAIAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Fleet.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="fleet" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Ship">
+    <Position X="9.25" Y="6" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>BAAACBAABAAAIAYEAAAAAABCAAAAAAAAYABgAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Ship.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="direction" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="StartGame">
+    <Position X="5.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAABAAAAAAAAAAIAAAAAAIAA=</HashCode>
+      <FileName>Assets\Scripts\StartGame.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="dimensions1" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="System.Collections.ArrayList" Collapsed="true">
+    <Position X="5.25" Y="7.75" Width="3" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Enum Name="Directions" Collapsed="true">
+    <Position X="12" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAABAAQ=</HashCode>
+      <FileName>Assets\Scripts\Directions.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

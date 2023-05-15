@@ -1,0 +1,11 @@
+Abstand Buttons Footer:
+Spacing left 365pt
+Spacing right 365pt
+--------------------------
+Header Koordianaten:
+X: 1175 / 52
+Y: 1234 / 52
+Grösse: 35 / 32.5
+Schriftart: Agency FB
+--------------------------
+

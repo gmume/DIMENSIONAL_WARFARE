@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="CameraBehavior">
+    <Position X="1" Y="4" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAQAAAAAAAAAAAAAQAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\CameraBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cell">
+    <Position X="4.75" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAABAAAAAAAAAAAAAAAAAAAAABAAAYAA=</HashCode>
+      <FileName>Assets\Scripts\Cell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dimension">
+    <Position X="4.75" Y="11.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAQAAAAAACAAAACgAAEAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Dimension.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dimensions">
+    <Position X="6" Y="8.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAgEICAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Dimensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Fleet">
+    <Position X="7.75" Y="11.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAACAAAAIAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Fleet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerControls">
+    <Position X="3.75" Y="4" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAKAAAAIAJAAABSAAAAAAAAAAAAAAAAgAAAgAAAA=</HashCode>
+      <FileName>Assets\Scripts\Multiplayer\PlayerControls.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Overworld">
+    <Position X="6" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>wAAAAAAAAAAAAAAAAAEAAABAAAAAAAAAAIAAAAAAIEA=</HashCode>
+      <FileName>Assets\Scripts\Overworld.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OverworldData">
+    <Position X="8.5" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAgAAAAAAgAAAgBAA=</HashCode>
+      <FileName>Assets\Scripts\OverworldData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerData">
+    <Position X="8.75" Y="4" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\PlayerData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerScript">
+    <Position X="6" Y="4" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAAAiCQAAAAAgAAAAIAAAAgBAAAAAAAgAACAAA=</HashCode>
+      <FileName>Assets\Scripts\PlayerScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ship">
+    <Position X="7.75" Y="13.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>FAAACAAAAAAAAAAAAiAAAAAAEAAAQgAAAABAAAAAQAE=</HashCode>
+      <FileName>Assets\Scripts\Ship.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Directions">
+    <Position X="10.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAABAAQ=</HashCode>
+      <FileName>Assets\Scripts\Directions.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
