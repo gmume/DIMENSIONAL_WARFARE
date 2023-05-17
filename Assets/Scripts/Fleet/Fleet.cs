@@ -31,15 +31,19 @@ public class Fleet : ScriptableObject
 
     public void ActivateShip(int shipNr, GameObject player)
     {
+        Debug.Log("entred ActivateShip in Fleet");
+
+        PlayerScript playerScript = player.GetComponent<PlayerScript>();
+        
+        if (playerScript.playerData.ActiveShip != null)
+        {
+            playerScript.playerData.ActiveShip.Deactivate(playerScript);
+        }
+
         GameObject shipObj = (GameObject)fleet[shipNr];
         shipObj.GetComponent<Ship>().Activate(player.GetComponent<PlayerScript>());
 
-        if(OverworldData.GamePhase == GamePhases.Start) { 
-            player.GetComponent<PlayerInput>().SwitchCurrentActionMap("GameStart");
-            player.GetComponent<InputHandling>().SwitchActionMap("GameStart");
-        }
-        else
-        {
+        if(OverworldData.GamePhase == GamePhases.Battle) {
             player.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
             player.GetComponent<InputHandling>().SwitchActionMap("Player");
         }

@@ -11,6 +11,7 @@ public class Ship : MonoBehaviour
     public int Z { get; private set; }
     public Directions Direction { get; set; }
     public int PartsCount { get; private set; }
+
     private bool[] partDamaged;
 
     public void Activate(PlayerScript player)
@@ -22,20 +23,25 @@ public class Ship : MonoBehaviour
             GetComponent<Transform>().position += vectorUp;
             player.playerData.ActiveShip = this;
             ReleaseCell(X, Z);
-        }
-        else
-        {
-            Debug.Log(ShipName + " is allready activated!");
+            player.playerData.ActiveShip = this;
         }
     }
 
-    public void Deactivate(PlayerScript player)
+    public void Deactivate(PlayerScript playerScript)
     {
-        GetComponent<Renderer>().material.color = Color.gray;
+        if (playerScript.name == "Player1")
+        {
+            GetComponent<Renderer>().material.color = new Color(0.8f, 0.5f, 0.5f, 1);
+        }
+        else
+        {
+            GetComponent<Renderer>().material.color = new Color(0.8f, 0.7f, 0.5f, 1);
+        }
+
         Vector3 vectorDown = new(0f, -0.1f, 0f);
         GetComponent<Transform>().position += vectorDown;
         OccupyCell();
-        player.playerData.ActiveShip = null;
+        playerScript.playerData.ActiveShip = null;
     }
 
     public void Move(int x, int y)
@@ -131,9 +137,22 @@ public class Ship : MonoBehaviour
         }
 
         playerScript.playerData.ActiveCell.Hitted = true;
+
         if (activeCell.Occupied)
         {
+            Debug.Log("entred activeCell.Occupied");
             GameObject opponentShipObj = Dimension.GetShipOnCell(activeCell.X, activeCell.Y);
+            Material shipMaterial = opponentShipObj.GetComponent<Renderer>().material;
+            opponentShipObj.GetComponent<Renderer>().material = shipMaterial;
+
+            if (name == "Player1")
+            {
+                shipMaterial.color = Color.red;
+            }
+            else
+            {
+                shipMaterial.color = Color.yellow;
+            }
         }
     }
 

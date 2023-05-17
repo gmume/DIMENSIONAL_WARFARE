@@ -6,21 +6,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour
 {
-    //Debugging ↓
-    //public string vehicleBehavior;
-    public string activeDimension;
-    public string activeCell;
-    public string activeShip;
-    //Debugging ↑
-
-
     public PlayerData playerData;
     public string ShipName;
     public GameObject dimensionPrefab, cellPrefab, shipPrefab;
+    public Dimensions dimensions;
 
     private GameObject cameraVehicle;
     private VehicleBehavior vehicleBehavior;
-    private Dimensions dimensions;
     private int currentX = 0, currentY = 0;
 
     public void Start()
@@ -28,7 +20,6 @@ public class PlayerScript : MonoBehaviour
         dimensions = ScriptableObject.CreateInstance("Dimensions") as Dimensions;
         dimensions.InitDimensions(this.GetComponent<PlayerScript>(), dimensionPrefab, cellPrefab, shipPrefab);
         SetNewDimension(0);
-        //SetNewCell(0, 0);
 
         if (name == "Player1")
         {
@@ -48,18 +39,6 @@ public class PlayerScript : MonoBehaviour
 
     private void Update()
     {
-        //Debugging ↓
-        //vehicleBehavior = playerData.VehicleBehavior.name;
-        activeDimension = "Dimension "+playerData.ActiveDimension.DimensionNr.ToString();
-        activeCell = "Cell "+playerData.ActiveCell.X.ToString()+", "+playerData.ActiveCell.Y.ToString();
-
-        if (playerData.ActiveShip)
-        {
-            activeShip = playerData.ActiveShip.name;
-        }
-        //Debugging ↑
-
-
         if(playerData.ActiveShip == null)
         {
             ShipName = "no ship";

@@ -385,7 +385,7 @@ PrefabInstance:
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.size
-      value: 14
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
@@ -430,12 +430,12 @@ PrefabInstance:
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[14].m_ActionId
-      value: 44b200b1-1557-4083-816c-b22cbdf77ddf
+      value: a6852e80-5fc8-443c-8b20-9fe1e8a4f577
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[15].m_ActionId
-      value: 1e27ffb1-e632-42ae-93d9-f257ae6dae6a
+      value: 8700d456-1c3e-4992-b37b-10593e5df6fb
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
@@ -490,12 +490,12 @@ PrefabInstance:
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[14].m_ActionName
-      value: FleetMenu/RightClick[/DualShock4GamepadHID/dpad/right,/DualShock4GamepadHID1/dpad/right,/XInputControllerWindows/dpad/right]
+      value: GameStart/ShipRight[/DualShock4GamepadHID/dpad/right,/DualShock4GamepadHID1/dpad/right,/XInputControllerWindows/dpad/right]
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[15].m_ActionName
-      value: FleetMenu/LeftClick[/DualShock4GamepadHID/dpad/left,/DualShock4GamepadHID1/dpad/left,/XInputControllerWindows/dpad/left]
+      value: GameStart/ShipLeft[/DualShock4GamepadHID/dpad/left,/DualShock4GamepadHID1/dpad/left,/XInputControllerWindows/dpad/left]
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
@@ -565,12 +565,12 @@ PrefabInstance:
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
@@ -716,12 +716,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 758348277}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 758348277}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -880,12 +880,12 @@ PrefabInstance:
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnShipLeft
+      value: OnShipRight
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnShipRight
+      value: OnShipLeft
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
@@ -975,12 +975,12 @@ PrefabInstance:
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: FleetMenuScript, Assembly-CSharp
+      value: InputHandling, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: FleetMenuScript, Assembly-CSharp
+      value: InputHandling, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
@@ -1083,6 +1083,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 3a84c76634957524aade10fc4a46916b,
         type: 2}
+    - target: {fileID: 6791104342523852192, guid: 0223c2ce2ddaa984fa48db8009f197cb,
+        type: 3}
+      propertyPath: eventSystem
+      value: 
+      objectReference: {fileID: 2112860530}
     - target: {fileID: 7268077016366016379, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_RootOrder
@@ -2183,6 +2188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GamePhase: 
+  playerTurn: 0
   playerData1: {fileID: 0}
   playerData2: {fileID: 0}
   activeShip1: {fileID: 0}
@@ -3507,7 +3513,7 @@ PrefabInstance:
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.size
-      value: 14
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
@@ -3587,12 +3593,12 @@ PrefabInstance:
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[14].m_ActionId
-      value: 8c48b6e5-82ae-44a4-a8f3-85ce098e87bb
+      value: a6852e80-5fc8-443c-8b20-9fe1e8a4f577
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[15].m_ActionId
-      value: 455dc3fa-a8b6-4632-990f-e8341f785b1a
+      value: 8700d456-1c3e-4992-b37b-10593e5df6fb
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
@@ -3682,12 +3688,12 @@ PrefabInstance:
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[14].m_ActionName
-      value: Player/MoveSelection[/DualShock4GamepadHID/leftStick,/DualShock4GamepadHID1/leftStick,/XInputControllerWindows/leftStick]
+      value: GameStart/ShipRight[/DualShock4GamepadHID/dpad/right,/DualShock4GamepadHID1/dpad/right,/XInputControllerWindows/dpad/right]
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[15].m_ActionName
-      value: Player/Fire[/DualShock4GamepadHID/rightTrigger,/DualShock4GamepadHID1/rightTrigger,/XInputControllerWindows/rightTrigger]
+      value: GameStart/ShipLeft[/DualShock4GamepadHID/dpad/left,/DualShock4GamepadHID1/dpad/left,/XInputControllerWindows/dpad/left]
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
@@ -4247,12 +4253,12 @@ PrefabInstance:
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnMoveSelection
+      value: OnShipRight
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnFire
+      value: OnShipLeft
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
@@ -4509,6 +4515,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player1
       objectReference: {fileID: 0}
+    - target: {fileID: 6791104342523852192, guid: 0223c2ce2ddaa984fa48db8009f197cb,
+        type: 3}
+      propertyPath: eventSystem
+      value: 
+      objectReference: {fileID: 1043902152}
     - target: {fileID: 7268077016366016379, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_RootOrder

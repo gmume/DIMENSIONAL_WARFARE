@@ -8,15 +8,21 @@ using UnityEngine.InputSystem.UI;
 using static UnityEngine.InputSystem.InputAction;
 using UnityEngine.InputSystem.Utilities;
 using UnityEngine.InputSystem.Users;
+using UnityEngine.EventSystems;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class InputHandling : MonoBehaviour
 {
+    private MultiplayerEventSystem eventSystem;
+
     private PlayerScript playerScript, opponent;
     private PlayerInput playerInput, opponentInput;
     private InputActionMap gameStartMap, playerMap, fleetMenuMap;
     //private InputAction moveShipAction;
     private CameraBehavior cameraBehavior1, cameraBehavior2;
-    private FleetMenuScript fleetMenuScript1, fleetMenuScript2;
+    private Fleet fleet;
+    private FleetMenuScript fleetMenuScript, opponentFleetMenuScript;
+    private GameObject[] shipButtons;
 
     private void Awake()
     {
@@ -25,19 +31,38 @@ public class InputHandling : MonoBehaviour
         gameStartMap = playerInput.actions.FindActionMap("GameStart");
         playerMap = playerInput.actions.FindActionMap("Player");
         fleetMenuMap = playerInput.actions.FindActionMap("FleetMenu");
-       // moveShipAction = gameStartMap.FindAction("MoveShip", true);
-       //// moveShipAction.performed += OnMoveShip;
-       // Debug.Log("moveShipAction: " + moveShipAction);
     }
 
     private void Start()
     {
-        
         cameraBehavior1 = GameObject.Find("Camera1").GetComponent<CameraBehavior>();
         cameraBehavior2 = GameObject.Find("Camera2").GetComponent<CameraBehavior>();
-        fleetMenuScript1 = GameObject.Find("FleetMenu1").GetComponent<FleetMenuScript>();
-        fleetMenuScript2 = GameObject.Find("FleetMenu2").GetComponent<FleetMenuScript>();
 
+        if(name == "Player1")
+        {
+            eventSystem = GameObject.Find("EventSystem1").GetComponent<MultiplayerEventSystem>();
+            opponent = GameObject.Find("Player2").GetComponent<PlayerScript>();
+
+            fleetMenuScript = GameObject.Find("FleetMenu1").GetComponent<FleetMenuScript>();
+            opponentFleetMenuScript = GameObject.Find("FleetMenu2").GetComponent<FleetMenuScript>();
+
+            //shipButtons = fleetMenuScript.GetShipButtons();
+        }
+        else
+        {
+            eventSystem = GameObject.Find("EventSystem2").GetComponent<MultiplayerEventSystem>();
+            opponent = GameObject.Find("Player1").GetComponent<PlayerScript>();
+
+            fleetMenuScript = GameObject.Find("FleetMenu2").GetComponent<FleetMenuScript>();
+            opponentFleetMenuScript = GameObject.Find("FleetMenu1").GetComponent<FleetMenuScript>();
+
+            //shipButtons = fleetMenuScript.GetShipButtons();
+        }
+
+        shipButtons = fleetMenuScript.GetShipButtons();
+        opponentInput = opponent.GetComponent<PlayerInput>();
+        playerInput.SwitchCurrentActionMap("GameStart");
+        fleet = playerScript.dimensions.GetFleet();
         ArrayList devices = new();
 
         foreach (var device in InputSystem.devices)
@@ -54,38 +79,55 @@ public class InputHandling : MonoBehaviour
             if (name == "Player1")
             {
                 InputUser.PerformPairingWithDevice((InputDevice)devices[0], playerInput.user);
-                opponent = GameObject.Find("Player2").GetComponent<PlayerScript>();
+                //opponent = GameObject.Find("Player2").GetComponent<PlayerScript>();
             }
             else
             {
                 InputUser.PerformPairingWithDevice((InputDevice)devices[1], playerInput.user);
-                opponent = GameObject.Find("Player1").GetComponent<PlayerScript>();
+                //opponent = GameObject.Find("Player1").GetComponent<PlayerScript>();
             }
 
-            opponentInput = opponent.GetComponent<PlayerInput>();
+            //opponentInput = opponent.GetComponent<PlayerInput>();
         }
         else
         {
             Debug.Log("Gamepad missing!");
         }
 
-        playerInput.SwitchCurrentActionMap("FleetMenu");
-        SwitchActionMap("FleetMenu");
+        //playerInput.SwitchCurrentActionMap("GameStart");
     }
 
-    //private void OnEnable()
-    //{
-    //    if(OverworldData.GamePhase == GamePhases.Start)
-    //    {
-    //        Debug.Log("entred if GamePhases.Start");
-    //        moveShipAction.Disable();
-    //        Debug.Log("moveShipAction: " + moveShipAction+", enabled? " +moveShipAction.enabled);
-            
-    //    }
-        
-    //}
-
     //StartGame actionMap
+    public void OnShipLeft(CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            int shipNr = playerScript.playerData.currentShipButton.ShipButtonNr;
+
+            if (shipNr > 0)
+            {
+                eventSystem.SetSelectedGameObject(shipButtons[shipNr - 1]);
+                playerScript.playerData.currentShipButton = eventSystem.currentSelectedGameObject.GetComponent<ShipButton>();
+                fleet.ActivateShip(playerScript.playerData.currentShipButton.ShipButtonNr, this.gameObject);
+            }
+        }
+    }
+
+    public void OnShipRight(CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            int shipNr = playerScript.playerData.currentShipButton.ShipButtonNr;
+
+            if (shipNr < OverworldData.FleetSize)
+            {
+                eventSystem.SetSelectedGameObject(shipButtons[shipNr + 1]);
+                playerScript.playerData.currentShipButton = eventSystem.currentSelectedGameObject.GetComponent<ShipButton>();
+                fleet.ActivateShip(playerScript.playerData.currentShipButton.ShipButtonNr, this.gameObject);
+            }
+        }
+    }
+
     public void OnMoveShip(CallbackContext ctx)
     {
         if (ctx.performed)
@@ -94,7 +136,7 @@ public class InputHandling : MonoBehaviour
             float x = vector.x;
             float y = vector.y;
 
-            //Get right axis
+            //Get axis
             if (Math.Abs(x) > Math.Abs(y))
             {
                 if (x > 0)
@@ -118,8 +160,8 @@ public class InputHandling : MonoBehaviour
                 }
             }
 
-            fleetMenuScript1.UpdateFleetMenuCoords(playerScript.playerData.ActiveShip.X, playerScript.playerData.ActiveShip.Z);
-            fleetMenuScript2.UpdateFleetMenuCoords(playerScript.playerData.ActiveShip.X, playerScript.playerData.ActiveShip.Z);
+            fleetMenuScript.UpdateFleetMenuCoords(playerScript.playerData.ActiveShip.X, playerScript.playerData.ActiveShip.Z);
+            opponentFleetMenuScript.UpdateFleetMenuCoords(playerScript.playerData.ActiveShip.X, playerScript.playerData.ActiveShip.Z);
         }
     }
 
@@ -145,16 +187,16 @@ public class InputHandling : MonoBehaviour
     {
         if (ctx.performed)
         {
-            MultiplayerEventSystem eventSystem;
+            //MultiplayerEventSystem eventSystem;
 
-            if (name == "Player1")
-            {
-                eventSystem = GameObject.Find("EventSystem1").GetComponent<MultiplayerEventSystem>();
-            }
-            else
-            {
-                eventSystem = GameObject.Find("EventSystem2").GetComponent<MultiplayerEventSystem>();
-            }
+            //if (name == "Player1")
+            //{
+            //    eventSystem = GameObject.Find("EventSystem1").GetComponent<MultiplayerEventSystem>();
+            //}
+            //else
+            //{
+            //    eventSystem = GameObject.Find("EventSystem2").GetComponent<MultiplayerEventSystem>();
+            //}
 
             eventSystem.SetSelectedGameObject(null);
 
@@ -179,8 +221,8 @@ public class InputHandling : MonoBehaviour
                 StartCoroutine(WaitForOpponent());
             }
 
-            fleetMenuScript1.UpdateFleetMenuCoords();
-            fleetMenuScript2.UpdateFleetMenuCoords();
+            fleetMenuScript.UpdateFleetMenuCoords();
+            opponentFleetMenuScript.UpdateFleetMenuCoords();
         }
     }
 
@@ -199,16 +241,14 @@ public class InputHandling : MonoBehaviour
 
         if(playerScript.name == "Player1")
         {
-            playerInput.SwitchCurrentActionMap("FleetMenu");
-            opponentInput.SwitchCurrentActionMap("Player");
-        }
-        else
-        {
             playerInput.SwitchCurrentActionMap("Player");
             opponentInput.SwitchCurrentActionMap("FleetMenu");
         }
-        
-        //SwitchActionMap("Player");
+        else
+        {
+            playerInput.SwitchCurrentActionMap("FleetMenu");
+            opponentInput.SwitchCurrentActionMap("Player");
+        }
     }
 
     //StartGame and Player actionMap
@@ -231,14 +271,6 @@ public class InputHandling : MonoBehaviour
     }
 
     //Player actionMap
-    //public void OnSubmitAttackingShip(CallbackContext ctx)
-    //{
-    //    if (ctx.performed)
-    //    {
-    //        Debug.Log("OnSubmit!");
-    //    }
-    //}
-
     public void OnMoveSelection(CallbackContext ctx)
     {
         if (ctx.performed)
@@ -275,8 +307,8 @@ public class InputHandling : MonoBehaviour
                     }
                 }
 
-                fleetMenuScript1.UpdateFleetMenuCoords(playerScript.playerData.ActiveCell.X, playerScript.playerData.ActiveCell.Y);
-                fleetMenuScript2.UpdateFleetMenuCoords(playerScript.playerData.ActiveCell.X, playerScript.playerData.ActiveCell.Y);
+                fleetMenuScript.UpdateFleetMenuCoords(playerScript.playerData.ActiveCell.X, playerScript.playerData.ActiveCell.Y);
+                opponentFleetMenuScript.UpdateFleetMenuCoords(playerScript.playerData.ActiveCell.X, playerScript.playerData.ActiveCell.Y);
             }
             else
             {
