@@ -14,8 +14,17 @@ Up until now, you can play the start phace of DIMENSIONAL WAREFER and you can sh
 [Game blog Digital Ideation, author: Melanie Gmünder](https://blog.hslu.ch/games/author/melaniegmuender/)  
   
 <video width="480" height="320" controls="controls">
-  <source src="video/startingPoint.mp4" type="video/mp4">
+  <source src="video/video1.mp4" type="video/mp4">
 </video> 
 
 ## 15.05.2023
 Fixed turn issues
+
+## 16.05.2023
+Added hit detection
+
+## 17.05.2023
+Users can now see better, which ship is selected in the HUD and on the dimension.
+<video width="480" height="320" controls="controls">
+  <source src="video/video2.mp4" type="video/mp4">
+</video> 
