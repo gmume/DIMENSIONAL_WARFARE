@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Ship : MonoBehaviour
 {
+    //private Player player;
+    private bool[] partDamaged;
+
     public string ShipName { get; private set; }
     public Dimension Dimension { get; set; }
     private Transform position;
@@ -12,24 +15,26 @@ public class Ship : MonoBehaviour
     public Directions Direction { get; set; }
     public int PartsCount { get; private set; }
 
-    private bool[] partDamaged;
+    //private void Awake()
+    //{
+    //    player = GetComponent<Player>();
+    //}
 
-    public void Activate(PlayerWorld player)
+    public void Activate(Player player)
     {
-        if (player.playerData.ActiveShip != this)
+        if (player.data.ActiveShip != this)
         {
             GetComponent<Renderer>().material.color = Color.black;
             Vector3 vectorUp = new(0f, 0.1f, 0f);
             GetComponent<Transform>().position += vectorUp;
-            player.playerData.ActiveShip = this;
             ReleaseCell(X, Z);
-            player.playerData.ActiveShip = this;
+            player.data.ActiveShip = this;
         }
     }
 
-    public void Deactivate(PlayerWorld playerWorld)
+    public void Deactivate(Player player)
     {
-        if (playerWorld.name == "Player1")
+        if (player.number == 1)
         {
             GetComponent<Renderer>().material.color = new Color(0.8f, 0.5f, 0.5f, 1);
         }
@@ -41,7 +46,7 @@ public class Ship : MonoBehaviour
         Vector3 vectorDown = new(0f, -0.1f, 0f);
         GetComponent<Transform>().position += vectorDown;
         OccupyCell();
-        playerWorld.playerData.ActiveShip = null;
+        player.data.ActiveShip = null;
     }
 
     public void Move(int x, int y)
@@ -120,10 +125,10 @@ public class Ship : MonoBehaviour
         Dimension.GetCell(X, Z).GetComponent<Cell>().Occupied = true;
     }
 
-    public void Fire(PlayerWorld playerWorld)
+    public void Fire(Player player)
     {
         //Fire on selected cell
-        Cell activeCell = playerWorld.playerData.ActiveCell;
+        Cell activeCell = player.world.playerData.ActiveCell;
         Material cellMaterial = activeCell.GetComponent<Renderer>().material;
 
         if (name == "Player1")
@@ -135,7 +140,7 @@ public class Ship : MonoBehaviour
             cellMaterial.color = Color.yellow;
         }
 
-        playerWorld.playerData.ActiveCell.Hitted = true;
+        player.world.playerData.ActiveCell.Hitted = true;
 
         if (activeCell.Occupied)
         {

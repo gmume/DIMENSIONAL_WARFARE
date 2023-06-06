@@ -10,21 +10,21 @@ public class Dimensions : ScriptableObject
 
     public Fleet fleet;
 
-    public void InitDimensions(PlayerWorld playerWorld, GameObject prefabDimension, GameObject prefabCell, GameObject prefabShip)
+    public void InitDimensions(Player player, GameObject prefabDimension, GameObject prefabCell, GameObject prefabShip)
     {
-        InitFleet(playerWorld, prefabShip);
-        CreateDimensions(playerWorld, prefabDimension, prefabCell);
+        InitFleet(player, prefabShip);
+        CreateDimensions(player, prefabDimension, prefabCell);
     }
 
-    public void CreateDimensions(PlayerWorld playerWorld, GameObject dimensionPrefab, GameObject cellPrefab)
+    public void CreateDimensions(Player player, GameObject dimensionPrefab, GameObject cellPrefab)
     {
         for (int dimensionNr = 0; dimensionNr < OverworldData.DimensionsCount; dimensionNr++)
         {
             float halfDimensionSize = OverworldData.DimensionSize / 2;
             GameObject dimension = Instantiate(dimensionPrefab, new Vector3(halfDimensionSize, OverworldData.DimensionSize * dimensionNr * 2, halfDimensionSize), Quaternion.identity);
-            dimension.layer = Layer.SetLayerPlayer(playerWorld);
+            dimension.layer = Layer.SetLayerPlayer(player);
             dimension.transform.localScale = new Vector3(OverworldData.DimensionDiagonal, OverworldData.DimensionDiagonal, OverworldData.DimensionDiagonal);
-            dimension.GetComponent<Dimension>().InitDimension(playerWorld, dimensionNr, cellPrefab, fleet.GetFleet());
+            dimension.GetComponent<Dimension>().InitDimension(player, dimensionNr, cellPrefab, fleet.GetFleet());
             dimensions.Add(dimension);
         }
     }
@@ -40,10 +40,10 @@ public class Dimensions : ScriptableObject
         return dimension.GetComponent<Dimension>();
     }
 
-    public void InitFleet(PlayerWorld playerWorld, GameObject prefabShip)
+    public void InitFleet(Player player, GameObject prefabShip)
     {
         fleet = ScriptableObject.CreateInstance("Fleet") as Fleet;
-        fleet.CreateFleet(playerWorld, prefabShip);
+        fleet.CreateFleet(player, prefabShip);
     }
 
     public Fleet GetFleet()

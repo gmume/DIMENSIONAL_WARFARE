@@ -9,12 +9,12 @@ public class Fleet : ScriptableObject
 {
     private readonly ArrayList fleet = new();
 
-    public void CreateFleet(PlayerWorld playerWorld, GameObject shipPrefab)
+    public void CreateFleet(Player player, GameObject shipPrefab)
     {
         for (int i = 0; i < OverworldData.FleetSize; i++)
         {
             GameObject ship = Instantiate(shipPrefab, new Vector3(i, 1, 0), Quaternion.identity);
-            if(playerWorld.name == "Player1")
+            if(player.number == 1)
             {
                 ship.GetComponent<Renderer>().material.color = new Color(0.8f, 0.5f, 0.5f, 1);
             }
@@ -23,27 +23,25 @@ public class Fleet : ScriptableObject
                 ship.GetComponent<Renderer>().material.color = new Color(0.8f, 0.7f, 0.5f, 1);
             }
            
-            ship.layer = Layer.SetLayerFleet(playerWorld);
+            ship.layer = Layer.SetLayerFleet(player);
             ship.GetComponent<Ship>().InitiateShip(i);
             fleet.Add(ship);
         }
     }
 
-    public void ActivateShip(int shipNr, GameObject player)
-    {
-        PlayerWorld playerWorld = player.GetComponent<PlayerWorld>();
-        
-        if (playerWorld.playerData.ActiveShip != null)
+    public void ActivateShip(int shipNr, Player player)
+    {        
+        if (player.world.playerData.ActiveShip != null)
         {
-            playerWorld.playerData.ActiveShip.Deactivate(playerWorld);
+            player.world.playerData.ActiveShip.Deactivate(player);
         }
 
         GameObject shipObj = (GameObject)fleet[shipNr];
-        shipObj.GetComponent<Ship>().Activate(player.GetComponent<PlayerWorld>());
+        shipObj.GetComponent<Ship>().Activate(player);
 
         if(OverworldData.GamePhase == GamePhases.Battle) {
-            player.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
-            player.GetComponent<InputHandling>().SwitchActionMap("Player");
+            player.input.SwitchCurrentActionMap("Player");
+            player.inputHandling.SwitchActionMap("Player");
         }
     }
 

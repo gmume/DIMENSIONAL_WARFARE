@@ -11,8 +11,7 @@ public class MultiDisplay : MonoBehaviour
         camera1 = GameObject.Find("Camera1").GetComponent<Camera>();
         camera2 = GameObject.Find("Camera2").GetComponent<Camera>();
 
-        //GUI is rendered with last camera.
-        //Make sure main camera is the last one drawn.
+        //GUI is rendered with last camera. Make sure main camera is the last one drawn.
         camera1.enabled = true;
         camera2.enabled = true;
 
