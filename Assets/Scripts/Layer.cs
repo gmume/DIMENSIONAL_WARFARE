@@ -5,9 +5,9 @@ using UnityEngine;
 public static class Layer
 {
     //Leyer Player1 = 6 and Player2 = 7
-    public static int SetLayerPlayer(PlayerScript playerScript)
+    public static int SetLayerPlayer(PlayerWorld playerWorld)
     {
-        if (playerScript.name == "Player1")
+        if (playerWorld.name == "Player1")
         {
             return 7;
         }
@@ -18,9 +18,9 @@ public static class Layer
     }
 
     //Leyer Fleet1 = 8 and Fleet2 = 9
-    public static int SetLayerFleet(PlayerScript playerScript)
+    public static int SetLayerFleet(PlayerWorld playerWorld)
     {
-        if (playerScript.name == "Player1")
+        if (playerWorld.name == "Player1")
         {
             return 8;
         }

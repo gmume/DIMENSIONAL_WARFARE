@@ -8,14 +8,14 @@ public class Dimension : MonoBehaviour
     private GameObject[][] cells;
     private readonly List<GameObject> ships = new();
 
-    public void InitDimension(PlayerScript playerScript, int nr, GameObject cellPrefab, ArrayList fleet)
+    public void InitDimension(PlayerWorld playerWorld, int nr, GameObject cellPrefab, ArrayList fleet)
     {
         DimensionNr = nr;
-        CreateCells(playerScript, cellPrefab);
+        CreateCells(playerWorld, cellPrefab);
 
         if(DimensionNr == 0)
         {
-            playerScript.playerData.ActiveDimension = GetComponent<Dimension>();
+            playerWorld.playerData.ActiveDimension = GetComponent<Dimension>();
              
             for (int i = 0; i < fleet.Count; i++)
             {
@@ -29,7 +29,7 @@ public class Dimension : MonoBehaviour
         }
     }
 
-    public void CreateCells(PlayerScript playerScript, GameObject cellPrefab)
+    public void CreateCells(PlayerWorld playerWorld, GameObject cellPrefab)
     {
         cells = new GameObject[OverworldData.DimensionSize][];
 
@@ -40,7 +40,7 @@ public class Dimension : MonoBehaviour
             for (int k = 0; k < OverworldData.DimensionSize; k++)
             {
                 GameObject cell = Instantiate(cellPrefab, new Vector3(j, OverworldData.DimensionSize * DimensionNr * 2, k), Quaternion.identity);
-                cell.layer = Layer.SetLayerPlayer(playerScript);
+                cell.layer = Layer.SetLayerPlayer(playerWorld);
                 cell.transform.parent = transform;
                 cell.GetComponent<Cell>().X = j;
                 cell.GetComponent<Cell>().Y = k;

@@ -8,7 +8,7 @@ public class VehicleBehavior : MonoBehaviour
     public int CurrentDimension { get; private set; }
     private Vector3 vector;
     private GameObject player;
-    private PlayerScript playerScript;
+    private PlayerWorld playerWorld;
     private PlayerData playerData;
     private FleetMenuScript fleetMenuScript;
 
@@ -27,8 +27,8 @@ public class VehicleBehavior : MonoBehaviour
             player = GameObject.Find("Player2");
         }
 
-        playerScript = player.GetComponent<PlayerScript>();
-        playerData = playerScript.playerData;
+        playerWorld = player.GetComponent<PlayerWorld>();
+        playerData = playerWorld.playerData;
 
         if(name == "CameraVehicle1")
         {
@@ -45,7 +45,7 @@ public class VehicleBehavior : MonoBehaviour
         if (OverworldData.DimensionsCount - 1 > playerData.ActiveDimension.DimensionNr && ctx.performed == true)
         {
             CurrentDimension += 1;
-            playerScript.SetNewDimension(playerData.ActiveDimension.DimensionNr + 1);
+            playerWorld.SetNewDimension(playerData.ActiveDimension.DimensionNr + 1);
             transform.position += vector;
             fleetMenuScript.UpdateFleetMenuDimension(CurrentDimension);
         }
@@ -56,7 +56,7 @@ public class VehicleBehavior : MonoBehaviour
         if (playerData.ActiveDimension.DimensionNr > 0 && ctx.performed == true)
         {
             CurrentDimension -= 1;
-            playerScript.SetNewDimension(playerData.ActiveDimension.DimensionNr - 1);
+            playerWorld.SetNewDimension(playerData.ActiveDimension.DimensionNr - 1);
             transform.position -= vector;
             fleetMenuScript.UpdateFleetMenuDimension(CurrentDimension);
         }

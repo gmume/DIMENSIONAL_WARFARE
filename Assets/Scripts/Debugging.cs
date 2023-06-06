@@ -9,8 +9,8 @@ public class Debugging : MonoBehaviour
 {
     private GameObject playerObj1;
     private GameObject playerObj2;
-    private PlayerScript playerScript1;
-    private PlayerScript playerScript2;
+    private PlayerWorld playerWorld1;
+    private PlayerWorld playerWorld2;
     private PlayerInput playerInput1;
     private PlayerInput playerInput2;
     private Camera camera1;
@@ -22,6 +22,8 @@ public class Debugging : MonoBehaviour
     public PlayerData playerData2;
     public Ship activeShip1;
     public Ship activeShip2;
+    public Cell activeCell1;
+    public Cell activeCell2;
     public bool inputEnabled1;
     public bool inputEnabled2;
     public string actionMapPlayer1;
@@ -43,12 +45,12 @@ public class Debugging : MonoBehaviour
     {
         playerObj1 = GameObject.Find("Player1");
         playerObj2 = GameObject.Find("Player2");
-        playerScript1 = playerObj1.GetComponent<PlayerScript>();
-        playerScript2 = playerObj2.GetComponent<PlayerScript>();
+        playerWorld1 = playerObj1.GetComponent<PlayerWorld>();
+        playerWorld2 = playerObj2.GetComponent<PlayerWorld>();
         GamePhase = OverworldData.GamePhase.ToString();
         playerTurn = OverworldData.PlayerTurn;
-        playerData1 = playerScript1.playerData;
-        playerData2 = playerScript2.playerData;
+        playerData1 = playerWorld1.playerData;
+        playerData2 = playerWorld2.playerData;
 
         playerInput1 = playerObj1.GetComponent<PlayerInput>();
         playerInput2 = playerObj2.GetComponent<PlayerInput>();
@@ -66,8 +68,11 @@ public class Debugging : MonoBehaviour
         GamePhase = OverworldData.GamePhase.ToString();
         playerTurn = OverworldData.PlayerTurn;
 
-        activeShip1 = playerScript1.playerData.ActiveShip;
-        activeShip2 = playerScript2.playerData.ActiveShip;
+        activeShip1 = playerWorld1.playerData.ActiveShip;
+        activeShip2 = playerWorld2.playerData.ActiveShip;
+
+        activeCell1 = playerWorld1.playerData.ActiveCell;
+        activeCell2 = playerWorld2.playerData.ActiveCell;
 
         if (playerInput1.enabled && playerInput2.enabled)
         {

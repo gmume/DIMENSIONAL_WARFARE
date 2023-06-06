@@ -18,7 +18,7 @@ public class Overworld : MonoBehaviour
         OverworldData.DimensionSize = (int)dimensionSize;
         OverworldData.DimensionDiagonal = dimensionSize * Mathf.Sqrt(2);
         OverworldData.FleetSize = fleetSize;
-        OverworldData.PlayerTurn = 1;
+        OverworldData.PlayerTurn = 2;
         OverworldData.Player1SubmittedFleet = false;
         OverworldData.Player2SubmittedFleet = false;
     }

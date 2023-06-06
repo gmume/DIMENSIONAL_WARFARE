@@ -163,6 +163,24 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ShipLeft",
+                    "type": "Button",
+                    "id": "ce8f1f41-1789-4a29-b11f-a2fba67eed1d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ShipRight",
+                    "type": "Button",
+                    "id": "c811d7cb-8d9d-4fe9-9c25-db67fb970480",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "ReturnToFleetMenu",
                     "type": "Button",
                     "id": "8b69f10b-ad79-4619-94fa-8d44e6cbf095",
@@ -274,6 +292,28 @@
                     "action": "MoveSelection",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "34cd47b4-c654-4af3-95b4-3f0cd2673dd6",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "ShipRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "57a6151b-32e1-43c9-9180-5f58e670144c",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "ShipLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -289,24 +329,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "ShipRight",
-                    "type": "Button",
-                    "id": "7160255d-09f0-4f76-8408-0ef2d20d19d4",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ShipLeft",
-                    "type": "Button",
-                    "id": "e3361a2c-b0c2-4afd-9011-9fe52ff46763",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -318,28 +340,6 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Submit",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e6517907-1d1e-4de1-aa90-6eabf20b8e32",
-                    "path": "<Gamepad>/dpad/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "ShipRight",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "bcf2b8d9-604e-47bd-932f-2b4397ca9707",
-                    "path": "<Gamepad>/dpad/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "ShipLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

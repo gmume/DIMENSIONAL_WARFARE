@@ -51,7 +51,7 @@
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="activeShip" />
-      <Field Name="playerScript" />
+      <Field Name="playerWorld" />
       <Field Name="currentButton" />
     </ShowAsAssociation>
   </Class>
@@ -80,7 +80,7 @@
       <FileName>Assets\Scripts\Multiplayer\InputHandling.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="playerScript" />
+      <Field Name="playerWorld" />
       <Field Name="opponent" />
       <Field Name="cameraBehavior1" />
       <Field Name="cameraBehavior2" />
@@ -121,7 +121,7 @@
       <Property Name="ActiveShip" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="PlayerScript">
+  <Class Name="PlayerWorld">
     <Position X="0.5" Y="4" Width="2" />
     <AssociationLine Name="playerData" Type="PlayerData" FixedFromPoint="true" FixedToPoint="true">
       <Path>
@@ -133,7 +133,7 @@
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAciAEAAAiKQAAAgAgAAAAIAAAAgBgAAAAIAgAACAIA=</HashCode>
-      <FileName>Assets\Scripts\Multiplayer\PlayerScript.cs</FileName>
+      <FileName>Assets\Scripts\Multiplayer\PlayerWorld.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="playerData" />
@@ -172,7 +172,7 @@
       <FileName>Assets\Scripts\VehicleBehavior.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="playerScript" />
+      <Field Name="playerWorld" />
       <Field Name="playerData" />
     </ShowAsAssociation>
   </Class>

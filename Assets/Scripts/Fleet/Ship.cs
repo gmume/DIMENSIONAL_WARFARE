@@ -14,7 +14,7 @@ public class Ship : MonoBehaviour
 
     private bool[] partDamaged;
 
-    public void Activate(PlayerScript player)
+    public void Activate(PlayerWorld player)
     {
         if (player.playerData.ActiveShip != this)
         {
@@ -27,9 +27,9 @@ public class Ship : MonoBehaviour
         }
     }
 
-    public void Deactivate(PlayerScript playerScript)
+    public void Deactivate(PlayerWorld playerWorld)
     {
-        if (playerScript.name == "Player1")
+        if (playerWorld.name == "Player1")
         {
             GetComponent<Renderer>().material.color = new Color(0.8f, 0.5f, 0.5f, 1);
         }
@@ -41,7 +41,7 @@ public class Ship : MonoBehaviour
         Vector3 vectorDown = new(0f, -0.1f, 0f);
         GetComponent<Transform>().position += vectorDown;
         OccupyCell();
-        playerScript.playerData.ActiveShip = null;
+        playerWorld.playerData.ActiveShip = null;
     }
 
     public void Move(int x, int y)
@@ -120,10 +120,10 @@ public class Ship : MonoBehaviour
         Dimension.GetCell(X, Z).GetComponent<Cell>().Occupied = true;
     }
 
-    public void Fire(PlayerScript playerScript)
+    public void Fire(PlayerWorld playerWorld)
     {
         //Fire on selected cell
-        Cell activeCell = playerScript.playerData.ActiveCell;
+        Cell activeCell = playerWorld.playerData.ActiveCell;
         Material cellMaterial = activeCell.GetComponent<Renderer>().material;
 
         if (name == "Player1")
@@ -133,15 +133,16 @@ public class Ship : MonoBehaviour
         else
         {
             cellMaterial.color = Color.yellow;
-
         }
 
-        playerScript.playerData.ActiveCell.Hitted = true;
+        playerWorld.playerData.ActiveCell.Hitted = true;
 
         if (activeCell.Occupied)
         {
-            Debug.Log("entred activeCell.Occupied");
             GameObject opponentShipObj = Dimension.GetShipOnCell(activeCell.X, activeCell.Y);
+            Ship opponentShip = opponentShipObj.GetComponent<Ship>();
+            opponentShip.TakeHit(activeCell.X, activeCell.Y);
+
             Material shipMaterial = opponentShipObj.GetComponent<Renderer>().material;
             opponentShipObj.GetComponent<Renderer>().material = shipMaterial;
 
@@ -154,6 +155,14 @@ public class Ship : MonoBehaviour
                 shipMaterial.color = Color.yellow;
             }
         }
+    }
+    
+    public void TakeHit(int x, int y)
+    {
+        //Debug.Log("mod x: " + (x % X));
+        //Debug.Log("mod y: " + (y % Z));
+        int part = (x % X) % (y % Z);
+        //Debug.Log("part: " + part); 
     }
 
     private void ReleaseCell(int x, int y)

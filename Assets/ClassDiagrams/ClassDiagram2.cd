@@ -47,7 +47,7 @@
   </Class>
   <Class Name="Overworld">
     <Position X="6" Y="1.25" Width="2" />
-    <AssociationLine Name="player1" Type="PlayerScript" FixedFromPoint="true">
+    <AssociationLine Name="player1" Type="PlayerWorld" FixedFromPoint="true">
       <Path>
         <Point X="6.75" Y="3.511" />
         <Point X="6.75" Y="4" />
@@ -87,11 +87,11 @@
       <Property Name="ActiveCell" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="PlayerScript">
+  <Class Name="PlayerWorld">
     <Position X="5.75" Y="4" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAECAAAAAiCQAAAAAgAAAAIAAAAgBAAAAAAAgAACAAA=</HashCode>
-      <FileName>Assets\Scripts\PlayerScript.cs</FileName>
+      <FileName>Assets\Scripts\PlayerWorld.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="playerData" />

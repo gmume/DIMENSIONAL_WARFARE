@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerScript : MonoBehaviour
+public class PlayerWorld : MonoBehaviour
 {
     public PlayerData playerData;
     public string ShipName;
@@ -18,21 +18,19 @@ public class PlayerScript : MonoBehaviour
     public void Start()
     {
         dimensions = ScriptableObject.CreateInstance("Dimensions") as Dimensions;
-        dimensions.InitDimensions(this.GetComponent<PlayerScript>(), dimensionPrefab, cellPrefab, shipPrefab);
+        dimensions.InitDimensions(this.GetComponent<PlayerWorld>(), dimensionPrefab, cellPrefab, shipPrefab);
         SetNewDimension(0);
 
         if (name == "Player1")
         {
             cameraVehicle = GameObject.Find("CameraVehicle1");
             vehicleBehavior = cameraVehicle.GetComponent<VehicleBehavior>();
-
             playerData.VehicleBehavior = vehicleBehavior;
         }
         else
         {
             cameraVehicle = GameObject.Find("CameraVehicle2");
             vehicleBehavior = cameraVehicle.GetComponent<VehicleBehavior>();
-
             playerData.VehicleBehavior = vehicleBehavior;
         }
     }
@@ -54,7 +52,7 @@ public class PlayerScript : MonoBehaviour
         playerData.ActiveDimension = dimensions.GetDimension(nr);
     }
 
-    public void SetNewCell(int x, int y)
+    public void SetNewCellRelative(int x, int y)
     {
         if (playerData.ActiveCell != null)
         {
@@ -64,6 +62,14 @@ public class PlayerScript : MonoBehaviour
         currentY += y;
         playerData.ActiveCell = dimensions.GetDimension(playerData.ActiveDimension.DimensionNr).GetCell(currentX, currentY).GetComponent<Cell>();
         ActivateCell();
+    }
+
+    public void SetNewCellAbsolute(int x, int y)
+    {
+        currentX = 0;
+        currentY = 0;
+
+        SetNewCellRelative(x, y);
     }
 
     public void ActivateCell()
