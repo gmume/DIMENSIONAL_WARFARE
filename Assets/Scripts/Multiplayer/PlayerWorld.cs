@@ -11,56 +11,47 @@ public class PlayerWorld : MonoBehaviour
     public GameObject dimensionPrefab, cellPrefab, shipPrefab;
     public Dimensions dimensions;
 
-    private GameObject cameraVehicle;
-    private VehicleBehavior vehicleBehavior;
+    private Player player;
     private int currentX = 0, currentY = 0;
+
+    private void Awake()
+    {
+        player = GetComponent<Player>();
+    }
 
     public void Start()
     {
         dimensions = ScriptableObject.CreateInstance("Dimensions") as Dimensions;
-        dimensions.InitDimensions(this.GetComponent<PlayerWorld>(), dimensionPrefab, cellPrefab, shipPrefab);
+        dimensions.InitDimensions(player, dimensionPrefab, cellPrefab, shipPrefab);
         SetNewDimension(0);
-
-        if (name == "Player1")
-        {
-            cameraVehicle = GameObject.Find("CameraVehicle1");
-            vehicleBehavior = cameraVehicle.GetComponent<VehicleBehavior>();
-            playerData.VehicleBehavior = vehicleBehavior;
-        }
-        else
-        {
-            cameraVehicle = GameObject.Find("CameraVehicle2");
-            vehicleBehavior = cameraVehicle.GetComponent<VehicleBehavior>();
-            playerData.VehicleBehavior = vehicleBehavior;
-        }
     }
 
     private void Update()
     {
-        if(playerData.ActiveShip == null)
+        if(player.data.ActiveShip == null)
         {
             ShipName = "no ship";
         }
         else
         {
-            ShipName = playerData.ActiveShip.ShipName;
+            ShipName = player.data.ActiveShip.ShipName;
         }
     }
 
     public void SetNewDimension(int nr)
     {
-        playerData.ActiveDimension = dimensions.GetDimension(nr);
+        player.data.ActiveDimension = dimensions.GetDimension(nr);
     }
 
     public void SetNewCellRelative(int x, int y)
     {
-        if (playerData.ActiveCell != null)
+        if (player.data.ActiveCell != null)
         {
             DeactivateCell();
         }
         currentX += x;
         currentY += y;
-        playerData.ActiveCell = dimensions.GetDimension(playerData.ActiveDimension.DimensionNr).GetCell(currentX, currentY).GetComponent<Cell>();
+        player.data.ActiveCell = dimensions.GetDimension(player.data.ActiveDimension.DimensionNr).GetCell(currentX, currentY).GetComponent<Cell>();
         ActivateCell();
     }
 
@@ -74,12 +65,12 @@ public class PlayerWorld : MonoBehaviour
 
     public void ActivateCell()
     {
-        playerData.ActiveCell.gameObject.transform.position += new Vector3(0, 0.2f, 0);
+        player.data.ActiveCell.gameObject.transform.position += new Vector3(0, 0.2f, 0);
     }
 
     public void DeactivateCell()
     {
-        playerData.ActiveCell.gameObject.transform.position -= new Vector3(0, 0.2f, 0);
+        player.data.ActiveCell.gameObject.transform.position -= new Vector3(0, 0.2f, 0);
     }
 
     public Dimensions GetDimensions()

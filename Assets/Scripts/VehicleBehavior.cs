@@ -7,58 +7,43 @@ public class VehicleBehavior : MonoBehaviour
 {
     public int CurrentDimension { get; private set; }
     private Vector3 vector;
-    private GameObject player;
-    private PlayerWorld playerWorld;
-    private PlayerData playerData;
-    private FleetMenuScript fleetMenuScript;
+    private Player player;
 
     public void Start()
     {
+        if(this.name == "CameraVehicle1")
+        {
+            player = OverworldData.player1;
+        }
+        else
+        {
+            player = OverworldData.player2;
+        }
+
         transform.position += new Vector3(OverworldData.DimensionSize / 2, OverworldData.DimensionSize * 2 / 3, -OverworldData.DimensionSize);
         vector = new Vector3(0, OverworldData.DimensionSize * 2, 0);
         CurrentDimension = 0;
-
-        if (gameObject.name == "CameraVehicle1A")
-        {
-            player = GameObject.Find("Player1");
-        }
-        else
-        {
-            player = GameObject.Find("Player2");
-        }
-
-        playerWorld = player.GetComponent<PlayerWorld>();
-        playerData = playerWorld.playerData;
-
-        if(name == "CameraVehicle1")
-        {
-            fleetMenuScript = GameObject.Find("FleetMenu1").GetComponent<FleetMenuScript>();
-        }
-        else
-        {
-            fleetMenuScript = GameObject.Find("FleetMenu2").GetComponent<FleetMenuScript>();
-        }
     }
 
     public void OnDimensionUp(CallbackContext ctx)
     {
-        if (OverworldData.DimensionsCount - 1 > playerData.ActiveDimension.DimensionNr && ctx.performed == true)
+        if (OverworldData.DimensionsCount - 1 > player.data.ActiveDimension.DimensionNr && ctx.performed == true)
         {
             CurrentDimension += 1;
-            playerWorld.SetNewDimension(playerData.ActiveDimension.DimensionNr + 1);
+            player.world.SetNewDimension(player.data.ActiveDimension.DimensionNr + 1);
             transform.position += vector;
-            fleetMenuScript.UpdateFleetMenuDimension(CurrentDimension);
+            player.fleetMenu.UpdateFleetMenuDimension(CurrentDimension);
         }
     }
 
     public void OnDimensionDown(CallbackContext ctx)
     {
-        if (playerData.ActiveDimension.DimensionNr > 0 && ctx.performed == true)
+        if (player.data.ActiveDimension.DimensionNr > 0 && ctx.performed == true)
         {
             CurrentDimension -= 1;
-            playerWorld.SetNewDimension(playerData.ActiveDimension.DimensionNr - 1);
+            player.world.SetNewDimension(player.data.ActiveDimension.DimensionNr - 1);
             transform.position -= vector;
-            fleetMenuScript.UpdateFleetMenuDimension(CurrentDimension);
+            player.fleetMenu.UpdateFleetMenuDimension(CurrentDimension);
         }
     }
 }

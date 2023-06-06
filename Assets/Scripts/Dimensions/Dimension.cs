@@ -4,18 +4,25 @@ using UnityEngine;
 
 public class Dimension : MonoBehaviour
 {
-    public int DimensionNr { get; private set; }
+    //private Player player;
     private GameObject[][] cells;
     private readonly List<GameObject> ships = new();
+    
+    public int DimensionNr { get; private set; }
 
-    public void InitDimension(PlayerWorld playerWorld, int nr, GameObject cellPrefab, ArrayList fleet)
+    //private void Awake()
+    //{
+    //    player = GetComponent<Player>();
+    //}
+
+    public void InitDimension(Player player, int nr, GameObject cellPrefab, ArrayList fleet)
     {
         DimensionNr = nr;
-        CreateCells(playerWorld, cellPrefab);
+        CreateCells(player, cellPrefab);
 
         if(DimensionNr == 0)
         {
-            playerWorld.playerData.ActiveDimension = GetComponent<Dimension>();
+            player.data.ActiveDimension = GetComponent<Dimension>();
              
             for (int i = 0; i < fleet.Count; i++)
             {
@@ -29,7 +36,7 @@ public class Dimension : MonoBehaviour
         }
     }
 
-    public void CreateCells(PlayerWorld playerWorld, GameObject cellPrefab)
+    public void CreateCells(Player player, GameObject cellPrefab)
     {
         cells = new GameObject[OverworldData.DimensionSize][];
 
@@ -40,7 +47,7 @@ public class Dimension : MonoBehaviour
             for (int k = 0; k < OverworldData.DimensionSize; k++)
             {
                 GameObject cell = Instantiate(cellPrefab, new Vector3(j, OverworldData.DimensionSize * DimensionNr * 2, k), Quaternion.identity);
-                cell.layer = Layer.SetLayerPlayer(playerWorld);
+                cell.layer = Layer.SetLayerPlayer(player);
                 cell.transform.parent = transform;
                 cell.GetComponent<Cell>().X = j;
                 cell.GetComponent<Cell>().Y = k;

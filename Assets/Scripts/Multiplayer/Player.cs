@@ -6,7 +6,7 @@ using UnityEngine.InputSystem.UI;
 
 public class Player : MonoBehaviour
 {
-    private string number;
+    public int number;
 
     public GameObject obj;
     public PlayerWorld world;
@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     public InputHandling inputHandling;
     public PlayerInput input;
 
-    public GameObject EventSystemObj;
+    public GameObject eventSystemObj;
     public MultiplayerEventSystem eventSystem;
     public InputSystemUIInputModule inputSystem;
 
@@ -27,23 +27,23 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        number = this.name[this.name.Length -1].ToString();
+        number = int.Parse(this.name[this.name.Length - 1].ToString());
         obj = GameObject.Find(this.name);
         world = obj.GetComponent<PlayerWorld>();
         data = world.playerData;
         inputHandling = obj.GetComponent<InputHandling>();
         input = obj.GetComponent<PlayerInput>();
 
-        EventSystemObj = GameObject.Find("EventSystem" + number);
-        eventSystem = EventSystemObj.GetComponent<MultiplayerEventSystem>();
-        inputSystem = EventSystemObj.GetComponent<InputSystemUIInputModule>();
+        eventSystemObj = GameObject.Find("EventSystem" + number);
+        eventSystem = eventSystemObj.GetComponent<MultiplayerEventSystem>();
+        inputSystem = eventSystemObj.GetComponent<InputSystemUIInputModule>();
 
         fleetMenuObj = GameObject.Find("FleetMenu" + number);
         fleetMenu = fleetMenuObj.GetComponent<FleetMenuScript>();
 
         cameraVehicleObj = GameObject.Find("CameraVehicle" + number);
         vehicle = cameraVehicleObj.GetComponent<VehicleBehavior>();
-        cameraBehavior = cameraVehicleObj.GetComponent<CameraBehavior>();
+        cameraBehavior = GameObject.Find("Camera" + number).GetComponent<CameraBehavior>();
     }
 
     private void Start()
