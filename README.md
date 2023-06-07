@@ -36,4 +36,4 @@ Added script Player.
 Refacotred properties.
 
 ## 06.06.2023
-Refacturing: Transfered PlayerData to Player.
+Refacturing: Transfered PlayerData, dimensions and fleet to Player.
