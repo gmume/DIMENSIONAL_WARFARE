@@ -29,9 +29,11 @@ Users can now see better, which ship is selected in the HUD and on the dimension
   <source src="video/video2.mp4" type="video/mp4">
 </video> 
 
-
 ## 06.06.2023
 Updated player swap
 Active ships and cells are now working correctly.
 Added script Player. 
 Refacotred properties.
+
+## 06.06.2023
+Refacturing: Transfered PlayerData to Player.
