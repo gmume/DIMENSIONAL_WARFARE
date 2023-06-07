@@ -6,10 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerWorld : MonoBehaviour
 {
-    //public PlayerData playerData;
     public string ShipName;
     public GameObject dimensionPrefab, cellPrefab, shipPrefab;
-    public Dimensions dimensions;
 
     private Player player;
     private int currentX = 0, currentY = 0;
@@ -21,8 +19,8 @@ public class PlayerWorld : MonoBehaviour
 
     public void Start()
     {
-        dimensions = ScriptableObject.CreateInstance("Dimensions") as Dimensions;
-        dimensions.InitDimensions(player, dimensionPrefab, cellPrefab, shipPrefab);
+        player.dimensions = ScriptableObject.CreateInstance("Dimensions") as Dimensions;
+        player.dimensions.InitDimensions(player, dimensionPrefab, cellPrefab, shipPrefab);
         SetNewDimension(0);
     }
 
@@ -40,7 +38,7 @@ public class PlayerWorld : MonoBehaviour
 
     public void SetNewDimension(int nr)
     {
-        player.ActiveDimension = dimensions.GetDimension(nr);
+        player.ActiveDimension = player.dimensions.GetDimension(nr);
     }
 
     public void SetNewCellRelative(int x, int y)
@@ -51,7 +49,7 @@ public class PlayerWorld : MonoBehaviour
         }
         currentX += x;
         currentY += y;
-        player.ActiveCell = dimensions.GetDimension(player.ActiveDimension.DimensionNr).GetCell(currentX, currentY).GetComponent<Cell>();
+        player.ActiveCell = player.dimensions.GetDimension(player.ActiveDimension.DimensionNr).GetCell(currentX, currentY).GetComponent<Cell>();
         ActivateCell();
     }
 
@@ -71,15 +69,5 @@ public class PlayerWorld : MonoBehaviour
     public void DeactivateCell()
     {
         player.ActiveCell.gameObject.transform.position -= new Vector3(0, 0.2f, 0);
-    }
-
-    public Dimensions GetDimensions()
-    {
-        return dimensions;
-    }
-
-    public Fleet GetFleet()
-    {
-        return GetDimensions().GetFleet();
     }
 }

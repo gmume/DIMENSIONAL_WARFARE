@@ -24,7 +24,6 @@ public class FleetMenuScript : MonoBehaviour
     private GameObject dimensionsHeader;
     private GameObject[] dimensions;
     private int currenDimension;
-    private Fleet fleet;
 
     public GameObject firstSelectedButton;
     public GameObject selectedElement;
@@ -63,8 +62,7 @@ public class FleetMenuScript : MonoBehaviour
         CreateShipButtons();
         CreateHUDDimensions();
         currenDimension = 1;
-        fleet = player.world.GetFleet();
-        fleet.ActivateShip(currentButton.ShipButtonNr, player);
+        player.fleet.ActivateShip(currentButton.ShipButtonNr, player);
     }
 
     private void Update()
