@@ -11,7 +11,6 @@ public class InputHandling : MonoBehaviour
     private Player player;
     private Player opponent;
     private InputActionMap gameStartMap, playerMap, fleetMenuMap;
-    private Fleet fleet, opponentFleet;
     private GameObject[] shipButtons;
 
     private void Awake()
@@ -36,8 +35,6 @@ public class InputHandling : MonoBehaviour
 
         shipButtons = player.fleetMenu.GetShipButtons();
         player.input.SwitchCurrentActionMap("GameStart");
-        fleet = player.world.dimensions.GetFleet();
-        opponentFleet = opponent.world.dimensions.GetFleet();
         ArrayList devices = new();
 
         foreach (var device in InputSystem.devices)
@@ -78,7 +75,7 @@ public class InputHandling : MonoBehaviour
             {
                 player.eventSystem.SetSelectedGameObject(shipButtons[shipNr - 1]);
                 player.CurrentShipButton = player.eventSystem.currentSelectedGameObject.GetComponent<ShipButton>();
-                fleet.ActivateShip(player.CurrentShipButton.ShipButtonNr, player);
+                player.fleet.ActivateShip(player.CurrentShipButton.ShipButtonNr, player);
 
                 if (OverworldData.GamePhase == GamePhases.Battle)
                 {
@@ -98,7 +95,7 @@ public class InputHandling : MonoBehaviour
             {
                 player.eventSystem.SetSelectedGameObject(shipButtons[shipNr + 1]);
                 player.CurrentShipButton = player.eventSystem.currentSelectedGameObject.GetComponent<ShipButton>();
-                fleet.ActivateShip(player.CurrentShipButton.ShipButtonNr, player);
+                player.fleet.ActivateShip(player.CurrentShipButton.ShipButtonNr, player);
 
                 if (OverworldData.GamePhase == GamePhases.Battle)
                 {
@@ -330,7 +327,7 @@ public class InputHandling : MonoBehaviour
     private void ArmOpponent()
     {
         opponent.fleetMenu.SetFirstSelecetedButton();
-        opponentFleet.ActivateShip(0, opponent);
+        opponent.fleet.ActivateShip(0, opponent);
         opponent.inputHandling.UpdateActiveCellAndFleetMenu();
     }
 

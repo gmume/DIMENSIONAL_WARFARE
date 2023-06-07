@@ -8,8 +8,6 @@ public class Dimensions : ScriptableObject
 {
     private readonly ArrayList dimensions = new();
 
-    public Fleet fleet;
-
     public void InitDimensions(Player player, GameObject prefabDimension, GameObject prefabCell, GameObject prefabShip)
     {
         InitFleet(player, prefabShip);
@@ -24,7 +22,7 @@ public class Dimensions : ScriptableObject
             GameObject dimension = Instantiate(dimensionPrefab, new Vector3(halfDimensionSize, OverworldData.DimensionSize * dimensionNr * 2, halfDimensionSize), Quaternion.identity);
             dimension.layer = Layer.SetLayerPlayer(player);
             dimension.transform.localScale = new Vector3(OverworldData.DimensionDiagonal, OverworldData.DimensionDiagonal, OverworldData.DimensionDiagonal);
-            dimension.GetComponent<Dimension>().InitDimension(player, dimensionNr, cellPrefab, fleet.GetFleet());
+            dimension.GetComponent<Dimension>().InitDimension(player, dimensionNr, cellPrefab, player.fleet.GetFleet());
             dimensions.Add(dimension);
         }
     }
@@ -42,12 +40,7 @@ public class Dimensions : ScriptableObject
 
     public void InitFleet(Player player, GameObject prefabShip)
     {
-        fleet = ScriptableObject.CreateInstance("Fleet") as Fleet;
-        fleet.CreateFleet(player, prefabShip);
-    }
-
-    public Fleet GetFleet()
-    {
-        return fleet;
+        player.fleet = ScriptableObject.CreateInstance("Fleet") as Fleet;
+        player.fleet.CreateFleet(player, prefabShip);
     }
 }

@@ -10,7 +10,6 @@ public class Player : MonoBehaviour
 
     public GameObject obj;
     public PlayerWorld world;
-    //public PlayerData data;
     public InputHandling inputHandling;
     public PlayerInput input;
 
@@ -26,8 +25,11 @@ public class Player : MonoBehaviour
     public GameObject cameraObj;
     public CameraBehavior cameraBehavior;
 
+    public Dimensions dimensions; //Is initiated by PlayerWorld
     public Dimension ActiveDimension { get; set; }
     public Cell ActiveCell { get; set; }
+
+    public Fleet fleet; //Is initiated by PlayerWorld
     public ShipButton CurrentShipButton { get; set; }
     public Ship ActiveShip { get; set; }
     public int X { get; set; }
@@ -38,7 +40,6 @@ public class Player : MonoBehaviour
         number = int.Parse(this.name[this.name.Length - 1].ToString());
         obj = GameObject.Find(this.name);
         world = obj.GetComponent<PlayerWorld>();
-        //data = world.playerData;
         inputHandling = obj.GetComponent<InputHandling>();
         input = obj.GetComponent<PlayerInput>();
 
@@ -53,10 +54,5 @@ public class Player : MonoBehaviour
         vehicle = cameraVehicleObj.GetComponent<VehicleBehavior>();
         cameraObj = GameObject.Find("Camera" + number);
         cameraBehavior = GameObject.Find("Camera" + number).GetComponent<CameraBehavior>();
-    }
-
-    private void Start()
-    {
-        
     }
 }

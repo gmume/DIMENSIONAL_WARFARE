@@ -20,8 +20,6 @@ public class Debugging : MonoBehaviour
 
     public string GamePhase;
     public int playerTurn;
-    //public PlayerData playerData1;
-    //public PlayerData playerData2;
     public Ship activeShip1;
     public Ship activeShip2;
     public Cell activeCell1;
@@ -57,8 +55,6 @@ public class Debugging : MonoBehaviour
         playerWorld2 = player2.world;
         GamePhase = OverworldData.GamePhase.ToString();
         playerTurn = OverworldData.PlayerTurn;
-        //playerData1 = player1.data;
-        //playerData2 = player2.data;
 
         playerInput1 = player1.input;
         playerInput2 = player2.input;
