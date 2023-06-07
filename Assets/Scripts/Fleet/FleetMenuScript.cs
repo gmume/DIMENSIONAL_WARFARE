@@ -56,12 +56,11 @@ public class FleetMenuScript : MonoBehaviour
             dimension = GameObject.Find("Dimension2").GetComponent<TextMeshProUGUI>();
             dimensionsHeader = GameObject.Find("DimensionsHeader2");
         }
-
-        CreateShipButtons();
     }
 
     private void Start()
     {
+        CreateShipButtons();
         CreateHUDDimensions();
         currenDimension = 1;
         fleet = player.world.GetFleet();

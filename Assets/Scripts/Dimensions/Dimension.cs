@@ -4,16 +4,10 @@ using UnityEngine;
 
 public class Dimension : MonoBehaviour
 {
-    //private Player player;
     private GameObject[][] cells;
     private readonly List<GameObject> ships = new();
     
     public int DimensionNr { get; private set; }
-
-    //private void Awake()
-    //{
-    //    player = GetComponent<Player>();
-    //}
 
     public void InitDimension(Player player, int nr, GameObject cellPrefab, ArrayList fleet)
     {

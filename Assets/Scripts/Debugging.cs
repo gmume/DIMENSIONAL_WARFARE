@@ -7,6 +7,8 @@ using UnityEngine.InputSystem.UI;
 
 public class Debugging : MonoBehaviour
 {
+    private Player player1;
+    private Player player2;
     private GameObject playerObj1;
     private GameObject playerObj2;
     private PlayerWorld playerWorld1;
@@ -41,26 +43,32 @@ public class Debugging : MonoBehaviour
     public LayerMask layerMask1;
     public LayerMask layerMask2;
 
+    private void Awake()
+    {
+        player1 = GameObject.Find("Player1").GetComponent<Player>();
+        player2 = GameObject.Find("Player1").GetComponent<Player>();
+    }
+
     void Start()
     {
-        playerObj1 = GameObject.Find("Player1");
+        playerObj1 = player1.obj;
         playerObj2 = GameObject.Find("Player2");
-        playerWorld1 = playerObj1.GetComponent<PlayerWorld>();
-        playerWorld2 = playerObj2.GetComponent<PlayerWorld>();
+        playerWorld1 = player1.world;
+        playerWorld2 = player2.world;
         GamePhase = OverworldData.GamePhase.ToString();
         playerTurn = OverworldData.PlayerTurn;
-        playerData1 = playerWorld1.playerData;
-        playerData2 = playerWorld2.playerData;
+        playerData1 = player1.data;
+        playerData2 = player2.data;
 
-        playerInput1 = playerObj1.GetComponent<PlayerInput>();
-        playerInput2 = playerObj2.GetComponent<PlayerInput>();
-        camera1 = GameObject.Find("Camera1").GetComponent<Camera>();
-        camera2 = GameObject.Find("Camera2").GetComponent<Camera>();
+        playerInput1 = player1.input;
+        playerInput2 = player2.input;
+        camera1 = player1.cameraObj.GetComponent<Camera>();
+        camera2 = player2.cameraObj.GetComponent<Camera>();
 
-        eventSystem1 = GameObject.Find("EventSystem1").GetComponent<MultiplayerEventSystem>();
-        eventSystem2 = GameObject.Find("EventSystem2").GetComponent<MultiplayerEventSystem>();
-        UIInputModulePlayer1 = playerInput1.uiInputModule;
-        UIInputModulePlayer2 = playerInput2.uiInputModule;
+        eventSystem1 = player1.eventSystem;
+        eventSystem2 = player2.eventSystem;
+        UIInputModulePlayer1 = player1.inputSystem;
+        UIInputModulePlayer2 = player2.inputSystem;
     }
 
     void Update()
@@ -71,8 +79,8 @@ public class Debugging : MonoBehaviour
         activeShip1 = playerWorld1.playerData.ActiveShip;
         activeShip2 = playerWorld2.playerData.ActiveShip;
 
-        activeCell1 = playerWorld1.playerData.ActiveCell;
-        activeCell2 = playerWorld2.playerData.ActiveCell;
+        activeCell1 = player1.data.ActiveCell;
+        activeCell2 = player2.data.ActiveCell;
 
         if (playerInput1.enabled && playerInput2.enabled)
         {

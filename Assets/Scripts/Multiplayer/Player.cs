@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
 
     public GameObject cameraVehicleObj;
     public VehicleBehavior vehicle;
+    public GameObject cameraObj;
     public CameraBehavior cameraBehavior;
 
     private void Awake()
@@ -43,6 +44,7 @@ public class Player : MonoBehaviour
 
         cameraVehicleObj = GameObject.Find("CameraVehicle" + number);
         vehicle = cameraVehicleObj.GetComponent<VehicleBehavior>();
+        cameraObj = GameObject.Find("Camera" + number);
         cameraBehavior = GameObject.Find("Camera" + number).GetComponent<CameraBehavior>();
     }
 

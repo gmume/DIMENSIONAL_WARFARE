@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Ship : MonoBehaviour
 {
-    //private Player player;
     private bool[] partDamaged;
 
     public string ShipName { get; private set; }
@@ -14,11 +13,6 @@ public class Ship : MonoBehaviour
     public int Z { get; private set; }
     public Directions Direction { get; set; }
     public int PartsCount { get; private set; }
-
-    //private void Awake()
-    //{
-    //    player = GetComponent<Player>();
-    //}
 
     public void Activate(Player player)
     {
