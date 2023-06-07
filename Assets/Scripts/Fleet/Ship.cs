@@ -16,13 +16,13 @@ public class Ship : MonoBehaviour
 
     public void Activate(Player player)
     {
-        if (player.data.ActiveShip != this)
+        if (player.ActiveShip != this)
         {
             GetComponent<Renderer>().material.color = Color.black;
             Vector3 vectorUp = new(0f, 0.1f, 0f);
             GetComponent<Transform>().position += vectorUp;
             ReleaseCell(X, Z);
-            player.data.ActiveShip = this;
+            player.ActiveShip = this;
         }
     }
 
@@ -40,7 +40,7 @@ public class Ship : MonoBehaviour
         Vector3 vectorDown = new(0f, -0.1f, 0f);
         GetComponent<Transform>().position += vectorDown;
         OccupyCell();
-        player.data.ActiveShip = null;
+        player.ActiveShip = null;
     }
 
     public void Move(int x, int y)
@@ -122,7 +122,7 @@ public class Ship : MonoBehaviour
     public void Fire(Player player)
     {
         //Fire on selected cell
-        Cell activeCell = player.world.playerData.ActiveCell;
+        Cell activeCell = player.ActiveCell;
         Material cellMaterial = activeCell.GetComponent<Renderer>().material;
 
         if (name == "Player1")
@@ -134,7 +134,7 @@ public class Ship : MonoBehaviour
             cellMaterial.color = Color.yellow;
         }
 
-        player.world.playerData.ActiveCell.Hitted = true;
+        player.ActiveCell.Hitted = true;
 
         if (activeCell.Occupied)
         {

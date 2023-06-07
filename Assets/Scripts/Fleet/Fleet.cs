@@ -31,9 +31,9 @@ public class Fleet : ScriptableObject
 
     public void ActivateShip(int shipNr, Player player)
     {        
-        if (player.world.playerData.ActiveShip != null)
+        if (player.ActiveShip != null)
         {
-            player.world.playerData.ActiveShip.Deactivate(player);
+            player.ActiveShip.Deactivate(player);
         }
 
         GameObject shipObj = (GameObject)fleet[shipNr];

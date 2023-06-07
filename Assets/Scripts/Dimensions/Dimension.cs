@@ -16,7 +16,7 @@ public class Dimension : MonoBehaviour
 
         if(DimensionNr == 0)
         {
-            player.data.ActiveDimension = GetComponent<Dimension>();
+            player.ActiveDimension = GetComponent<Dimension>();
              
             for (int i = 0; i < fleet.Count; i++)
             {

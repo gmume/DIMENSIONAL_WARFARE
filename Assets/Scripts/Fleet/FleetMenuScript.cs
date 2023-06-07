@@ -192,7 +192,7 @@ public class FleetMenuScript : MonoBehaviour
     {
         player.eventSystem.firstSelectedGameObject = firstSelectedButton;
         currentButton = firstSelectedButton.GetComponent<ShipButton>();
-        player.world.playerData.currentShipButton = currentButton;
+        player.CurrentShipButton = currentButton;
     }
 
     private void DesignButton(Button button)
