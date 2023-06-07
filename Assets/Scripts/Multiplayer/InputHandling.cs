@@ -10,7 +10,6 @@ public class InputHandling : MonoBehaviour
 {
     private Player player;
     private Player opponent;
-
     private InputActionMap gameStartMap, playerMap, fleetMenuMap;
     private Fleet fleet, opponentFleet;
     private GameObject[] shipButtons;
@@ -19,7 +18,7 @@ public class InputHandling : MonoBehaviour
     {
         player = GetComponent<Player>();
 
-        if(this.player.number == 1)
+        if(name == "Player1")
         {
             opponent = OverworldData.player2;
         }
@@ -27,14 +26,14 @@ public class InputHandling : MonoBehaviour
         {
             opponent = OverworldData.player1;
         }
-
-        gameStartMap = player.input.actions.FindActionMap("GameStart");
-        playerMap = player.input.actions.FindActionMap("Player");
-        fleetMenuMap = player.input.actions.FindActionMap("FleetMenu");
     }
 
     private void Start()
     {
+        gameStartMap = player.input.actions.FindActionMap("GameStart");
+        playerMap = player.input.actions.FindActionMap("Player");
+        fleetMenuMap = player.input.actions.FindActionMap("FleetMenu");
+
         shipButtons = player.fleetMenu.GetShipButtons();
         player.input.SwitchCurrentActionMap("GameStart");
         fleet = player.world.dimensions.GetFleet();
@@ -73,13 +72,13 @@ public class InputHandling : MonoBehaviour
     {
         if (ctx.performed)
         {
-            int shipNr = player.world.playerData.currentShipButton.ShipButtonNr;
+            int shipNr = player.CurrentShipButton.ShipButtonNr;
 
             if (shipNr > 0)
             {
                 player.eventSystem.SetSelectedGameObject(shipButtons[shipNr - 1]);
-                player.world.playerData.currentShipButton = player.eventSystem.currentSelectedGameObject.GetComponent<ShipButton>();
-                fleet.ActivateShip(player.world.playerData.currentShipButton.ShipButtonNr, player);
+                player.CurrentShipButton = player.eventSystem.currentSelectedGameObject.GetComponent<ShipButton>();
+                fleet.ActivateShip(player.CurrentShipButton.ShipButtonNr, player);
 
                 if (OverworldData.GamePhase == GamePhases.Battle)
                 {
@@ -93,13 +92,13 @@ public class InputHandling : MonoBehaviour
     {
         if (ctx.performed)
         {
-            int shipNr = player.world.playerData.currentShipButton.ShipButtonNr;
+            int shipNr = player.CurrentShipButton.ShipButtonNr;
 
             if (shipNr < OverworldData.FleetSize)
             {
                 player.eventSystem.SetSelectedGameObject(shipButtons[shipNr + 1]);
-                player.world.playerData.currentShipButton = player.eventSystem.currentSelectedGameObject.GetComponent<ShipButton>();
-                fleet.ActivateShip(player.world.playerData.currentShipButton.ShipButtonNr, player);
+                player.CurrentShipButton = player.eventSystem.currentSelectedGameObject.GetComponent<ShipButton>();
+                fleet.ActivateShip(player.CurrentShipButton.ShipButtonNr, player);
 
                 if (OverworldData.GamePhase == GamePhases.Battle)
                 {
@@ -111,8 +110,8 @@ public class InputHandling : MonoBehaviour
 
     public void UpdateActiveCellAndFleetMenu()
     {
-        int shipX = player.world.playerData.ActiveShip.X;
-        int shipY = player.world.playerData.ActiveShip.Z;
+        int shipX = player.ActiveShip.X;
+        int shipY = player.ActiveShip.Z;
 
         player.world.SetNewCellAbsolute(shipX, shipY);
         player.fleetMenu.UpdateFleetMenuCoords(shipX, shipY);
@@ -132,27 +131,27 @@ public class InputHandling : MonoBehaviour
             {
                 if (x > 0)
                 {
-                    player.world.playerData.ActiveShip.Move(1, 0);
+                    player.ActiveShip.Move(1, 0);
                 }
                 else
                 {
-                    player.world.playerData.ActiveShip.Move(-1, 0);
+                    player.ActiveShip.Move(-1, 0);
                 }
             }
             else
             {
                 if (y > 0)
                 {
-                    player.world.playerData.ActiveShip.Move(0, 1);
+                    player.ActiveShip.Move(0, 1);
                 }
                 else
                 {
-                    player.world.playerData.ActiveShip.Move(0, -1);
+                    player.ActiveShip.Move(0, -1);
                 }
             }
 
-            player.fleetMenu.UpdateFleetMenuCoords(player.world.playerData.ActiveShip.X, player.world.playerData.ActiveShip.Z);
-            opponent.fleetMenu.UpdateFleetMenuCoords(player.world.playerData.ActiveShip.X, player.world.playerData.ActiveShip.Z);
+            player.fleetMenu.UpdateFleetMenuCoords(player.ActiveShip.X, player.ActiveShip.Z);
+            opponent.fleetMenu.UpdateFleetMenuCoords(player.ActiveShip.X, player.ActiveShip.Z);
         }
     }
 
@@ -161,8 +160,8 @@ public class InputHandling : MonoBehaviour
         if (ctx.performed)
         {
             //Turn ship left
-            player.world.playerData.ActiveShip.GetComponent<Transform>().Rotate(0, -90, 0);
-        }
+            player.ActiveShip.GetComponent<Transform>().Rotate(0, -90, 0);
+        }   
     }
 
     public void OnTurnRight(CallbackContext ctx)
@@ -170,7 +169,7 @@ public class InputHandling : MonoBehaviour
         if (ctx.performed)
         {
             //Turn ship right
-            player.world.playerData.ActiveShip.GetComponent<Transform>().Rotate(0, 90, 0);
+            player.ActiveShip.GetComponent<Transform>().Rotate(0, 90, 0);
         }
     }
 
@@ -221,7 +220,7 @@ public class InputHandling : MonoBehaviour
     {
         if (ctx.performed)
         {
-            player.world.playerData.ActiveShip.Deactivate(player);
+            player.ActiveShip.Deactivate(player);
             player.input.SwitchCurrentActionMap("FleetMenu");
 
             if (name == "Player1")
@@ -272,8 +271,8 @@ public class InputHandling : MonoBehaviour
                     }
                 }
 
-                player.fleetMenu.UpdateFleetMenuCoords(player.world.playerData.ActiveCell.X, player.world.playerData.ActiveCell.Y);
-                opponent.fleetMenu.UpdateFleetMenuCoords(player.world.playerData.ActiveCell.X, player.world.playerData.ActiveCell.Y);
+                player.fleetMenu.UpdateFleetMenuCoords(player.ActiveCell.X, player.ActiveCell.Y);
+                opponent.fleetMenu.UpdateFleetMenuCoords(player.ActiveCell.X, player.ActiveCell.Y);
             }
             else
             {
@@ -288,7 +287,7 @@ public class InputHandling : MonoBehaviour
         {
             if (name == "Player1" && OverworldData.PlayerTurn == 1 || name == "Player2" && OverworldData.PlayerTurn == 2)
             {
-                player.world.playerData.ActiveShip.Fire(player);
+                player.ActiveShip.Fire(player);
                 StartCoroutine(PauseAndTakeTurns());
             }
             else
@@ -320,9 +319,9 @@ public class InputHandling : MonoBehaviour
 
     private void DisarmPlayer()
     {
-        if (player.world.playerData.ActiveShip != null)
+        if (player.ActiveShip != null)
         {
-            player.world.playerData.ActiveShip.Deactivate(player);
+            player.ActiveShip.Deactivate(player);
         }
 
         player.eventSystem.SetSelectedGameObject(null);

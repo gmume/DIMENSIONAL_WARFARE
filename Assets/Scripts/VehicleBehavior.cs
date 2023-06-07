@@ -27,10 +27,10 @@ public class VehicleBehavior : MonoBehaviour
 
     public void OnDimensionUp(CallbackContext ctx)
     {
-        if (OverworldData.DimensionsCount - 1 > player.data.ActiveDimension.DimensionNr && ctx.performed == true)
+        if (OverworldData.DimensionsCount - 1 > player.ActiveDimension.DimensionNr && ctx.performed == true)
         {
             CurrentDimension += 1;
-            player.world.SetNewDimension(player.data.ActiveDimension.DimensionNr + 1);
+            player.world.SetNewDimension(player.ActiveDimension.DimensionNr + 1);
             transform.position += vector;
             player.fleetMenu.UpdateFleetMenuDimension(CurrentDimension);
         }
@@ -38,10 +38,10 @@ public class VehicleBehavior : MonoBehaviour
 
     public void OnDimensionDown(CallbackContext ctx)
     {
-        if (player.data.ActiveDimension.DimensionNr > 0 && ctx.performed == true)
+        if (player.ActiveDimension.DimensionNr > 0 && ctx.performed == true)
         {
             CurrentDimension -= 1;
-            player.world.SetNewDimension(player.data.ActiveDimension.DimensionNr - 1);
+            player.world.SetNewDimension(player.ActiveDimension.DimensionNr - 1);
             transform.position -= vector;
             player.fleetMenu.UpdateFleetMenuDimension(CurrentDimension);
         }

@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
 
     public GameObject obj;
     public PlayerWorld world;
-    public PlayerData data;
+    //public PlayerData data;
     public InputHandling inputHandling;
     public PlayerInput input;
 
@@ -23,14 +23,22 @@ public class Player : MonoBehaviour
 
     public GameObject cameraVehicleObj;
     public VehicleBehavior vehicle;
+    public GameObject cameraObj;
     public CameraBehavior cameraBehavior;
+
+    public Dimension ActiveDimension { get; set; }
+    public Cell ActiveCell { get; set; }
+    public ShipButton CurrentShipButton { get; set; }
+    public Ship ActiveShip { get; set; }
+    public int X { get; set; }
+    public int Y { get; set; }
 
     private void Awake()
     {
         number = int.Parse(this.name[this.name.Length - 1].ToString());
         obj = GameObject.Find(this.name);
         world = obj.GetComponent<PlayerWorld>();
-        data = world.playerData;
+        //data = world.playerData;
         inputHandling = obj.GetComponent<InputHandling>();
         input = obj.GetComponent<PlayerInput>();
 
@@ -43,6 +51,7 @@ public class Player : MonoBehaviour
 
         cameraVehicleObj = GameObject.Find("CameraVehicle" + number);
         vehicle = cameraVehicleObj.GetComponent<VehicleBehavior>();
+        cameraObj = GameObject.Find("Camera" + number);
         cameraBehavior = GameObject.Find("Camera" + number).GetComponent<CameraBehavior>();
     }
 

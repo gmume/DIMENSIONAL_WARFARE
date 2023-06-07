@@ -56,12 +56,11 @@ public class FleetMenuScript : MonoBehaviour
             dimension = GameObject.Find("Dimension2").GetComponent<TextMeshProUGUI>();
             dimensionsHeader = GameObject.Find("DimensionsHeader2");
         }
-
-        CreateShipButtons();
     }
 
     private void Start()
     {
+        CreateShipButtons();
         CreateHUDDimensions();
         currenDimension = 1;
         fleet = player.world.GetFleet();
@@ -193,7 +192,7 @@ public class FleetMenuScript : MonoBehaviour
     {
         player.eventSystem.firstSelectedGameObject = firstSelectedButton;
         currentButton = firstSelectedButton.GetComponent<ShipButton>();
-        player.world.playerData.currentShipButton = currentButton;
+        player.CurrentShipButton = currentButton;
     }
 
     private void DesignButton(Button button)

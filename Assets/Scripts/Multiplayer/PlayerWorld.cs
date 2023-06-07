@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerWorld : MonoBehaviour
 {
-    public PlayerData playerData;
+    //public PlayerData playerData;
     public string ShipName;
     public GameObject dimensionPrefab, cellPrefab, shipPrefab;
     public Dimensions dimensions;
@@ -28,30 +28,30 @@ public class PlayerWorld : MonoBehaviour
 
     private void Update()
     {
-        if(player.data.ActiveShip == null)
+        if(player.ActiveShip == null)
         {
             ShipName = "no ship";
         }
         else
         {
-            ShipName = player.data.ActiveShip.ShipName;
+            ShipName = player.ActiveShip.ShipName;
         }
     }
 
     public void SetNewDimension(int nr)
     {
-        player.data.ActiveDimension = dimensions.GetDimension(nr);
+        player.ActiveDimension = dimensions.GetDimension(nr);
     }
 
     public void SetNewCellRelative(int x, int y)
     {
-        if (player.data.ActiveCell != null)
+        if (player.ActiveCell != null)
         {
             DeactivateCell();
         }
         currentX += x;
         currentY += y;
-        player.data.ActiveCell = dimensions.GetDimension(player.data.ActiveDimension.DimensionNr).GetCell(currentX, currentY).GetComponent<Cell>();
+        player.ActiveCell = dimensions.GetDimension(player.ActiveDimension.DimensionNr).GetCell(currentX, currentY).GetComponent<Cell>();
         ActivateCell();
     }
 
@@ -65,12 +65,12 @@ public class PlayerWorld : MonoBehaviour
 
     public void ActivateCell()
     {
-        player.data.ActiveCell.gameObject.transform.position += new Vector3(0, 0.2f, 0);
+        player.ActiveCell.gameObject.transform.position += new Vector3(0, 0.2f, 0);
     }
 
     public void DeactivateCell()
     {
-        player.data.ActiveCell.gameObject.transform.position -= new Vector3(0, 0.2f, 0);
+        player.ActiveCell.gameObject.transform.position -= new Vector3(0, 0.2f, 0);
     }
 
     public Dimensions GetDimensions()
