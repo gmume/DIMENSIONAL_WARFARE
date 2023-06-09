@@ -208,16 +208,15 @@ public class FleetMenuScript : MonoBehaviour
 
     private void CreateShipPart(GameObject buttonObj)
     {
-        GameObject shipPart = new();
-        shipPart.name = "ShipPart";
+        GameObject shipPart = new("ShipPart", typeof(CanvasRenderer), typeof(Image));
         shipPart.transform.SetParent(buttonObj.transform, false);
-        shipPart.AddComponent<CanvasRenderer>();
-        shipPart.AddComponent<Image>().sprite = Resources.Load<Sprite>("HUD_Elemente/ButtonElements/ShipPart") as Sprite;
+
         Image shipPartImage = shipPart.GetComponent<Image>();
+        shipPartImage.sprite = Resources.Load<Sprite>("HUD_Elemente/ButtonElements/ShipPart") as Sprite;
         shipPartImage.type = Image.Type.Simple;
         shipPartImage.preserveAspect = true;
 
-        if (name == "FleetMenu1")
+        if (player.number == 1)
         {
             shipPart.layer = 11;
         }
@@ -233,13 +232,12 @@ public class FleetMenuScript : MonoBehaviour
 
         for (int i = 0; i < OverworldData.DimensionsCount; i++)
         {
-            GameObject HUDDimension = new();
-            HUDDimension.name = "HUDDimension0" + (i + 1);
+            GameObject HUDDimension = new("HUDDimension0" + (i + 1), typeof(CanvasRenderer), typeof(Image));
             HUDDimension.transform.SetParent(dimensionsHeader.transform, false);
-            HUDDimension.AddComponent<CanvasRenderer>();
-            HUDDimension.AddComponent<Image>().sprite = Resources.Load<Sprite>("HUD_Elemente/Levels/Dimension0" + (i + 1)) as Sprite;
+
             Image HUDDimensionImage = HUDDimension.GetComponent<Image>();
-            HUDDimension.GetComponent<Image>().type = Image.Type.Simple;
+            HUDDimensionImage.sprite = Resources.Load<Sprite>("HUD_Elemente/Levels/Dimension0" + (i + 1)) as Sprite;
+            HUDDimensionImage.type = Image.Type.Simple;
             HUDDimensionImage.SetNativeSize();
             dimensions[i] = HUDDimension;
 
