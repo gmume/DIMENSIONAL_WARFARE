@@ -123,32 +123,36 @@ public class InputHandling : MonoBehaviour
             float x = vector.x;
             float y = vector.y;
 
+            Ship ship = player.ActiveShip;
+
+            //ship.ReleaseCell();
+
             //Get axis
             if (Math.Abs(x) > Math.Abs(y))
             {
                 if (x > 0)
                 {
-                    player.ActiveShip.Move(1, 0);
+                    ship.Move(1, 0);
                 }
                 else
                 {
-                    player.ActiveShip.Move(-1, 0);
+                    ship.Move(-1, 0);
                 }
             }
             else
             {
                 if (y > 0)
                 {
-                    player.ActiveShip.Move(0, 1);
+                    ship.Move(0, 1);
                 }
                 else
                 {
-                    player.ActiveShip.Move(0, -1);
+                    ship.Move(0, -1);
                 }
             }
 
-            player.fleetMenu.UpdateFleetMenuCoords(player.ActiveShip.X, player.ActiveShip.Z);
-            opponent.fleetMenu.UpdateFleetMenuCoords(player.ActiveShip.X, player.ActiveShip.Z);
+            player.fleetMenu.UpdateFleetMenuCoords(ship.X, ship.Z);
+            opponent.fleetMenu.UpdateFleetMenuCoords(ship.X, ship.Z);
         }
     }
 
@@ -217,7 +221,7 @@ public class InputHandling : MonoBehaviour
     {
         if (ctx.performed)
         {
-            player.ActiveShip.Deactivate(player);
+            player.ActiveShip.Deactivate();
             player.input.SwitchCurrentActionMap("FleetMenu");
 
             if (name == "Player1")
@@ -284,7 +288,7 @@ public class InputHandling : MonoBehaviour
         {
             if (name == "Player1" && OverworldData.PlayerTurn == 1 || name == "Player2" && OverworldData.PlayerTurn == 2)
             {
-                player.ActiveShip.Fire(player);
+                player.ActiveShip.Fire();
                 StartCoroutine(PauseAndTakeTurns());
             }
             else
@@ -318,7 +322,7 @@ public class InputHandling : MonoBehaviour
     {
         if (player.ActiveShip != null)
         {
-            player.ActiveShip.Deactivate(player);
+            player.ActiveShip.Deactivate();
         }
 
         player.eventSystem.SetSelectedGameObject(null);

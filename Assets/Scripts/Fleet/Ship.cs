@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Ship : MonoBehaviour
 {
+    private Player player;
     private bool[] partDamaged;
 
     public string ShipName { get; private set; }
@@ -14,19 +15,23 @@ public class Ship : MonoBehaviour
     public Directions Direction { get; set; }
     public int PartsCount { get; private set; }
 
-    public void Activate(Player player)
+    public void Activate()
     {
         if (player.ActiveShip != this)
         {
+            if (player.ActiveShip)
+            {
+                player.ActiveShip.Deactivate();
+            }
             GetComponent<Renderer>().material.color = Color.black;
             Vector3 vectorUp = new(0f, 0.1f, 0f);
             GetComponent<Transform>().position += vectorUp;
-            ReleaseCell(X, Z);
+            ReleaseCell();
             player.ActiveShip = this;
         }
     }
 
-    public void Deactivate(Player player)
+    public void Deactivate()
     {
         if (player.number == 1)
         {
@@ -39,7 +44,6 @@ public class Ship : MonoBehaviour
 
         Vector3 vectorDown = new(0f, -0.1f, 0f);
         GetComponent<Transform>().position += vectorDown;
-        OccupyCell();
         player.ActiveShip = null;
     }
 
@@ -47,6 +51,8 @@ public class Ship : MonoBehaviour
     {
         if (X + x < OverworldData.DimensionSize && Z + y < OverworldData.DimensionSize && X + x >= 0 && Z + y >= 0)
         {
+            ReleaseCell();
+
             if (x == 0)
             {
                 Z += y;
@@ -57,6 +63,7 @@ public class Ship : MonoBehaviour
             }
 
             position.position += new Vector3(x, 0, y);
+            OccupyCell();
         }
         else
         {
@@ -114,18 +121,13 @@ public class Ship : MonoBehaviour
         }
     }
 
-    public void OccupyCell()
-    {
-        Dimension.GetCell(X, Z).GetComponent<Cell>().Occupied = true;
-    }
-
-    public void Fire(Player player)
+    public void Fire()
     {
         //Fire on selected cell
         Cell activeCell = player.ActiveCell;
         Material cellMaterial = activeCell.GetComponent<Renderer>().material;
 
-        if (name == "Player1")
+        if (player.name == "Player1")
         {
             cellMaterial.color = Color.red;
         }
@@ -134,8 +136,8 @@ public class Ship : MonoBehaviour
             cellMaterial.color = Color.yellow;
         }
 
-        player.ActiveCell.Hitted = true;
-
+        activeCell.Hitted = true;
+        Debug.Log("occupied? " + activeCell.Occupied);
         if (activeCell.Occupied)
         {
             GameObject opponentShipObj = Dimension.GetShipOnCell(activeCell.X, activeCell.Y);
@@ -145,7 +147,7 @@ public class Ship : MonoBehaviour
             Material shipMaterial = opponentShipObj.GetComponent<Renderer>().material;
             opponentShipObj.GetComponent<Renderer>().material = shipMaterial;
 
-            if (name == "Player1")
+            if (player.name == "Player1")
             {
                 shipMaterial.color = Color.red;
             }
@@ -158,15 +160,27 @@ public class Ship : MonoBehaviour
     
     public void TakeHit(int x, int y)
     {
-        //Debug.Log("mod x: " + (x % X));
-        //Debug.Log("mod y: " + (y % Z));
+        Debug.Log("mod x: " + (x % X));
+        Debug.Log("mod y: " + (y % Z));
         int part = (x % X) % (y % Z);
-        //Debug.Log("part: " + part); 
+        Debug.Log("part: " + part);
     }
 
-    private void ReleaseCell(int x, int y)
+    public void OccupyCell()
     {
-        Dimension.GetCell(x, y).GetComponent<Cell>().Occupied = false;
+        if(player.number == 1)
+        {
+            Debug.Log("ship " + X + ", " + Z);
+            Cell cell = Dimension.GetCell(X, Z).GetComponent<Cell>();
+            Debug.Log("cell " + cell.X + ", " + cell.Y);
+        }
+        
+        Dimension.GetCell(X, Z).GetComponent<Cell>().Occupied = true;
+    }
+
+    public void ReleaseCell()
+    {
+        Dimension.GetCell(X, Z).GetComponent<Cell>().Occupied = false;
     }
 
     public bool[] GetDamagedParts()
@@ -174,8 +188,9 @@ public class Ship : MonoBehaviour
         return partDamaged;
     }
 
-    public void InitiateShip(int shipNr)
+    public void InitiateShip(Player player, int shipNr)
     {
+        this.player = player;
         ShipName = "ship" + PartsCount.ToString();
         position = GetComponent<Transform>();
         X = shipNr;

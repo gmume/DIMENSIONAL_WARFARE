@@ -24,20 +24,15 @@ public class Fleet : ScriptableObject
             }
            
             ship.layer = Layer.SetLayerFleet(player);
-            ship.GetComponent<Ship>().InitiateShip(i);
+            ship.GetComponent<Ship>().InitiateShip(player, i);
             fleet.Add(ship);
         }
     }
 
     public void ActivateShip(int shipNr, Player player)
     {        
-        if (player.ActiveShip != null)
-        {
-            player.ActiveShip.Deactivate(player);
-        }
-
         GameObject shipObj = (GameObject)fleet[shipNr];
-        shipObj.GetComponent<Ship>().Activate(player);
+        shipObj.GetComponent<Ship>().Activate();
 
         if(OverworldData.GamePhase == GamePhases.Battle) {
             player.input.SwitchCurrentActionMap("Player");
