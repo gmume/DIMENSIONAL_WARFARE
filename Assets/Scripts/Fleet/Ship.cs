@@ -26,7 +26,7 @@ public class Ship : MonoBehaviour
             GetComponent<Renderer>().material.color = Color.black;
             Vector3 vectorUp = new(0f, 0.1f, 0f);
             GetComponent<Transform>().position += vectorUp;
-            ReleaseCell();
+            //ReleaseCell();
             player.ActiveShip = this;
         }
     }
@@ -137,7 +137,7 @@ public class Ship : MonoBehaviour
         }
 
         activeCell.Hitted = true;
-        Debug.Log("occupied? " + activeCell.Occupied);
+
         if (activeCell.Occupied)
         {
             GameObject opponentShipObj = Dimension.GetShipOnCell(activeCell.X, activeCell.Y);
@@ -147,7 +147,7 @@ public class Ship : MonoBehaviour
             Material shipMaterial = opponentShipObj.GetComponent<Renderer>().material;
             opponentShipObj.GetComponent<Renderer>().material = shipMaterial;
 
-            if (player.name == "Player1")
+            if (player.number == 1)
             {
                 shipMaterial.color = Color.red;
             }
@@ -157,24 +157,18 @@ public class Ship : MonoBehaviour
             }
         }
     }
-    
+
     public void TakeHit(int x, int y)
     {
-        Debug.Log("mod x: " + (x % X));
-        Debug.Log("mod y: " + (y % Z));
-        int part = (x % X) % (y % Z);
-        Debug.Log("part: " + part);
+        x += 1;
+        y += 1;
+
+        int part = ((x % (X + 1) + 1) % ((y % (Z + 1)) + 1));
+        partDamaged[part] = true;
     }
 
     public void OccupyCell()
     {
-        if(player.number == 1)
-        {
-            Debug.Log("ship " + X + ", " + Z);
-            Cell cell = Dimension.GetCell(X, Z).GetComponent<Cell>();
-            Debug.Log("cell " + cell.X + ", " + cell.Y);
-        }
-        
         Dimension.GetCell(X, Z).GetComponent<Cell>().Occupied = true;
     }
 

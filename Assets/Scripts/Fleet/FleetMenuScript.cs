@@ -30,7 +30,7 @@ public class FleetMenuScript : MonoBehaviour
 
     private void Awake()
     {
-        if(this.name == "FleetMenu1")
+        if (this.name == "FleetMenu1")
         {
             player = OverworldData.player1;
         }
@@ -172,10 +172,8 @@ public class FleetMenuScript : MonoBehaviour
         button.transform.SetParent(parentsTransform, false);
         Navigation buttonNavigation = button.navigation;
         buttonNavigation.mode = Navigation.Mode.None;
-        buttonObj.AddComponent<ShipButton>();
-        buttonObj.GetComponent<ShipButton>().ShipButtonNr = i;
+        buttonObj.AddComponent<ShipButton>().ShipButtonNr = i;
         buttonObj.AddComponent<HorizontalLayoutGroup>().childAlignment = TextAnchor.MiddleCenter;
-
 
         if (i == 0)
         {

@@ -26,7 +26,7 @@ public class PlayerWorld : MonoBehaviour
 
     private void Update()
     {
-        if(player.ActiveShip == null)
+        if (player.ActiveShip == null)
         {
             ShipName = "no ship";
         }
@@ -43,14 +43,22 @@ public class PlayerWorld : MonoBehaviour
 
     public void SetNewCellRelative(int x, int y)
     {
-        if (player.ActiveCell != null)
+        if (x < OverworldData.DimensionSize && y < OverworldData.DimensionSize)
         {
-            DeactivateCell();
+            if (player.ActiveCell != null)
+            {
+                DeactivateCell();
+            }
+
+            currentX += x;
+            currentY += y;
+            player.ActiveCell = player.dimensions.GetDimension(player.ActiveDimension.DimensionNr).GetCell(currentX, currentY).GetComponent<Cell>();
+            ActivateCell();
         }
-        currentX += x;
-        currentY += y;
-        player.ActiveCell = player.dimensions.GetDimension(player.ActiveDimension.DimensionNr).GetCell(currentX, currentY).GetComponent<Cell>();
-        ActivateCell();
+        else
+        {
+            Debug.Log("Cell outside of dimension!");
+        }
     }
 
     public void SetNewCellAbsolute(int x, int y)

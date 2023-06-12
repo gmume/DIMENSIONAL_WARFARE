@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
+using UnityEngine.UI;
 
 public class Debugging : MonoBehaviour
 {
@@ -65,6 +66,8 @@ public class Debugging : MonoBehaviour
         eventSystem2 = player2.eventSystem;
         UIInputModulePlayer1 = player1.inputSystem;
         UIInputModulePlayer2 = player2.inputSystem;
+
+        ShowCellCoords();
     }
 
     void Update()
@@ -104,5 +107,46 @@ public class Debugging : MonoBehaviour
 
         currentSelectedButton1 = eventSystem1.currentSelectedGameObject;
         currentSelectedButton2 = eventSystem2.currentSelectedGameObject;
+    }
+
+    private void ShowCellCoords()
+    {
+        Dimension dimension = player1.dimensions.GetDimension(0);
+
+        for (int i = 0; i < OverworldData.DimensionSize; i++)
+        {
+            foreach (var cellObj in dimension.cells[i])
+            {
+                Cell cell = cellObj.GetComponent<Cell>();
+                GameObject canvasObj;
+                GameObject myText;
+                Canvas myCanvas;
+                Text text;
+
+                canvasObj = new GameObject("TestCanvas", typeof(Canvas), typeof(GraphicRaycaster));
+                canvasObj.transform.SetParent(cellObj.transform, false);
+                RectTransform trans = canvasObj.GetComponent<RectTransform>();
+                trans.Rotate(new Vector3(90, 0, 0));
+
+                Transform transParent = canvasObj.GetComponent<Transform>();
+                trans.position = new Vector3(transParent.position.x, 0.51f, transParent.position.z);
+                trans.sizeDelta = new Vector3(1, 1, 0);
+
+                myCanvas = canvasObj.GetComponent<Canvas>();
+                myCanvas.renderMode = RenderMode.WorldSpace;
+
+                myText = new GameObject("cellText", typeof(Text));
+                myText.transform.SetParent(myCanvas.transform, false);
+                myText.GetComponent<RectTransform>().localScale = new Vector3(0.003f, 0.003f, 1);
+
+                text = myText.GetComponent<Text>();
+                text.font = (Font)Resources.Load("arial");
+                text.text = cell.X + "," + cell.Y;
+                text.fontSize = 150;
+                text.horizontalOverflow = HorizontalWrapMode.Overflow;
+                text.verticalOverflow = VerticalWrapMode.Overflow;
+                text.alignment = TextAnchor.MiddleCenter;
+            }
+        }
     }
 }
