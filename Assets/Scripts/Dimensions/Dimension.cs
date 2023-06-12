@@ -28,25 +28,14 @@ public class Dimension : MonoBehaviour
                 ship.Dimension = this;
                 ship.OccupyCell();
 
-                //if(player.number == 1 && DimensionNr == 0)
-                //{
-                //    Debug.Log("ship: " + ship.X + ", " + ship.Z);
-                //}
-
+                if (player.number == 1)
+                {
+                    ship.GetStatus();
+                }
             }
 
             AddShips(fleet);
         }
-
-        //if (player.number == 1 && DimensionNr == 0)
-        //{
-        //    Cell cell;
-        //    foreach (var cellObj in cells[0])
-        //    {
-        //        cell = cellObj.GetComponent<Cell>();
-        //        Debug.Log("occupied? " + cell.X + ", " + cell.Y + ": " + cell.Occupied);
-        //    }
-        //}
     }
 
     public void CreateCells(GameObject cellPrefab)
