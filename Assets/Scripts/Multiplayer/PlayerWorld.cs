@@ -24,17 +24,17 @@ public class PlayerWorld : MonoBehaviour
         SetNewDimension(0);
     }
 
-    private void Update()
-    {
-        if (player.ActiveShip == null)
-        {
-            ShipName = "no ship";
-        }
-        else
-        {
-            ShipName = player.ActiveShip.ShipName;
-        }
-    }
+    //private void Update()
+    //{
+    //    if (player.ActiveShip == null)
+    //    {
+    //        ShipName = "no ship";
+    //    }
+    //    else
+    //    {
+    //        ShipName = player.ActiveShip.ShipName;
+    //    }
+    //}
 
     public void SetNewDimension(int nr)
     {

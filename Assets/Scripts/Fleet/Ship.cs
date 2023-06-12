@@ -15,6 +15,26 @@ public class Ship : MonoBehaviour
     public Directions Direction { get; set; }
     public int PartsCount { get; private set; }
 
+    public void GetStatus()
+    {
+        string message = ShipName + " on dimension " + Dimension.DimensionNr + "\nCoordiantes: " + X + ", " + Z + "\nDamaged (";
+
+        for (int i = 0; i < PartsCount; i++)
+        {
+            if (i == 0)
+            {
+                message += "part ";
+            }
+            else
+            {
+                message += ", part ";
+            }
+            message += i + ": " + partDamaged[i];
+        }
+
+        Debug.Log(message + ")");
+    }
+
     public void Activate()
     {
         if (player.ActiveShip != this)
@@ -185,11 +205,11 @@ public class Ship : MonoBehaviour
     public void InitiateShip(Player player, int shipNr)
     {
         this.player = player;
-        ShipName = "ship" + PartsCount.ToString();
+        ShipName = "ship" + shipNr;
         position = GetComponent<Transform>();
         X = shipNr;
         Direction = Directions.North;
-        PartsCount = shipNr + 2;
+        PartsCount = shipNr + 1;
         partDamaged = new bool[PartsCount];
 
         for (int i = 0; i < shipNr; i++)
