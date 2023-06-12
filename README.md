@@ -37,3 +37,6 @@ Refacotred properties.
 
 ## 06.06.2023
 Refacturing: Transfered PlayerData, dimensions and fleet to Player.
+
+## 12.06.2023
+Hit detection works.
