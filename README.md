@@ -40,3 +40,4 @@ Refacturing: Transfered PlayerData, dimensions and fleet to Player.
 
 ## 12.06.2023
 Hit detection works.
+Added ship status log.
