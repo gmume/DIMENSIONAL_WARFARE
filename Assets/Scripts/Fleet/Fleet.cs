@@ -14,7 +14,7 @@ public class Fleet : ScriptableObject
         for (int i = 0; i < OverworldData.FleetSize; i++)
         {
             GameObject ship = Instantiate(shipPrefab, new Vector3(i, 1, 0), Quaternion.identity);
-            if(player.number == 1)
+            if (player.number == 1)
             {
                 ship.GetComponent<Renderer>().material.color = new Color(0.8f, 0.5f, 0.5f, 1);
             }
@@ -22,7 +22,7 @@ public class Fleet : ScriptableObject
             {
                 ship.GetComponent<Renderer>().material.color = new Color(0.8f, 0.7f, 0.5f, 1);
             }
-           
+
             ship.layer = Layer.SetLayerFleet(player);
             ship.GetComponent<Ship>().InitiateShip(player, i);
             fleet.Add(ship);
@@ -30,11 +30,12 @@ public class Fleet : ScriptableObject
     }
 
     public void ActivateShip(int shipNr, Player player)
-    {        
+    {
         GameObject shipObj = (GameObject)fleet[shipNr];
         shipObj.GetComponent<Ship>().Activate();
 
-        if(OverworldData.GamePhase == GamePhases.Battle) {
+        if (OverworldData.GamePhase == GamePhases.Battle)
+        {
             player.input.SwitchCurrentActionMap("Player");
             player.inputHandling.SwitchActionMap("Player");
         }

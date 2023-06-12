@@ -17,7 +17,7 @@ public class InputHandling : MonoBehaviour
     {
         player = GetComponent<Player>();
 
-        if(name == "Player1")
+        if (name == "Player1")
         {
             opponent = OverworldData.player2;
         }
@@ -162,7 +162,7 @@ public class InputHandling : MonoBehaviour
         {
             //Turn ship left
             player.ActiveShip.GetComponent<Transform>().Rotate(0, -90, 0);
-        }   
+        }
     }
 
     public void OnTurnRight(CallbackContext ctx)
