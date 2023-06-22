@@ -17,11 +17,11 @@ public class Fleet : ScriptableObject
 
             if (player.number == 1)
             {
-                ship.GetComponent<Renderer>().material.color = new Color(0.8f, 0.5f, 0.5f, 1);
+                ship.GetComponent<Renderer>().material.color = new Color(0.5f, 0.32f, 0.18f, 1); // brown
             }
             else
             {
-                ship.GetComponent<Renderer>().material.color = new Color(0.8f, 0.7f, 0.5f, 1);
+                ship.GetComponent<Renderer>().material.color = new Color(0.5f, 0.5f, 0, 1); // olive
             }
 
             ship.layer = Layer.SetLayerFleet(player);
@@ -37,7 +37,7 @@ public class Fleet : ScriptableObject
 
         if (OverworldData.GamePhase == GamePhases.Battle)
         {
-            player.input.SwitchCurrentActionMap("Player");
+            //player.input.SwitchCurrentActionMap("Player");
             player.inputHandling.SwitchActionMap("Player");
         }
     }

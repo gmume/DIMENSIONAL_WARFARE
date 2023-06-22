@@ -18,13 +18,15 @@ public class Debugging : MonoBehaviour
     private PlayerInput playerInput2;
     private Camera camera1;
     private Camera camera2;
+    private Ship actShip1;
+    private Ship actShip2;
 
     public string GamePhase;
     public int playerTurn;
-    public Ship activeShip1;
-    public Ship activeShip2;
-    public Cell activeCell1;
-    public Cell activeCell2;
+    public string activeShip1;
+    public string activeShip2;
+    public string activeCell1;
+    public string activeCell2;
     public bool inputEnabled1;
     public bool inputEnabled2;
     public string actionMapPlayer1;
@@ -75,11 +77,16 @@ public class Debugging : MonoBehaviour
         GamePhase = OverworldData.GamePhase.ToString();
         playerTurn = OverworldData.PlayerTurn;
 
-        activeShip1 = player1.ActiveShip;
-        activeShip2 = player2.ActiveShip;
+        actShip1 = player1.ActiveShip;
+        actShip2 = player2.ActiveShip;
+        activeShip1 = actShip1.ShipName + ": " + actShip1.X + ", " + actShip1.Z;
+        activeShip2 = actShip2.ShipName + ": " + actShip2.X + ", " + actShip2.Z;
 
-        activeCell1 = player1.ActiveCell;
-        activeCell2 = player2.ActiveCell;
+        if(OverworldData.GamePhase == GamePhases.Battle)
+        {
+            activeCell1 = player1.ActiveCell.X + ", " + player1.ActiveCell.Y;
+            activeCell2 = player2.ActiveCell.X + ", " + player2.ActiveCell.Y;
+        }
 
         if (playerInput1.enabled && playerInput2.enabled)
         {
