@@ -41,3 +41,9 @@ Refacturing: Transfered PlayerData, dimensions and fleet to Player.
 ## 12.06.2023
 Hit detection works.
 Added ship status log.
+
+## 22.06.2023
+New bug detected. Coordinates of active cells and ships are not the same on hitting a ship.
+<video width="480" height="320" controls="controls">
+  <source src="video/video3.mp4" type="video/mp4">
+</video> 
