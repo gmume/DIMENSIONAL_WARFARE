@@ -51,3 +51,4 @@ Finally, it's working again.
 <video width="480" height="320" controls="controls">
   <source src="video/video4.mp4" type="video/mp4">
 </video> 
+Added collision course detection.
