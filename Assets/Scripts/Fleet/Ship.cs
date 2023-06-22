@@ -55,11 +55,11 @@ public class Ship : MonoBehaviour
     {
         if (player.number == 1)
         {
-            GetComponent<Renderer>().material.color = new Color(0.8f, 0.5f, 0.5f, 1);
+            GetComponent<Renderer>().material.color = new Color(0.5f, 0.32f, 0.18f, 1);
         }
         else
         {
-            GetComponent<Renderer>().material.color = new Color(0.8f, 0.7f, 0.5f, 1);
+            GetComponent<Renderer>().material.color = new Color(0.5f, 0.5f, 0, 1);
         }
 
         Vector3 vectorDown = new(0f, -0.1f, 0f);
