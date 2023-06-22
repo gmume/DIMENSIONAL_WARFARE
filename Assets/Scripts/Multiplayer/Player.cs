@@ -7,6 +7,7 @@ using UnityEngine.InputSystem.UI;
 public class Player : MonoBehaviour
 {
     public int number;
+    public Player opponent;
 
     public GameObject obj;
     public PlayerWorld world;
@@ -37,8 +38,18 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        number = int.Parse(this.name[this.name.Length - 1].ToString());
-        obj = GameObject.Find(this.name);
+        number = int.Parse(name[^1].ToString());
+
+        if (number == 1)
+        {
+            opponent = GameObject.Find("Player2").GetComponent<Player>();
+        }
+        else
+        {
+            opponent = GameObject.Find("Player1").GetComponent<Player>();
+        }
+
+        obj = GameObject.Find(name);
         world = obj.GetComponent<PlayerWorld>();
         inputHandling = obj.GetComponent<InputHandling>();
         input = obj.GetComponent<PlayerInput>();

@@ -77,16 +77,22 @@ public class Debugging : MonoBehaviour
         GamePhase = OverworldData.GamePhase.ToString();
         playerTurn = OverworldData.PlayerTurn;
 
-        actShip1 = player1.ActiveShip;
-        actShip2 = player2.ActiveShip;
-        activeShip1 = actShip1.ShipName + ": " + actShip1.X + ", " + actShip1.Z;
-        activeShip2 = actShip2.ShipName + ": " + actShip2.X + ", " + actShip2.Z;
+        if(player1.ActiveShip || player2.ActiveShip)
+        {
+            actShip1 = player1.ActiveShip;
+            actShip2 = player2.ActiveShip;
+            activeShip1 = actShip1.ShipName + ": " + actShip1.X + ", " + actShip1.Z;
+            activeShip2 = actShip2.ShipName + ": " + actShip2.X + ", " + actShip2.Z;
+        }
 
-        if(OverworldData.GamePhase == GamePhases.Battle)
+        if(player1.ActiveCell && player2.ActiveCell)
         {
             activeCell1 = player1.ActiveCell.X + ", " + player1.ActiveCell.Y;
             activeCell2 = player2.ActiveCell.X + ", " + player2.ActiveCell.Y;
         }
+
+        currentSelectedButton1 = eventSystem1.currentSelectedGameObject;
+        currentSelectedButton2 = eventSystem2.currentSelectedGameObject;
 
         if (playerInput1.enabled && playerInput2.enabled)
         {
@@ -111,9 +117,6 @@ public class Debugging : MonoBehaviour
 
         inputEnabled1 = playerInput1.enabled;
         inputEnabled2 = playerInput2.enabled;
-
-        currentSelectedButton1 = eventSystem1.currentSelectedGameObject;
-        currentSelectedButton2 = eventSystem2.currentSelectedGameObject;
     }
 
     private void ShowCellCoords()

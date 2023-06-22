@@ -46,7 +46,6 @@ public class Ship : MonoBehaviour
             GetComponent<Renderer>().material.color = Color.black;
             Vector3 vectorUp = new(0f, 0.1f, 0f);
             GetComponent<Transform>().position += vectorUp;
-            //ReleaseCell();
             player.ActiveShip = this;
         }
     }
@@ -158,9 +157,12 @@ public class Ship : MonoBehaviour
 
         activeCell.Hitted = true;
 
-        if (activeCell.Occupied)
+        Dimension opponentDimension = player.opponent.dimensions.GetDimension(Dimension.DimensionNr);
+        Cell opponentCell = opponentDimension.GetCell(activeCell.X, activeCell.Y).GetComponent<Cell>();
+
+        if (opponentCell.Occupied)
         {
-            GameObject opponentShipObj = Dimension.GetShipOnCell(activeCell.X, activeCell.Y);
+            GameObject opponentShipObj = opponentDimension.GetShipOnCell(activeCell.X, activeCell.Y);
             Ship opponentShip = opponentShipObj.GetComponent<Ship>();
             opponentShip.TakeHit(activeCell.X, activeCell.Y);
 
@@ -207,7 +209,7 @@ public class Ship : MonoBehaviour
         this.player = player;
         ShipName = "ship" + shipNr;
         position = GetComponent<Transform>();
-        X = shipNr;
+        X = shipNr - 1;
         Direction = Directions.North;
         PartsCount = shipNr + 1;
         partDamaged = new bool[PartsCount];
