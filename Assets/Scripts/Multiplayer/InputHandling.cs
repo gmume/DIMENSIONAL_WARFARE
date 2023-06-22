@@ -16,19 +16,12 @@ public class InputHandling : MonoBehaviour
     private void Awake()
     {
         player = GetComponent<Player>();
-
-        if (name == "Player1")
-        {
-            opponent = OverworldData.player2;
-        }
-        else
-        {
-            opponent = OverworldData.player1;
-        }
     }
 
     private void Start()
     {
+        opponent = player.opponent;
+
         gameStartMap = player.input.actions.FindActionMap("GameStart");
         playerMap = player.input.actions.FindActionMap("Player");
         fleetMenuMap = player.input.actions.FindActionMap("FleetMenu");
