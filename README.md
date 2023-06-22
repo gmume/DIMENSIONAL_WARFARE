@@ -47,8 +47,8 @@ New bug detected. Coordinates of active cells and ships are not the same on hitt
 <video width="480" height="320" controls="controls">
   <source src="video/video3.mp4" type="video/mp4">
 </video> 
-Finally, it's working again.
+Finally, it's working again and added collision course detection.
 <video width="480" height="320" controls="controls">
   <source src="video/video4.mp4" type="video/mp4">
 </video> 
-Added collision course detection.
+
