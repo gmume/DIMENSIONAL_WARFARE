@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Ship : MonoBehaviour
@@ -14,6 +15,7 @@ public class Ship : MonoBehaviour
     public int Z { get; private set; }
     public Directions Direction { get; set; }
     public int PartsCount { get; private set; }
+    public Material ShipMaterial { get; set; }
 
     public void GetStatus()
     {
@@ -32,7 +34,7 @@ public class Ship : MonoBehaviour
             message += i + ": " + partDamaged[i];
         }
 
-        Debug.Log(message + ")");
+        //Debug.Log(message + ")");
     }
 
     public void Activate()
@@ -43,7 +45,8 @@ public class Ship : MonoBehaviour
             {
                 player.ActiveShip.Deactivate();
             }
-            GetComponent<Renderer>().material.color = Color.black;
+
+            ShipMaterial.color += new Color(0.3f, 0.3f, 0.3f);
             Vector3 vectorUp = new(0f, 0.1f, 0f);
             GetComponent<Transform>().position += vectorUp;
             player.ActiveShip = this;
@@ -52,15 +55,7 @@ public class Ship : MonoBehaviour
 
     public void Deactivate()
     {
-        if (player.number == 1)
-        {
-            GetComponent<Renderer>().material.color = new Color(0.5f, 0.32f, 0.18f, 1);
-        }
-        else
-        {
-            GetComponent<Renderer>().material.color = new Color(0.5f, 0.5f, 0, 1);
-        }
-
+        ShipMaterial.color -= new Color(0.3f, 0.3f, 0.3f);
         Vector3 vectorDown = new(0f, -0.1f, 0f);
         GetComponent<Transform>().position += vectorDown;
         player.ActiveShip = null;
@@ -70,24 +65,45 @@ public class Ship : MonoBehaviour
     {
         if (X + x < OverworldData.DimensionSize && Z + y < OverworldData.DimensionSize && X + x >= 0 && Z + y >= 0)
         {
-            ReleaseCell();
-
-            if (x == 0)
+            if (!CollisionCourse(x, y))
             {
-                Z += y;
+                ReleaseCell();
+
+                if (x == 0)
+                {
+                    Z += y;
+                }
+                else
+                {
+                    X += x;
+                }
+
+                position.position += new Vector3(x, 0, y);
+                OccupyCell();
             }
             else
             {
-                X += x;
+                print("Capt'n, we are on collision course! Let the ship heave to!");
             }
-
-            position.position += new Vector3(x, 0, y);
-            OccupyCell();
         }
         else
         {
             print("Don't let your ship run aground, capt'n!");
         }
+    }
+
+    private bool CollisionCourse(int x, int y)
+    {
+        int xPos = X + x;
+        int yPos = Z + y;
+        Cell cell = player.opponent.dimensions.GetDimension(Dimension.DimensionNr).GetCell(xPos, yPos).GetComponent<Cell>();
+        
+        if(cell.Occupied)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public void QuaterTurnRight()
@@ -158,39 +174,60 @@ public class Ship : MonoBehaviour
         activeCell.Hitted = true;
 
         Dimension opponentDimension = player.opponent.dimensions.GetDimension(Dimension.DimensionNr);
+        Debug.Log("opponentDimension: " + opponentDimension);
         Cell opponentCell = opponentDimension.GetCell(activeCell.X, activeCell.Y).GetComponent<Cell>();
+        Debug.Log("opponentCell: " + opponentCell.Occupied);
 
         if (opponentCell.Occupied)
         {
+            Debug.Log("opponentCell.Occupied");
             GameObject opponentShipObj = opponentDimension.GetShipOnCell(activeCell.X, activeCell.Y);
             Ship opponentShip = opponentShipObj.GetComponent<Ship>();
             opponentShip.TakeHit(activeCell.X, activeCell.Y);
-
-            Material shipMaterial = opponentShipObj.GetComponent<Renderer>().material;
-            opponentShipObj.GetComponent<Renderer>().material = shipMaterial;
-
-            if (player.number == 1)
-            {
-                shipMaterial.color = Color.red;
-            }
-            else
-            {
-                shipMaterial.color = Color.yellow;
-            }
         }
     }
 
     public void TakeHit(int x, int y)
     {
+        Debug.Log("entred TakeHit");
         x += 1;
         y += 1;
 
         int part = ((x % (X + 1) + 1) % ((y % (Z + 1)) + 1));
         partDamaged[part] = true;
+        ShipMaterial.color += new Color(0.3f, 0, 0);
+
+        if (this.gameObject.layer != LayerMask.NameToLayer("VisibleShips"))
+        {
+            this.gameObject.layer = LayerMask.NameToLayer("VisibleShips");
+        }
+
+        //SunkCheck coming
+    }
+
+    private bool SunkCheck()
+    {
+        int damagedParts = 0;
+
+        foreach (var part in partDamaged)
+        {
+            if (part == true)
+            {
+                damagedParts++;
+            }
+        }
+
+        if (damagedParts == partDamaged.Length)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public void OccupyCell()
     {
+        Debug.Log("cell: " + Dimension.GetCell(X, Z).GetComponent<Cell>().X + ", " + Dimension.GetCell(X, Z).GetComponent<Cell>().Y);
         Dimension.GetCell(X, Z).GetComponent<Cell>().Occupied = true;
     }
 

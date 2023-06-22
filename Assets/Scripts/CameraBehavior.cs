@@ -45,11 +45,11 @@ public class CameraBehavior : MonoBehaviour
             case GamePhases.Attacked:
                 if (name == "Camera1")
                 {
-                    camera.cullingMask = LayerMask.GetMask("Default", "TransparentFX", "Ignore Raycast", "Water", "UI", "Player1", "Fleet1", "FleetMenu1");
+                    camera.cullingMask = LayerMask.GetMask("Default", "TransparentFX", "Ignore Raycast", "Water", "UI", "Player1", "Fleet1", "VisibleShips", "FleetMenu1");
                 }
                 else
                 {
-                    camera.cullingMask = LayerMask.GetMask("Default", "TransparentFX", "Ignore Raycast", "Water", "UI", "Player2", "Fleet2", "FleetMenu2");
+                    camera.cullingMask = LayerMask.GetMask("Default", "TransparentFX", "Ignore Raycast", "Water", "UI", "Player2", "Fleet2", "VisibleShips", "FleetMenu2");
                 }
 
                 if (armed.activeSelf)
