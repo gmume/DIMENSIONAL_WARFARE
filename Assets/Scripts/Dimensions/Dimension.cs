@@ -27,11 +27,6 @@ public class Dimension : MonoBehaviour
                 Ship ship = shipObj.GetComponent<Ship>();
                 ship.Dimension = this;
                 ship.OccupyCell();
-
-                if (player.number == 1)
-                {
-                    ship.GetStatus();
-                }
             }
 
             AddShips(fleet);

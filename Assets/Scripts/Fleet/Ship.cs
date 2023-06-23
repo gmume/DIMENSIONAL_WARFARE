@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+//using UnityEngine.UIElements;
 
 public class Ship : MonoBehaviour
 {
@@ -9,6 +11,7 @@ public class Ship : MonoBehaviour
     private bool[] partDamaged;
 
     public string ShipName { get; private set; }
+    public ShipStatus ShipStatus { get; private set; }
     public Dimension Dimension { get; set; }
     private Transform position;
     public int X { get; private set; }
@@ -34,7 +37,7 @@ public class Ship : MonoBehaviour
             message += i + ": " + partDamaged[i];
         }
 
-        //Debug.Log(message + ")");
+        Debug.Log(message + ")");
     }
 
     public void Activate()
@@ -174,13 +177,10 @@ public class Ship : MonoBehaviour
         activeCell.Hitted = true;
 
         Dimension opponentDimension = player.opponent.dimensions.GetDimension(Dimension.DimensionNr);
-        Debug.Log("opponentDimension: " + opponentDimension);
         Cell opponentCell = opponentDimension.GetCell(activeCell.X, activeCell.Y).GetComponent<Cell>();
-        Debug.Log("opponentCell: " + opponentCell.Occupied);
 
         if (opponentCell.Occupied)
         {
-            Debug.Log("opponentCell.Occupied");
             GameObject opponentShipObj = opponentDimension.GetShipOnCell(activeCell.X, activeCell.Y);
             Ship opponentShip = opponentShipObj.GetComponent<Ship>();
             opponentShip.TakeHit(activeCell.X, activeCell.Y);
@@ -189,7 +189,6 @@ public class Ship : MonoBehaviour
 
     public void TakeHit(int x, int y)
     {
-        Debug.Log("entred TakeHit");
         x += 1;
         y += 1;
 
@@ -202,16 +201,30 @@ public class Ship : MonoBehaviour
             this.gameObject.layer = LayerMask.NameToLayer("VisibleShips");
         }
 
-        //SunkCheck coming
+        if (Sunk())
+        {
+            ShipStatus = ShipStatus.Sunk;
+            ShipMaterial.color = Color.black;
+            gameObject.transform.position += new Vector3(0, -0.5f, 0);
+            player.fleet.GetFleet().Remove(this);
+            GameObject[] shipButtons = player.fleetMenu.GetShipButtons();
+            shipButtons[PartsCount - 1].GetComponent<Button>().interactable = false;
+
+            if (FleetDestroyed())
+            {
+                print(player.opponent.name + "won!");
+                // resolve game
+            }
+        }
     }
 
-    private bool SunkCheck()
+    private bool Sunk()
     {
         int damagedParts = 0;
 
-        foreach (var part in partDamaged)
+        foreach (bool part in partDamaged)
         {
-            if (part == true)
+            if (part)
             {
                 damagedParts++;
             }
@@ -225,9 +238,21 @@ public class Ship : MonoBehaviour
         return false;
     }
 
+    private bool FleetDestroyed()
+    {
+        foreach (GameObject shipObj in player.fleet.GetFleet())
+        {
+            if (shipObj.GetComponent<Ship>().ShipStatus == ShipStatus.Intact)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public void OccupyCell()
     {
-        Debug.Log("cell: " + Dimension.GetCell(X, Z).GetComponent<Cell>().X + ", " + Dimension.GetCell(X, Z).GetComponent<Cell>().Y);
         Dimension.GetCell(X, Z).GetComponent<Cell>().Occupied = true;
     }
 
@@ -245,10 +270,11 @@ public class Ship : MonoBehaviour
     {
         this.player = player;
         ShipName = "ship" + shipNr;
+        ShipStatus = ShipStatus.Intact;
         position = GetComponent<Transform>();
         X = shipNr - 1;
         Direction = Directions.North;
-        PartsCount = shipNr + 1;
+        PartsCount = shipNr;
         partDamaged = new bool[PartsCount];
 
         for (int i = 0; i < shipNr; i++)

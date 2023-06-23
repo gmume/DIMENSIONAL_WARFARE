@@ -158,13 +158,13 @@ public class FleetMenuScript : MonoBehaviour
 
         if (name == "FleetMenu1")
         {
-            buttonObj.name = "Ship1." + (i + 1);
+            buttonObj.name = "ShipButton" + (i + 1);
             buttonObj.layer = 11;
             parentsTransform = GameObject.Find("ShipButtons1").GetComponent<Transform>();
         }
         else
         {
-            buttonObj.name = "Ship2." + (i + 1);
+            buttonObj.name = "ShipButton" + (i + 1);
             buttonObj.layer = 12;
             parentsTransform = GameObject.Find("ShipButtons2").GetComponent<Transform>();
         }
@@ -198,9 +198,11 @@ public class FleetMenuScript : MonoBehaviour
         button.image.SetNativeSize();
         button.transition = Selectable.Transition.SpriteSwap;
         Sprite buttonSelected = Resources.Load<Sprite>("HUD_Elemente/ButtonElements/Selection") as Sprite;
+        Sprite buttonDisabled = Resources.Load<Sprite>("HUD_Elemente/ButtonElements/Disabled") as Sprite;
 
         SpriteState spriteState = new();
         spriteState.selectedSprite = buttonSelected;
+        spriteState.disabledSprite = buttonDisabled;
         button.spriteState = spriteState;
     }
 
