@@ -6,16 +6,16 @@ This website is all about DIMENSIONAL WAREFARE, a game, that I started to build 
 
 ### Goals
 1. Complete implementation of the core game play on one dimension
-   * Collision detection
-   * Hit detection
-   * Ships can sink
-   * Exclude sunk ships from further game 
+   - [x] Collision detection
+   - [x] Hit detection
+   - [x] Ships can sink
+   - [ ] Exclude sunk ships from further game 
 3. Simple orientation and overview for players
-   * Visually show status of ships: activated/inactive, hit, sunk
-   * Zoom out to show all dimensions and ships at once
+   - [x] Visually show status of ships: activated/inactive, hit, sunk
+   - [ ] Zoom out to show all dimensions and ships at once
 5. Learn more about Unity
-   * Debugging in Unity
-   * Information handling for classes
+   - [x] Debugging in Unity
+   - [x] Information handling for classes
 
 ## Starting point
 Up until now, you can play the start phace of DIMENSIONAL WAREFER and you can shoot at your opponents fleet, even there isn't a hit detection implemented yet. If you are courious about the building process until here, you can read about it on the game blog of Digital Ideation.  
