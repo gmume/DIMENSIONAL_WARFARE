@@ -118,8 +118,6 @@ public class InputHandling : MonoBehaviour
 
             Ship ship = player.ActiveShip;
 
-            //ship.ReleaseCell();
-
             //Get axis
             if (Math.Abs(x) > Math.Abs(y))
             {
@@ -281,8 +279,15 @@ public class InputHandling : MonoBehaviour
         {
             if (name == "Player1" && OverworldData.PlayerTurn == 1 || name == "Player2" && OverworldData.PlayerTurn == 2)
             {
-                player.ActiveShip.Fire();
-                StartCoroutine(PauseAndTakeTurns());
+                if(player.ActiveShip.ShipStatus == ShipStatus.Intact)
+                {
+                    player.ActiveShip.Fire();
+                    StartCoroutine(PauseAndTakeTurns());
+                }
+                else
+                {
+                    print("You can't fire with a sunken ship, capt'n!");
+                }
             }
             else
             {
