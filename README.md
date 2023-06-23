@@ -61,3 +61,5 @@ Hit ships get now visible and collision course detection was added.
   <source src="video/video4.mp4" type="video/mp4">
 </video> 
 
+## 23.06.2023
+Added win condition "fleet destroyed".
