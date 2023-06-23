@@ -9,7 +9,7 @@ This website is all about DIMENSIONAL WAREFARE, a game, that I started to build 
    * [x]  Collision detection
    * [x]  Hit detection
    * [x]  Ships can sink
-   * [ ]  Exclude sunk ships from further game 
+   * [x]  Exclude sunk ships from further game 
 3. Simple orientation and overview for players
    * [x]  Visually show status of ships: activated/inactive, hit, sunk
    * [ ]  Zoom out to show all dimensions and ships at once
