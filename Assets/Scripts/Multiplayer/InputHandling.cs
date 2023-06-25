@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.InputSystem.Users;
+using UnityEngine.Windows;
 using static UnityEngine.InputSystem.InputAction;
 
 public class InputHandling : MonoBehaviour
@@ -12,6 +13,8 @@ public class InputHandling : MonoBehaviour
     private Player opponent;
     private InputActionMap gameStartMap, playerMap, fleetMenuMap;
     private GameObject[] shipButtons;
+
+    public bool continueGame = true;
 
     private void Awake()
     {
@@ -169,20 +172,28 @@ public class InputHandling : MonoBehaviour
     {
         if (ctx.performed)
         {
-            if (name == "Player1")
+            if (OverworldData.GamePhase == GamePhases.Start)
             {
-                OverworldData.Player1SubmittedFleet = true;
+                if (name == "Player1")
+                {
+                    OverworldData.Player1SubmittedFleet = true;
+                }
+                else
+                {
+                    OverworldData.Player2SubmittedFleet = true;
+                }
+
+                if (!OverworldData.Player1SubmittedFleet || !OverworldData.Player2SubmittedFleet)
+                {
+                    print("Please, wait until your opponent is ready.");
+                    player.input.enabled = false;
+                    StartCoroutine(WaitForOpponent());
+                }
             }
             else
             {
-                OverworldData.Player2SubmittedFleet = true;
-            }
-
-            if (!OverworldData.Player1SubmittedFleet || !OverworldData.Player2SubmittedFleet)
-            {
-                print("Please, wait until your opponent is ready.");
-                player.input.enabled = false;
-                StartCoroutine(WaitForOpponent());
+                player.input.SwitchCurrentActionMap("Player");
+                continueGame = true;
             }
         }
     }
@@ -208,23 +219,23 @@ public class InputHandling : MonoBehaviour
     }
 
     //StartGame and Player actionMap
-    public void OnReturnToFleetMenu(CallbackContext ctx)
-    {
-        if (ctx.performed)
-        {
-            player.ActiveShip.Deactivate();
-            player.input.SwitchCurrentActionMap("FleetMenu");
+    //public void OnReturnToFleetMenu(CallbackContext ctx)
+    //{
+    //    if (ctx.performed)
+    //    {
+    //        player.ActiveShip.Deactivate();
+    //        player.input.SwitchCurrentActionMap("FleetMenu");
 
-            if (name == "Player1")
-            {
-                GameObject.Find("FleetMenu1").GetComponent<FleetMenuScript>().SetFirstSelecetedButton();
-            }
-            else
-            {
-                GameObject.Find("FleetMenu2").GetComponent<FleetMenuScript>().SetFirstSelecetedButton();
-            }
-        }
-    }
+    //        if (name == "Player1")
+    //        {
+    //            GameObject.Find("FleetMenu1").GetComponent<FleetMenuScript>().SetFirstSelecetedButton();
+    //        }
+    //        else
+    //        {
+    //            GameObject.Find("FleetMenu2").GetComponent<FleetMenuScript>().SetFirstSelecetedButton();
+    //        }
+    //    }
+    //}
 
     //Player actionMap
     public void OnMoveSelection(CallbackContext ctx)
@@ -281,8 +292,17 @@ public class InputHandling : MonoBehaviour
             {
                 if(player.ActiveShip.ShipStatus == ShipStatus.Intact)
                 {
-                    player.ActiveShip.Fire();
-                    StartCoroutine(PauseAndTakeTurns());
+                    bool shipUp = player.ActiveShip.Fire();
+
+                    if (shipUp)
+                    {
+                        continueGame = false;
+                        StartCoroutine(WaitBattleToContinue());
+                    }
+                    else
+                    {
+                        StartCoroutine(PauseAndTakeTurns());
+                    }
                 }
                 else
                 {
@@ -295,6 +315,14 @@ public class InputHandling : MonoBehaviour
             }
         }
     }
+
+    private IEnumerator WaitBattleToContinue()
+    {
+        yield return new WaitUntil(() => (continueGame));
+
+        StartCoroutine(PauseAndTakeTurns());
+    }
+
 
     public IEnumerator PauseAndTakeTurns()
     {
@@ -312,6 +340,8 @@ public class InputHandling : MonoBehaviour
         opponent.cameraBehavior.UpdateCamera(GamePhases.Armed);
         player.input.SwitchCurrentActionMap("FleetMenu");
         opponent.input.SwitchCurrentActionMap("Player");
+        player.input.actions.FindAction("ShipRight").Disable();
+        player.input.actions.FindAction("ShipLeft").Disable();
         DisarmPlayer();
         ArmOpponent();
     }

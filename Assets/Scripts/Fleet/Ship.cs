@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ public class Ship : MonoBehaviour
 
     public string ShipName { get; private set; }
     public ShipStatus ShipStatus { get; private set; }
+    //public bool hidden = true;
     public Dimension Dimension { get; set; }
     private Transform position;
     public int X { get; private set; }
@@ -159,7 +161,7 @@ public class Ship : MonoBehaviour
         }
     }
 
-    public void Fire()
+    public bool Fire()
     {
         //Fire on selected cell
         Cell activeCell = player.ActiveCell;
@@ -190,8 +192,11 @@ public class Ship : MonoBehaviour
             if (opponentSunk)
             {
                 ShipUp();
+                return true;
             }
         }
+
+        return false;
     }
 
     private void ShipUp()
@@ -203,8 +208,11 @@ public class Ship : MonoBehaviour
             SwitchDimension(dimensionNr, "up");
             this.gameObject.transform.position += new Vector3(0, OverworldData.DimensionSize * dimensionNr * 2, 0);
             player.vehicle.OnDimensionUp();
+            //hidden = false;
 
-
+            player.input.SwitchCurrentActionMap("GameStart");
+            print("Hide your ship!");
+            //StartCoroutine(WaitForShipHidden());
         }
         else
         {
@@ -212,6 +220,11 @@ public class Ship : MonoBehaviour
             // resolve game
         }
     }
+
+    //private IEnumerator WaitForShipHidden()
+    //{
+    //    yield return new WaitUntil(() => hidden);
+    //}
 
     private void ShipDown()
     {
