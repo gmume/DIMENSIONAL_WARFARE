@@ -119,4 +119,9 @@ public class Dimension : MonoBehaviour
 
         return null;
     }
+
+    public void RemoveShip(GameObject shipObj)
+    {
+        ships.Remove(shipObj);
+    }
 }

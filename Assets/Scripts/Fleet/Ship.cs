@@ -100,8 +100,8 @@ public class Ship : MonoBehaviour
         int xPos = X + x;
         int yPos = Z + y;
         Cell cell = player.opponent.dimensions.GetDimension(Dimension.DimensionNr).GetCell(xPos, yPos).GetComponent<Cell>();
-        
-        if(cell.Occupied)
+
+        if (cell.Occupied)
         {
             return true;
         }
@@ -181,13 +181,56 @@ public class Ship : MonoBehaviour
 
         if (opponentCell.Occupied)
         {
+            bool opponentSunk;
+
             GameObject opponentShipObj = opponentDimension.GetShipOnCell(activeCell.X, activeCell.Y);
             Ship opponentShip = opponentShipObj.GetComponent<Ship>();
-            opponentShip.TakeHit(activeCell.X, activeCell.Y);
+            opponentSunk = opponentShip.TakeHit(activeCell.X, activeCell.Y);
+
+            if (opponentSunk)
+            {
+                ShipUp();
+            }
         }
     }
 
-    public void TakeHit(int x, int y)
+    private void ShipUp()
+    {
+        int dimensionNr = Dimension.DimensionNr + 1;
+
+        if (dimensionNr < OverworldData.DimensionsCount)
+        {
+            SwitchDimension(dimensionNr, "up");
+            this.gameObject.transform.position += new Vector3(0, OverworldData.DimensionSize * dimensionNr * 2, 0);
+            player.vehicle.OnDimensionUp();
+
+
+        }
+        else
+        {
+            print(player.name + "won!");
+            // resolve game
+        }
+    }
+
+    private void ShipDown()
+    {
+        int dimensionNr = Dimension.DimensionNr - 1;
+
+        SwitchDimension(dimensionNr, "down");
+        this.gameObject.transform.position += new Vector3(0, -OverworldData.DimensionSize * dimensionNr * 2, 0);
+        player.vehicle.OnDimensionDown();
+    }
+
+    private void SwitchDimension(int dimensionNr, string upOrDown)
+    {
+        ReleaseCell();
+        Dimension.RemoveShip(this.gameObject);
+        Dimension = player.dimensions.GetDimension(dimensionNr);
+        OccupyCell();
+    }
+
+    public bool TakeHit(int x, int y)
     {
         x += 1;
         y += 1;
@@ -215,7 +258,32 @@ public class Ship : MonoBehaviour
                 print(player.opponent.name + "won!");
                 // resolve game
             }
+            else
+            {
+                if (Dimension.DimensionNr != 0)
+                {
+                    ShipDown();
+                }
+                else
+                {
+                    StartCoroutine(DestroyShip());
+                }
+            }
+
+            return true;
         }
+        else
+        {
+            return false;
+        }
+    }
+
+    private IEnumerator DestroyShip()
+    {
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(2f);
+        Time.timeScale = 1f;
+        this.gameObject.SetActive(false);
     }
 
     private bool Sunk()
