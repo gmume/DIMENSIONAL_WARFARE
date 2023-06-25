@@ -12,7 +12,7 @@ This website is all about DIMENSIONAL WAREFARE, a game, that I started to build 
    * [x]  Exclude sunk ships from further game 
 3. Simple orientation and overview for players
    * [x]  Visually show status of ships: activated/inactive, hit, sunk
-   * [ ]  Zoom out to show all dimensions and ships at once
+   * [x]  Zoom out to show all dimensions and ships at once
 5. Learn more about Unity
    * [x]  Debugging in Unity
    * [x]  Information handling for classes
@@ -63,3 +63,9 @@ Hit ships get now visible and collision course detection was added.
 
 ## 23.06.2023
 Added win condition "fleet destroyed".
+
+## 25.06.2023
+Players can now zoom out to get a better view over all dimensions.
+<video width="100%" height="100%" controls="controls">
+  <source src="video/video5.mp4" type="video/mp4">
+</video> 
