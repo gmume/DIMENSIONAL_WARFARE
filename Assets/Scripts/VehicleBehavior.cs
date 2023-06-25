@@ -25,7 +25,7 @@ public class VehicleBehavior : MonoBehaviour
         }
 
         transform.position += new Vector3(OverworldData.DimensionSize / 2, OverworldData.DimensionSize * 2 / 3, -OverworldData.DimensionSize);
-        vector = new Vector3(OverworldData.DimensionSize / 2, OverworldData.DimensionSize * 2, 0);
+        vector = new Vector3(0, OverworldData.DimensionSize * 2, 0);
 
         //int halfDimensionsCount = OverworldData.DimensionsCount / 2;
         zoomOut = new Vector3(OverworldData.DimensionSize / 2, OverworldData.DimensionSize * OverworldData.DimensionsCount, -OverworldData.DimensionSize * OverworldData.DimensionsCount * 2);
