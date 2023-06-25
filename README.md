@@ -69,3 +69,7 @@ Players can now zoom out to get a better view over all dimensions.
 <video width="100%" height="100%" controls="controls">
   <source src="video/video5.mp4" type="video/mp4">
 </video> 
+Ships, that arrive an upper dimension, can be placed new.
+<video width="100%" height="100%" controls="controls">
+  <source src="video/video6.mp4" type="video/mp4">
+</video> 
