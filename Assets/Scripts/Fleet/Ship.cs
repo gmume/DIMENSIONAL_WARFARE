@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ public class Ship : MonoBehaviour
 
     public string ShipName { get; private set; }
     public ShipStatus ShipStatus { get; private set; }
+    //public bool hidden = true;
     public Dimension Dimension { get; set; }
     private Transform position;
     public int X { get; private set; }
@@ -100,8 +102,8 @@ public class Ship : MonoBehaviour
         int xPos = X + x;
         int yPos = Z + y;
         Cell cell = player.opponent.dimensions.GetDimension(Dimension.DimensionNr).GetCell(xPos, yPos).GetComponent<Cell>();
-        
-        if(cell.Occupied)
+
+        if (cell.Occupied)
         {
             return true;
         }
@@ -159,7 +161,7 @@ public class Ship : MonoBehaviour
         }
     }
 
-    public void Fire()
+    public bool Fire()
     {
         //Fire on selected cell
         Cell activeCell = player.ActiveCell;
@@ -181,13 +183,67 @@ public class Ship : MonoBehaviour
 
         if (opponentCell.Occupied)
         {
+            bool opponentSunk;
+
             GameObject opponentShipObj = opponentDimension.GetShipOnCell(activeCell.X, activeCell.Y);
             Ship opponentShip = opponentShipObj.GetComponent<Ship>();
-            opponentShip.TakeHit(activeCell.X, activeCell.Y);
+            opponentSunk = opponentShip.TakeHit(activeCell.X, activeCell.Y);
+
+            if (opponentSunk)
+            {
+                ShipUp();
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void ShipUp()
+    {
+        int dimensionNr = Dimension.DimensionNr + 1;
+
+        if (dimensionNr < OverworldData.DimensionsCount)
+        {
+            SwitchDimension(dimensionNr, "up");
+            this.gameObject.transform.position += new Vector3(0, OverworldData.DimensionSize * dimensionNr * 2, 0);
+            player.vehicle.OnDimensionUp();
+            //hidden = false;
+
+            player.input.SwitchCurrentActionMap("GameStart");
+            print("Hide your ship!");
+            //StartCoroutine(WaitForShipHidden());
+        }
+        else
+        {
+            print(player.name + "won!");
+            // resolve game
         }
     }
 
-    public void TakeHit(int x, int y)
+    //private IEnumerator WaitForShipHidden()
+    //{
+    //    yield return new WaitUntil(() => hidden);
+    //}
+
+    private void ShipDown()
+    {
+        int dimensionNr = Dimension.DimensionNr - 1;
+
+        SwitchDimension(dimensionNr, "down");
+        this.gameObject.transform.position += new Vector3(0, -OverworldData.DimensionSize * dimensionNr * 2, 0);
+        player.vehicle.OnDimensionDown();
+    }
+
+    private void SwitchDimension(int dimensionNr, string upOrDown)
+    {
+        ReleaseCell();
+        Dimension.RemoveShip(this.gameObject);
+        Dimension = player.dimensions.GetDimension(dimensionNr);
+        OccupyCell();
+    }
+
+    public bool TakeHit(int x, int y)
     {
         x += 1;
         y += 1;
@@ -215,7 +271,32 @@ public class Ship : MonoBehaviour
                 print(player.opponent.name + "won!");
                 // resolve game
             }
+            else
+            {
+                if (Dimension.DimensionNr != 0)
+                {
+                    ShipDown();
+                }
+                else
+                {
+                    StartCoroutine(DestroyShip());
+                }
+            }
+
+            return true;
         }
+        else
+        {
+            return false;
+        }
+    }
+
+    private IEnumerator DestroyShip()
+    {
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(2f);
+        Time.timeScale = 1f;
+        this.gameObject.SetActive(false);
     }
 
     private bool Sunk()
