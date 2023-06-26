@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerWorld : MonoBehaviour
 {
     public string ShipName;
-    public GameObject dimensionPrefab, cellPrefab, shipPrefab;
+    public GameObject dimensionPrefab, cellPrefab;
 
     private Player player;
     private int currentX = 0, currentY = 0;
@@ -20,7 +20,7 @@ public class PlayerWorld : MonoBehaviour
     public void Start()
     {
         player.dimensions = ScriptableObject.CreateInstance("Dimensions") as Dimensions;
-        player.dimensions.InitDimensions(player, dimensionPrefab, cellPrefab, shipPrefab);
+        player.dimensions.InitDimensions(player, dimensionPrefab, cellPrefab);
         SetNewDimension(0);
     }
 

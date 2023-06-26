@@ -25,8 +25,8 @@ public class Dimension : MonoBehaviour
             {
                 GameObject shipObj = (GameObject)fleet[i];
                 Ship ship = shipObj.GetComponent<Ship>();
-                ship.Dimension = this;
-                ship.OccupyCell();
+                ship.SetDimension(this);
+                ship.OccupyCells();
             }
 
             AddShips(fleet);

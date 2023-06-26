@@ -4,23 +4,21 @@ using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-//using UnityEngine.UIElements;
 
 public class Ship : MonoBehaviour
 {
     private Player player;
-    private bool[] partDamaged;
+    private ShipPart[] parts;
 
     public string ShipName { get; private set; }
+    public int ShipNr { get; private set; }
     public ShipStatus ShipStatus { get; private set; }
-    //public bool hidden = true;
     public Dimension Dimension { get; set; }
     private Transform position;
     public int X { get; private set; }
     public int Z { get; private set; }
     public Directions Direction { get; set; }
     public int PartsCount { get; private set; }
-    public Material ShipMaterial { get; set; }
 
     public void GetStatus()
     {
@@ -36,7 +34,7 @@ public class Ship : MonoBehaviour
             {
                 message += ", part ";
             }
-            message += i + ": " + partDamaged[i];
+            message += i + ": " + parts[i].Damaged;
         }
 
         Debug.Log(message + ")");
@@ -51,7 +49,11 @@ public class Ship : MonoBehaviour
                 player.ActiveShip.Deactivate();
             }
 
-            ShipMaterial.color += new Color(0.3f, 0.3f, 0.3f);
+            foreach (ShipPart part in parts)
+            {
+                part.PartMaterial.color += new Color(0.3f, 0.3f, 0.3f);
+            }
+
             Vector3 vectorUp = new(0f, 0.1f, 0f);
             GetComponent<Transform>().position += vectorUp;
             player.ActiveShip = this;
@@ -60,7 +62,11 @@ public class Ship : MonoBehaviour
 
     public void Deactivate()
     {
-        ShipMaterial.color -= new Color(0.3f, 0.3f, 0.3f);
+        foreach (ShipPart part in parts)
+        {
+            part.PartMaterial.color -= new Color(0.3f, 0.3f, 0.3f);
+        }
+
         Vector3 vectorDown = new(0f, -0.1f, 0f);
         GetComponent<Transform>().position += vectorDown;
         player.ActiveShip = null;
@@ -72,7 +78,7 @@ public class Ship : MonoBehaviour
         {
             if (!CollisionCourse(x, y))
             {
-                ReleaseCell();
+                ReleaseCells();
 
                 if (x == 0)
                 {
@@ -84,7 +90,7 @@ public class Ship : MonoBehaviour
                 }
 
                 position.position += new Vector3(x, 0, y);
-                OccupyCell();
+                OccupyCells();
             }
             else
             {
@@ -208,11 +214,8 @@ public class Ship : MonoBehaviour
             SwitchDimension(dimensionNr, "up");
             this.gameObject.transform.position += new Vector3(0, OverworldData.DimensionSize * dimensionNr * 2, 0);
             player.vehicle.OnDimensionUp();
-            //hidden = false;
-
             player.input.SwitchCurrentActionMap("GameStart");
             print("Hide your ship!");
-            //StartCoroutine(WaitForShipHidden());
         }
         else
         {
@@ -220,11 +223,6 @@ public class Ship : MonoBehaviour
             // resolve game
         }
     }
-
-    //private IEnumerator WaitForShipHidden()
-    //{
-    //    yield return new WaitUntil(() => hidden);
-    //}
 
     private void ShipDown()
     {
@@ -237,10 +235,10 @@ public class Ship : MonoBehaviour
 
     private void SwitchDimension(int dimensionNr, string upOrDown)
     {
-        ReleaseCell();
+        ReleaseCells();
         Dimension.RemoveShip(this.gameObject);
         Dimension = player.dimensions.GetDimension(dimensionNr);
-        OccupyCell();
+        OccupyCells();
     }
 
     public bool TakeHit(int x, int y)
@@ -248,9 +246,8 @@ public class Ship : MonoBehaviour
         x += 1;
         y += 1;
 
-        int part = ((x % (X + 1) + 1) % ((y % (Z + 1)) + 1));
-        partDamaged[part] = true;
-        ShipMaterial.color += new Color(0.3f, 0, 0);
+        ShipPart part = parts[((x % (X + 1) + 1) % ((y % (Z + 1)) + 1))];
+        part.Hit();
 
         if (this.gameObject.layer != LayerMask.NameToLayer("VisibleShips"))
         {
@@ -260,7 +257,12 @@ public class Ship : MonoBehaviour
         if (Sunk())
         {
             ShipStatus = ShipStatus.Sunk;
-            ShipMaterial.color = Color.black;
+
+            foreach (ShipPart shipPart in parts)
+            {
+                shipPart.Sink();
+            }
+
             gameObject.transform.position += new Vector3(0, -0.5f, 0);
             player.fleet.GetFleet().Remove(this);
             GameObject[] shipButtons = player.fleetMenu.GetShipButtons();
@@ -303,15 +305,15 @@ public class Ship : MonoBehaviour
     {
         int damagedParts = 0;
 
-        foreach (bool part in partDamaged)
+        foreach (ShipPart part in parts)
         {
-            if (part)
+            if (part.Damaged)
             {
                 damagedParts++;
             }
         }
 
-        if (damagedParts == partDamaged.Length)
+        if (damagedParts == parts.Length)
         {
             return true;
         }
@@ -332,35 +334,54 @@ public class Ship : MonoBehaviour
         return true;
     }
 
-    public void OccupyCell()
+    public void OccupyCells()
     {
-        Dimension.GetCell(X, Z).GetComponent<Cell>().Occupied = true;
+        for (int i = 0; i < parts.Length; i++)
+        {
+            parts[i].OccupyCell();
+        }
     }
 
-    public void ReleaseCell()
+    public void ReleaseCells()
     {
-        Dimension.GetCell(X, Z).GetComponent<Cell>().Occupied = false;
+        for (int i = 0; i < parts.Length; i++)
+        {
+            parts[i].ReleaseCell();
+        }
     }
 
-    public bool[] GetDamagedParts()
+    public void SetDimension(Dimension dimension)
     {
-        return partDamaged;
+        Dimension = dimension;
+        gameObject.transform.parent = dimension.transform;
+
+        for (int i = 0; i < ShipNr; i++)
+        {
+            ShipPart part = parts[i];
+            part.Dimension = Dimension;
+            part.transform.parent = gameObject.transform;
+        }
     }
 
     public void InitiateShip(Player player, int shipNr)
     {
         this.player = player;
-        ShipName = "ship" + shipNr;
+        ShipNr = shipNr;
+        parts = new ShipPart[ShipNr];
+        ShipName = "ship" + ShipNr;
         ShipStatus = ShipStatus.Intact;
         position = GetComponent<Transform>();
-        X = shipNr - 1;
+        X = ShipNr - 1;
         Direction = Directions.North;
-        PartsCount = shipNr;
-        partDamaged = new bool[PartsCount];
+        PartsCount = ShipNr;
 
-        for (int i = 0; i < shipNr; i++)
+        for (int i = 0; i < ShipNr; i++)
         {
-            partDamaged[i] = false;
+            GameObject partObj;
+            partObj = gameObject.transform.GetChild(i).gameObject;
+            partObj.layer = Layer.SetLayerFleet(player);
+            partObj.AddComponent<ShipPart>().InitiateShipPart(player, i, this);
+            parts[i] = partObj.GetComponent<ShipPart>();
         }
     }
 }

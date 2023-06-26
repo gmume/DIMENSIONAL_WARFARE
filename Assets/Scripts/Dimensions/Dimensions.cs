@@ -8,9 +8,9 @@ public class Dimensions : ScriptableObject
 {
     private readonly ArrayList dimensions = new();
 
-    public void InitDimensions(Player player, GameObject prefabDimension, GameObject prefabCell, GameObject prefabShip)
+    public void InitDimensions(Player player, GameObject prefabDimension, GameObject prefabCell)
     {
-        InitFleet(player, prefabShip);
+        InitFleet(player);
         CreateDimensions(player, prefabDimension, prefabCell);
     }
 
@@ -38,9 +38,9 @@ public class Dimensions : ScriptableObject
         return dimension.GetComponent<Dimension>();
     }
 
-    public void InitFleet(Player player, GameObject prefabShip)
+    public void InitFleet(Player player)
     {
         player.fleet = ScriptableObject.CreateInstance("Fleet") as Fleet;
-        player.fleet.CreateFleet(player, prefabShip);
+        player.fleet.CreateFleet(player);
     }
 }
