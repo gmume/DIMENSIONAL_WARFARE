@@ -14,6 +14,9 @@ public class ShipPart : MonoBehaviour
     public void InitiateShipPart(Player player, int partNr, Ship ship)
     {
         this.partNr = partNr;
+        X = ship.ShipNr;
+        Y = partNr;
+        Damaged = false;
         PartMaterial = GetComponent<Renderer>().material;
 
         if (player.number == 1)
@@ -24,26 +27,18 @@ public class ShipPart : MonoBehaviour
         {
             PartMaterial.color = new Color(0.3f, 0.3f, 0, 1); // olive
         }
-
-        Damaged = false;
-
-        X = ship.ShipNr - 1;
-        Y = partNr;
-
-        //OccupyCell();
     }
 
-    public void UpdateCoordinates(int x, int y)
+    public void UpdateCoordinatesRelative(int x, int y)
     {
-        if(X != x)
-        {
-            X = x;
-        }
+        X += x;
+        Y += y;
+    }
 
-        if(Y != y)
-        {
-            Y = y;
-        }
+    public void UpdateCoordinatesAbsolute(int x, int y)
+    {
+        X = x;
+        Y = y;
     }
 
     public void OccupyCell()
@@ -51,24 +46,8 @@ public class ShipPart : MonoBehaviour
         Dimension.GetCell(X, Y).GetComponent<Cell>().Occupied = true;
     }
 
-    public void ReleaseCell()
+    public void ReleaseCell(Player player)
     {
         Dimension.GetCell(X, Y).GetComponent<Cell>().Occupied = false;
-    }
-
-    public void Hit()
-    {
-        Damaged = true;
-        PartMaterial.color += new Color(0.3f, 0, 0);
-
-        if (gameObject.layer != LayerMask.NameToLayer("VisibleShips"))
-        {
-            gameObject.layer = LayerMask.NameToLayer("VisibleShips");
-        }
-    }
-
-    public void Sink()
-    {
-        PartMaterial.color = Color.black;
     }
 }

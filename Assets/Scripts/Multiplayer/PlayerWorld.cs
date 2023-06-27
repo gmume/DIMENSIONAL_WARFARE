@@ -20,6 +20,7 @@ public class PlayerWorld : MonoBehaviour
     public void Start()
     {
         player.dimensions = ScriptableObject.CreateInstance("Dimensions") as Dimensions;
+        player.dimensions.name = "Dimensions" + player.number;
         player.dimensions.InitDimensions(player, dimensionPrefab, cellPrefab);
         SetNewDimension(0);
     }

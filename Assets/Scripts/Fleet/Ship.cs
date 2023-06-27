@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,18 +12,18 @@ public class Ship : MonoBehaviour
     private ShipPart[] parts;
 
     public string ShipName { get; private set; }
-    public int ShipNr { get; private set; }
+    public int ShipNr { get; private set; } // 1 based
     public ShipStatus ShipStatus { get; private set; }
     public Dimension Dimension { get; set; }
     private Transform position;
-    public int X { get; private set; }
-    public int Z { get; private set; }
-    public Directions Direction { get; set; }
+    public int PivotX { get; private set; }
+    public int PivotZ { get; private set; }
+    public Directions Orientation { get; set; }
     public int PartsCount { get; private set; }
 
     public void GetStatus()
     {
-        string message = ShipName + " on dimension " + Dimension.DimensionNr + "\nCoordiantes: " + X + ", " + Z + "\nDamaged (";
+        string message = ShipName + " on dimension " + Dimension.DimensionNr + "\nCoordiantes: " + PivotX + ", " + PivotZ + "\nDamaged (";
 
         for (int i = 0; i < PartsCount; i++)
         {
@@ -54,6 +55,7 @@ public class Ship : MonoBehaviour
                 part.PartMaterial.color += new Color(0.3f, 0.3f, 0.3f);
             }
 
+            ReleaseCells();
             Vector3 vectorUp = new(0f, 0.1f, 0f);
             GetComponent<Transform>().position += vectorUp;
             player.ActiveShip = this;
@@ -67,6 +69,7 @@ public class Ship : MonoBehaviour
             part.PartMaterial.color -= new Color(0.3f, 0.3f, 0.3f);
         }
 
+        OccupyCells();
         Vector3 vectorDown = new(0f, -0.1f, 0f);
         GetComponent<Transform>().position += vectorDown;
         player.ActiveShip = null;
@@ -74,23 +77,19 @@ public class Ship : MonoBehaviour
 
     public void Move(int x, int y)
     {
-        if (X + x < OverworldData.DimensionSize && Z + y < OverworldData.DimensionSize && X + x >= 0 && Z + y >= 0)
+        if (PivotX + x < OverworldData.DimensionSize && PivotZ + y < OverworldData.DimensionSize && PivotX + x >= 0 && PivotZ + y >= 0)
         {
-            if (!CollisionCourse(x, y))
+            if (!CollisionCourseMove(x, y))
             {
-                ReleaseCells();
+                PivotX += x;
+                PivotZ += y;
 
-                if (x == 0)
+                foreach (ShipPart part in parts)
                 {
-                    Z += y;
-                }
-                else
-                {
-                    X += x;
+                    part.UpdateCoordinatesRelative(x, y);
                 }
 
                 position.position += new Vector3(x, 0, y);
-                OccupyCells();
             }
             else
             {
@@ -103,73 +102,115 @@ public class Ship : MonoBehaviour
         }
     }
 
-    private bool CollisionCourse(int x, int y)
+    private bool CollisionCourseMove(int x, int y)
     {
-        int xPos = X + x;
-        int yPos = Z + y;
-        Cell cell = player.opponent.dimensions.GetDimension(Dimension.DimensionNr).GetCell(xPos, yPos).GetComponent<Cell>();
+        Cell cell;
 
-        if (cell.Occupied)
+        for (int i = 0; i < parts.Length; i++)
         {
-            return true;
+            ShipPart part = parts[i];
+            cell = Dimension.GetCell(part.X + x, part.Y + y).GetComponent<Cell>();
+
+            if (cell.Occupied)
+            {
+                return true;
+            }
         }
 
         return false;
     }
 
-    public void QuaterTurnRight()
+    private bool CollisionCourseTurn(Cell[] cells)
     {
-        Quaternion quaterTurn = Quaternion.Euler(Vector3.forward * 90);
-        if (Direction == Directions.North)
+        foreach (Cell cellObj in cells)
         {
-            transform.rotation = quaterTurn;
-            Direction = Directions.East;
+            Cell cell = cellObj.GetComponent<Cell>();
+
+            if (cell.Occupied)
+            {
+                return true;
+            }
         }
-        else if (Direction == Directions.South)
-        {
-            transform.rotation = quaterTurn;
-            Direction = Directions.West;
-        }
-        else if (Direction == Directions.East)
-        {
-            transform.rotation = quaterTurn;
-            Direction = Directions.South;
-        }
-        else if (Direction == Directions.West)
-        {
-            transform.rotation = quaterTurn;
-            Direction = Directions.North;
-        }
+
+        return false;
     }
 
-    public void QuaterTurnLeft()
+    public void QuaterTurn(bool clockwise)
     {
-        Quaternion quaterTurn = Quaternion.Euler(Vector3.forward * 90);
-        if (Direction == Directions.North)
+        Cell[] cells = new Cell[parts.Length];
+        Cell cell;
+        int x, y;
+
+        for (int i = 0; i < parts.Length; i++)
         {
-            transform.rotation = quaterTurn;
-            Direction = Directions.West;
+            ShipPart part = parts[i];
+
+            if (clockwise)
+            {
+                x = part.X - PivotX;
+                y = part.Y - PivotZ;
+            }
+            else
+            {
+                x = PivotX - part.X;
+                y = PivotZ - part.Y;
+            }
+
+            if (Orientation == Directions.North || Orientation == Directions.South)
+            {
+                cell = Dimension.GetCell(PivotX + y, PivotZ).GetComponent<Cell>();
+            }
+            else
+            {
+                cell = Dimension.GetCell(PivotX, PivotZ - x).GetComponent<Cell>();
+            }
+
+            cells[i] = cell;
         }
-        else if (Direction == Directions.South)
+
+        int enumIndex = (int)Orientation;
+
+        if (!CollisionCourseTurn(cells))
         {
-            transform.rotation = quaterTurn;
-            Direction = Directions.East;
+            if (clockwise)
+            {
+                GetComponent<Transform>().Rotate(0, 90, 0);
+                enumIndex = ++enumIndex % 4;
+            }
+            else
+            {
+                GetComponent<Transform>().Rotate(0, -90, 0);
+                enumIndex = (enumIndex + 4 - 1) % 4 ;
+            }
+
+            Orientation = (Directions)enumIndex;
+
+            for (int i = 0; i < cells.Length; i++)
+            {
+                cell = cells[i];
+                parts[i].UpdateCoordinatesAbsolute(cell.X, cell.Y);
+            }
         }
-        else if (Direction == Directions.East)
+        else
         {
-            transform.rotation = quaterTurn;
-            Direction = Directions.North;
+            print("Capt'n, we are on collision course! Let the ship heave to!");
         }
-        else if (Direction == Directions.West)
+
+        for (int i = 0;i < Dimension.cells.Length; i++)
         {
-            transform.rotation = quaterTurn;
-            Direction = Directions.South;
+            for (int j = 0; j < Dimension.cells.Length; j++)
+            {
+                cell = Dimension.cells[i][j].GetComponent<Cell>();
+                if (cell.Occupied)
+                {
+                    Debug.Log("cell "+cell.X+", "+cell.Y);
+                }
+            }
         }
     }
 
     public bool Fire()
     {
-        //Fire on selected cell
         Cell activeCell = player.ActiveCell;
         Material cellMaterial = activeCell.GetComponent<Renderer>().material;
 
@@ -190,7 +231,6 @@ public class Ship : MonoBehaviour
         if (opponentCell.Occupied)
         {
             bool opponentSunk;
-
             GameObject opponentShipObj = opponentDimension.GetShipOnCell(activeCell.X, activeCell.Y);
             Ship opponentShip = opponentShipObj.GetComponent<Ship>();
             opponentSunk = opponentShip.TakeHit(activeCell.X, activeCell.Y);
@@ -246,12 +286,18 @@ public class Ship : MonoBehaviour
         x += 1;
         y += 1;
 
-        ShipPart part = parts[((x % (X + 1) + 1) % ((y % (Z + 1)) + 1))];
-        part.Hit();
-
         if (this.gameObject.layer != LayerMask.NameToLayer("VisibleShips"))
         {
             this.gameObject.layer = LayerMask.NameToLayer("VisibleShips");
+        }
+
+        ShipPart part = parts[((x % (PivotX + 1) + 1) % ((y % (PivotZ + 1)) + 1))];
+        part.Damaged = true;
+        part.PartMaterial.color += new Color(0.3f, 0, 0);
+
+        if (part.gameObject.layer != LayerMask.NameToLayer("VisibleShips"))
+        {
+            part.gameObject.layer = LayerMask.NameToLayer("VisibleShips");
         }
 
         if (Sunk())
@@ -260,7 +306,7 @@ public class Ship : MonoBehaviour
 
             foreach (ShipPart shipPart in parts)
             {
-                shipPart.Sink();
+                shipPart.PartMaterial.color = Color.black;
             }
 
             gameObject.transform.position += new Vector3(0, -0.5f, 0);
@@ -268,12 +314,7 @@ public class Ship : MonoBehaviour
             GameObject[] shipButtons = player.fleetMenu.GetShipButtons();
             shipButtons[PartsCount - 1].GetComponent<Button>().interactable = false;
 
-            if (FleetDestroyed())
-            {
-                print(player.opponent.name + "won!");
-                // resolve game
-            }
-            else
+            if (!FleetDestroyed())
             {
                 if (Dimension.DimensionNr != 0)
                 {
@@ -283,6 +324,11 @@ public class Ship : MonoBehaviour
                 {
                     StartCoroutine(DestroyShip());
                 }
+            }
+            else
+            {
+                print(player.opponent.name + "won!");
+                // resolve game
             }
 
             return true;
@@ -346,7 +392,7 @@ public class Ship : MonoBehaviour
     {
         for (int i = 0; i < parts.Length; i++)
         {
-            parts[i].ReleaseCell();
+            parts[i].ReleaseCell(player);
         }
     }
 
@@ -355,7 +401,7 @@ public class Ship : MonoBehaviour
         Dimension = dimension;
         gameObject.transform.parent = dimension.transform;
 
-        for (int i = 0; i < ShipNr; i++)
+        for (int i = 0; i <= ShipNr; i++)
         {
             ShipPart part = parts[i];
             part.Dimension = Dimension;
@@ -367,15 +413,15 @@ public class Ship : MonoBehaviour
     {
         this.player = player;
         ShipNr = shipNr;
-        parts = new ShipPart[ShipNr];
-        ShipName = "ship" + ShipNr;
+        parts = new ShipPart[ShipNr + 1];
+        ShipName = "ship" + player.number + "." + ShipNr;
         ShipStatus = ShipStatus.Intact;
         position = GetComponent<Transform>();
-        X = ShipNr - 1;
-        Direction = Directions.North;
-        PartsCount = ShipNr;
+        PivotX = ShipNr;
+        Orientation = Directions.North;
+        PartsCount = ShipNr + 1;
 
-        for (int i = 0; i < ShipNr; i++)
+        for (int i = 0; i <= ShipNr; i++)
         {
             GameObject partObj;
             partObj = gameObject.transform.GetChild(i).gameObject;

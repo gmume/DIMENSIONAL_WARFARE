@@ -100,7 +100,7 @@ public class Dimension : MonoBehaviour
             {
                 GameObject shipObj = ships[i];
                 Ship ship = shipObj.GetComponent<Ship>();
-                if (ship.X == x && ship.Z == y)
+                if (ship.PivotX == x && ship.PivotZ == y)
                 {
                     found = true;
                     return shipObj;

@@ -4710,7 +4710,7 @@ PrefabInstance:
     - target: {fileID: 4725396152390134719, guid: c37d345ab0c57d74ba6ddf380005a72e,
         type: 3}
       propertyPath: fleetSize
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4725396152390134719, guid: c37d345ab0c57d74ba6ddf380005a72e,
         type: 3}

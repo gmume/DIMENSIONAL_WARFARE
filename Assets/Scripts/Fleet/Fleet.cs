@@ -15,9 +15,10 @@ public class Fleet : ScriptableObject
         {
             GameObject shipObj = Instantiate(Resources.Load<GameObject>("Prefabs/ShipPrefab" + (i + 1)), new Vector3(i, 1, 0), Quaternion.identity);
 
+            shipObj.name = "Ship" + player.number + "." + i;
             Ship ship = shipObj.GetComponent<Ship>();
             shipObj.layer = Layer.SetLayerFleet(player);
-            ship.InitiateShip(player, i + 1);
+            ship.InitiateShip(player, i);
             fleet.Add(shipObj);
         }
     }

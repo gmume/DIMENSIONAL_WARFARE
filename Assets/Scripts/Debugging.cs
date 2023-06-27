@@ -81,8 +81,8 @@ public class Debugging : MonoBehaviour
         {
             actShip1 = player1.ActiveShip;
             actShip2 = player2.ActiveShip;
-            activeShip1 = actShip1.ShipName + ": " + actShip1.X + ", " + actShip1.Z;
-            activeShip2 = actShip2.ShipName + ": " + actShip2.X + ", " + actShip2.Z;
+            activeShip1 = actShip1.ShipName + ": " + actShip1.PivotX + ", " + actShip1.PivotZ;
+            activeShip2 = actShip2.ShipName + ": " + actShip2.PivotX + ", " + actShip2.PivotZ;
         }
 
         if(player1.ActiveCell && player2.ActiveCell)

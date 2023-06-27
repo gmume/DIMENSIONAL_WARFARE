@@ -103,8 +103,8 @@ public class InputHandling : MonoBehaviour
 
     public void UpdateActiveCellAndFleetMenu()
     {
-        int shipX = player.ActiveShip.X;
-        int shipY = player.ActiveShip.Z;
+        int shipX = player.ActiveShip.PivotX;
+        int shipY = player.ActiveShip.PivotZ;
 
         player.world.SetNewCellAbsolute(shipX, shipY);
         player.fleetMenu.UpdateFleetMenuCoords(shipX, shipY);
@@ -145,8 +145,8 @@ public class InputHandling : MonoBehaviour
                 }
             }
 
-            player.fleetMenu.UpdateFleetMenuCoords(ship.X, ship.Z);
-            opponent.fleetMenu.UpdateFleetMenuCoords(ship.X, ship.Z);
+            player.fleetMenu.UpdateFleetMenuCoords(ship.PivotX, ship.PivotZ);
+            opponent.fleetMenu.UpdateFleetMenuCoords(ship.PivotX, ship.PivotZ);
         }
     }
 
@@ -154,8 +154,7 @@ public class InputHandling : MonoBehaviour
     {
         if (ctx.performed)
         {
-            //Turn ship left
-            player.ActiveShip.GetComponent<Transform>().Rotate(0, -90, 0);
+            player.ActiveShip.QuaterTurn(false);
         }
     }
 
@@ -163,8 +162,7 @@ public class InputHandling : MonoBehaviour
     {
         if (ctx.performed)
         {
-            //Turn ship right
-            player.ActiveShip.GetComponent<Transform>().Rotate(0, 90, 0);
+            player.ActiveShip.QuaterTurn(true);
         }
     }
 
@@ -217,25 +215,6 @@ public class InputHandling : MonoBehaviour
             opponent.inputHandling.SwapPlayers();
         }
     }
-
-    //StartGame and Player actionMap
-    //public void OnReturnToFleetMenu(CallbackContext ctx)
-    //{
-    //    if (ctx.performed)
-    //    {
-    //        player.ActiveShip.Deactivate();
-    //        player.input.SwitchCurrentActionMap("FleetMenu");
-
-    //        if (name == "Player1")
-    //        {
-    //            GameObject.Find("FleetMenu1").GetComponent<FleetMenuScript>().SetFirstSelecetedButton();
-    //        }
-    //        else
-    //        {
-    //            GameObject.Find("FleetMenu2").GetComponent<FleetMenuScript>().SetFirstSelecetedButton();
-    //        }
-    //    }
-    //}
 
     //Player actionMap
     public void OnMoveSelection(CallbackContext ctx)

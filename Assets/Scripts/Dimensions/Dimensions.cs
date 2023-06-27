@@ -20,6 +20,7 @@ public class Dimensions : ScriptableObject
         {
             float halfDimensionSize = OverworldData.DimensionSize / 2;
             GameObject dimension = Instantiate(dimensionPrefab, new Vector3(halfDimensionSize, OverworldData.DimensionSize * dimensionNr * 2, halfDimensionSize), Quaternion.identity);
+            dimension.name = "dimension" + player.number + "." + dimensionNr;
             dimension.layer = Layer.SetLayerPlayer(player);
             dimension.transform.localScale = new Vector3(OverworldData.DimensionDiagonal, OverworldData.DimensionDiagonal, OverworldData.DimensionDiagonal);
             dimension.GetComponent<Dimension>().InitDimension(player, dimensionNr, cellPrefab, player.fleet.GetFleet());
@@ -41,6 +42,7 @@ public class Dimensions : ScriptableObject
     public void InitFleet(Player player)
     {
         player.fleet = ScriptableObject.CreateInstance("Fleet") as Fleet;
+        player.fleet.name = "fleet" + player.number;
         player.fleet.CreateFleet(player);
     }
 }
