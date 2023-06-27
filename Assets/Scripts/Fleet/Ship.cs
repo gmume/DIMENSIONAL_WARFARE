@@ -195,18 +195,6 @@ public class Ship : MonoBehaviour
         {
             print("Capt'n, we are on collision course! Let the ship heave to!");
         }
-
-        for (int i = 0;i < Dimension.cells.Length; i++)
-        {
-            for (int j = 0; j < Dimension.cells.Length; j++)
-            {
-                cell = Dimension.cells[i][j].GetComponent<Cell>();
-                if (cell.Occupied)
-                {
-                    Debug.Log("cell "+cell.X+", "+cell.Y);
-                }
-            }
-        }
     }
 
     public bool Fire()
@@ -231,9 +219,9 @@ public class Ship : MonoBehaviour
         if (opponentCell.Occupied)
         {
             bool opponentSunk;
-            GameObject opponentShipObj = opponentDimension.GetShipOnCell(activeCell.X, activeCell.Y);
-            Ship opponentShip = opponentShipObj.GetComponent<Ship>();
-            opponentSunk = opponentShip.TakeHit(activeCell.X, activeCell.Y);
+            ShipPart part = opponentCell.part;
+            Ship opponentShip = part.GetComponentInParent<Ship>();
+            opponentSunk = opponentShip.TakeHit(part);
 
             if (opponentSunk)
             {
@@ -281,17 +269,13 @@ public class Ship : MonoBehaviour
         OccupyCells();
     }
 
-    public bool TakeHit(int x, int y)
+    public bool TakeHit(ShipPart part)
     {
-        x += 1;
-        y += 1;
-
         if (this.gameObject.layer != LayerMask.NameToLayer("VisibleShips"))
         {
             this.gameObject.layer = LayerMask.NameToLayer("VisibleShips");
         }
 
-        ShipPart part = parts[((x % (PivotX + 1) + 1) % ((y % (PivotZ + 1)) + 1))];
         part.Damaged = true;
         part.PartMaterial.color += new Color(0.3f, 0, 0);
 
@@ -392,7 +376,7 @@ public class Ship : MonoBehaviour
     {
         for (int i = 0; i < parts.Length; i++)
         {
-            parts[i].ReleaseCell(player);
+            parts[i].ReleaseCell();
         }
     }
 

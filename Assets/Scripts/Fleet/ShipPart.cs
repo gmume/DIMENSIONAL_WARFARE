@@ -43,11 +43,15 @@ public class ShipPart : MonoBehaviour
 
     public void OccupyCell()
     {
-        Dimension.GetCell(X, Y).GetComponent<Cell>().Occupied = true;
+        Cell cell = Dimension.GetCell(X, Y).GetComponent<Cell>();
+        cell.Occupied = true;
+        cell.part = this;
     }
 
-    public void ReleaseCell(Player player)
+    public void ReleaseCell()
     {
-        Dimension.GetCell(X, Y).GetComponent<Cell>().Occupied = false;
+        Cell cell = Dimension.GetCell(X, Y).GetComponent<Cell>();
+        cell.Occupied = false;
+        cell.part = null;
     }
 }
