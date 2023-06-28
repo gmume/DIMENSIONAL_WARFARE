@@ -23,7 +23,7 @@ public class FleetMenuScript : MonoBehaviour
     private TextMeshProUGUI dimension;
     private GameObject dimensionsHeader;
     private GameObject[] dimensions;
-    private int currenDimension;
+    private int currentDimension;
 
     public GameObject firstSelectedButton;
     public GameObject selectedElement;
@@ -61,7 +61,7 @@ public class FleetMenuScript : MonoBehaviour
     {
         CreateShipButtons();
         CreateHUDDimensions();
-        currenDimension = 1;
+        currentDimension = 0;
         player.fleet.ActivateShip(currentButton.ShipButtonNr, player);
     }
 
@@ -73,23 +73,53 @@ public class FleetMenuScript : MonoBehaviour
     }
 
     //FleetMenu actionMap
-    public void OnDimensionUp()
+    public void OnDimensionUp(CallbackContext ctx)
     {
-        if (currenDimension < OverworldData.DimensionsCount)
+        if (ctx.performed)
         {
-            dimensions[currenDimension - 1].SetActive(false);
-            currenDimension++;
-            dimensions[currenDimension - 1].SetActive(true);
+            DimensionUp();
         }
     }
 
-    public void OnDimensionDown()
+    public void DimensionUp()
     {
-        if (currenDimension > 1)
+        if (currentDimension < OverworldData.DimensionsCount - 1)
         {
-            dimensions[currenDimension - 1].SetActive(false);
-            currenDimension--;
-            dimensions[currenDimension - 1].SetActive(true);
+            if (currentDimension == player.ActiveDimension.DimensionNr)
+            {
+                dimensions[currentDimension].SetActive(false);
+                currentDimension++;
+                dimensions[currentDimension].SetActive(true);
+            }
+            else
+            {
+                Debug.Log(this + ": Current dimension " + currentDimension + " and active dimension " + player.ActiveDimension.DimensionNr + " differ!");
+            }
+        }
+    }
+
+    public void OnDimensionDown(CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            DimensionDown();
+        }
+    }
+
+    public void DimensionDown()
+    {
+        if (currentDimension > 0)
+        {
+            if (currentDimension == player.ActiveDimension.DimensionNr)
+            {
+                dimensions[currentDimension].SetActive(false);
+                currentDimension--;
+                dimensions[currentDimension].SetActive(true);
+            }
+            else
+            {
+                Debug.Log(this + ": Current dimension " + currentDimension + " and active dimension " + player.ActiveDimension.DimensionNr + " differ!");
+            }
         }
     }
 

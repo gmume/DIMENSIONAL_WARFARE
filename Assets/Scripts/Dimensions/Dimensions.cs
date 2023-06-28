@@ -6,10 +6,12 @@ using UnityEngine;
 
 public class Dimensions : ScriptableObject
 {
+    private Player player;
     private readonly ArrayList dimensions = new();
 
     public void InitDimensions(Player player, GameObject prefabDimension, GameObject prefabCell)
     {
+        this.player = player;
         InitFleet(player);
         CreateDimensions(player, prefabDimension, prefabCell);
     }
@@ -35,6 +37,11 @@ public class Dimensions : ScriptableObject
 
     public Dimension GetDimension(int nr)
     {
+        if(player.number == 2)
+        {
+            Debug.Log(player.name + " gets dimension: " + nr);
+        }
+        
         GameObject dimension = (GameObject)dimensions[nr];
         return dimension.GetComponent<Dimension>();
     }

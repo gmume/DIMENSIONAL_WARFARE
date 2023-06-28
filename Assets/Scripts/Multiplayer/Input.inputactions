@@ -15,6 +15,24 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "DimensionDown",
+                    "type": "Button",
+                    "id": "1c5ae99a-f863-4439-84a1-9d46c13235d0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DimensionUp",
+                    "type": "Button",
+                    "id": "830ffcf9-5416-485f-b0e1-be752e27e40b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "MoveShip",
                     "type": "Value",
                     "id": "f5a7a2f6-f83f-4827-9720-a6b8a455c71f",
@@ -144,6 +162,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "ShipLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3c466342-64d6-4239-9257-756a225af240",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "DimensionUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "77f52b9c-affe-4369-91b4-570b4104b2ee",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "DimensionDown",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -10,8 +10,7 @@ public class VehicleBehavior : MonoBehaviour
     private Vector3 zoomOut;
     private bool zoomedOut = false;
     private Vector3 currentPosition;
-
-    public int CurrentDimension { get; private set; }
+    private int currentDimension;
 
     public void Start()
     {
@@ -27,41 +26,55 @@ public class VehicleBehavior : MonoBehaviour
         transform.position += new Vector3(OverworldData.DimensionSize / 2, OverworldData.DimensionSize * 2 / 3, -OverworldData.DimensionSize);
         vector = new Vector3(0, OverworldData.DimensionSize * 2, 0);
         zoomOut = new Vector3(OverworldData.DimensionSize / 2, OverworldData.DimensionSize * OverworldData.DimensionsCount, -OverworldData.DimensionSize * OverworldData.DimensionsCount * 2);
-        CurrentDimension = 0;
+        currentDimension = 0;
     }
 
     public void OnDimensionUp(CallbackContext ctx)
     {
-        if (ctx.performed && OverworldData.DimensionsCount - 1 > player.ActiveDimension.DimensionNr)
+        if (ctx.performed && currentDimension < OverworldData.DimensionsCount - 1)
         {
-            OnDimensionUp();
-            player.opponent.vehicle.OnDimensionUp();
+            DimensionUp();
+            //player.opponent.vehicle.DimensionUp();
         }
     }
 
-    public void OnDimensionUp()
+    public void DimensionUp()
     {
-        CurrentDimension += 1;
-        player.world.SetNewDimension(player.ActiveDimension.DimensionNr + 1);
-        transform.position += vector;
-        player.fleetMenu.UpdateFleetMenuDimension(CurrentDimension);
+        if(currentDimension == player.ActiveDimension.DimensionNr)
+        {
+            currentDimension++;
+            player.world.SetNewDimension(currentDimension);
+            transform.position += vector;
+            player.fleetMenu.UpdateFleetMenuDimension(currentDimension);
+        }
+        else
+        {
+            Debug.Log(this + ": Current dimension " + currentDimension + " and active dimension " + player.ActiveDimension.DimensionNr + " differ!");
+        }
     }
 
     public void OnDimensionDown(CallbackContext ctx)
     {
-        if (ctx.performed && player.ActiveDimension.DimensionNr > 0)
+        if (ctx.performed && currentDimension > 0)
         {
-            OnDimensionDown();
-            player.opponent.vehicle.OnDimensionDown();
+            DimensionDown();
+            //player.opponent.vehicle.DimensionDown();
         }
     }
 
-    public void OnDimensionDown()
+    public void DimensionDown()
     {
-        CurrentDimension -= 1;
-        player.world.SetNewDimension(player.ActiveDimension.DimensionNr - 1);
-        transform.position -= vector;
-        player.fleetMenu.UpdateFleetMenuDimension(CurrentDimension);
+        if(currentDimension == player.ActiveDimension.DimensionNr)
+        {
+            currentDimension--;
+            player.world.SetNewDimension(currentDimension);
+            transform.position -= vector;
+            player.fleetMenu.UpdateFleetMenuDimension(currentDimension);
+        }
+        else
+        {
+            Debug.Log(this + ": Current dimension " + currentDimension + " and active dimension " + player.ActiveDimension.DimensionNr + " differ!");
+        }
     }
 
     public void OnZoom(CallbackContext ctx)

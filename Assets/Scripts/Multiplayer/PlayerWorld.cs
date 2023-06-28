@@ -42,6 +42,7 @@ public class PlayerWorld : MonoBehaviour
             currentX += x;
             currentY += y;
             player.ActiveCell = player.dimensions.GetDimension(player.ActiveDimension.DimensionNr).GetCell(currentX, currentY).GetComponent<Cell>();
+            //player.ActiveCell = player.ActiveDimension.GetCell(currentX, currentY).GetComponent<Cell>();
             ActivateCell();
         }
         else
