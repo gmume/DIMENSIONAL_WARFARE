@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Scripts/Dimensions")]
@@ -37,11 +36,6 @@ public class Dimensions : ScriptableObject
 
     public Dimension GetDimension(int nr)
     {
-        if(player.number == 2)
-        {
-            Debug.Log(player.name + " gets dimension: " + nr);
-        }
-        
         GameObject dimension = (GameObject)dimensions[nr];
         return dimension.GetComponent<Dimension>();
     }

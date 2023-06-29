@@ -9,6 +9,8 @@ public class Overworld : MonoBehaviour
     [Range(1, 5)] [SerializeField]
     private int fleetSize;
 
+    public Debugging debug;
+
     private void Awake()
     {
         OverworldData.DimensionsCount = dimensionsCount;
@@ -20,6 +22,12 @@ public class Overworld : MonoBehaviour
         OverworldData.Player2SubmittedFleet = false;
         OverworldData.player1 = GameObject.Find("Player1").GetComponent<Player>();
         OverworldData.player2 = GameObject.Find("Player2").GetComponent<Player>();
+    }
+
+    private void Start()
+    {
+        debug = GameObject.Find("Debugging").GetComponent<Debugging>();
+        debug.InitDebugging();
     }
 
     void OnValidate()

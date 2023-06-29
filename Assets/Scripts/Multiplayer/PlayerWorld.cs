@@ -8,19 +8,6 @@ public class PlayerWorld : MonoBehaviour
     private Player player;
     private int currentX = 0, currentY = 0;
 
-    private void Awake()
-    {
-        player = GetComponent<Player>();
-    }
-
-    public void Start()
-    {
-        player.dimensions = ScriptableObject.CreateInstance("Dimensions") as Dimensions;
-        player.dimensions.name = "Dimensions" + player.number;
-        player.dimensions.InitDimensions(player, dimensionPrefab, cellPrefab);
-        SetNewDimension(0);
-    }
-
     public void SetNewDimension(int nr)
     {
         player.ActiveDimension = player.dimensions.GetDimension(nr);
@@ -63,5 +50,14 @@ public class PlayerWorld : MonoBehaviour
     public void DeactivateCell()
     {
         player.ActiveCell.gameObject.transform.position -= new Vector3(0, 0.2f, 0);
+    }
+
+    public void InitPlayerWorld(Player player)
+    {
+        this.player = player;
+        player.dimensions = ScriptableObject.CreateInstance("Dimensions") as Dimensions;
+        player.dimensions.name = "Dimensions" + player.number;
+        player.dimensions.InitDimensions(player, dimensionPrefab, cellPrefab);
+        SetNewDimension(0);
     }
 }

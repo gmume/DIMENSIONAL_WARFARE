@@ -14,50 +14,6 @@ public class InputHandling : MonoBehaviour
 
     public bool continueGame = true;
 
-    private void Awake()
-    {
-        player = GetComponent<Player>();
-    }
-
-    private void Start()
-    {
-        opponent = player.opponent;
-
-        gameStartMap = player.input.actions.FindActionMap("GameStart");
-        playerMap = player.input.actions.FindActionMap("Player");
-        fleetMenuMap = player.input.actions.FindActionMap("FleetMenu");
-
-        shipButtons = player.fleetMenu.GetShipButtons();
-        player.input.SwitchCurrentActionMap("GameStart");
-        ArrayList devices = new();
-
-        foreach (var device in InputSystem.devices)
-        {
-            if (device.ToString().Contains("Gamepad"))
-            {
-                devices.Add(device);
-            }
-        }
-
-        if (devices.Count >= 2)
-        {
-            player.input.user.UnpairDevices();
-
-            if (name == "Player1")
-            {
-                InputUser.PerformPairingWithDevice((InputDevice)devices[0], player.input.user);
-            }
-            else
-            {
-                InputUser.PerformPairingWithDevice((InputDevice)devices[1], player.input.user);
-            }
-        }
-        else
-        {
-            Debug.Log("Gamepad missing!");
-        }
-    }
-
     //StartGame actionMap
     public void OnShipLeft(CallbackContext ctx)
     {
@@ -389,6 +345,44 @@ public class InputHandling : MonoBehaviour
             default:
                 Debug.Log("No such action map!");
                 break;
+        }
+    }
+
+    public void InitImputHandling(Player player)
+    {
+        this.player = player;
+        opponent = player.opponent;
+        gameStartMap = player.input.actions.FindActionMap("GameStart");
+        playerMap = player.input.actions.FindActionMap("Player");
+        fleetMenuMap = player.input.actions.FindActionMap("FleetMenu");
+        shipButtons = player.fleetMenu.GetShipButtons();
+        player.input.SwitchCurrentActionMap("GameStart");
+        ArrayList devices = new();
+
+        foreach (var device in InputSystem.devices)
+        {
+            if (device.ToString().Contains("Gamepad"))
+            {
+                devices.Add(device);
+            }
+        }
+
+        if (devices.Count >= 2)
+        {
+            player.input.user.UnpairDevices();
+
+            if (name == "Player1")
+            {
+                InputUser.PerformPairingWithDevice((InputDevice)devices[0], player.input.user);
+            }
+            else
+            {
+                InputUser.PerformPairingWithDevice((InputDevice)devices[1], player.input.user);
+            }
+        }
+        else
+        {
+            Debug.Log("Gamepad missing!");
         }
     }
 }

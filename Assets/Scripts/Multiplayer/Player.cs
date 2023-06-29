@@ -64,4 +64,16 @@ public class Player : MonoBehaviour
         cameraObj = GameObject.Find("Camera" + number);
         cameraBehavior = GameObject.Find("Camera" + number).GetComponent<CameraBehavior>();
     }
+
+    private void Start()
+    {
+        world.InitPlayerWorld(this);
+        fleetMenu.InitFleetMenu(this);
+        inputHandling.InitImputHandling(this);
+
+        if(number == 1)
+        {
+            GameObject.Find("Overworld").GetComponent<Overworld>().debug.ShowCellCoords();
+        }
+    }
 }

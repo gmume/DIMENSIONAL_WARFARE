@@ -41,35 +41,7 @@ public class Debugging : MonoBehaviour
     public LayerMask layerMask1;
     public LayerMask layerMask2;
 
-    private void Awake()
-    {
-        player1 = GameObject.Find("Player1").GetComponent<Player>();
-        player2 = GameObject.Find("Player1").GetComponent<Player>();
-    }
-
-    void Start()
-    {
-        playerObj1 = player1.obj;
-        playerObj2 = GameObject.Find("Player2");
-        playerWorld1 = player1.world;
-        playerWorld2 = player2.world;
-        GamePhase = OverworldData.GamePhase.ToString();
-        playerTurn = OverworldData.PlayerTurn;
-
-        playerInput1 = player1.input;
-        playerInput2 = player2.input;
-        camera1 = player1.cameraObj.GetComponent<Camera>();
-        camera2 = player2.cameraObj.GetComponent<Camera>();
-
-        eventSystem1 = player1.eventSystem;
-        eventSystem2 = player2.eventSystem;
-        UIInputModulePlayer1 = player1.inputSystem;
-        UIInputModulePlayer2 = player2.inputSystem;
-
-        //ShowCellCoords();
-    }
-
-    void Update()
+    private void Update()
     {
         GamePhase = OverworldData.GamePhase.ToString();
         playerTurn = OverworldData.PlayerTurn;
@@ -116,7 +88,7 @@ public class Debugging : MonoBehaviour
         inputEnabled2 = playerInput2.enabled;
     }
 
-    private void ShowCellCoords()
+    public void ShowCellCoords()
     {
         Dimension dimension = player1.dimensions.GetDimension(0);
 
@@ -155,5 +127,27 @@ public class Debugging : MonoBehaviour
                 text.alignment = TextAnchor.MiddleCenter;
             }
         }
+    }
+
+    public void InitDebugging()
+    {
+        player1 = GameObject.Find("Player1").GetComponent<Player>();
+        player2 = GameObject.Find("Player1").GetComponent<Player>();
+        playerObj1 = player1.obj;
+        playerObj2 = GameObject.Find("Player2");
+        playerWorld1 = player1.world;
+        playerWorld2 = player2.world;
+        GamePhase = OverworldData.GamePhase.ToString();
+        playerTurn = OverworldData.PlayerTurn;
+
+        playerInput1 = player1.input;
+        playerInput2 = player2.input;
+        camera1 = player1.cameraObj.GetComponent<Camera>();
+        camera2 = player2.cameraObj.GetComponent<Camera>();
+
+        eventSystem1 = player1.eventSystem;
+        eventSystem2 = player2.eventSystem;
+        UIInputModulePlayer1 = player1.inputSystem;
+        UIInputModulePlayer2 = player2.inputSystem;
     }
 }
