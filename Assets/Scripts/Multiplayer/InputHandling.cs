@@ -2,9 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
 using UnityEngine.InputSystem.Users;
-using UnityEngine.Windows;
 using static UnityEngine.InputSystem.InputAction;
 
 public class InputHandling : MonoBehaviour

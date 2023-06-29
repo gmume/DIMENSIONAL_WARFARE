@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public static class Layer
 {
     //Leyer Player1 = 6 and Player2 = 7

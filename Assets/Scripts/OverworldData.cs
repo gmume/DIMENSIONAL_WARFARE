@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public static class OverworldData
 {
     public static GamePhases GamePhase { get; set; }

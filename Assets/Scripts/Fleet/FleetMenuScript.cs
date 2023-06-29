@@ -1,12 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 using static UnityEngine.InputSystem.InputAction;
 
@@ -41,6 +34,24 @@ public class FleetMenuScript : MonoBehaviour
 
         shipButtons = new GameObject[OverworldData.FleetSize];
 
+        //if (player.number == 1)
+        //{
+        //    xCoord = GameObject.Find("X-Koordinate1").GetComponent<TextMeshProUGUI>();
+        //    yCoord = GameObject.Find("Y-Koordinate1").GetComponent<TextMeshProUGUI>();
+        //    dimension = GameObject.Find("Dimension1").GetComponent<TextMeshProUGUI>();
+        //    dimensionsHeader = GameObject.Find("DimensionsHeader1");
+        //}
+        //else
+        //{
+        //    xCoord = GameObject.Find("X-Koordinate2").GetComponent<TextMeshProUGUI>();
+        //    yCoord = GameObject.Find("Y-Koordinate2").GetComponent<TextMeshProUGUI>();
+        //    dimension = GameObject.Find("Dimension2").GetComponent<TextMeshProUGUI>();
+        //    dimensionsHeader = GameObject.Find("DimensionsHeader2");
+        //}
+    }
+
+    private void Start()
+    {
         if (player.number == 1)
         {
             xCoord = GameObject.Find("X-Koordinate1").GetComponent<TextMeshProUGUI>();
@@ -55,13 +66,11 @@ public class FleetMenuScript : MonoBehaviour
             dimension = GameObject.Find("Dimension2").GetComponent<TextMeshProUGUI>();
             dimensionsHeader = GameObject.Find("DimensionsHeader2");
         }
-    }
 
-    private void Start()
-    {
         CreateShipButtons();
         CreateHUDDimensions();
         currentDimension = 0;
+        Debug.Log("player: " + player.fleet);
         player.fleet.ActivateShip(currentButton.ShipButtonNr, player);
     }
 

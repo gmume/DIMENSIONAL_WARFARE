@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
@@ -69,7 +66,7 @@ public class Debugging : MonoBehaviour
         UIInputModulePlayer1 = player1.inputSystem;
         UIInputModulePlayer2 = player2.inputSystem;
 
-        ShowCellCoords();
+        //ShowCellCoords();
     }
 
     void Update()
