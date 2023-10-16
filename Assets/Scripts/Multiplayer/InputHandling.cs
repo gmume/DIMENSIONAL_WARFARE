@@ -9,7 +9,7 @@ public class InputHandling : MonoBehaviour
 {
     private Player player;
     private Player opponent;
-    private InputActionMap gameStartMap, playerMap, fleetMenuMap;
+    private InputActionMap gameStartMap, playerMap;
     private GameObject[] shipButtons;
 
     public bool continueGame = true;
@@ -256,7 +256,6 @@ public class InputHandling : MonoBehaviour
         StartCoroutine(PauseAndTakeTurns());
     }
 
-
     public IEnumerator PauseAndTakeTurns()
     {
         Time.timeScale = 0f;
@@ -271,7 +270,7 @@ public class InputHandling : MonoBehaviour
         OverworldData.PlayerTurn = 3 - OverworldData.PlayerTurn;
         player.cameraBehavior.UpdateCamera(GamePhases.Attacked);
         opponent.cameraBehavior.UpdateCamera(GamePhases.Armed);
-        player.input.SwitchCurrentActionMap("FleetMenu");
+        player.input.SwitchCurrentActionMap("Player");
         opponent.input.SwitchCurrentActionMap("Player");
         player.input.actions.FindAction("ShipRight").Disable();
         player.input.actions.FindAction("ShipLeft").Disable();
@@ -309,10 +308,6 @@ public class InputHandling : MonoBehaviour
                 {
                     playerMap.Disable();
                 }
-                if (fleetMenuMap.enabled)
-                {
-                    fleetMenuMap.Disable();
-                }
                 break;
             case "Player":
                 if (gameStartMap.enabled)
@@ -323,10 +318,6 @@ public class InputHandling : MonoBehaviour
                 {
                     playerMap.Enable();
                 }
-                if (fleetMenuMap.enabled)
-                {
-                    fleetMenuMap.Disable();
-                }
                 break;
             case "FleetMenu":
                 if (gameStartMap.enabled)
@@ -336,10 +327,6 @@ public class InputHandling : MonoBehaviour
                 if (playerMap.enabled)
                 {
                     playerMap.Disable();
-                }
-                if (!fleetMenuMap.enabled)
-                {
-                    fleetMenuMap.Enable();
                 }
                 break;
             default:
@@ -354,7 +341,6 @@ public class InputHandling : MonoBehaviour
         opponent = player.opponent;
         gameStartMap = player.input.actions.FindActionMap("GameStart");
         playerMap = player.input.actions.FindActionMap("Player");
-        fleetMenuMap = player.input.actions.FindActionMap("FleetMenu");
         shipButtons = player.fleetMenu.GetShipButtons();
         player.input.SwitchCurrentActionMap("GameStart");
         ArrayList devices = new();

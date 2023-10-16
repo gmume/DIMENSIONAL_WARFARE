@@ -282,7 +282,7 @@ public class Ship : MonoBehaviour
             {
                 if (!FleetDestroyed())
                 {
-                    Debug.Log("!FleetDestroyed");
+                    //Debug.Log("!FleetDestroyed");
                     player.fleet.GetFleet().Remove(this);
                     GameObject[] shipButtons = player.fleetMenu.GetShipButtons();
                     shipButtons[PartsCount - 1].GetComponent<Button>().interactable = false;
@@ -291,7 +291,7 @@ public class Ship : MonoBehaviour
                 else
                 {
                     print(player.opponent.name + " wins for destroying the opponent's fleet!");
-                    // resolve game
+                    // To do: resolve game
                 }
             }
 
@@ -305,7 +305,7 @@ public class Ship : MonoBehaviour
 
     private IEnumerator DestroyShip()
     {
-        Debug.Log("DestroyShip");
+        //Debug.Log("DestroyShip");
         Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(2f);
         Time.timeScale = 1f;
@@ -334,7 +334,7 @@ public class Ship : MonoBehaviour
 
     private void ShipDown()
     {
-        Debug.Log("ShipDown");
+        //Debug.Log("ShipDown");
         player.vehicle.DimensionDown();
         player.fleetMenu.DimensionDown();
         ShipStatus = ShipStatus.Sunk;
@@ -348,7 +348,7 @@ public class Ship : MonoBehaviour
 
     private IEnumerator ResetShip()
     {
-        Debug.Log("ResetShip");
+        //Debug.Log("ResetShip");
         Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(2f);
         Time.timeScale = 1f;
@@ -358,9 +358,9 @@ public class Ship : MonoBehaviour
             part.ResetPart();
         }
 
+        ShipStatus = ShipStatus.Intact;
         player.input.SwitchCurrentActionMap("GameStart");
         print(player.name + " hide your ship!");
-
     }
 
     private bool FleetDestroyed()

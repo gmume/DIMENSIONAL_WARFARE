@@ -27,12 +27,31 @@ public class VehicleBehavior : MonoBehaviour
         currentDimension = 0;
     }
 
+    public void SetViewOnDimension(int dimensionNo)
+    {
+        if (currentDimension == player.ActiveDimension.DimensionNr)
+        {
+            // Calculate vector and change position
+            //transform.position += vector;
+            int vectorFactor = currentDimension - dimensionNo;
+            transform.position += vector * vectorFactor;
+
+            currentDimension = dimensionNo;
+            player.world.SetNewDimension(currentDimension);
+            player.fleetMenu.UpdateFleetMenuDimension(currentDimension);
+        }
+        else
+        {
+            Debug.Log(this + ": Current dimension " + currentDimension + " and active dimension " + player.ActiveDimension.DimensionNr + " differ!");
+        }
+    }
+
     public void OnDimensionUp(CallbackContext ctx)
     {
         if (ctx.performed && currentDimension < OverworldData.DimensionsCount - 1)
         {
-            DimensionUp();
-            //player.opponent.vehicle.DimensionUp();
+            //DimensionUp();
+            SetViewOnDimension(currentDimension + 1);
         }
     }
 
@@ -55,8 +74,8 @@ public class VehicleBehavior : MonoBehaviour
     {
         if (ctx.performed && currentDimension > 0)
         {
-            DimensionDown();
-            //player.opponent.vehicle.DimensionDown();
+            //DimensionDown();
+            SetViewOnDimension(currentDimension - 1);
         }
     }
 
