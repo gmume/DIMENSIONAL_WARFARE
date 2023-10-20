@@ -5,12 +5,10 @@ using UnityEngine;
 
 public class Dimensions : ScriptableObject
 {
-    //private Player player;
     private readonly ArrayList dimensions = new();
 
     public void InitDimensions(Player player, GameObject prefabDimension, GameObject prefabCell)
     {
-        //this.player = player;
         InitFleet(player);
         CreateDimensions(player, prefabDimension, prefabCell);
     }

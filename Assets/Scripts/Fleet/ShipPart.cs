@@ -38,7 +38,6 @@ public class ShipPart : MonoBehaviour
 
     public void ResetPart()
     {
-        Debug.Log("ResetPart");
         Damaged = false;
         SetColorIntact();
     }

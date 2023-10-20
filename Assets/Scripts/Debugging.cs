@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
@@ -126,6 +127,78 @@ public class Debugging : MonoBehaviour
                 text.verticalOverflow = VerticalWrapMode.Overflow;
                 text.alignment = TextAnchor.MiddleCenter;
             }
+        }
+    }
+
+    public void ShowShipsOwner()
+    {
+        ArrayList fleet = player1.fleet.GetFleet();
+
+        foreach (GameObject shipObj in fleet)
+        {
+            GameObject canvasObj;
+            GameObject myText;
+            Canvas myCanvas;
+            Text text;
+
+            canvasObj = new GameObject("TestCanvas", typeof(Canvas), typeof(GraphicRaycaster));
+            canvasObj.transform.SetParent(shipObj.transform.GetChild(0).transform, false);
+            RectTransform trans = canvasObj.GetComponent<RectTransform>();
+            //trans.Rotate(new Vector3(90, 0, 0));
+
+            Transform transParent = canvasObj.GetComponent<Transform>();
+            trans.position = new Vector3(transParent.position.x, 0.51f, transParent.position.z);
+            trans.sizeDelta = new Vector3(1, 1, 0);
+
+            myCanvas = canvasObj.GetComponent<Canvas>();
+            myCanvas.renderMode = RenderMode.WorldSpace;
+
+            myText = new GameObject("shipText", typeof(Text));
+            myText.transform.SetParent(myCanvas.transform, false);
+            myText.GetComponent<RectTransform>().localScale = new Vector3(0.003f, 0.003f, 1);
+
+            text = myText.GetComponent<Text>();
+            text.font = (Font)Resources.Load("arial");
+            text.text = player1.number.ToString();
+            text.fontSize = 150;
+            text.horizontalOverflow = HorizontalWrapMode.Overflow;
+            text.verticalOverflow = VerticalWrapMode.Overflow;
+            text.alignment = TextAnchor.MiddleCenter;
+        }
+
+        fleet = player2.fleet.GetFleet();
+
+        foreach (GameObject shipObj in fleet)
+        {
+            GameObject canvasObj;
+            GameObject myText;
+            Canvas myCanvas;
+            Text text;
+
+            canvasObj = new GameObject("TestCanvas", typeof(Canvas), typeof(GraphicRaycaster));
+            //canvasObj.transform.SetParent(shipObj.transform, false);
+            canvasObj.transform.SetParent(shipObj.transform.GetChild(0).transform, false);
+            RectTransform trans = canvasObj.GetComponent<RectTransform>();
+            //trans.Rotate(new Vector3(90, 0, 0));
+
+            Transform transParent = canvasObj.GetComponent<Transform>();
+            trans.position = new Vector3(transParent.position.x, 0.51f, transParent.position.z);
+            trans.sizeDelta = new Vector3(1, 1, 0);
+
+            myCanvas = canvasObj.GetComponent<Canvas>();
+            myCanvas.renderMode = RenderMode.WorldSpace;
+
+            myText = new GameObject("shipText", typeof(Text));
+            myText.transform.SetParent(myCanvas.transform, false);
+            myText.GetComponent<RectTransform>().localScale = new Vector3(0.003f, 0.003f, 1);
+
+            text = myText.GetComponent<Text>();
+            text.font = (Font)Resources.Load("arial");
+            text.text = player2.number.ToString();
+            text.fontSize = 150;
+            text.horizontalOverflow = HorizontalWrapMode.Overflow;
+            text.verticalOverflow = VerticalWrapMode.Overflow;
+            text.alignment = TextAnchor.MiddleCenter;
         }
     }
 

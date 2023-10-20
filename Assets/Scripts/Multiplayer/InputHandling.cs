@@ -239,12 +239,12 @@ public class InputHandling : MonoBehaviour
                 }
                 else
                 {
-                    print("You can't fire with a sunken ship, capt'n!");
+                    print(player.name + "You can't fire with a sunken ship, capt'n!");
                 }
             }
             else
             {
-                print("It's not your turn, yet!");
+                print(player.name + "It's not your turn, yet!");
             }
         }
     }
@@ -330,7 +330,7 @@ public class InputHandling : MonoBehaviour
                 }
                 break;
             default:
-                Debug.Log("No such action map!");
+                Debug.LogWarning(name + ": No such action map!");
                 break;
         }
     }
@@ -368,7 +368,7 @@ public class InputHandling : MonoBehaviour
         }
         else
         {
-            Debug.Log("Gamepad missing!");
+            Debug.LogWarning("Gamepad missing!");
         }
     }
 }

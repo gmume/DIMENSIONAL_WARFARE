@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
     public Dimension ActiveDimension { get; set; }
     public Cell ActiveCell { get; set; }
 
-    public Fleet fleet; //Is initiated by PlayerWorld
+    public Fleet fleet; //Is initiated by PlayerWorld via InitDimension()
     public ShipButton CurrentShipButton { get; set; }
     public Ship ActiveShip { get; set; }
     public int X { get; set; }
@@ -75,5 +75,7 @@ public class Player : MonoBehaviour
         {
             GameObject.Find("Overworld").GetComponent<Overworld>().debug.ShowCellCoords();
         }
+
+        GameObject.Find("Overworld").GetComponent<Overworld>().debug.ShowShipsOwner();
     }
 }

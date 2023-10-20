@@ -69,7 +69,7 @@ public class Dimension : MonoBehaviour
         }
         catch (System.Exception)
         {
-            Debug.Log("No cell found!");
+            Debug.LogWarning(name + ": No cell found!");
             throw;
         }
 
@@ -112,7 +112,7 @@ public class Dimension : MonoBehaviour
         }
         catch (System.Exception)
         {
-            Debug.Log("No ship found!");
+            Debug.LogWarning(name + ": No ship found!");
             throw;
         }
 

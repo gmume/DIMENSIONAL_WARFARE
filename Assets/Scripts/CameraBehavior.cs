@@ -71,7 +71,7 @@ public class CameraBehavior : MonoBehaviour
                 }
                 break;
             default:
-                Debug.Log("No game phase found!");
+                Debug.LogWarning("No game phase found!");
                 break;
         }
     }

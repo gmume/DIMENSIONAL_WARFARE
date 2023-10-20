@@ -1,3 +1,4 @@
+using UnityEditor.Purchasing;
 using UnityEngine;
 using static UnityEngine.InputSystem.InputAction;
 
@@ -32,17 +33,16 @@ public class VehicleBehavior : MonoBehaviour
         if (currentDimension == player.ActiveDimension.DimensionNr)
         {
             // Calculate vector and change position
-            //transform.position += vector;
-            int vectorFactor = currentDimension - dimensionNo;
-            transform.position += vector * vectorFactor;
+            int vectorFactor = dimensionNo - currentDimension;
 
+            transform.position += vector * vectorFactor;
             currentDimension = dimensionNo;
             player.world.SetNewDimension(currentDimension);
             player.fleetMenu.UpdateFleetMenuDimension(currentDimension);
         }
         else
         {
-            Debug.Log(this + ": Current dimension " + currentDimension + " and active dimension " + player.ActiveDimension.DimensionNr + " differ!");
+            Debug.LogWarning(name + ": Current dimension " + currentDimension + " and active dimension " + player.ActiveDimension.DimensionNr + " differ!");
         }
     }
 
@@ -50,48 +50,26 @@ public class VehicleBehavior : MonoBehaviour
     {
         if (ctx.performed && currentDimension < OverworldData.DimensionsCount - 1)
         {
-            //DimensionUp();
             SetViewOnDimension(currentDimension + 1);
         }
     }
 
     public void DimensionUp()
     {
-        if(currentDimension == player.ActiveDimension.DimensionNr)
-        {
-            currentDimension++;
-            player.world.SetNewDimension(currentDimension);
-            transform.position += vector;
-            player.fleetMenu.UpdateFleetMenuDimension(currentDimension);
-        }
-        else
-        {
-            Debug.Log(this + ": Current dimension " + currentDimension + " and active dimension " + player.ActiveDimension.DimensionNr + " differ!");
-        }
+        SetViewOnDimension(currentDimension + 1);
     }
 
     public void OnDimensionDown(CallbackContext ctx)
     {
         if (ctx.performed && currentDimension > 0)
         {
-            //DimensionDown();
             SetViewOnDimension(currentDimension - 1);
         }
     }
 
     public void DimensionDown()
     {
-        if(currentDimension == player.ActiveDimension.DimensionNr)
-        {
-            currentDimension--;
-            player.world.SetNewDimension(currentDimension);
-            transform.position -= vector;
-            player.fleetMenu.UpdateFleetMenuDimension(currentDimension);
-        }
-        else
-        {
-            Debug.Log(this + ": Current dimension " + currentDimension + " and active dimension " + player.ActiveDimension.DimensionNr + " differ!");
-        }
+        SetViewOnDimension(currentDimension - 1);
     }
 
     public void OnZoom(CallbackContext ctx)

@@ -226,7 +226,7 @@ public class Ship : MonoBehaviour
         if (Dimension.DimensionNr < OverworldData.DimensionsCount - 1)
         {
             player.fleetMenu.DimensionUp();
-            player.vehicle.DimensionUp();
+            player.vehicle.SetViewOnDimension(Dimension.DimensionNr +1);
             SwitchDimension(Dimension.DimensionNr + 1);
             this.gameObject.transform.position += new Vector3(0, OverworldData.DimensionSize * 2, 0);
             player.input.SwitchCurrentActionMap("GameStart");
@@ -249,7 +249,6 @@ public class Ship : MonoBehaviour
 
     public bool TakeHit(ShipPart part)
     {
-        Debug.Log(player.name + " " + name + " takes hit!");
         part.Damaged = true;
         part.PartMaterial.color += new Color(0.3f, 0, 0);
 
@@ -265,7 +264,6 @@ public class Ship : MonoBehaviour
 
         if (Sunk())
         {
-            Debug.Log("entred if sunk");
             ShipStatus = ShipStatus.Sunk;
             gameObject.transform.position -= new Vector3(0, 0.5f, 0);
 
@@ -334,8 +332,7 @@ public class Ship : MonoBehaviour
 
     private void ShipDown()
     {
-        //Debug.Log("ShipDown");
-        player.vehicle.DimensionDown();
+        player.vehicle.SetViewOnDimension(Dimension.DimensionNr - 1);
         player.fleetMenu.DimensionDown();
         ShipStatus = ShipStatus.Sunk;
         gameObject.transform.position += new Vector3(0, 0.5f, 0);
@@ -348,7 +345,6 @@ public class Ship : MonoBehaviour
 
     private IEnumerator ResetShip()
     {
-        //Debug.Log("ResetShip");
         Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(2f);
         Time.timeScale = 1f;

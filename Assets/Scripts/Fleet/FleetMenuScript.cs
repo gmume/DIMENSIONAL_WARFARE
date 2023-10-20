@@ -37,6 +37,9 @@ public class FleetMenuScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Updates the active dimension of the player.
+    /// </summary>
     public void DimensionUp()
     {
         if (currentDimension < OverworldData.DimensionsCount - 1)
@@ -49,7 +52,11 @@ public class FleetMenuScript : MonoBehaviour
             }
             else
             {
-                Debug.Log(this + ": Current dimension " + currentDimension + " and active dimension " + player.ActiveDimension.DimensionNr + " differ!");
+                if (player.name == "Player2")
+                {
+                    Debug.LogWarning(name + ": Current dimension " + currentDimension + " and active dimension " + player.ActiveDimension.DimensionNr + " differ!");
+                }
+                
             }
         }
     }
@@ -74,7 +81,7 @@ public class FleetMenuScript : MonoBehaviour
             }
             else
             {
-                Debug.Log(this + ": Current dimension " + currentDimension + " and active dimension " + player.ActiveDimension.DimensionNr + " differ!");
+                Debug.LogWarning(name + ": Current dimension " + currentDimension + " and active dimension " + player.ActiveDimension.DimensionNr + " differ!");
             }
         }
     }

@@ -30,7 +30,7 @@ public class PlayerWorld : MonoBehaviour
         }
         else
         {
-            Debug.Log("Cell outside of dimension!");
+            Debug.LogWarning(name + ": Cell outside of dimension!");
         }
     }
 
