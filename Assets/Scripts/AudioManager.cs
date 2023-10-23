@@ -24,6 +24,12 @@ public class AudioManager : MonoBehaviour
     {
         backgroundSound.clip = background;
         backgroundSound.Play();
+
+        //Debug.Log("SFX source: " + SFXSource);
+        //Debug.Log("attack: " + attack);
+
+        //SFXSource.clip = attack;
+        //SFXSource.Play();
     }
 
     //StartGame actionMap
@@ -88,7 +94,11 @@ public class AudioManager : MonoBehaviour
     {
         if (ctx.performed)
         {
-            
+            Debug.Log("SFX source: " + SFXSource);
+            Debug.Log("attack: " + attack);
+
+            SFXSource.clip = attack;
+            SFXSource.Play();
         }
     }
 }
