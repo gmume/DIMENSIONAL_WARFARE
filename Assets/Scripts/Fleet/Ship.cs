@@ -9,7 +9,7 @@ public class Ship : MonoBehaviour
     private Color fireColor;
 
     public string ShipName { get; private set; }
-    public int ShipNr { get; private set; } // 1 based
+    public int ShipNo { get; private set; } // 1 based
     public ShipStatus ShipStatus { get; private set; }
     public Dimension Dimension { get; set; }
     private Transform position;
@@ -20,7 +20,7 @@ public class Ship : MonoBehaviour
 
     public void GetStatus()
     {
-        string message = ShipName + " on dimension " + Dimension.DimensionNr + "\nCoordiantes: " + PivotX + ", " + PivotZ + "\nDamaged (";
+        string message = ShipName + " on dimension " + Dimension.DimensionNo + "\nCoordiantes: " + PivotX + ", " + PivotZ + "\nDamaged (";
 
         for (int i = 0; i < PartsCount; i++)
         {
@@ -201,7 +201,7 @@ public class Ship : MonoBehaviour
         cellMaterial.color = fireColor;
         activeCell.Hitted = true;
 
-        Dimension opponentDimension = player.opponent.dimensions.GetDimension(Dimension.DimensionNr);
+        Dimension opponentDimension = player.opponent.dimensions.GetDimension(Dimension.DimensionNo);
         Cell opponentCell = opponentDimension.GetCell(activeCell.X, activeCell.Y).GetComponent<Cell>();
 
         if (opponentCell.Occupied)
@@ -223,11 +223,12 @@ public class Ship : MonoBehaviour
 
     private void ShipUp()
     {
-        if (Dimension.DimensionNr < OverworldData.DimensionsCount - 1)
+        if (Dimension.DimensionNo < OverworldData.DimensionsCount - 1)
         {
-            player.fleetMenu.DimensionUp();
-            player.vehicle.SetViewOnDimension(Dimension.DimensionNr +1);
-            SwitchDimension(Dimension.DimensionNr + 1);
+            player.fleetMenu.SetHUDDimension(Dimension.DimensionNo + 1);
+            player.vehicle.SetViewOnDimension(Dimension.DimensionNo + 1);
+            SwitchDimension(Dimension.DimensionNo + 1);
+            SetDimension(Dimension);
             this.gameObject.transform.position += new Vector3(0, OverworldData.DimensionSize * 2, 0);
             player.input.SwitchCurrentActionMap("GameStart");
             print(player.name + " hide your ship!");
@@ -272,7 +273,7 @@ public class Ship : MonoBehaviour
                 shipPart.PartMaterial.color = Color.black;
             }
 
-            if (Dimension.DimensionNr != 0)
+            if (Dimension.DimensionNo != 0)
             {
                 ShipDown();
             }
@@ -332,15 +333,27 @@ public class Ship : MonoBehaviour
 
     private void ShipDown()
     {
-        player.vehicle.SetViewOnDimension(Dimension.DimensionNr - 1);
-        player.fleetMenu.DimensionDown();
-        ShipStatus = ShipStatus.Sunk;
-        gameObject.transform.position += new Vector3(0, 0.5f, 0);
-        this.gameObject.layer = LayerMask.NameToLayer("Fleet" + player.number);
-        this.gameObject.transform.position -= new Vector3(0, OverworldData.DimensionSize * 2, 0);
-        SwitchDimension(Dimension.DimensionNr - 1);
-        player.inputHandling.continueGame = false;
-        StartCoroutine(ResetShip());
+        if (Dimension.DimensionNo > 0)
+        {
+            //Debug.Log("Ship's dimension: " + Dimension.DimensionNo);
+            player.vehicle.SetViewOnDimension(Dimension.DimensionNo - 1);
+
+            //Debug.Log("Ship's dimension: "+Dimension.DimensionNo);
+            player.fleetMenu.SetHUDDimension(Dimension.DimensionNo - 1);
+            ShipStatus = ShipStatus.Sunk;
+            gameObject.transform.position += new Vector3(0, 0.5f, 0);
+            this.gameObject.layer = LayerMask.NameToLayer("Fleet" + player.number);
+            this.gameObject.transform.position -= new Vector3(0, OverworldData.DimensionSize * 2, 0);
+            SwitchDimension(Dimension.DimensionNo - 1);
+            SetDimension(Dimension);
+            player.inputHandling.continueGame = false;
+            StartCoroutine(ResetShip());
+        }
+        else
+        {
+            Debug.Log(name + " is destroyed!");
+            Destroy(gameObject);
+        }
     }
 
     private IEnumerator ResetShip()
@@ -391,9 +404,9 @@ public class Ship : MonoBehaviour
     public void SetDimension(Dimension dimension)
     {
         Dimension = dimension;
-        gameObject.transform.parent = dimension.transform;
+        gameObject.transform.parent = Dimension.transform;
 
-        for (int i = 0; i <= ShipNr; i++)
+        for (int i = 0; i <= ShipNo; i++)
         {
             ShipPart part = parts[i];
             part.Dimension = Dimension;
@@ -401,19 +414,19 @@ public class Ship : MonoBehaviour
         }
     }
 
-    public void InitiateShip(Player player, int shipNr)
+    public void InitiateShip(Player player, int shipNo)
     {
         this.player = player;
-        ShipNr = shipNr;
-        parts = new ShipPart[ShipNr + 1];
-        ShipName = "ship" + player.number + "." + ShipNr;
+        ShipNo = shipNo;
+        parts = new ShipPart[ShipNo + 1];
+        ShipName = "ship" + player.number + "." + ShipNo;
         ShipStatus = ShipStatus.Intact;
         position = GetComponent<Transform>();
-        PivotX = ShipNr;
+        PivotX = ShipNo;
         Orientation = Directions.North;
-        PartsCount = ShipNr + 1;
+        PartsCount = ShipNo + 1;
 
-        for (int i = 0; i <= ShipNr; i++)
+        for (int i = 0; i <= ShipNo; i++)
         {
             GameObject partObj;
             partObj = gameObject.transform.GetChild(i).gameObject;

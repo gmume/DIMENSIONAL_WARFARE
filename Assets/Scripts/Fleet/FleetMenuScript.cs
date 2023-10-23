@@ -9,13 +9,13 @@ public class FleetMenuScript : MonoBehaviour
     private GameObject[] shipButtons;
     private string x = "--";
     private string y = "--";
-    private string dimensionNr = "01";
+    private string HUDDimensionNo = "01";
     private TextMeshProUGUI xCoord;
     private TextMeshProUGUI yCoord;
-    private TextMeshProUGUI dimension;
-    private GameObject dimensionsHeader;
-    private GameObject[] dimensions;
-    private int currentDimension;
+    private TextMeshProUGUI HUDDimension;
+    private GameObject HUDDimensionsHeader;
+    private GameObject[] HUDDimensions;
+    private int currentHUDDimension;
 
     public ShipButton currentButton;
     public GameObject firstSelectedButton;
@@ -25,38 +25,54 @@ public class FleetMenuScript : MonoBehaviour
     {
         xCoord.text = x;
         yCoord.text = y;
-        dimension.text = dimensionNr;
+        HUDDimension.text = HUDDimensionNo;
     }
 
-    //FleetMenu actionMap
+    public void SetHUDDimension(int toNo)
+    {
+        if(player.number == 1)
+        {
+            Debug.Log(name + ": entred dimension in scope!");
+        }
+        
+        if (currentHUDDimension == player.ActiveDimension.DimensionNo)
+        {
+            if (player.number == 1)
+            {
+                Debug.Log(name + ": entred dimension matches HUD dimension");
+            }
+            
+                
+
+            int difference = toNo - currentHUDDimension;
+
+            if (player.number == 1)
+            {
+                Debug.Log(name + ": change to no " + toNo + ", current HUD dimension " + currentHUDDimension + ", difference: " + difference);
+            }
+            
+
+            HUDDimensions[currentHUDDimension].SetActive(false);
+            currentHUDDimension += difference;
+            HUDDimensions[currentHUDDimension].SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning(name + ": Current HUD dimension " + currentHUDDimension + " and active dimension " + player.ActiveDimension.DimensionNo + " differ!");
+        }
+    }
+
     public void OnDimensionUp(CallbackContext ctx)
     {
         if (ctx.performed)
         {
-            DimensionUp();
-        }
-    }
-
-    /// <summary>
-    /// Updates the active dimension of the player.
-    /// </summary>
-    public void DimensionUp()
-    {
-        if (currentDimension < OverworldData.DimensionsCount - 1)
-        {
-            if (currentDimension == player.ActiveDimension.DimensionNr)
+            if (currentHUDDimension + 1 < OverworldData.DimensionsCount)
             {
-                dimensions[currentDimension].SetActive(false);
-                currentDimension++;
-                dimensions[currentDimension].SetActive(true);
+                SetHUDDimension(currentHUDDimension + 1);
             }
             else
             {
-                if (player.name == "Player2")
-                {
-                    Debug.LogWarning(name + ": Current dimension " + currentDimension + " and active dimension " + player.ActiveDimension.DimensionNr + " differ!");
-                }
-                
+                Debug.LogWarning(name + ": Desired dimension out of scope!");
             }
         }
     }
@@ -65,23 +81,13 @@ public class FleetMenuScript : MonoBehaviour
     {
         if (ctx.performed)
         {
-            DimensionDown();
-        }
-    }
-
-    public void DimensionDown()
-    {
-        if (currentDimension > 0)
-        {
-            if (currentDimension == player.ActiveDimension.DimensionNr)
+            if (currentHUDDimension - 1 >= 0)
             {
-                dimensions[currentDimension].SetActive(false);
-                currentDimension--;
-                dimensions[currentDimension].SetActive(true);
+                SetHUDDimension(currentHUDDimension - 1);
             }
             else
             {
-                Debug.LogWarning(name + ": Current dimension " + currentDimension + " and active dimension " + player.ActiveDimension.DimensionNr + " differ!");
+                Debug.LogWarning(name + ": Desired dimension out of scope!");
             }
         }
     }
@@ -115,7 +121,7 @@ public class FleetMenuScript : MonoBehaviour
 
     public void UpdateFleetMenuDimension(int dimension)
     {
-        dimensionNr = "0" + (dimension + 1).ToString();
+        HUDDimensionNo = "0" + (dimension + 1).ToString();
     }
 
     public GameObject[] GetShipButtons()
@@ -221,18 +227,19 @@ public class FleetMenuScript : MonoBehaviour
 
     private void CreateHUDDimensions()
     {
-        dimensions = new GameObject[OverworldData.DimensionsCount];
+        HUDDimensions = new GameObject[OverworldData.DimensionsCount];
 
         for (int i = 0; i < OverworldData.DimensionsCount; i++)
         {
             GameObject HUDDimension = new("HUDDimension0" + (i + 1), typeof(CanvasRenderer), typeof(Image));
-            HUDDimension.transform.SetParent(dimensionsHeader.transform, false);
+            HUDDimension.transform.SetParent(HUDDimensionsHeader.transform, false);
 
             Image HUDDimensionImage = HUDDimension.GetComponent<Image>();
             HUDDimensionImage.sprite = Resources.Load<Sprite>("HUD_Elemente/Levels/Dimension0" + (i + 1)) as Sprite;
             HUDDimensionImage.type = Image.Type.Simple;
             HUDDimensionImage.SetNativeSize();
-            dimensions[i] = HUDDimension;
+            HUDDimensions[i] = HUDDimension;
+            HUDDimensions[i] = HUDDimension;
 
             if (i != 0)
             {
@@ -250,22 +257,20 @@ public class FleetMenuScript : MonoBehaviour
         {
             xCoord = GameObject.Find("X-Koordinate1").GetComponent<TextMeshProUGUI>();
             yCoord = GameObject.Find("Y-Koordinate1").GetComponent<TextMeshProUGUI>();
-            dimension = GameObject.Find("Dimension1").GetComponent<TextMeshProUGUI>();
-            dimensionsHeader = GameObject.Find("DimensionsHeader1");
+            HUDDimension = GameObject.Find("Dimension1").GetComponent<TextMeshProUGUI>();
+            HUDDimensionsHeader = GameObject.Find("DimensionsHeader1");
         }
         else
         {
             xCoord = GameObject.Find("X-Koordinate2").GetComponent<TextMeshProUGUI>();
             yCoord = GameObject.Find("Y-Koordinate2").GetComponent<TextMeshProUGUI>();
-            dimension = GameObject.Find("Dimension2").GetComponent<TextMeshProUGUI>();
-            dimensionsHeader = GameObject.Find("DimensionsHeader2");
+            HUDDimension = GameObject.Find("Dimension2").GetComponent<TextMeshProUGUI>();
+            HUDDimensionsHeader = GameObject.Find("DimensionsHeader2");
         }
 
         CreateShipButtons();
         CreateHUDDimensions();
-        currentDimension = 0;
-
-        //StartCoroutine(WaitForFleet(player));
+        currentHUDDimension = 0;
         player.fleet.ActivateShip(currentButton.ShipButtonNr, player);
     }
 }

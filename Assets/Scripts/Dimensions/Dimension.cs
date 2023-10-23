@@ -8,15 +8,15 @@ public class Dimension : MonoBehaviour
     public GameObject[][] cells;
     private readonly List<GameObject> ships = new();
 
-    public int DimensionNr { get; private set; }
+    public int DimensionNo { get; private set; }
 
-    public void InitDimension(Player player, int nr, GameObject cellPrefab, ArrayList fleet)
+    public void InitDimension(Player player, int no, GameObject cellPrefab, ArrayList fleet)
     {
         this.player = player;
-        DimensionNr = nr;
+        DimensionNo = no;
         CreateCells(cellPrefab);
 
-        if (DimensionNr == 0)
+        if (DimensionNo == 0)
         {
             player.ActiveDimension = GetComponent<Dimension>();
 
@@ -42,7 +42,7 @@ public class Dimension : MonoBehaviour
 
             for (int z = 0; z < OverworldData.DimensionSize; z++)
             {
-                GameObject cellObj = Instantiate(cellPrefab, new Vector3(x, OverworldData.DimensionSize * DimensionNr * 2, z), Quaternion.identity);
+                GameObject cellObj = Instantiate(cellPrefab, new Vector3(x, OverworldData.DimensionSize * DimensionNo * 2, z), Quaternion.identity);
 
                 cellObj.layer = Layer.SetLayerPlayer(player);
                 cellObj.transform.parent = transform;

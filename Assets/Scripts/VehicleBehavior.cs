@@ -10,6 +10,7 @@ public class VehicleBehavior : MonoBehaviour
     private bool zoomedOut = false;
     private Vector3 currentPosition;
     private int currentDimension;
+    public AnimationCurve curve;
 
     public void Start()
     {
@@ -28,21 +29,20 @@ public class VehicleBehavior : MonoBehaviour
         currentDimension = 0;
     }
 
-    public void SetViewOnDimension(int dimensionNo)
+    public void SetViewOnDimension(int toNo)
     {
-        if (currentDimension == player.ActiveDimension.DimensionNr)
+        if (currentDimension == player.ActiveDimension.DimensionNo)
         {
             // Calculate vector and change position
-            int vectorFactor = dimensionNo - currentDimension;
-
+            int vectorFactor = toNo - currentDimension;
             transform.position += vector * vectorFactor;
-            currentDimension = dimensionNo;
+            currentDimension = toNo;
             player.world.SetNewDimension(currentDimension);
             player.fleetMenu.UpdateFleetMenuDimension(currentDimension);
         }
         else
         {
-            Debug.LogWarning(name + ": Current dimension " + currentDimension + " and active dimension " + player.ActiveDimension.DimensionNr + " differ!");
+            Debug.LogWarning(name + ": Current camera dimension " + currentDimension + " and active dimension " + player.ActiveDimension.DimensionNo + " differ!");
         }
     }
 

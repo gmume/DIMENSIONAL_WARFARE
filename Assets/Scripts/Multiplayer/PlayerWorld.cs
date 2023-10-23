@@ -8,9 +8,9 @@ public class PlayerWorld : MonoBehaviour
     private Player player;
     private int currentX = 0, currentY = 0;
 
-    public void SetNewDimension(int nr)
+    public void SetNewDimension(int no)
     {
-        player.ActiveDimension = player.dimensions.GetDimension(nr);
+        player.ActiveDimension = player.dimensions.GetDimension(no);
     }
 
     public void SetNewCellRelative(int x, int y)
@@ -24,8 +24,7 @@ public class PlayerWorld : MonoBehaviour
 
             currentX += x;
             currentY += y;
-            player.ActiveCell = player.dimensions.GetDimension(player.ActiveDimension.DimensionNr).GetCell(currentX, currentY).GetComponent<Cell>();
-            //player.ActiveCell = player.ActiveDimension.GetCell(currentX, currentY).GetComponent<Cell>();
+            player.ActiveCell = player.dimensions.GetDimension(player.ActiveDimension.DimensionNo).GetCell(currentX, currentY).GetComponent<Cell>();
             ActivateCell();
         }
         else

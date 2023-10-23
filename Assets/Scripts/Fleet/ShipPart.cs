@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ShipPart : MonoBehaviour
 {
-    public int partNr;
+    public int partNo;
     public int X { get; private set; }
     public int Y { get; private set; }
     public Dimension Dimension { get; set; }
@@ -47,11 +47,11 @@ public class ShipPart : MonoBehaviour
         PartMaterial.color = colorIntact;
     }
 
-    public void InitiateShipPart(Player player, int partNr, Ship ship)
+    public void InitiateShipPart(Player player, int partNo, Ship ship)
     {
-        this.partNr = partNr;
-        X = ship.ShipNr;
-        Y = partNr;
+        this.partNo = partNo;
+        X = ship.ShipNo;
+        Y = partNo;
         Damaged = false;
         PartMaterial = GetComponent<Renderer>().material;
 

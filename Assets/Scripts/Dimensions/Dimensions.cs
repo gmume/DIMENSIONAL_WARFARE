@@ -15,14 +15,15 @@ public class Dimensions : ScriptableObject
 
     public void CreateDimensions(Player player, GameObject dimensionPrefab, GameObject cellPrefab)
     {
-        for (int dimensionNr = 0; dimensionNr < OverworldData.DimensionsCount; dimensionNr++)
+        for (int dimensionNo = 0; dimensionNo < OverworldData.DimensionsCount; dimensionNo++)
         {
             float halfDimensionSize = OverworldData.DimensionSize / 2;
-            GameObject dimension = Instantiate(dimensionPrefab, new Vector3(halfDimensionSize, OverworldData.DimensionSize * dimensionNr * 2, halfDimensionSize), Quaternion.identity);
-            dimension.name = "dimension" + player.number + "." + dimensionNr;
+            GameObject dimension = Instantiate(dimensionPrefab, new Vector3(halfDimensionSize, OverworldData.DimensionSize * dimensionNo * 2, halfDimensionSize), Quaternion.identity);
+            dimension.transform.parent = GameObject.Find("Dimensions" + player.number).transform;
+            dimension.name = "dimension" + player.number + "." + dimensionNo;
             dimension.layer = Layer.SetLayerPlayer(player);
             dimension.transform.localScale = new Vector3(OverworldData.DimensionDiagonal, OverworldData.DimensionDiagonal, OverworldData.DimensionDiagonal);
-            dimension.GetComponent<Dimension>().InitDimension(player, dimensionNr, cellPrefab, player.fleet.GetFleet());
+            dimension.GetComponent<Dimension>().InitDimension(player, dimensionNo, cellPrefab, player.fleet.GetFleet());
             dimensions.Add(dimension);
         }
     }
@@ -32,9 +33,9 @@ public class Dimensions : ScriptableObject
         return dimensions;
     }
 
-    public Dimension GetDimension(int nr)
+    public Dimension GetDimension(int no)
     {
-        GameObject dimension = (GameObject)dimensions[nr];
+        GameObject dimension = (GameObject)dimensions[no];
         return dimension.GetComponent<Dimension>();
     }
 
