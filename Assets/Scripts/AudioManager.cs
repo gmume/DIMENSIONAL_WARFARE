@@ -24,12 +24,6 @@ public class AudioManager : MonoBehaviour
     {
         backgroundSound.clip = background;
         backgroundSound.Play();
-
-        //Debug.Log("SFX source: " + SFXSource);
-        //Debug.Log("attack: " + attack);
-
-        //SFXSource.clip = attack;
-        //SFXSource.Play();
     }
 
     //StartGame actionMap
