@@ -28,8 +28,6 @@ public class Overworld : MonoBehaviour
     {
         debug = GameObject.Find("Debugging").GetComponent<Debugging>();
         debug.InitDebugging();
-
-
     }
 
     void OnValidate()

@@ -30,20 +30,6 @@ public class FleetMenuScript : MonoBehaviour
 
     public void SetHUDDimension(int toNo)
     {
-        if(player.number == 1)
-        {
-            Debug.Log(name + ": entred dimension in scope!");
-        }
-        
-        if (currentHUDDimension == player.ActiveDimension.DimensionNo)
-        {
-            if (player.number == 1)
-            {
-                Debug.Log(name + ": entred dimension matches HUD dimension");
-            }
-            
-                
-
             int difference = toNo - currentHUDDimension;
 
             if (player.number == 1)
@@ -51,15 +37,10 @@ public class FleetMenuScript : MonoBehaviour
                 Debug.Log(name + ": change to no " + toNo + ", current HUD dimension " + currentHUDDimension + ", difference: " + difference);
             }
             
-
             HUDDimensions[currentHUDDimension].SetActive(false);
             currentHUDDimension += difference;
             HUDDimensions[currentHUDDimension].SetActive(true);
-        }
-        else
-        {
-            Debug.LogWarning(name + ": Current HUD dimension " + currentHUDDimension + " and active dimension " + player.ActiveDimension.DimensionNo + " differ!");
-        }
+            UpdateFleetMenuDimension(currentHUDDimension);
     }
 
     public void OnDimensionUp(CallbackContext ctx)
@@ -119,7 +100,7 @@ public class FleetMenuScript : MonoBehaviour
         y = "--";
     }
 
-    public void UpdateFleetMenuDimension(int dimension)
+    private void UpdateFleetMenuDimension(int dimension)
     {
         HUDDimensionNo = "0" + (dimension + 1).ToString();
     }

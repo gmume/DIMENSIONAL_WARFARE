@@ -223,11 +223,12 @@ public class Ship : MonoBehaviour
 
     private void ShipUp()
     {
-        if (Dimension.DimensionNo < OverworldData.DimensionsCount - 1)
+        if (Dimension.DimensionNo < OverworldData.DimensionsCount - 2)
         {
-            player.fleetMenu.SetHUDDimension(Dimension.DimensionNo + 1);
-            player.vehicle.SetViewOnDimension(Dimension.DimensionNo + 1);
-            SwitchDimension(Dimension.DimensionNo + 1);
+            player.world.SetNewDimension(Dimension.DimensionNo + 1);
+            player.fleetMenu.SetHUDDimension(player.ActiveDimension.DimensionNo);
+            player.vehicle.SetViewOnDimension(player.ActiveDimension.DimensionNo);
+            SwitchDimension(player.ActiveDimension.DimensionNo);
             SetDimension(Dimension);
             this.gameObject.transform.position += new Vector3(0, OverworldData.DimensionSize * 2, 0);
             player.input.SwitchCurrentActionMap("GameStart");
@@ -335,11 +336,9 @@ public class Ship : MonoBehaviour
     {
         if (Dimension.DimensionNo > 0)
         {
-            //Debug.Log("Ship's dimension: " + Dimension.DimensionNo);
-            player.vehicle.SetViewOnDimension(Dimension.DimensionNo - 1);
-
-            //Debug.Log("Ship's dimension: "+Dimension.DimensionNo);
-            player.fleetMenu.SetHUDDimension(Dimension.DimensionNo - 1);
+            player.world.SetNewDimension(Dimension.DimensionNo - 1);
+            player.fleetMenu.SetHUDDimension(player.ActiveDimension.DimensionNo);
+            player.vehicle.SetViewOnDimension(player.ActiveDimension.DimensionNo);
             ShipStatus = ShipStatus.Sunk;
             gameObject.transform.position += new Vector3(0, 0.5f, 0);
             this.gameObject.layer = LayerMask.NameToLayer("Fleet" + player.number);

@@ -31,19 +31,19 @@ public class VehicleBehavior : MonoBehaviour
 
     public void SetViewOnDimension(int toNo)
     {
-        if (currentDimension == player.ActiveDimension.DimensionNo)
-        {
+        //if (currentDimension == player.GetActiveDimension().DimensionNo)
+        //{
             // Calculate vector and change position
             int vectorFactor = toNo - currentDimension;
             transform.position += vector * vectorFactor;
             currentDimension = toNo;
             player.world.SetNewDimension(currentDimension);
-            player.fleetMenu.UpdateFleetMenuDimension(currentDimension);
-        }
-        else
-        {
-            Debug.LogWarning(name + ": Current camera dimension " + currentDimension + " and active dimension " + player.ActiveDimension.DimensionNo + " differ!");
-        }
+            //player.fleetMenu.SetHUDDimension(currentDimension);
+        //}
+        //else
+        //{
+        //    Debug.LogWarning(name + ": Current camera dimension " + currentDimension + " and active dimension " + player.GetActiveDimension().DimensionNo + " differ!");
+        //}
     }
 
     public void OnDimensionUp(CallbackContext ctx)

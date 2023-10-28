@@ -6,18 +6,14 @@ using UnityEngine.UI;
 
 public class Debugging : MonoBehaviour
 {
-    private Player player1;
-    private Player player2;
-    private GameObject playerObj1;
-    private GameObject playerObj2;
-    private PlayerWorld playerWorld1;
-    private PlayerWorld playerWorld2;
+    public Player player1;
+    public Player player2;
     private PlayerInput playerInput1;
     private PlayerInput playerInput2;
     private Camera camera1;
     private Camera camera2;
-    private Ship actShip1;
-    private Ship actShip2;
+    private Ship actShip1 = null;
+    private Ship actShip2 = null;
 
     public string GamePhase;
     public int playerTurn;
@@ -25,6 +21,8 @@ public class Debugging : MonoBehaviour
     public string activeShip2;
     public string activeCell1;
     public string activeCell2;
+    public GameObject activeDimension1;
+    public GameObject activeDimension2;
     public bool inputEnabled1;
     public bool inputEnabled2;
     public string actionMapPlayer1;
@@ -42,23 +40,47 @@ public class Debugging : MonoBehaviour
     public LayerMask layerMask1;
     public LayerMask layerMask2;
 
-    private void Update()
+    public GameObject currentActiveDimension = null;
+
+    private void FixedUpdate()
     {
         GamePhase = OverworldData.GamePhase.ToString();
         playerTurn = OverworldData.PlayerTurn;
 
-        if(player1.ActiveShip || player2.ActiveShip)
+
+        actShip1 = player1.ActiveShip;
+        if (player1.ActiveShip != null)
         {
-            actShip1 = player1.ActiveShip;
-            actShip2 = player2.ActiveShip;
-            activeShip1 = actShip1.ShipName + ": " + actShip1.PivotX + ", " + actShip1.PivotZ;
-            activeShip2 = actShip2.ShipName + ": " + actShip2.PivotX + ", " + actShip2.PivotZ;
+            activeShip1 = actShip1 + ": " + actShip1.PivotX + ", " + actShip1.PivotZ;
+        }
+        else
+        {
+            activeShip1 = "";
         }
 
-        if(player1.ActiveCell && player2.ActiveCell)
+        actShip2 = player2.ActiveShip;
+        if (player2.ActiveShip != null)
+        {
+            activeShip2 = actShip2 + ": " + actShip2.PivotX + ", " + actShip2.PivotZ;
+        }
+        else
+        {
+            activeShip2 = "";
+        }
+
+        if (player1.ActiveCell && player2.ActiveCell)
         {
             activeCell1 = player1.ActiveCell.X + ", " + player1.ActiveCell.Y;
             activeCell2 = player2.ActiveCell.X + ", " + player2.ActiveCell.Y;
+        }
+
+        if (player1.ActiveDimension && player2.ActiveDimension)
+        {
+            //activeDimension1 = player1.ActiveDimension.gameObject;
+            //activeDimension2 = player2.ActiveDimension.gameObject;
+
+            activeDimension1 = player1.ActiveDimension.gameObject;
+            activeDimension2 = player2.ActiveDimension.gameObject;
         }
 
         currentSelectedButton1 = eventSystem1.currentSelectedGameObject;
@@ -87,6 +109,13 @@ public class Debugging : MonoBehaviour
 
         inputEnabled1 = playerInput1.enabled;
         inputEnabled2 = playerInput2.enabled;
+
+        // Track player 2, active dimension.
+        if (name == "Player2" && currentActiveDimension != activeDimension2)
+        {
+            Debug.Log("current active diemension: " + currentActiveDimension + " new active dimension: " + activeDimension2);
+            currentActiveDimension = activeDimension2;
+        }
     }
 
     public void ShowCellCoords()
@@ -144,10 +173,9 @@ public class Debugging : MonoBehaviour
             canvasObj = new GameObject("TestCanvas", typeof(Canvas), typeof(GraphicRaycaster));
             canvasObj.transform.SetParent(shipObj.transform.GetChild(0).transform, false);
             RectTransform trans = canvasObj.GetComponent<RectTransform>();
-            //trans.Rotate(new Vector3(90, 0, 0));
 
             Transform transParent = canvasObj.GetComponent<Transform>();
-            trans.position = new Vector3(transParent.position.x, 0.51f, transParent.position.z);
+            trans.position = new Vector3(transParent.position.x, transParent.position.y + 0.51f, transParent.position.z);
             trans.sizeDelta = new Vector3(1, 1, 0);
 
             myCanvas = canvasObj.GetComponent<Canvas>();
@@ -166,7 +194,12 @@ public class Debugging : MonoBehaviour
             text.alignment = TextAnchor.MiddleCenter;
         }
 
-        fleet = player2.fleet.GetFleet();
+        Invoke("ShowShipOwner2", 0.1f);
+    }
+
+    private void ShowShipOwner2()
+    {
+        ArrayList fleet = player2.fleet.GetFleet();
 
         foreach (GameObject shipObj in fleet)
         {
@@ -176,13 +209,11 @@ public class Debugging : MonoBehaviour
             Text text;
 
             canvasObj = new GameObject("TestCanvas", typeof(Canvas), typeof(GraphicRaycaster));
-            //canvasObj.transform.SetParent(shipObj.transform, false);
             canvasObj.transform.SetParent(shipObj.transform.GetChild(0).transform, false);
             RectTransform trans = canvasObj.GetComponent<RectTransform>();
-            //trans.Rotate(new Vector3(90, 0, 0));
 
             Transform transParent = canvasObj.GetComponent<Transform>();
-            trans.position = new Vector3(transParent.position.x, 0.51f, transParent.position.z);
+            trans.position = new Vector3(transParent.position.x, transParent.position.y + 0.51f, transParent.position.z);
             trans.sizeDelta = new Vector3(1, 1, 0);
 
             myCanvas = canvasObj.GetComponent<Canvas>();
@@ -205,18 +236,14 @@ public class Debugging : MonoBehaviour
     public void InitDebugging()
     {
         player1 = GameObject.Find("Player1").GetComponent<Player>();
-        player2 = GameObject.Find("Player1").GetComponent<Player>();
-        playerObj1 = player1.obj;
-        playerObj2 = GameObject.Find("Player2");
-        playerWorld1 = player1.world;
-        playerWorld2 = player2.world;
+        player2 = GameObject.Find("Player2").GetComponent<Player>();
         GamePhase = OverworldData.GamePhase.ToString();
         playerTurn = OverworldData.PlayerTurn;
 
         playerInput1 = player1.input;
         playerInput2 = player2.input;
-        camera1 = player1.cameraObj.GetComponent<Camera>();
-        camera2 = player2.cameraObj.GetComponent<Camera>();
+        camera1 = player1.cameraBehavior.GetComponent<Camera>();
+        camera2 = player2.cameraBehavior.GetComponent<Camera>();
 
         eventSystem1 = player1.eventSystem;
         eventSystem2 = player2.eventSystem;

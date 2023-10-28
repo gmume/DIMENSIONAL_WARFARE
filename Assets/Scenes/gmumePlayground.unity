@@ -123,6 +123,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &30279215 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6642673552662010485, guid: ace245119d9f22d4fb2dda3fa6087fcd,
+    type: 3}
+  m_PrefabInstance: {fileID: 1798278738}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &50439445 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1434297518539079233, guid: ace245119d9f22d4fb2dda3fa6087fcd,
@@ -436,6 +442,12 @@ Transform:
   m_Father: {fileID: 2042972635}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &585698301 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7103048721020633485, guid: 4132fc7527b32614bb1704c55cb14c3c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1568845669}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &640217909
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,6 +492,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &748218297 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6642673552662010485, guid: ace245119d9f22d4fb2dda3fa6087fcd,
+    type: 3}
+  m_PrefabInstance: {fileID: 2115123619}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &758348277 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6791104342523852192, guid: 0223c2ce2ddaa984fa48db8009f197cb,
@@ -2391,7 +2409,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 3760122202770111641}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2099129201}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
@@ -2403,7 +2421,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 3760122202770111641}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2099129201}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b16c6f78230fa4964a222622d8aae332, type: 3}
@@ -2475,12 +2493,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 016909d2aa06e924bafe346c71006b79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player1: {fileID: 0}
+  player2: {fileID: 0}
   GamePhase: 
   playerTurn: 0
   activeShip1: 
   activeShip2: 
   activeCell1: 
   activeCell2: 
+  activeDimension1: {fileID: 0}
+  activeDimension2: {fileID: 0}
   inputEnabled1: 0
   inputEnabled2: 0
   actionMapPlayer1: 
@@ -2501,6 +2523,7 @@ MonoBehaviour:
   layerMask2:
     serializedVersion: 2
     m_Bits: 0
+  currentActiveDimension: {fileID: 0}
 --- !u!4 &1112684110
 Transform:
   m_ObjectHideFlags: 0
@@ -2571,20 +2594,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3ccd74a35da2e148a862fab4dfa5083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  opponentObj: {fileID: 2141034416}
+  eventSystemObj: {fileID: 2099129201}
+  fleetMenuObj: {fileID: 1628488051}
+  cameraVehicleObj: {fileID: 30279215}
+  dimensionsObj: {fileID: 1925211997}
   number: 0
   opponent: {fileID: 0}
-  obj: {fileID: 0}
   world: {fileID: 0}
   inputHandling: {fileID: 0}
   input: {fileID: 0}
-  eventSystemObj: {fileID: 0}
   eventSystem: {fileID: 0}
   inputSystem: {fileID: 0}
-  fleetMenuObj: {fileID: 0}
   fleetMenu: {fileID: 0}
-  cameraVehicleObj: {fileID: 0}
   vehicle: {fileID: 0}
-  cameraObj: {fileID: 0}
   cameraBehavior: {fileID: 0}
   dimensions: {fileID: 0}
   fleet: {fileID: 0}
@@ -2986,7 +3009,7 @@ PrefabInstance:
     - target: {fileID: 1434297518539079233, guid: ace245119d9f22d4fb2dda3fa6087fcd,
         type: 3}
       propertyPath: m_TagString
-      value: MainCamera
+      value: Camera
       objectReference: {fileID: 0}
     - target: {fileID: 3209847938540486534, guid: ace245119d9f22d4fb2dda3fa6087fcd,
         type: 3}
@@ -3033,7 +3056,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1798278738}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 30279215}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 51ad80bb6b4d91145989699483021120, type: 3}
@@ -3802,13 +3825,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2099129201 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7103048721020633485, guid: 4132fc7527b32614bb1704c55cb14c3c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3760122202770111641}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2112860529 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3227109781402932499, guid: 4132fc7527b32614bb1704c55cb14c3c,
     type: 3}
   m_PrefabInstance: {fileID: 1568845669}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 585698301}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
@@ -3820,7 +3849,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1568845669}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 585698301}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b16c6f78230fa4964a222622d8aae332, type: 3}
@@ -3912,7 +3941,7 @@ PrefabInstance:
     - target: {fileID: 1434297518539079233, guid: ace245119d9f22d4fb2dda3fa6087fcd,
         type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Camera
       objectReference: {fileID: 0}
     - target: {fileID: 3209847938540486534, guid: ace245119d9f22d4fb2dda3fa6087fcd,
         type: 3}
@@ -3969,7 +3998,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 2115123619}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 748218297}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 51ad80bb6b4d91145989699483021120, type: 3}
@@ -3993,20 +4022,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3ccd74a35da2e148a862fab4dfa5083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  opponentObj: {fileID: 1065382924}
+  eventSystemObj: {fileID: 585698301}
+  fleetMenuObj: {fileID: 1592153394}
+  cameraVehicleObj: {fileID: 748218297}
+  dimensionsObj: {fileID: 2011928372}
   number: 0
   opponent: {fileID: 0}
-  obj: {fileID: 0}
   world: {fileID: 0}
   inputHandling: {fileID: 0}
   input: {fileID: 0}
-  eventSystemObj: {fileID: 0}
   eventSystem: {fileID: 0}
   inputSystem: {fileID: 0}
-  fleetMenuObj: {fileID: 0}
   fleetMenu: {fileID: 0}
-  cameraVehicleObj: {fileID: 0}
   vehicle: {fileID: 0}
-  cameraObj: {fileID: 0}
   cameraBehavior: {fileID: 0}
   dimensions: {fileID: 0}
   fleet: {fileID: 0}
@@ -5433,7 +5462,7 @@ PrefabInstance:
     - target: {fileID: 4725396152390134719, guid: c37d345ab0c57d74ba6ddf380005a72e,
         type: 3}
       propertyPath: fleetSize
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4725396152390134719, guid: c37d345ab0c57d74ba6ddf380005a72e,
         type: 3}
@@ -5449,7 +5478,7 @@ PrefabInstance:
     - target: {fileID: 4725396152390134719, guid: c37d345ab0c57d74ba6ddf380005a72e,
         type: 3}
       propertyPath: dimensionsCount
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5057487984287084755, guid: c37d345ab0c57d74ba6ddf380005a72e,
         type: 3}
