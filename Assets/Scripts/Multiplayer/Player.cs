@@ -4,31 +4,25 @@ using UnityEngine.InputSystem.UI;
 
 public class Player : MonoBehaviour
 {
-    public int number;
-    public Player opponent;
+    public GameObject opponentObj, eventSystemObj, fleetMenuObj, cameraVehicleObj, dimensionsObj;
 
-    public GameObject obj;
-    public PlayerWorld world;
-    public InputHandling inputHandling;
-    public PlayerInput input;
+    [HideInInspector] public int number;
+    [HideInInspector] public Player opponent;
+    [HideInInspector] public PlayerWorld world;
+    [HideInInspector] public InputHandling inputHandling;
+    [HideInInspector] public PlayerInput input;
+    [HideInInspector] public MultiplayerEventSystem eventSystem;
+    [HideInInspector] public InputSystemUIInputModule inputSystem;
+    [HideInInspector] public FleetMenuScript fleetMenu;
+    [HideInInspector] public VehicleBehavior vehicle;
+    //[HideInInspector] public GameObject cameraObj;
+    [HideInInspector] public CameraBehavior cameraBehavior;
+    [HideInInspector] public Dimensions dimensions; //Is initiated by PlayerWorld
+                      public Dimension ActiveDimension { get; set; }
+                      //private Dimension ActiveDimension;
+    [HideInInspector] public Cell ActiveCell { get; set; }
+    /*[HideInInspector] */public Fleet fleet; //Is initiated by PlayerWorld via InitDimension()
 
-    public GameObject eventSystemObj;
-    public MultiplayerEventSystem eventSystem;
-    public InputSystemUIInputModule inputSystem;
-
-    public GameObject fleetMenuObj;
-    public FleetMenuScript fleetMenu;
-
-    public GameObject cameraVehicleObj;
-    public VehicleBehavior vehicle;
-    public GameObject cameraObj;
-    public CameraBehavior cameraBehavior;
-
-    public Dimensions dimensions; //Is initiated by PlayerWorld
-    public Dimension ActiveDimension { get; set; }
-    public Cell ActiveCell { get; set; }
-
-    public Fleet fleet; //Is initiated by PlayerWorld via InitDimension()
     public ShipButton CurrentShipButton { get; set; }
     public Ship ActiveShip { get; set; }
     public int X { get; set; }
@@ -37,32 +31,23 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         number = int.Parse(name[^1].ToString());
-
-        if (number == 1)
-        {
-            opponent = GameObject.Find("Player2").GetComponent<Player>();
-        }
-        else
-        {
-            opponent = GameObject.Find("Player1").GetComponent<Player>();
-        }
-
-        obj = GameObject.Find(name);
-        world = obj.GetComponent<PlayerWorld>();
-        inputHandling = obj.GetComponent<InputHandling>();
-        input = obj.GetComponent<PlayerInput>();
-
-        eventSystemObj = GameObject.Find("EventSystem" + number);
+        opponent = opponentObj.GetComponent<Player>();
+        world = GetComponent<PlayerWorld>();
+        inputHandling = GetComponent<InputHandling>();
+        input = GetComponent<PlayerInput>();
         eventSystem = eventSystemObj.GetComponent<MultiplayerEventSystem>();
         inputSystem = eventSystemObj.GetComponent<InputSystemUIInputModule>();
-
-        fleetMenuObj = GameObject.Find("FleetMenu" + number);
         fleetMenu = fleetMenuObj.GetComponent<FleetMenuScript>();
-
-        cameraVehicleObj = GameObject.Find("CameraVehicle" + number);
         vehicle = cameraVehicleObj.GetComponent<VehicleBehavior>();
-        cameraObj = GameObject.Find("Camera" + number);
-        cameraBehavior = GameObject.Find("Camera" + number).GetComponent<CameraBehavior>();
+
+        for(int i = 0; i < cameraVehicleObj.transform.childCount; i++)
+        {
+            if (cameraVehicleObj.transform.GetChild(i).CompareTag("Camera"))
+            {
+                cameraBehavior = cameraVehicleObj.transform.GetChild(i).gameObject.GetComponent<CameraBehavior>();
+                break;
+            }
+        }
     }
 
     private void Start()
@@ -78,4 +63,14 @@ public class Player : MonoBehaviour
 
         GameObject.Find("Overworld").GetComponent<Overworld>().debug.ShowShipsOwner();
     }
+
+    //public void SetActiveDimension(Object who, Dimension newActiveDimension)
+    //{
+    //    ActiveDimension = newActiveDimension;
+    //}
+
+    //public Dimension GetActiveDimension()
+    //{
+    //    return ActiveDimension;
+    //}
 }

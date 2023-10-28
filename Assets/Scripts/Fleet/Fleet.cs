@@ -23,6 +23,10 @@ public class Fleet : ScriptableObject
 
     public void ActivateShip(int shipNr, Player player)
     {
+        if (name == "Fleet2")
+        {
+            Debug.Log(this + " >> player: " + player + ", shipNr: " + shipNr);
+        }
         GameObject shipObj = (GameObject)fleet[shipNr];
         shipObj.GetComponent<Ship>().Activate();
 

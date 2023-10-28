@@ -7,6 +7,7 @@ TagManager:
   - CameraVehicle
   - Player1
   - Player2
+  - Camera
   layers:
   - Default
   - TransparentFX
