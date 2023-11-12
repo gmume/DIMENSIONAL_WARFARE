@@ -335,9 +335,9 @@ public class InputHandling : MonoBehaviour
         }
     }
 
-    public void InitImputHandling(Player player)
+    public void InitImputHandling()
     {
-        this.player = player;
+        player = GetComponent<Player>();
         opponent = player.opponent;
         gameStartMap = player.input.actions.FindActionMap("GameStart");
         playerMap = player.input.actions.FindActionMap("Player");

@@ -20,8 +20,8 @@ public class Overworld : MonoBehaviour
         OverworldData.PlayerTurn = 2;
         OverworldData.Player1SubmittedFleet = false;
         OverworldData.Player2SubmittedFleet = false;
-        OverworldData.player1 = GameObject.Find("Player1").GetComponent<Player>();
-        OverworldData.player2 = GameObject.Find("Player2").GetComponent<Player>();
+        OverworldData.Player1 = GameObject.Find("Player1").GetComponent<Player>();
+        OverworldData.Player2 = GameObject.Find("Player2").GetComponent<Player>();
     }
 
     private void Start()

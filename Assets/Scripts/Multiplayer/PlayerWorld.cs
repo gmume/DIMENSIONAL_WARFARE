@@ -52,9 +52,9 @@ public class PlayerWorld : MonoBehaviour
         player.ActiveCell.gameObject.transform.position -= new Vector3(0, 0.2f, 0);
     }
 
-    public void InitPlayerWorld(Player player)
+    public void InitPlayerWorld()
     {
-        this.player = player;
+        player = GetComponent<Player>();
         
         player.dimensions = ScriptableObject.CreateInstance("Dimensions") as Dimensions;
         player.dimensions.name = "Dimensions" + player.number;

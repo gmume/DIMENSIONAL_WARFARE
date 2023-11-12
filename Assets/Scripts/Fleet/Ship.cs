@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Ship : MonoBehaviour
@@ -237,7 +238,8 @@ public class Ship : MonoBehaviour
         else
         {
             print(player.name + " wins for reaching the top dimension!");
-            // resolve game
+            GameData.winner = player.name;
+            player.GetComponent<SceneChanger>().LoadResolveGame();
         }
     }
 
@@ -282,7 +284,6 @@ public class Ship : MonoBehaviour
             {
                 if (!FleetDestroyed())
                 {
-                    //Debug.Log("!FleetDestroyed");
                     player.fleet.GetFleet().Remove(this);
                     GameObject[] shipButtons = player.fleetMenu.GetShipButtons();
                     shipButtons[PartsCount - 1].GetComponent<Button>().interactable = false;
@@ -291,7 +292,8 @@ public class Ship : MonoBehaviour
                 else
                 {
                     print(player.opponent.name + " wins for destroying the opponent's fleet!");
-                    // To do: resolve game
+                    GameData.winner = player.opponent.name;
+                    player.GetComponent<SceneChanger>().LoadResolveGame();
                 }
             }
 
@@ -305,7 +307,6 @@ public class Ship : MonoBehaviour
 
     private IEnumerator DestroyShip()
     {
-        //Debug.Log("DestroyShip");
         Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(2f);
         Time.timeScale = 1f;

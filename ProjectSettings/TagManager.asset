@@ -8,6 +8,8 @@ TagManager:
   - Player1
   - Player2
   - Camera
+  - FleetMenu1
+  - FleetMenu2
   layers:
   - Default
   - TransparentFX

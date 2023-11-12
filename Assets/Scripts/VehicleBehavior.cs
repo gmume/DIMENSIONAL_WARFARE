@@ -1,4 +1,3 @@
-using UnityEditor.Purchasing;
 using UnityEngine;
 using static UnityEngine.InputSystem.InputAction;
 
@@ -16,11 +15,11 @@ public class VehicleBehavior : MonoBehaviour
     {
         if (name == "CameraVehicle1")
         {
-            player = OverworldData.player1;
+            player = OverworldData.Player1;
         }
         else
         {
-            player = OverworldData.player2;
+            player = OverworldData.Player2;
         }
 
         transform.position += new Vector3(OverworldData.DimensionSize / 2, OverworldData.DimensionSize * 2 / 3, -OverworldData.DimensionSize);
