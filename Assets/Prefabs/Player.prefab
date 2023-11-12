@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1394120640985854630}
   - component: {fileID: 5728837721025891436}
   - component: {fileID: 6791104342523852192}
+  - component: {fileID: 8043870872122323322}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -205,12 +206,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd28fda82d7d7e64f8c9135fd93db01b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 11400000, guid: 14b4cea48d410a142a3e5882795d73c8, type: 2}
+  ShipName: 
   dimensionPrefab: {fileID: 868283222179364552, guid: 2db3bf0e8101ca24d8a13a3de15e3d0d,
     type: 3}
   cellPrefab: {fileID: 5174194419912870597, guid: 1854d0b72bf4f054393c9dcb677de0e8,
-    type: 3}
-  shipPrefab: {fileID: 7349336374951156954, guid: 1438612e95ed70d40ab9d4077eb5bf66,
     type: 3}
 --- !u!114 &6791104342523852192
 MonoBehaviour:
@@ -222,5 +221,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4789987dd56c8654b92fdd647889978a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  continueGame: 1
+--- !u!114 &8043870872122323322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3200431032573656334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7413c74d9af50d846ad1a181c2f62e00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

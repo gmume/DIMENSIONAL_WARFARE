@@ -9,7 +9,8 @@ public class AudioManager : MonoBehaviour
 {
     [Header("Audio sources")]
     public AudioSource backgroundSound;
-    public AudioSource SFXSource;
+    public AudioSource SFXSource1;
+    public AudioSource SFXSource2;
 
     [Header("Audio clips")]
     public AudioClip background;
@@ -88,11 +89,11 @@ public class AudioManager : MonoBehaviour
     {
         if (ctx.performed)
         {
-            Debug.Log("SFX source: " + SFXSource);
-            Debug.Log("attack: " + attack);
+            SFXSource1.clip = attack;
+            SFXSource1.Play();
 
-            SFXSource.clip = attack;
-            SFXSource.Play();
+            SFXSource2.clip = explosion;
+            SFXSource2.PlayDelayed(1.2f);
         }
     }
 }

@@ -47,9 +47,4 @@ MonoBehaviour:
   dimensionsCount: 2
   dimensionSize: 9
   fleetSize: 5
-  dimensionPrefab: {fileID: 868283222179364552, guid: 2db3bf0e8101ca24d8a13a3de15e3d0d,
-    type: 3}
-  cellPrefab: {fileID: 5174194419912870597, guid: 1854d0b72bf4f054393c9dcb677de0e8,
-    type: 3}
-  shipPrefab: {fileID: 7349336374951156954, guid: 1438612e95ed70d40ab9d4077eb5bf66,
-    type: 3}
+  debug: {fileID: 0}

@@ -6,17 +6,19 @@ using static UnityEngine.InputSystem.InputAction;
 public class FleetMenuScript : MonoBehaviour
 {
     private Player player;
+    private GameObject shipButtonsObj;
     private GameObject[] shipButtons;
     private string x = "--";
     private string y = "--";
-    private string HUDDimensionNo = "01";
+    //private string HUDDimensionNo = "01";
     private TextMeshProUGUI xCoord;
     private TextMeshProUGUI yCoord;
-    private TextMeshProUGUI HUDDimension;
-    private GameObject HUDDimensionsHeader;
-    private GameObject[] HUDDimensions;
+    //private TextMeshProUGUI HUDDimension;
+    //private GameObject HUDDimensionsHeader;
+    //private GameObject[] HUDDimensions;
     private int currentHUDDimension;
 
+    public GameObject playerObj;
     public ShipButton currentButton;
     public GameObject firstSelectedButton;
     public GameObject selectedElement;
@@ -25,21 +27,14 @@ public class FleetMenuScript : MonoBehaviour
     {
         xCoord.text = x;
         yCoord.text = y;
-        HUDDimension.text = HUDDimensionNo;
+        //HUDDimension.text = HUDDimensionNo;
     }
 
     public void SetHUDDimension(int toNo)
     {
             int difference = toNo - currentHUDDimension;
-
-            if (player.number == 1)
-            {
-                Debug.Log(name + ": change to no " + toNo + ", current HUD dimension " + currentHUDDimension + ", difference: " + difference);
-            }
-            
-            HUDDimensions[currentHUDDimension].SetActive(false);
             currentHUDDimension += difference;
-            HUDDimensions[currentHUDDimension].SetActive(true);
+            //HUDDimensions[currentHUDDimension].SetActive(true);
             UpdateFleetMenuDimension(currentHUDDimension);
     }
 
@@ -102,7 +97,7 @@ public class FleetMenuScript : MonoBehaviour
 
     private void UpdateFleetMenuDimension(int dimension)
     {
-        HUDDimensionNo = "0" + (dimension + 1).ToString();
+        //HUDDimensionNo = "0" + (dimension + 1).ToString();
     }
 
     public GameObject[] GetShipButtons()
@@ -134,22 +129,19 @@ public class FleetMenuScript : MonoBehaviour
 
     private void CreateButton(GameObject buttonObj, Button button, int i)
     {
-        Transform parentsTransform;
-
         if (name == "FleetMenu1")
         {
             buttonObj.name = "ShipButton" + (i + 1);
             buttonObj.layer = 11;
-            parentsTransform = GameObject.Find("ShipButtons1").GetComponent<Transform>();
         }
         else
         {
             buttonObj.name = "ShipButton" + (i + 1);
             buttonObj.layer = 12;
-            parentsTransform = GameObject.Find("ShipButtons2").GetComponent<Transform>();
         }
 
-        button.transform.SetParent(parentsTransform, false);
+        Transform transformParent = shipButtonsObj.GetComponent<Transform>();
+        button.transform.SetParent(transformParent, false);
         Navigation buttonNavigation = button.navigation;
         buttonNavigation.mode = Navigation.Mode.None;
         buttonObj.AddComponent<ShipButton>().ShipButtonNr = i;
@@ -180,9 +172,11 @@ public class FleetMenuScript : MonoBehaviour
         Sprite buttonSelected = Resources.Load<Sprite>("HUD_Elemente/ButtonElements/Selection") as Sprite;
         Sprite buttonDisabled = Resources.Load<Sprite>("HUD_Elemente/ButtonElements/Disabled") as Sprite;
 
-        SpriteState spriteState = new();
-        spriteState.selectedSprite = buttonSelected;
-        spriteState.disabledSprite = buttonDisabled;
+        SpriteState spriteState = new()
+        {
+            selectedSprite = buttonSelected,
+            disabledSprite = buttonDisabled
+        };
         button.spriteState = spriteState;
     }
 
@@ -208,46 +202,70 @@ public class FleetMenuScript : MonoBehaviour
 
     private void CreateHUDDimensions()
     {
-        HUDDimensions = new GameObject[OverworldData.DimensionsCount];
+        //HUDDimensions = new GameObject[OverworldData.DimensionsCount];
 
-        for (int i = 0; i < OverworldData.DimensionsCount; i++)
-        {
-            GameObject HUDDimension = new("HUDDimension0" + (i + 1), typeof(CanvasRenderer), typeof(Image));
-            HUDDimension.transform.SetParent(HUDDimensionsHeader.transform, false);
+        //for (int i = 0; i < OverworldData.DimensionsCount; i++)
+        //{
+        //    GameObject HUDDimension = new("HUDDimension0" + (i + 1), typeof(CanvasRenderer), typeof(Image));
+        //    HUDDimension.transform.SetParent(HUDDimensionsHeader.transform, false);
 
-            Image HUDDimensionImage = HUDDimension.GetComponent<Image>();
-            HUDDimensionImage.sprite = Resources.Load<Sprite>("HUD_Elemente/Levels/Dimension0" + (i + 1)) as Sprite;
-            HUDDimensionImage.type = Image.Type.Simple;
-            HUDDimensionImage.SetNativeSize();
-            HUDDimensions[i] = HUDDimension;
-            HUDDimensions[i] = HUDDimension;
+        //    Image HUDDimensionImage = HUDDimension.GetComponent<Image>();
+        //    HUDDimensionImage.sprite = Resources.Load<Sprite>("HUD_Elemente/Levels/Dimension0" + (i + 1)) as Sprite;
+        //    HUDDimensionImage.type = Image.Type.Simple;
+        //    HUDDimensionImage.SetNativeSize();
+        //    HUDDimensions[i] = HUDDimension;
+        //    HUDDimensions[i] = HUDDimension;
 
-            if (i != 0)
-            {
-                HUDDimension.SetActive(false);
-            }
-        }
+        //    if (i != 0)
+        //    {
+        //        HUDDimension.SetActive(false);
+        //    }
+        //}
     }
 
-    public void InitFleetMenu(Player player)
+    public void InitFleetMenu()
     {
-        this.player = player;
-        shipButtons = new GameObject[OverworldData.FleetSize];
+        player = playerObj.GetComponent<Player>();
+
+        GameObject[] fleetMenuParts;
 
         if (player.number == 1)
         {
-            xCoord = GameObject.Find("X-Koordinate1").GetComponent<TextMeshProUGUI>();
-            yCoord = GameObject.Find("Y-Koordinate1").GetComponent<TextMeshProUGUI>();
-            HUDDimension = GameObject.Find("Dimension1").GetComponent<TextMeshProUGUI>();
-            HUDDimensionsHeader = GameObject.Find("DimensionsHeader1");
+            fleetMenuParts = GameObject.FindGameObjectsWithTag("FleetMenu1");
         }
         else
         {
-            xCoord = GameObject.Find("X-Koordinate2").GetComponent<TextMeshProUGUI>();
-            yCoord = GameObject.Find("Y-Koordinate2").GetComponent<TextMeshProUGUI>();
-            HUDDimension = GameObject.Find("Dimension2").GetComponent<TextMeshProUGUI>();
-            HUDDimensionsHeader = GameObject.Find("DimensionsHeader2");
+            fleetMenuParts = GameObject.FindGameObjectsWithTag("FleetMenu2");
         }
+
+        shipButtons = new GameObject[OverworldData.FleetSize];
+
+        foreach (GameObject fleetMenuPart in fleetMenuParts)
+        {
+            if (fleetMenuPart.name == "X-Koordinate")
+            {
+                xCoord = fleetMenuPart.GetComponent<TextMeshProUGUI>();
+            }
+            else if (fleetMenuPart.name == "Y-Koordinate")
+            {
+                yCoord = fleetMenuPart.GetComponent<TextMeshProUGUI>();
+            }
+            else if (fleetMenuPart.name == "ShipButtons")
+            {
+                shipButtonsObj = fleetMenuPart;
+            }
+        }
+
+        //if (player.number == 1)
+        //{
+        //    HUDDimension = GameObject.Find("Dimension1").GetComponent<TextMeshProUGUI>();
+        //    HUDDimensionsHeader = GameObject.Find("DimensionsHeader1");
+        //}
+        //else
+        //{
+        //    HUDDimension = GameObject.Find("Dimension2").GetComponent<TextMeshProUGUI>();
+        //    HUDDimensionsHeader = GameObject.Find("DimensionsHeader2");
+        //}
 
         CreateShipButtons();
         CreateHUDDimensions();

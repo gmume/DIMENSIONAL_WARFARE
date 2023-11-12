@@ -15,13 +15,11 @@ public class Player : MonoBehaviour
     [HideInInspector] public InputSystemUIInputModule inputSystem;
     [HideInInspector] public FleetMenuScript fleetMenu;
     [HideInInspector] public VehicleBehavior vehicle;
-    //[HideInInspector] public GameObject cameraObj;
     [HideInInspector] public CameraBehavior cameraBehavior;
     [HideInInspector] public Dimensions dimensions; //Is initiated by PlayerWorld
-                      public Dimension ActiveDimension { get; set; }
-                      //private Dimension ActiveDimension;
+    public Dimension ActiveDimension { get; set; }
     [HideInInspector] public Cell ActiveCell { get; set; }
-    /*[HideInInspector] */public Fleet fleet; //Is initiated by PlayerWorld via InitDimension()
+    [HideInInspector] public Fleet fleet; //Is initiated by PlayerWorld via InitDimension()
 
     public ShipButton CurrentShipButton { get; set; }
     public Ship ActiveShip { get; set; }
@@ -40,7 +38,7 @@ public class Player : MonoBehaviour
         fleetMenu = fleetMenuObj.GetComponent<FleetMenuScript>();
         vehicle = cameraVehicleObj.GetComponent<VehicleBehavior>();
 
-        for(int i = 0; i < cameraVehicleObj.transform.childCount; i++)
+        for (int i = 0; i < cameraVehicleObj.transform.childCount; i++)
         {
             if (cameraVehicleObj.transform.GetChild(i).CompareTag("Camera"))
             {
@@ -52,25 +50,15 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        world.InitPlayerWorld(this);
-        fleetMenu.InitFleetMenu(this);
-        inputHandling.InitImputHandling(this);
+        world.InitPlayerWorld();
+        fleetMenu.InitFleetMenu();
+        inputHandling.InitImputHandling();
 
-        if(number == 1)
+        if (number == 1)
         {
             GameObject.Find("Overworld").GetComponent<Overworld>().debug.ShowCellCoords();
         }
 
         GameObject.Find("Overworld").GetComponent<Overworld>().debug.ShowShipsOwner();
     }
-
-    //public void SetActiveDimension(Object who, Dimension newActiveDimension)
-    //{
-    //    ActiveDimension = newActiveDimension;
-    //}
-
-    //public Dimension GetActiveDimension()
-    //{
-    //    return ActiveDimension;
-    //}
 }
