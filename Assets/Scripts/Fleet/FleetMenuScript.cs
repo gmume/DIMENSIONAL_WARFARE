@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using System;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.InputSystem.InputAction;
@@ -7,7 +9,7 @@ public class FleetMenuScript : MonoBehaviour
 {
     private Player player;
     private GameObject shipButtonsObj;
-    private GameObject[] shipButtons;
+    private List<GameObject> shipButtons;
     private string x = "--";
     private string y = "--";
     //private string HUDDimensionNo = "01";
@@ -20,7 +22,7 @@ public class FleetMenuScript : MonoBehaviour
 
     public GameObject playerObj;
     public ShipButton currentButton;
-    public GameObject firstSelectedButton;
+    public GameObject selectedButton;
     public GameObject selectedElement;
 
     private void Update()
@@ -32,10 +34,10 @@ public class FleetMenuScript : MonoBehaviour
 
     public void SetHUDDimension(int toNo)
     {
-            int difference = toNo - currentHUDDimension;
-            currentHUDDimension += difference;
-            //HUDDimensions[currentHUDDimension].SetActive(true);
-            UpdateFleetMenuDimension(currentHUDDimension);
+        int difference = toNo - currentHUDDimension;
+        currentHUDDimension += difference;
+        //HUDDimensions[currentHUDDimension].SetActive(true);
+        UpdateFleetMenuDimension(currentHUDDimension);
     }
 
     public void OnDimensionUp(CallbackContext ctx)
@@ -100,7 +102,7 @@ public class FleetMenuScript : MonoBehaviour
         //HUDDimensionNo = "0" + (dimension + 1).ToString();
     }
 
-    public GameObject[] GetShipButtons()
+    public List<GameObject> GetShipButtons()
     {
         return shipButtons;
     }
@@ -114,7 +116,7 @@ public class FleetMenuScript : MonoBehaviour
         {
             buttonObj = TMP_DefaultControls.CreateButton(new TMP_DefaultControls.Resources());
             Transform textObject = buttonObj.transform.Find("Text (TMP)");
-            Object.Destroy(textObject.gameObject);
+            UnityEngine.Object.Destroy(textObject.gameObject);
             button = buttonObj.GetComponent<Button>();
 
             CreateButton(buttonObj, button, i);
@@ -149,18 +151,30 @@ public class FleetMenuScript : MonoBehaviour
 
         if (i == 0)
         {
-            firstSelectedButton = buttonObj;
-            SetFirstSelecetedButton();
+            selectedButton = buttonObj;
+            SetSelecetedButton();
         }
 
-        shipButtons[i] = buttonObj;
+        shipButtons.Add(buttonObj);
     }
 
-    public void SetFirstSelecetedButton()
+    public void SetSelecetedButton()
     {
-        player.eventSystem.firstSelectedGameObject = firstSelectedButton;
-        currentButton = firstSelectedButton.GetComponent<ShipButton>();
+        if (!selectedButton)
+        {
+            selectedButton = shipButtons[0];
+        }
+
+        player.eventSystem.firstSelectedGameObject = selectedButton;
+        player.eventSystem.SetSelectedGameObject(selectedButton);
+        currentButton = selectedButton.GetComponent<ShipButton>();
         player.CurrentShipButton = currentButton;
+    }
+
+    public void RemoveButton(int index)
+    {
+        Destroy(shipButtons[index]);
+        shipButtons.RemoveAt(index);
     }
 
     private void DesignButton(Button button)
@@ -238,7 +252,7 @@ public class FleetMenuScript : MonoBehaviour
             fleetMenuParts = GameObject.FindGameObjectsWithTag("FleetMenu2");
         }
 
-        shipButtons = new GameObject[OverworldData.FleetSize];
+        shipButtons = new List<GameObject>();
 
         foreach (GameObject fleetMenuPart in fleetMenuParts)
         {

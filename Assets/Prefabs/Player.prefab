@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7268077016366016379}
   - component: {fileID: 1394120640985854630}
+  - component: {fileID: -2537492309018127594}
   - component: {fileID: 5728837721025891436}
   - component: {fileID: 6791104342523852192}
   - component: {fileID: 8043870872122323322}
@@ -163,10 +164,6 @@ MonoBehaviour:
     m_ActionName: GameStart/Submit
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 774f723d-e6f5-4319-8a3e-62e6ab0e6345
-    m_ActionName: GameStart/Cancel
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: f5a7a2f6-f83f-4827-9720-a6b8a455c71f
     m_ActionName: GameStart/MoveShip
   - m_PersistentCalls:
@@ -179,21 +176,71 @@ MonoBehaviour:
     m_ActionName: GameStart/TurnLeft
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 0821d7f6-012c-46c3-b623-3eb13a2fb03a
-    m_ActionName: Hud/FleetMenu
+    m_ActionId: d252cac9-5cc3-44d4-9a43-fee3897b1d1f
+    m_ActionName: GameStart/ReturnToFleetMenu[/DualShock4GamepadHID/buttonNorth,/DualShock4GamepadHID1/buttonNorth]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: ac3acc3f-778c-43b6-a770-dc953404163c
-    m_ActionName: Hud/ShipLeft
+    m_ActionId: 1c5ae99a-f863-4439-84a1-9d46c13235d0
+    m_ActionName: GameStart/DimensionDown[/DualShock4GamepadHID/dpad/down,/DualShock4GamepadHID1/dpad/down]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 55d330d2-c4df-4a71-af3a-973363e52746
-    m_ActionName: Hud/ShipRight
+    m_ActionId: 830ffcf9-5416-485f-b0e1-be752e27e40b
+    m_ActionName: GameStart/DimensionUp[/DualShock4GamepadHID/dpad/up,/DualShock4GamepadHID1/dpad/up]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a6852e80-5fc8-443c-8b20-9fe1e8a4f577
+    m_ActionName: GameStart/ShipRight[/DualShock4GamepadHID/dpad/right,/DualShock4GamepadHID1/dpad/right]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8700d456-1c3e-4992-b37b-10593e5df6fb
+    m_ActionName: GameStart/ShipLeft[/DualShock4GamepadHID/dpad/left,/DualShock4GamepadHID1/dpad/left]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ce8f1f41-1789-4a29-b11f-a2fba67eed1d
+    m_ActionName: Player/ShipLeft[/DualShock4GamepadHID/dpad/left,/DualShock4GamepadHID1/dpad/left]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c811d7cb-8d9d-4fe9-9c25-db67fb970480
+    m_ActionName: Player/ShipRight[/DualShock4GamepadHID/dpad/right,/DualShock4GamepadHID1/dpad/right]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1b342dca-2923-4bcd-b4d0-ec2be286f1d7
+    m_ActionName: Player/Zoom[/DualShock4GamepadHID/leftTrigger,/DualShock4GamepadHID1/leftTrigger]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: GameStart
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &-2537492309018127594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3200431032573656334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3ccd74a35da2e148a862fab4dfa5083, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  opponentObj: {fileID: 0}
+  eventSystemObj: {fileID: 0}
+  fleetMenuObj: {fileID: 0}
+  cameraVehicleObj: {fileID: 0}
+  dimensionsObj: {fileID: 0}
+  audioManager: {fileID: 0}
+  number: 0
+  opponent: {fileID: 0}
+  world: {fileID: 0}
+  inputHandling: {fileID: 0}
+  input: {fileID: 0}
+  eventSystem: {fileID: 0}
+  inputSystem: {fileID: 0}
+  fleetMenu: {fileID: 0}
+  vehicle: {fileID: 0}
+  cameraBehavior: {fileID: 0}
+  dimensions: {fileID: 0}
+  fleet: {fileID: 0}
 --- !u!114 &5728837721025891436
 MonoBehaviour:
   m_ObjectHideFlags: 0

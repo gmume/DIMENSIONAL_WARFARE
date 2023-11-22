@@ -1,11 +1,12 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Scripts/Fleet")]
 
 public class Fleet : ScriptableObject
 {
-    private readonly ArrayList fleet = new();
+    private readonly List<GameObject> fleet = new List<GameObject>();
 
     public void CreateFleet(Player player)
     {
@@ -36,7 +37,7 @@ public class Fleet : ScriptableObject
         }
     }
 
-    public ArrayList GetFleet()
+    public List<GameObject> GetFleet()
     {
         return fleet;
     }

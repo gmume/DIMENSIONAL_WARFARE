@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
@@ -161,7 +162,7 @@ public class Debugging : MonoBehaviour
 
     public void ShowShipsOwner()
     {
-        ArrayList fleet = player1.fleet.GetFleet();
+        List<GameObject> fleet = player1.fleet.GetFleet();
 
         foreach (GameObject shipObj in fleet)
         {
@@ -199,7 +200,7 @@ public class Debugging : MonoBehaviour
 
     private void ShowShipOwner2()
     {
-        ArrayList fleet = player2.fleet.GetFleet();
+        List<GameObject> fleet = player2.fleet.GetFleet();
 
         foreach (GameObject shipObj in fleet)
         {
