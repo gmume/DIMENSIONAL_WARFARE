@@ -10,7 +10,7 @@ public class Dimension : MonoBehaviour
 
     public int DimensionNo { get; private set; }
 
-    public void InitDimension(Player player, int no, GameObject cellPrefab, ArrayList fleet)
+    public void InitDimension(Player player, int no, GameObject cellPrefab, List<GameObject> fleet)
     {
         this.player = player;
         DimensionNo = no;
@@ -76,7 +76,7 @@ public class Dimension : MonoBehaviour
         return null;
     }
 
-    public void AddShips(ArrayList newShips)
+    public void AddShips(List<GameObject> newShips)
     {
         foreach (GameObject ship in newShips)
         {

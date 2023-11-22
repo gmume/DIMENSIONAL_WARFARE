@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
@@ -10,7 +11,7 @@ public class InputHandling : MonoBehaviour
     private Player player;
     private Player opponent;
     private InputActionMap gameStartMap, playerMap;
-    private GameObject[] shipButtons;
+    private List<GameObject> shipButtons;
 
     public bool continueGame = true;
 
@@ -20,10 +21,14 @@ public class InputHandling : MonoBehaviour
         if (ctx.performed)
         {
             int shipNr = player.CurrentShipButton.ShipButtonNr;
+            int index = shipButtons.IndexOf(shipButtons[shipNr]);
 
-            if (shipNr > 0)
+            if (index > 0)
             {
-                player.eventSystem.SetSelectedGameObject(shipButtons[shipNr - 1]);
+                // Set selected game object = index - 1
+                //player.eventSystem.SetSelectedGameObject(shipButtons[shipNr - 1]);
+                player.eventSystem.SetSelectedGameObject(shipButtons[index - 1]);
+
                 player.CurrentShipButton = player.eventSystem.currentSelectedGameObject.GetComponent<ShipButton>();
                 player.fleet.ActivateShip(player.CurrentShipButton.ShipButtonNr, player);
 
@@ -40,10 +45,12 @@ public class InputHandling : MonoBehaviour
         if (ctx.performed)
         {
             int shipNr = player.CurrentShipButton.ShipButtonNr;
+            int index = shipButtons.IndexOf(shipButtons[shipNr]);
 
-            if (shipNr < OverworldData.FleetSize)
+            if (index < OverworldData.FleetSize)
             {
-                player.eventSystem.SetSelectedGameObject(shipButtons[shipNr + 1]);
+                //player.eventSystem.SetSelectedGameObject(shipButtons[shipNr + 1]);
+                player.eventSystem.SetSelectedGameObject(shipButtons[index + 1]);
                 player.CurrentShipButton = player.eventSystem.currentSelectedGameObject.GetComponent<ShipButton>();
                 player.fleet.ActivateShip(player.CurrentShipButton.ShipButtonNr, player);
 
@@ -239,6 +246,7 @@ public class InputHandling : MonoBehaviour
                 }
                 else
                 {
+                    player.audioManager.GetComponent<AudioManager>().OnFireWithSunkenShip();
                     print(player.name + "You can't fire with a sunken ship, capt'n!");
                 }
             }
@@ -290,7 +298,7 @@ public class InputHandling : MonoBehaviour
 
     private void ArmOpponent()
     {
-        opponent.fleetMenu.SetFirstSelecetedButton();
+        opponent.fleetMenu.SetSelecetedButton();
         opponent.fleet.ActivateShip(0, opponent);
         opponent.inputHandling.UpdateActiveCellAndFleetMenu();
     }
