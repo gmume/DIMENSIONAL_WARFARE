@@ -7,39 +7,21 @@ using UnityEngine.UI;
 
 public class Debugging : MonoBehaviour
 {
-    public Player player1;
-    public Player player2;
-    private PlayerInput playerInput1;
-    private PlayerInput playerInput2;
-    private Camera camera1;
-    private Camera camera2;
-    private Ship actShip1 = null;
-    private Ship actShip2 = null;
+    public Player player1, player2;
+    private PlayerInput playerInput1, playerInput2;
+    private Camera camera1, camera2;
+    private Ship actShip1 = null, actShip2 = null;
 
     public string GamePhase;
     public int playerTurn;
-    public string activeShip1;
-    public string activeShip2;
-    public string activeCell1;
-    public string activeCell2;
-    public GameObject activeDimension1;
-    public GameObject activeDimension2;
-    public bool inputEnabled1;
-    public bool inputEnabled2;
-    public string actionMapPlayer1;
-    public string actionMapPlayer2;
-    public string gamepadPlayer1;
-    public string gamepadPlayer2;
-    public string controlScemePlayer1;
-    public string controlScemePlayer2;
-    public MultiplayerEventSystem eventSystem1;
-    public MultiplayerEventSystem eventSystem2;
-    public GameObject currentSelectedButton1;
-    public GameObject currentSelectedButton2;
-    public InputSystemUIInputModule UIInputModulePlayer1;
-    public InputSystemUIInputModule UIInputModulePlayer2;
-    public LayerMask layerMask1;
-    public LayerMask layerMask2;
+    public string activeShip1, activeShip2, activeCell1, activeCell2;
+    public GameObject activeDimension1, activeDimension2;
+    public bool inputEnabled1, inputEnabled2;
+    public string actionMapPlayer1, actionMapPlayer2, gamepadPlayer1, gamepadPlayer2, controlScemePlayer1, controlScemePlayer2;
+    public MultiplayerEventSystem eventSystem1, eventSystem2;
+    public GameObject currentSelectedButton1, currentSelectedButton2;
+    public InputSystemUIInputModule UIInputModulePlayer1, UIInputModulePlayer2;
+    public LayerMask layerMask1, layerMask2;
 
     public GameObject currentActiveDimension = null;
 
@@ -47,7 +29,6 @@ public class Debugging : MonoBehaviour
     {
         GamePhase = OverworldData.GamePhase.ToString();
         playerTurn = OverworldData.PlayerTurn;
-
 
         actShip1 = player1.ActiveShip;
         if (player1.ActiveShip != null)
@@ -150,7 +131,7 @@ public class Debugging : MonoBehaviour
                 myText.GetComponent<RectTransform>().localScale = new Vector3(0.003f, 0.003f, 1);
 
                 text = myText.GetComponent<Text>();
-                text.font = (Font)Resources.Load("arial");
+                text.font = Resources.Load<Font>("arial");
                 text.text = cell.X + "," + cell.Y;
                 text.fontSize = 150;
                 text.horizontalOverflow = HorizontalWrapMode.Overflow;
@@ -187,7 +168,7 @@ public class Debugging : MonoBehaviour
             myText.GetComponent<RectTransform>().localScale = new Vector3(0.003f, 0.003f, 1);
 
             text = myText.GetComponent<Text>();
-            text.font = (Font)Resources.Load("arial");
+            text.font = Resources.Load<Font>("arial");
             text.text = player1.number.ToString();
             text.fontSize = 150;
             text.horizontalOverflow = HorizontalWrapMode.Overflow;
@@ -225,7 +206,7 @@ public class Debugging : MonoBehaviour
             myText.GetComponent<RectTransform>().localScale = new Vector3(0.003f, 0.003f, 1);
 
             text = myText.GetComponent<Text>();
-            text.font = (Font)Resources.Load("arial");
+            text.font = Resources.Load<Font>("arial");
             text.text = player2.number.ToString();
             text.fontSize = 150;
             text.horizontalOverflow = HorizontalWrapMode.Overflow;

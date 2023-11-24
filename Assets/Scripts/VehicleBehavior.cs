@@ -4,10 +4,8 @@ using static UnityEngine.InputSystem.InputAction;
 public class VehicleBehavior : MonoBehaviour
 {
     private Player player;
-    private Vector3 vector;
-    private Vector3 zoomOut;
+    private Vector3 vector, zoomOut, currentPosition;
     private bool zoomedOut = false;
-    private Vector3 currentPosition;
     private int currentDimension;
     public AnimationCurve curve;
 

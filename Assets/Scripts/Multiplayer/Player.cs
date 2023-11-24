@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public PlayerInput input;
     [HideInInspector] public MultiplayerEventSystem eventSystem;
     [HideInInspector] public InputSystemUIInputModule inputSystem;
-    [HideInInspector] public FleetMenuScript fleetMenu;
+    [HideInInspector] public HUD_Manager HUD;
     [HideInInspector] public VehicleBehavior vehicle;
     [HideInInspector] public CameraBehavior cameraBehavior;
     [HideInInspector] public Dimensions dimensions; //Is initiated by PlayerWorld
@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
         input = GetComponent<PlayerInput>();
         eventSystem = eventSystemObj.GetComponent<MultiplayerEventSystem>();
         inputSystem = eventSystemObj.GetComponent<InputSystemUIInputModule>();
-        fleetMenu = fleetMenuObj.GetComponent<FleetMenuScript>();
+        HUD = fleetMenuObj.GetComponent<HUD_Manager>();
         vehicle = cameraVehicleObj.GetComponent<VehicleBehavior>();
 
         for (int i = 0; i < cameraVehicleObj.transform.childCount; i++)
@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         world.InitPlayerWorld();
-        fleetMenu.InitFleetMenu();
+        HUD.InitHUD();
         inputHandling.InitImputHandling();
 
         if (number == 1)

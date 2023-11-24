@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Scripts/Fleet")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Fleet")]
 
 public class Fleet : ScriptableObject
 {

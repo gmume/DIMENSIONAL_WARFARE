@@ -1901,6 +1901,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 263905028784118602, guid: dadfa82202b17be47b39770320522709,
         type: 3}
+      propertyPath: m_Name
+      value: HUD_Dimensions
+      objectReference: {fileID: 0}
+    - target: {fileID: 263905028784118602, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
@@ -1924,6 +1929,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 768144309957168742, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1055052657137280943, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_Layer
@@ -1943,6 +1953,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2193121517904792103, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2967817732631359709, guid: dadfa82202b17be47b39770320522709,
         type: 3}
@@ -1996,13 +2011,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3015049714595009562, guid: dadfa82202b17be47b39770320522709,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3015049714595009562, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
       propertyPath: m_TagString
       value: FleetMenu1
       objectReference: {fileID: 0}
     - target: {fileID: 4083868067415641906, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
-      value: 1
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 4853459858211243768, guid: dadfa82202b17be47b39770320522709,
         type: 3}
@@ -2024,6 +2044,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 5166876819498480320, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5231756239687145031, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_Layer
@@ -2038,6 +2063,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5989353987771906440, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6864978629165529910, guid: dadfa82202b17be47b39770320522709,
         type: 3}
@@ -2159,6 +2189,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 7293157310807025667, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8462365234217354870, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_Name
@@ -2184,10 +2219,17 @@ PrefabInstance:
       propertyPath: m_TagString
       value: FleetMenu1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2352302568186863258, guid: dadfa82202b17be47b39770320522709, type: 3}
+    - {fileID: 2189728026191766610, guid: dadfa82202b17be47b39770320522709, type: 3}
     m_RemovedGameObjects:
     - {fileID: 6379249333247024177, guid: dadfa82202b17be47b39770320522709, type: 3}
     - {fileID: 423810122934812997, guid: dadfa82202b17be47b39770320522709, type: 3}
+    - {fileID: 5989353987771906440, guid: dadfa82202b17be47b39770320522709, type: 3}
+    - {fileID: 768144309957168742, guid: dadfa82202b17be47b39770320522709, type: 3}
+    - {fileID: 5166876819498480320, guid: dadfa82202b17be47b39770320522709, type: 3}
+    - {fileID: 2193121517904792103, guid: dadfa82202b17be47b39770320522709, type: 3}
+    - {fileID: 7293157310807025667, guid: dadfa82202b17be47b39770320522709, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dadfa82202b17be47b39770320522709, type: 3}
@@ -2265,6 +2307,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 768144309957168742, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1055052657137280943, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_Layer
@@ -2284,6 +2331,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2193121517904792103, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2978756892363074589, guid: dadfa82202b17be47b39770320522709,
         type: 3}
@@ -2335,6 +2387,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 5166876819498480320, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5231756239687145031, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_Layer
@@ -2349,6 +2406,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5989353987771906440, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6864978629165529910, guid: dadfa82202b17be47b39770320522709,
         type: 3}
@@ -2469,6 +2531,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293157310807025667, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8462365234217354870, guid: dadfa82202b17be47b39770320522709,
         type: 3}
@@ -2899,6 +2966,27 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2022028608817452719, guid: 59618a5d95df5804da18b23b7e240c47,
+        type: 3}
+      propertyPath: pathForTexts
+      value: AudioBattle/Texts
+      objectReference: {fileID: 0}
+    - target: {fileID: 2022028608817452719, guid: 59618a5d95df5804da18b23b7e240c47,
+        type: 3}
+      propertyPath: audioCollection
+      value: 
+      objectReference: {fileID: 11400000, guid: 4dae63035a865d74fb41147234fb3af0,
+        type: 2}
+    - target: {fileID: 2022028608817452719, guid: 59618a5d95df5804da18b23b7e240c47,
+        type: 3}
+      propertyPath: pathForSFXSounds
+      value: AudioBattle/SFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 2022028608817452719, guid: 59618a5d95df5804da18b23b7e240c47,
+        type: 3}
+      propertyPath: pathForBackgroundSounds
+      value: AudioBattle/Background
+      objectReference: {fileID: 0}
     - target: {fileID: 2802291539025172280, guid: 59618a5d95df5804da18b23b7e240c47,
         type: 3}
       propertyPath: m_RootOrder
@@ -2956,10 +3044,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4791382618013174857, guid: 59618a5d95df5804da18b23b7e240c47,
         type: 3}
+      propertyPath: audioBattle
+      value: 
+      objectReference: {fileID: 11400000, guid: 4dae63035a865d74fb41147234fb3af0,
+        type: 2}
+    - target: {fileID: 4791382618013174857, guid: 59618a5d95df5804da18b23b7e240c47,
+        type: 3}
       propertyPath: victorySound
       value: 
       objectReference: {fileID: 8300000, guid: 1317f40d34f63d046bc3efeaa03ec104, type: 3}
-    m_RemovedComponents: []
+    - target: {fileID: 4791382618013174857, guid: 59618a5d95df5804da18b23b7e240c47,
+        type: 3}
+      propertyPath: audioCollection
+      value: 
+      objectReference: {fileID: 11400000, guid: 4dae63035a865d74fb41147234fb3af0,
+        type: 2}
+    - target: {fileID: 4791382618013174857, guid: 59618a5d95df5804da18b23b7e240c47,
+        type: 3}
+      propertyPath: backgroundSoundFileName
+      value: BG_Waves
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2022028608817452719, guid: 59618a5d95df5804da18b23b7e240c47, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

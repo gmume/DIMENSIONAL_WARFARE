@@ -5,33 +5,48 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
 using static UnityEngine.InputSystem.InputAction;
 
-public class AudioManager : MonoBehaviour
+public class AudioPlayer : MonoBehaviour
 {
     [Header("Audio sources")]
-    public AudioSource backgroundSound;
-    public AudioSource SFXSource1;
-    public AudioSource SFXSource2;
-    public AudioSource text;
+    public AudioSource backgroundSource;
+    public AudioSource SFXSource1, SFXSource2, textSource;
 
-    [Header("Audio clips")]
-    public AudioClip background;
+    [Header("Path to file")]
+    public string backgroundSoundFileName;
 
-    public AudioClip attack;
-    public AudioClip explosion;
-    public AudioClip shipUp;
-    public AudioClip shipDown;
-    public AudioClip chooseShip;
-    public AudioClip dimensionUp;
-    public AudioClip dimensionDown;
-    public AudioClip moveShip;
-    public AudioClip victorySound;
-
-    public AudioClip text_01;
+    [Header("Audio collection")]
+    public AudioCollection audioCollection;
 
     public void Start()
     {
-        backgroundSound.clip = background;
-        backgroundSound.Play();
+        audioCollection.Init();
+        PlayClip(backgroundSource, audioCollection.backgroundSounds[backgroundSoundFileName]);
+    }
+
+    private void PlayClip(float deleyTime, AudioSource source, AudioClip clip)
+    {
+        if (clip)
+        {
+            source.clip = clip;
+
+            if (deleyTime == 0)
+            {
+                source.Play();
+            }
+            else
+            {
+                source.PlayDelayed(deleyTime);
+            }
+        }
+        else
+        {
+            Debug.Log("Clip not found!");
+        }
+    }
+
+    private void PlayClip(AudioSource source, AudioClip clip)
+    {
+        PlayClip(0, source, clip);
     }
 
     //StartGame actionMap
@@ -96,11 +111,8 @@ public class AudioManager : MonoBehaviour
     {
         if (ctx.performed)
         {
-            SFXSource1.clip = attack;
-            SFXSource1.Play();
-
-            SFXSource2.clip = explosion;
-            SFXSource2.PlayDelayed(1.2f);
+            PlayClip(SFXSource1, audioCollection.SFXSounds["SFX_NavalGun"]);
+            PlayClip(1.2f, SFXSource2, audioCollection.SFXSounds["SFX_ImpactExplosion"]);
         }
     }
 
@@ -108,8 +120,7 @@ public class AudioManager : MonoBehaviour
     {
         if (ctx.performed)
         {
-            SFXSource1.clip = dimensionUp;
-            SFXSource1.Play();
+            PlayClip(SFXSource1, audioCollection.SFXSounds["SFX_DimensionUp"]);
         }
     }
 
@@ -117,32 +128,27 @@ public class AudioManager : MonoBehaviour
     {
         if (ctx.performed)
         {
-            SFXSource1.clip = dimensionDown;
-            SFXSource1.Play();
+            PlayClip(SFXSource1, audioCollection.SFXSounds["SFX_DimensionDown"]);
         }
     }
 
     private void ChooseShip()
     {
-        SFXSource1.clip = chooseShip;
-        SFXSource1.Play();
+        PlayClip(SFXSource1, audioCollection.SFXSounds["SFX_ChooseShip"]);
     }
 
     public void OnShipUp()
     {
-        SFXSource1.clip = shipUp;
-        SFXSource1.Play();
+        PlayClip(SFXSource1, audioCollection.SFXSounds["SFX_ShipUp"]);
     }
 
     public void OnVictory()
     {
-        SFXSource1.clip = victorySound;
-        SFXSource1.Play();
+        PlayClip(SFXSource1, audioCollection.SFXSounds["SFX_VictorySound"]);
     }
 
     public void OnFireWithSunkenShip()
     {
-        text.clip = text_01;
-        text.Play();
+        PlayClip(textSource, audioCollection.SFXSounds["TXT_01"]);
     }
 }

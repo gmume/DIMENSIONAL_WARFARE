@@ -2,7 +2,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Scripts/Dimensions")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Dimensions")]
 
 public class Dimensions : ScriptableObject
 {

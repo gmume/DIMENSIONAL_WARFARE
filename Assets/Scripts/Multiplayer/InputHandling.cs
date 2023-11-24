@@ -8,8 +8,7 @@ using static UnityEngine.InputSystem.InputAction;
 
 public class InputHandling : MonoBehaviour
 {
-    private Player player;
-    private Player opponent;
+    private Player player, opponent;
     private InputActionMap gameStartMap, playerMap;
     private List<GameObject> shipButtons;
 
@@ -25,8 +24,6 @@ public class InputHandling : MonoBehaviour
 
             if (index > 0)
             {
-                // Set selected game object = index - 1
-                //player.eventSystem.SetSelectedGameObject(shipButtons[shipNr - 1]);
                 player.eventSystem.SetSelectedGameObject(shipButtons[index - 1]);
 
                 player.CurrentShipButton = player.eventSystem.currentSelectedGameObject.GetComponent<ShipButton>();
@@ -68,8 +65,8 @@ public class InputHandling : MonoBehaviour
         int shipY = player.ActiveShip.PivotZ;
 
         player.world.SetNewCellAbsolute(shipX, shipY);
-        player.fleetMenu.UpdateFleetMenuCoords(shipX, shipY);
-        opponent.fleetMenu.UpdateFleetMenuCoords(shipX, shipY);
+        player.HUD.UpdateHUDCoords(shipX, shipY);
+        opponent.HUD.UpdateHUDCoords(shipX, shipY);
     }
 
     public void OnMoveShip(CallbackContext ctx)
@@ -106,8 +103,8 @@ public class InputHandling : MonoBehaviour
                 }
             }
 
-            player.fleetMenu.UpdateFleetMenuCoords(ship.PivotX, ship.PivotZ);
-            opponent.fleetMenu.UpdateFleetMenuCoords(ship.PivotX, ship.PivotZ);
+            player.HUD.UpdateHUDCoords(ship.PivotX, ship.PivotZ);
+            opponent.HUD.UpdateHUDCoords(ship.PivotX, ship.PivotZ);
         }
     }
 
@@ -214,8 +211,8 @@ public class InputHandling : MonoBehaviour
                     }
                 }
 
-                player.fleetMenu.UpdateFleetMenuCoords(player.ActiveCell.X, player.ActiveCell.Y);
-                opponent.fleetMenu.UpdateFleetMenuCoords(player.ActiveCell.X, player.ActiveCell.Y);
+                player.HUD.UpdateHUDCoords(player.ActiveCell.X, player.ActiveCell.Y);
+                opponent.HUD.UpdateHUDCoords(player.ActiveCell.X, player.ActiveCell.Y);
             }
             else
             {
@@ -246,7 +243,7 @@ public class InputHandling : MonoBehaviour
                 }
                 else
                 {
-                    player.audioManager.GetComponent<AudioManager>().OnFireWithSunkenShip();
+                    player.audioManager.GetComponent<AudioPlayer>().OnFireWithSunkenShip();
                     print(player.name + "You can't fire with a sunken ship, capt'n!");
                 }
             }
@@ -298,7 +295,7 @@ public class InputHandling : MonoBehaviour
 
     private void ArmOpponent()
     {
-        opponent.fleetMenu.SetSelecetedButton();
+        opponent.HUD.SetSelecetedButton();
         opponent.fleet.ActivateShip(0, opponent);
         opponent.inputHandling.UpdateActiveCellAndFleetMenu();
     }
@@ -349,7 +346,7 @@ public class InputHandling : MonoBehaviour
         opponent = player.opponent;
         gameStartMap = player.input.actions.FindActionMap("GameStart");
         playerMap = player.input.actions.FindActionMap("Player");
-        shipButtons = player.fleetMenu.GetShipButtons();
+        shipButtons = player.HUD.GetShipButtons();
         player.input.SwitchCurrentActionMap("GameStart");
         ArrayList devices = new();
 

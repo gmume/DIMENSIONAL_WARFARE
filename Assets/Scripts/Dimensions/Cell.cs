@@ -2,10 +2,8 @@ using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
-    public int x;
-    public int y;
-    public bool activated;
-    public bool occupied;
+    public int x, y;
+    public bool activated, occupied;
     public ShipPart part;
     public bool hitted;
 
