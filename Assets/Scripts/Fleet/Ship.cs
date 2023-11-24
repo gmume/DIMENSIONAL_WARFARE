@@ -9,7 +9,7 @@ public class Ship : MonoBehaviour
     private Player player;
     private ShipPart[] parts;
     private Color fireColor;
-    private AudioManager audioManager;
+    private AudioPlayer audioPlayer;
 
     public string ShipName { get; private set; }
     public int ShipNo { get; private set; } // 1 based
@@ -229,9 +229,9 @@ public class Ship : MonoBehaviour
     {
         if (Dimension.DimensionNo < OverworldData.DimensionsCount - 2)
         {
-            audioManager.OnShipUp();
+            audioPlayer.OnShipUp();
             player.world.SetNewDimension(Dimension.DimensionNo + 1);
-            player.fleetMenu.SetHUDDimension(player.ActiveDimension.DimensionNo);
+            player.HUD.SetHUDDimension(player.ActiveDimension.DimensionNo);
             player.vehicle.SetViewOnDimension(player.ActiveDimension.DimensionNo);
             SwitchDimension(player.ActiveDimension.DimensionNo);
             SetDimension(Dimension);
@@ -241,7 +241,7 @@ public class Ship : MonoBehaviour
         }
         else
         {
-            audioManager.OnVictory();
+            audioPlayer.OnVictory();
             print(player.name + " wins for reaching the top dimension!");
             GameData.winner = player.name;
             player.GetComponent<SceneChanger>().LoadResolveGame();
@@ -291,13 +291,13 @@ public class Ship : MonoBehaviour
                 {
                     List<GameObject> fleet = player.fleet.GetFleet();
 
-                    player.fleetMenu.RemoveButton(fleet.IndexOf(gameObject));
+                    player.HUD.RemoveButton(fleet.IndexOf(gameObject));
                     fleet.Remove(gameObject);
                     StartCoroutine(DestroyShip());
                 }
                 else
                 {
-                    audioManager.OnVictory();
+                    audioPlayer.OnVictory();
                     print(player.opponent.name + " wins for destroying the opponent's fleet!");
                     GameData.winner = player.opponent.name;
                     player.GetComponent<SceneChanger>().LoadResolveGame();
@@ -344,10 +344,8 @@ public class Ship : MonoBehaviour
 
     private void ShipDown()
     {
-        //if (Dimension.DimensionNo > 0)
-        //{
             player.world.SetNewDimension(Dimension.DimensionNo - 1);
-            player.fleetMenu.SetHUDDimension(player.ActiveDimension.DimensionNo);
+            player.HUD.SetHUDDimension(player.ActiveDimension.DimensionNo);
             player.vehicle.SetViewOnDimension(player.ActiveDimension.DimensionNo);
             ShipStatus = ShipStatus.Sunk;
             gameObject.transform.position += new Vector3(0, 0.5f, 0);
@@ -357,13 +355,6 @@ public class Ship : MonoBehaviour
             SetDimension(Dimension);
             player.inputHandling.continueGame = false;
             StartCoroutine(ResetShip());
-        //}
-        //else
-        //{
-        //    // Set cell free!!
-        //    Debug.Log(name + " is destroyed!");
-        //    Destroy(gameObject);
-        //}
     }
 
     private IEnumerator ResetShip()
@@ -427,7 +418,7 @@ public class Ship : MonoBehaviour
     public void InitiateShip(Player player, int shipNo)
     {
         this.player = player;
-        audioManager = player.audioManager.GetComponent<AudioManager>();
+        audioPlayer = player.audioManager.GetComponent<AudioPlayer>();
         ShipNo = shipNo;
         parts = new ShipPart[ShipNo + 1];
         ShipName = "ship" + player.number + "." + ShipNo;

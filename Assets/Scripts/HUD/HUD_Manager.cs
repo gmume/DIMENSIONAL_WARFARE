@@ -1,52 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.InputSystem.InputAction;
 
-public class FleetMenuScript : MonoBehaviour
+public class HUD_Manager : MonoBehaviour
 {
     private Player player;
+    
+    private string x = "--", y = "--";
+    private TextMeshProUGUI xCoord, yCoord;
+    
+    private GameObject[] HUD_Dimensions;
+    private int currentHUD_Dimension;
+    private TextMeshProUGUI HUD_DimensionNo;
+    
     private GameObject shipButtonsObj;
     private List<GameObject> shipButtons;
-    private string x = "--";
-    private string y = "--";
-    //private string HUDDimensionNo = "01";
-    private TextMeshProUGUI xCoord;
-    private TextMeshProUGUI yCoord;
-    //private TextMeshProUGUI HUDDimension;
-    //private GameObject HUDDimensionsHeader;
-    //private GameObject[] HUDDimensions;
-    private int currentHUDDimension;
+
+    public GameObject HUD_DimensionsObj;
+    public GameObject HUD_DimensionObj;
+    public Texture2D HUD_DimensionInactive;
+    public Texture2D HUD_DimensionActive;
 
     public GameObject playerObj;
     public ShipButton currentButton;
-    public GameObject selectedButton;
-    public GameObject selectedElement;
+    public GameObject selectedButton, selectedElement;
 
     private void Update()
     {
         xCoord.text = x;
         yCoord.text = y;
-        //HUDDimension.text = HUDDimensionNo;
     }
 
     public void SetHUDDimension(int toNo)
     {
-        int difference = toNo - currentHUDDimension;
-        currentHUDDimension += difference;
-        //HUDDimensions[currentHUDDimension].SetActive(true);
-        UpdateFleetMenuDimension(currentHUDDimension);
+        GameObject HUD_DimensionToSetInactive = HUD_Dimensions[currentHUD_Dimension];
+        HUD_DimensionToSetInactive.GetComponent<RawImage>().texture = HUD_DimensionInactive;
+        HUD_DimensionToSetInactive.GetComponentInChildren<TextMeshProUGUI>().fontStyle = FontStyles.Normal;
+        HUD_DimensionToSetInactive.GetComponentInChildren<TextMeshProUGUI>().fontSize = 22;
+
+        GameObject HUD_DimensionToSetActive = HUD_Dimensions[toNo];
+        HUD_DimensionToSetActive.GetComponent<RawImage>().texture = HUD_DimensionActive;
+        HUD_DimensionToSetActive.GetComponentInChildren<TextMeshProUGUI>().fontStyle = FontStyles.Bold;
+        HUD_DimensionToSetActive.GetComponentInChildren<TextMeshProUGUI>().fontStyle = FontStyles.Underline;
+        HUD_DimensionToSetActive.GetComponentInChildren<TextMeshProUGUI>().fontSize = 28;
     }
 
     public void OnDimensionUp(CallbackContext ctx)
     {
         if (ctx.performed)
         {
-            if (currentHUDDimension + 1 < OverworldData.DimensionsCount)
+            if (currentHUD_Dimension + 1 < OverworldData.DimensionsCount)
             {
-                SetHUDDimension(currentHUDDimension + 1);
+                SetHUDDimension(currentHUD_Dimension + 1);
             }
             else
             {
@@ -59,9 +68,9 @@ public class FleetMenuScript : MonoBehaviour
     {
         if (ctx.performed)
         {
-            if (currentHUDDimension - 1 >= 0)
+            if (currentHUD_Dimension - 1 >= 0)
             {
-                SetHUDDimension(currentHUDDimension - 1);
+                SetHUDDimension(currentHUD_Dimension - 1);
             }
             else
             {
@@ -70,7 +79,7 @@ public class FleetMenuScript : MonoBehaviour
         }
     }
 
-    public void UpdateFleetMenuCoords(int xCoord, int yCoord)
+    public void UpdateHUDCoords(int xCoord, int yCoord)
     {
         if (xCoord.ToString().Length < 2)
         {
@@ -91,16 +100,17 @@ public class FleetMenuScript : MonoBehaviour
         }
     }
 
-    public void UpdateFleetMenuCoords()
+    public void UpdateHUDCoords()
     {
         x = "--";
         y = "--";
     }
 
-    private void UpdateFleetMenuDimension(int dimension)
-    {
-        //HUDDimensionNo = "0" + (dimension + 1).ToString();
-    }
+    //private void UpdateHUDDimension(int dimension)
+    //{
+    //    HUD_Dimensions[currentHUD_Dimension].GetComponent<RawImage>().texture = HUD_DimensionInactive;
+    //    HUD_Dimensions[dimension].GetComponent<RawImage>().texture = HUD_DimensionActive;
+    //}
 
     public List<GameObject> GetShipButtons()
     {
@@ -216,31 +226,29 @@ public class FleetMenuScript : MonoBehaviour
 
     private void CreateHUDDimensions()
     {
-        //HUDDimensions = new GameObject[OverworldData.DimensionsCount];
+        HUD_Dimensions = new GameObject[OverworldData.DimensionsCount];
 
-        //for (int i = 0; i < OverworldData.DimensionsCount; i++)
-        //{
-        //    GameObject HUDDimension = new("HUDDimension0" + (i + 1), typeof(CanvasRenderer), typeof(Image));
-        //    HUDDimension.transform.SetParent(HUDDimensionsHeader.transform, false);
+        for (int i = 0; i < OverworldData.DimensionsCount; i++)
+        {
+            GameObject HUD_Dimension = Instantiate(HUD_DimensionObj) as GameObject;
+            HUD_Dimension.name = "HUDDimension0" + (i + 1);
+            HUD_Dimension.transform.SetParent(HUD_DimensionsObj.transform, false);
+            HUD_Dimension.transform.position += new Vector3(0, i * 40, 0);
+            HUD_DimensionNo = HUD_Dimension.GetComponentInChildren<TextMeshProUGUI>();
+            HUD_DimensionNo.text = "0" + (i + 1);
+            HUD_Dimensions[i] = HUD_Dimension;
 
-        //    Image HUDDimensionImage = HUDDimension.GetComponent<Image>();
-        //    HUDDimensionImage.sprite = Resources.Load<Sprite>("HUD_Elemente/Levels/Dimension0" + (i + 1)) as Sprite;
-        //    HUDDimensionImage.type = Image.Type.Simple;
-        //    HUDDimensionImage.SetNativeSize();
-        //    HUDDimensions[i] = HUDDimension;
-        //    HUDDimensions[i] = HUDDimension;
-
-        //    if (i != 0)
-        //    {
-        //        HUDDimension.SetActive(false);
-        //    }
-        //}
+            if (i == 0)
+            {
+                SetHUDDimension(0);
+            }
+        }
     }
 
-    public void InitFleetMenu()
+    public void InitHUD()
     {
         player = playerObj.GetComponent<Player>();
-
+        shipButtons = new List<GameObject>();
         GameObject[] fleetMenuParts;
 
         if (player.number == 1)
@@ -251,8 +259,6 @@ public class FleetMenuScript : MonoBehaviour
         {
             fleetMenuParts = GameObject.FindGameObjectsWithTag("FleetMenu2");
         }
-
-        shipButtons = new List<GameObject>();
 
         foreach (GameObject fleetMenuPart in fleetMenuParts)
         {
@@ -268,22 +274,16 @@ public class FleetMenuScript : MonoBehaviour
             {
                 shipButtonsObj = fleetMenuPart;
             }
+            else if (fleetMenuPart.name == "HUD_Dimensions")
+            {
+                HUD_DimensionsObj = fleetMenuPart;
+            }
         }
 
-        //if (player.number == 1)
-        //{
-        //    HUDDimension = GameObject.Find("Dimension1").GetComponent<TextMeshProUGUI>();
-        //    HUDDimensionsHeader = GameObject.Find("DimensionsHeader1");
-        //}
-        //else
-        //{
-        //    HUDDimension = GameObject.Find("Dimension2").GetComponent<TextMeshProUGUI>();
-        //    HUDDimensionsHeader = GameObject.Find("DimensionsHeader2");
-        //}
+        CreateHUDDimensions();
+        currentHUD_Dimension = 0;
 
         CreateShipButtons();
-        CreateHUDDimensions();
-        currentHUDDimension = 0;
         player.fleet.ActivateShip(currentButton.ShipButtonNr, player);
     }
 }
