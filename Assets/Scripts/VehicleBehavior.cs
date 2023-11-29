@@ -35,7 +35,7 @@ public class VehicleBehavior : MonoBehaviour
             transform.position += vector * vectorFactor;
             currentDimension = toNo;
             player.world.SetNewDimension(currentDimension);
-            //player.fleetMenu.SetHUDDimension(currentDimension);
+            //player.HUD.SetHUDDimension(currentDimension);
         //}
         //else
         //{

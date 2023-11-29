@@ -8,13 +8,13 @@ public class WinnerOrLooser : MonoBehaviour
     private void Start()
     {
         
-        if (GameData.winner == "Player1" && transform.parent.name == "FleetMenu1" || GameData.winner == "Player2" && transform.parent.name == "FleetMenu2")
+        if (GameData.winner == "Player1" && transform.parent.name == "HUD1" || GameData.winner == "Player2" && transform.parent.name == "HUD2")
         {
-            GetComponent<RawImage>().texture = Resources.Load<Texture>("HUD_Elemente/Header Footer/Win") as Texture;
+            GetComponent<RawImage>().texture = Resources.Load<Texture>("HUD/Header Footer/Win");
         }
         else
         {
-            GetComponent<RawImage>().texture = Resources.Load<Texture>("HUD_Elemente/Header Footer/Loose") as Texture;
+            GetComponent<RawImage>().texture = Resources.Load<Texture>("HUD/Header Footer/Loose");
         }
     }
 }

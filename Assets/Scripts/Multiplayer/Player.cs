@@ -4,7 +4,7 @@ using UnityEngine.InputSystem.UI;
 
 public class Player : MonoBehaviour
 {
-    public GameObject opponentObj, eventSystemObj, fleetMenuObj, cameraVehicleObj, dimensionsObj, audioManager;
+    public GameObject opponentObj, eventSystemObj, HUD_Obj, cameraVehicleObj, dimensionsObj, audioManager;
 
     [HideInInspector] public int number;
     [HideInInspector] public Player opponent;
@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
         input = GetComponent<PlayerInput>();
         eventSystem = eventSystemObj.GetComponent<MultiplayerEventSystem>();
         inputSystem = eventSystemObj.GetComponent<InputSystemUIInputModule>();
-        HUD = fleetMenuObj.GetComponent<HUD_Manager>();
+        HUD = HUD_Obj.GetComponent<HUD_Manager>();
         vehicle = cameraVehicleObj.GetComponent<VehicleBehavior>();
 
         for (int i = 0; i < cameraVehicleObj.transform.childCount; i++)

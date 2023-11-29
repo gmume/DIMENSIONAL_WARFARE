@@ -9,15 +9,15 @@ public class CameraBehavior : MonoBehaviour
     {
         PlayerCamera = GetComponent<Camera>();
 
-        if(name == "Camera1")
-        {
-            armed = GameObject.Find("Armed1");
-        }
-        else
-        {
-            armed = GameObject.Find("Armed2");
-        }
-        armed.SetActive(false);
+        //if(name == "Camera1")
+        //{
+        //    armed = GameObject.Find("Armed1");
+        //}
+        //else
+        //{
+        //    armed = GameObject.Find("Armed2");
+        //}
+        //armed.SetActive(false);
     }
 
     public void UpdateCamera(GamePhases phase)
@@ -27,11 +27,11 @@ public class CameraBehavior : MonoBehaviour
             case GamePhases.Armed:
                 if(name == "Camera1")
                 {
-                    PlayerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player2", "Fleet1", "VisibleShips", "FleetMenu1", "Armed");
+                    PlayerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player2", "Fleet1", "VisibleShips", "HUD1", "Armed");
                 }
                 else
                 {
-                    PlayerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player1", "Fleet2", "VisibleShips", "FleetMenu2", "Armed");
+                    PlayerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player1", "Fleet2", "VisibleShips", "HUD2", "Armed");
                 }
 
                 if (!armed.activeSelf)
@@ -43,11 +43,11 @@ public class CameraBehavior : MonoBehaviour
             case GamePhases.Attacked:
                 if (name == "Camera1")
                 {
-                    PlayerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player1", "Fleet1", "VisibleShips", "FleetMenu1");
+                    PlayerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player1", "Fleet1", "VisibleShips", "HUD1");
                 }
                 else
                 {
-                    PlayerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player2", "Fleet2", "VisibleShips", "FleetMenu2");
+                    PlayerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player2", "Fleet2", "VisibleShips", "HUD2");
                 }
 
                 if (armed.activeSelf)
@@ -59,11 +59,11 @@ public class CameraBehavior : MonoBehaviour
             case GamePhases.End:
                 if (name == "Camera1")
                 {
-                    PlayerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player1", "Fleet1", "VisibleShips", "FleetMenu1");
+                    PlayerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player1", "Fleet1", "VisibleShips", "HUD1");
                 }                                                   
                 else                                                
                 {                                                   
-                    PlayerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player2", "Fleet2", "VisibleShips", "FleetMenu2");
+                    PlayerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player2", "Fleet2", "VisibleShips", "HUD2");
                 }
                 if (armed.activeSelf)
                 {

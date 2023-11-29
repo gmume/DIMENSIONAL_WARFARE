@@ -40,6 +40,11 @@ public class Dimensions : ScriptableObject
         return dimension.GetComponent<Dimension>();
     }
 
+    //public bool CheckNextDimension(int nextDimensionNo)
+    //{
+
+    //}
+
     public void InitFleet(Player player)
     {
         player.fleet = ScriptableObject.CreateInstance("Fleet") as Fleet;
