@@ -47,6 +47,8 @@ public class HUD_Manager : MonoBehaviour
         HUD_DimensionToSetActive.GetComponentInChildren<TextMeshProUGUI>().fontStyle = FontStyles.Bold;
         HUD_DimensionToSetActive.GetComponentInChildren<TextMeshProUGUI>().fontStyle = FontStyles.Underline;
         HUD_DimensionToSetActive.GetComponentInChildren<TextMeshProUGUI>().fontSize = 28;
+
+        currentHUD_Dimension = toNo;
     }
 
     public void OnDimensionUp(CallbackContext ctx)
@@ -141,7 +143,7 @@ public class HUD_Manager : MonoBehaviour
 
     private void CreateButton(GameObject buttonObj, Button button, int i)
     {
-        if (name == "FleetMenu1")
+        if (name == "HUD1")
         {
             buttonObj.name = "ShipButton" + (i + 1);
             buttonObj.layer = 11;
@@ -190,11 +192,11 @@ public class HUD_Manager : MonoBehaviour
     private void DesignButton(Button button)
     {
         button.image.type = Image.Type.Simple;
-        button.image.sprite = Resources.Load<Sprite>("HUD_Elemente/ButtonElements/Button") as Sprite;
+        button.image.sprite = Resources.Load<Sprite>("HUD/Buttons/Button");
         button.image.SetNativeSize();
         button.transition = Selectable.Transition.SpriteSwap;
-        Sprite buttonSelected = Resources.Load<Sprite>("HUD_Elemente/ButtonElements/Selection") as Sprite;
-        Sprite buttonDisabled = Resources.Load<Sprite>("HUD_Elemente/ButtonElements/Disabled") as Sprite;
+        Sprite buttonSelected = Resources.Load<Sprite>("HUD/Buttons/Selection");
+        Sprite buttonDisabled = Resources.Load<Sprite>("HUD/Buttons/Disabled");
 
         SpriteState spriteState = new()
         {
@@ -210,7 +212,7 @@ public class HUD_Manager : MonoBehaviour
         shipPart.transform.SetParent(buttonObj.transform, false);
 
         Image shipPartImage = shipPart.GetComponent<Image>();
-        shipPartImage.sprite = Resources.Load<Sprite>("HUD_Elemente/ButtonElements/ShipPart") as Sprite;
+        shipPartImage.sprite = Resources.Load<Sprite>("HUD/Buttons/ShipPart");
         shipPartImage.type = Image.Type.Simple;
         shipPartImage.preserveAspect = true;
 
@@ -249,34 +251,37 @@ public class HUD_Manager : MonoBehaviour
     {
         player = playerObj.GetComponent<Player>();
         shipButtons = new List<GameObject>();
-        GameObject[] fleetMenuParts;
+        GameObject[] HUD_Parts;
 
         if (player.number == 1)
         {
-            fleetMenuParts = GameObject.FindGameObjectsWithTag("FleetMenu1");
+            HUD_Parts = GameObject.FindGameObjectsWithTag("HUD1");
         }
         else
         {
-            fleetMenuParts = GameObject.FindGameObjectsWithTag("FleetMenu2");
+            HUD_Parts = GameObject.FindGameObjectsWithTag("HUD2");
         }
 
-        foreach (GameObject fleetMenuPart in fleetMenuParts)
+        foreach (GameObject HUD_Part in HUD_Parts)
         {
-            if (fleetMenuPart.name == "X-Koordinate")
+            if (HUD_Part.name == "X-Koordinate")
             {
-                xCoord = fleetMenuPart.GetComponent<TextMeshProUGUI>();
+                xCoord = HUD_Part.GetComponent<TextMeshProUGUI>();
             }
-            else if (fleetMenuPart.name == "Y-Koordinate")
+            else if (HUD_Part.name == "Y-Koordinate")
             {
-                yCoord = fleetMenuPart.GetComponent<TextMeshProUGUI>();
+                yCoord = HUD_Part.GetComponent<TextMeshProUGUI>();
             }
-            else if (fleetMenuPart.name == "ShipButtons")
+            else if (HUD_Part.name == "ShipButtons")
             {
-                shipButtonsObj = fleetMenuPart;
+                shipButtonsObj = HUD_Part;
             }
-            else if (fleetMenuPart.name == "HUD_Dimensions")
+            else if (HUD_Part.name == "HUD_Dimensions")
             {
-                HUD_DimensionsObj = fleetMenuPart;
+                HUD_DimensionsObj = HUD_Part;
+            } else if (name == "HUD2" && HUD_Part.name == "Armed")
+            {
+                HUD_Part.SetActive(false);
             }
         }
 

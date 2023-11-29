@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5581809585635729785}
   - component: {fileID: 1203729781816780879}
   m_Layer: 0
-  m_Name: FleetMenu
+  m_Name: HUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

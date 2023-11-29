@@ -8,8 +8,8 @@ TagManager:
   - Player1
   - Player2
   - Camera
-  - FleetMenu1
-  - FleetMenu2
+  - HUD1
+  - HUD2
   layers:
   - Default
   - TransparentFX
@@ -22,8 +22,8 @@ TagManager:
   - Fleet1
   - Fleet2
   - VisibleShips
-  - FleetMenu1
-  - FleetMenu2
+  - HUD1
+  - HUD2
   - Armed
   - 
   - 

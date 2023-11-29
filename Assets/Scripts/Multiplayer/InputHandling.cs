@@ -31,7 +31,7 @@ public class InputHandling : MonoBehaviour
 
                 if (OverworldData.GamePhase == GamePhases.Battle)
                 {
-                    UpdateActiveCellAndFleetMenu();
+                    UpdateActiveCellAndHUD();
                 }
             }
         }
@@ -53,13 +53,13 @@ public class InputHandling : MonoBehaviour
 
                 if (OverworldData.GamePhase == GamePhases.Battle)
                 {
-                    UpdateActiveCellAndFleetMenu();
+                    UpdateActiveCellAndHUD();
                 }
             }
         }
     }
 
-    public void UpdateActiveCellAndFleetMenu()
+    public void UpdateActiveCellAndHUD()
     {
         int shipX = player.ActiveShip.PivotX;
         int shipY = player.ActiveShip.PivotZ;
@@ -297,7 +297,7 @@ public class InputHandling : MonoBehaviour
     {
         opponent.HUD.SetSelecetedButton();
         opponent.fleet.ActivateShip(0, opponent);
-        opponent.inputHandling.UpdateActiveCellAndFleetMenu();
+        opponent.inputHandling.UpdateActiveCellAndHUD();
     }
 
     public void SwitchActionMap(string actionMapName)
@@ -322,16 +322,6 @@ public class InputHandling : MonoBehaviour
                 if (!playerMap.enabled)
                 {
                     playerMap.Enable();
-                }
-                break;
-            case "FleetMenu":
-                if (gameStartMap.enabled)
-                {
-                    gameStartMap.Disable();
-                }
-                if (playerMap.enabled)
-                {
-                    playerMap.Disable();
                 }
                 break;
             default:
