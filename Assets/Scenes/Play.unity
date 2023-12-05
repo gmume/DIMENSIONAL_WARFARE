@@ -129,24 +129,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1798278738}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &50439445 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1434297518539079233, guid: ace245119d9f22d4fb2dda3fa6087fcd,
+--- !u!20 &50439454 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 3209847938540486534, guid: ace245119d9f22d4fb2dda3fa6087fcd,
     type: 3}
   m_PrefabInstance: {fileID: 2115123619}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &50439450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 50439445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9dd58a0d9e0a684e88178f8254e1186, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &266732611
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,24 +166,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &362086857 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1434297518539079233, guid: ace245119d9f22d4fb2dda3fa6087fcd,
+--- !u!20 &362086866 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 3209847938540486534, guid: ace245119d9f22d4fb2dda3fa6087fcd,
     type: 3}
   m_PrefabInstance: {fileID: 1798278738}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &362086862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 362086857}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9dd58a0d9e0a684e88178f8254e1186, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &489998980
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,6 +348,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1670176452085861543, guid: 583ca5b15ae1cf14f9485c134ad04801,
+        type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 3305835302857450616, guid: 583ca5b15ae1cf14f9485c134ad04801,
         type: 3}
       propertyPath: m_Name
@@ -379,9 +360,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4554820544115862490, guid: 583ca5b15ae1cf14f9485c134ad04801,
         type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1539149171}
+    - target: {fileID: 4554820544115862490, guid: 583ca5b15ae1cf14f9485c134ad04801,
+        type: 3}
       propertyPath: playerObj
       value: 
       objectReference: {fileID: 1065382924}
+    - target: {fileID: 4630386532090288405, guid: 583ca5b15ae1cf14f9485c134ad04801,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1539149171}
     - target: {fileID: 8125678228336359587, guid: 583ca5b15ae1cf14f9485c134ad04801,
         type: 3}
       propertyPath: m_Pivot.x
@@ -520,9 +511,34 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -2537492309018127594, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
+      propertyPath: HUD
+      value: 
+      objectReference: {fileID: 1773980039}
+    - target: {fileID: -2537492309018127594, guid: 0223c2ce2ddaa984fa48db8009f197cb,
+        type: 3}
       propertyPath: HUD_Obj
       value: 
       objectReference: {fileID: 1773980037}
+    - target: {fileID: -2537492309018127594, guid: 0223c2ce2ddaa984fa48db8009f197cb,
+        type: 3}
+      propertyPath: vehicle
+      value: 
+      objectReference: {fileID: 2115123620}
+    - target: {fileID: -2537492309018127594, guid: 0223c2ce2ddaa984fa48db8009f197cb,
+        type: 3}
+      propertyPath: opponent
+      value: 
+      objectReference: {fileID: 1539149171}
+    - target: {fileID: -2537492309018127594, guid: 0223c2ce2ddaa984fa48db8009f197cb,
+        type: 3}
+      propertyPath: eventSystem
+      value: 
+      objectReference: {fileID: 2112860530}
+    - target: {fileID: -2537492309018127594, guid: 0223c2ce2ddaa984fa48db8009f197cb,
+        type: 3}
+      propertyPath: inputSystem
+      value: 
+      objectReference: {fileID: 2112860529}
     - target: {fileID: -2537492309018127594, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: opponentObj
@@ -540,9 +556,19 @@ PrefabInstance:
       objectReference: {fileID: 1773980037}
     - target: {fileID: -2537492309018127594, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 50439454}
+    - target: {fileID: -2537492309018127594, guid: 0223c2ce2ddaa984fa48db8009f197cb,
+        type: 3}
       propertyPath: dimensionsObj
       value: 
       objectReference: {fileID: 2011928372}
+    - target: {fileID: -2537492309018127594, guid: 0223c2ce2ddaa984fa48db8009f197cb,
+        type: 3}
+      propertyPath: cameraBehavior
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: -2537492309018127594, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: eventSystemObj
@@ -761,12 +787,12 @@ PrefabInstance:
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
@@ -987,7 +1013,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2115123620}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -997,7 +1023,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2115123620}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -1101,7 +1127,7 @@ PrefabInstance:
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
@@ -1111,7 +1137,7 @@ PrefabInstance:
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
@@ -1366,7 +1392,7 @@ PrefabInstance:
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: FleetMenuScript, Assembly-CSharp
+      value: VehicleBehavior, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
@@ -1376,7 +1402,7 @@ PrefabInstance:
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: FleetMenuScript, Assembly-CSharp
+      value: VehicleBehavior, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
@@ -1590,6 +1616,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 644388516}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &892643046 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4554820544115862490, guid: 583ca5b15ae1cf14f9485c134ad04801,
+    type: 3}
+  m_PrefabInstance: {fileID: 644388516}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892643044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b990a83ff226dc04486ae81328188f6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1043902151 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3227109781402932499, guid: 4132fc7527b32614bb1704c55cb14c3c,
@@ -1925,6 +1963,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2012110726}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1773980039 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6876165768413634802, guid: 6aa46fd47fb21c747929bdbc18d20384,
+    type: 3}
+  m_PrefabInstance: {fileID: 2012110726}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773980037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b990a83ff226dc04486ae81328188f6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1798278738
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2056,11 +2106,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1434297518539079233, guid: ace245119d9f22d4fb2dda3fa6087fcd,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 362086862}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ace245119d9f22d4fb2dda3fa6087fcd, type: 3}
 --- !u!114 &1798278739 stripped
 MonoBehaviour:
@@ -2249,6 +2295,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2313308100874801725, guid: 6aa46fd47fb21c747929bdbc18d20384,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2141034425}
     - target: {fileID: 5600325933850439504, guid: 6aa46fd47fb21c747929bdbc18d20384,
         type: 3}
       propertyPath: m_Name
@@ -2256,9 +2307,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6876165768413634802, guid: 6aa46fd47fb21c747929bdbc18d20384,
         type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2141034425}
+    - target: {fileID: 6876165768413634802, guid: 6aa46fd47fb21c747929bdbc18d20384,
+        type: 3}
       propertyPath: playerObj
       value: 
       objectReference: {fileID: 2141034416}
+    - target: {fileID: 8607889414542018447, guid: 6aa46fd47fb21c747929bdbc18d20384,
+        type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2443,11 +2504,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1434297518539079233, guid: ace245119d9f22d4fb2dda3fa6087fcd,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 50439450}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ace245119d9f22d4fb2dda3fa6087fcd, type: 3}
 --- !u!114 &2115123620 stripped
 MonoBehaviour:
@@ -2744,9 +2801,34 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -2537492309018127594, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
+      propertyPath: HUD
+      value: 
+      objectReference: {fileID: 892643046}
+    - target: {fileID: -2537492309018127594, guid: 0223c2ce2ddaa984fa48db8009f197cb,
+        type: 3}
       propertyPath: HUD_Obj
       value: 
       objectReference: {fileID: 892643044}
+    - target: {fileID: -2537492309018127594, guid: 0223c2ce2ddaa984fa48db8009f197cb,
+        type: 3}
+      propertyPath: vehicle
+      value: 
+      objectReference: {fileID: 1798278739}
+    - target: {fileID: -2537492309018127594, guid: 0223c2ce2ddaa984fa48db8009f197cb,
+        type: 3}
+      propertyPath: opponent
+      value: 
+      objectReference: {fileID: 2141034425}
+    - target: {fileID: -2537492309018127594, guid: 0223c2ce2ddaa984fa48db8009f197cb,
+        type: 3}
+      propertyPath: eventSystem
+      value: 
+      objectReference: {fileID: 1043902152}
+    - target: {fileID: -2537492309018127594, guid: 0223c2ce2ddaa984fa48db8009f197cb,
+        type: 3}
+      propertyPath: inputSystem
+      value: 
+      objectReference: {fileID: 1043902151}
     - target: {fileID: -2537492309018127594, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: opponentObj
@@ -2764,9 +2846,19 @@ PrefabInstance:
       objectReference: {fileID: 892643044}
     - target: {fileID: -2537492309018127594, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 362086866}
+    - target: {fileID: -2537492309018127594, guid: 0223c2ce2ddaa984fa48db8009f197cb,
+        type: 3}
       propertyPath: dimensionsObj
       value: 
       objectReference: {fileID: 1925211997}
+    - target: {fileID: -2537492309018127594, guid: 0223c2ce2ddaa984fa48db8009f197cb,
+        type: 3}
+      propertyPath: cameraBehavior
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: -2537492309018127594, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: eventSystemObj
@@ -3011,7 +3103,7 @@ PrefabInstance:
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
@@ -3091,12 +3183,12 @@ PrefabInstance:
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
@@ -3412,7 +3504,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1798278739}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -3422,7 +3514,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1798278739}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -3556,7 +3648,7 @@ PrefabInstance:
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
@@ -3891,7 +3983,7 @@ PrefabInstance:
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: FleetMenuScript, Assembly-CSharp
+      value: VehicleBehavior, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
@@ -3901,7 +3993,7 @@ PrefabInstance:
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: FleetMenuScript, Assembly-CSharp
+      value: VehicleBehavior, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}

@@ -227,7 +227,7 @@ public class InputHandling : MonoBehaviour
         {
             if (name == "Player1" && OverworldData.PlayerTurn == 1 || name == "Player2" && OverworldData.PlayerTurn == 2)
             {
-                if(player.ActiveShip.ShipStatus == ShipStatus.Intact)
+                if (player.ActiveShip.ShipStatus == ShipStatus.Intact)
                 {
                     bool shipUp = player.ActiveShip.Fire();
 
@@ -273,14 +273,31 @@ public class InputHandling : MonoBehaviour
     private void SwapPlayers()
     {
         OverworldData.PlayerTurn = 3 - OverworldData.PlayerTurn;
-        player.cameraBehavior.UpdateCamera(GamePhases.Attacked);
-        opponent.cameraBehavior.UpdateCamera(GamePhases.Armed);
+
+        UpdateGame();
         player.input.SwitchCurrentActionMap("Player");
         opponent.input.SwitchCurrentActionMap("Player");
         player.input.actions.FindAction("ShipRight").Disable();
         player.input.actions.FindAction("ShipLeft").Disable();
         DisarmPlayer();
         ArmOpponent();
+    }
+
+    private void UpdateGame()
+    {
+        if (name == "Player1")
+        {
+            player.playerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player1", "Fleet1", "VisibleShips", "HUD1");
+            opponent.playerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player2", "Fleet1", "VisibleShips", "HUD1", "Armed");
+        }
+        else
+        {
+            player.playerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player2", "Fleet2", "VisibleShips", "HUD2");
+            opponent.playerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player1", "Fleet2", "VisibleShips", "HUD2", "Armed");
+        }
+
+        player.HUD.armed.SetActive(false);
+        opponent.HUD.armed.SetActive(true);
     }
 
     private void DisarmPlayer()

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Fleet : ScriptableObject
 {
-    private readonly List<GameObject> fleet = new List<GameObject>();
+    private readonly List<GameObject> fleet = new();
 
     public void CreateFleet(Player player)
     {
