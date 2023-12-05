@@ -66,6 +66,11 @@ public class AudioPlayer : MonoBehaviour
         }
     }
 
+    private void ChooseShip()
+    {
+        PlayClip(SFXSource1, audioCollection.SFXSounds["SFX_ChooseShip"]);
+    }
+
     public void OnMoveShip(CallbackContext ctx)
     {
         if (ctx.performed)
@@ -120,7 +125,7 @@ public class AudioPlayer : MonoBehaviour
     {
         if (ctx.performed)
         {
-            PlayClip(SFXSource1, audioCollection.SFXSounds["SFX_DimensionUp"]);
+            ChooseDimension();
         }
     }
 
@@ -128,13 +133,13 @@ public class AudioPlayer : MonoBehaviour
     {
         if (ctx.performed)
         {
-            PlayClip(SFXSource1, audioCollection.SFXSounds["SFX_DimensionDown"]);
+            ChooseDimension();
         }
     }
 
-    private void ChooseShip()
+    private void ChooseDimension()
     {
-        PlayClip(SFXSource1, audioCollection.SFXSounds["SFX_ChooseShip"]);
+        PlayClip(SFXSource1, audioCollection.SFXSounds["SFX_ChooseDimension"]);
     }
 
     public void OnShipUp()

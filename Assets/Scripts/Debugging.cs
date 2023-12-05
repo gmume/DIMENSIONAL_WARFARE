@@ -224,8 +224,8 @@ public class Debugging : MonoBehaviour
 
         playerInput1 = player1.input;
         playerInput2 = player2.input;
-        camera1 = player1.cameraBehavior.GetComponent<Camera>();
-        camera2 = player2.cameraBehavior.GetComponent<Camera>();
+        camera1 = player1.playerCamera;
+        camera2 = player2.playerCamera;
 
         eventSystem1 = player1.eventSystem;
         eventSystem2 = player2.eventSystem;
