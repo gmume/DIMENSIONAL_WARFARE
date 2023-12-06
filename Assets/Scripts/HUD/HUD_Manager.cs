@@ -1,23 +1,29 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static System.Net.Mime.MediaTypeNames;
 using static UnityEngine.InputSystem.InputAction;
 
 public class HUD_Manager : MonoBehaviour
 {
+    public Player player;
+
     private string x = "--", y = "--";
     private TextMeshProUGUI xCoord, yCoord;
-    public GameObject armed;
-    private List<GameObject> shipButtons = new();
 
     private GameObject[] HUD_Dimensions;
     private int currentHUD_Dimension;
-    
-    public Player player;
     public Texture2D HUD_DimensionInactive, HUD_DimensionActive;
+
+    public GameObject armed;
+
+    public TextMeshProUGUI crewText;
+
+    private List<GameObject> shipButtons = new();
     public ShipButton currentButton;
     public GameObject selectedButton, selectedElement;
 
@@ -130,5 +136,28 @@ public class HUD_Manager : MonoBehaviour
         shipButtons.RemoveAt(index);
     }
 
-    public void InitHUD() => GetComponent<HUD_Creator>().CreateHUD(ref shipButtons, ref xCoord, ref yCoord,  ref armed, ref currentHUD_Dimension, ref currentButton, ref selectedButton, ref HUD_Dimensions);
+    public void WriteText(string text)
+    {
+        crewText.text = text;
+        StartCoroutine(CleanTextField());
+    }
+
+    private IEnumerator CleanTextField()
+    {
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(5f);
+        Time.timeScale = 1f;
+
+        crewText.text = null;
+    }
+
+    public void InitHUD() => GetComponent<HUD_Creator>().CreateHUD(ref shipButtons,
+                                                                   ref xCoord,
+                                                                   ref yCoord,
+                                                                   ref currentHUD_Dimension,
+                                                                   ref armed,
+                                                                   ref crewText,
+                                                                   ref currentButton,
+                                                                   ref selectedButton,
+                                                                   ref HUD_Dimensions);
 }

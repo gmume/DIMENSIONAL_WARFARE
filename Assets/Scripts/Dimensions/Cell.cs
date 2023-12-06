@@ -2,15 +2,10 @@ using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
-    public int x, y;
-    public bool activated, occupied;
-    public ShipPart part;
-    public bool hitted;
-
-    public int X { get => x; set => x = value; }
-    public int Y { get => y; set => y = value; }
-    public bool Activated { get => activated; set => activated = value; }
-    public bool Occupied { get => occupied; set => occupied = value; }
-    public ShipPart Part { get => part; set => part = value; }
-    public bool Hitted { get => hitted; set => hitted = value; }
+    public int X { get; set; }
+    public int Y { get; set; }
+    public bool Activated { get; set; }
+    public bool Occupied { get; set; }
+    public ShipPart Part { get; set; }
+    public bool Hitted { get; set; }
 }

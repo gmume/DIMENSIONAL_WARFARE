@@ -141,6 +141,7 @@ public class InputHandling : MonoBehaviour
 
                 if (!OverworldData.Player1SubmittedFleet || !OverworldData.Player2SubmittedFleet)
                 {
+                    player.HUD.WriteText("Capt'n " + player.number + " please, wait until your opponent is ready.");
                     print("Please, wait until your opponent is ready.");
                     player.input.enabled = false;
                     StartCoroutine(WaitForOpponent());
@@ -158,7 +159,9 @@ public class InputHandling : MonoBehaviour
     {
         yield return new WaitUntil(() => (OverworldData.Player1SubmittedFleet && OverworldData.Player2SubmittedFleet));
 
+        player.HUD.WriteText("Your opponent is ready, Capt'n. Let's go!");
         print("Your opponent is ready. Let's go!");
+        player.HUD.WriteText("Choose your attacking ship!");
         print("Choose your attacking ship!");
 
         OverworldData.GamePhase = GamePhases.Battle;
@@ -216,6 +219,7 @@ public class InputHandling : MonoBehaviour
             }
             else
             {
+                player.HUD.WriteText("It's not our turn, yet, Capt'n!");
                 print("It's not your turn!");
             }
         }
@@ -227,29 +231,24 @@ public class InputHandling : MonoBehaviour
         {
             if (name == "Player1" && OverworldData.PlayerTurn == 1 || name == "Player2" && OverworldData.PlayerTurn == 2)
             {
-                if (player.ActiveShip.ShipStatus == ShipStatus.Intact)
-                {
-                    bool shipUp = player.ActiveShip.Fire();
+                bool shipUp = player.ActiveShip.Fire();
 
-                    if (shipUp)
-                    {
-                        continueGame = false;
-                        StartCoroutine(WaitBattleToContinue());
-                    }
-                    else
-                    {
-                        StartCoroutine(PauseAndTakeTurns());
-                    }
+                if (shipUp)
+                {
+                    player.playerCamera.GetComponent<LayerFilter>().ShowLayers(true, true);
+
+                    continueGame = false;
+                    StartCoroutine(WaitBattleToContinue());
                 }
                 else
                 {
-                    player.audioManager.GetComponent<AudioPlayer>().OnFireWithSunkenShip();
-                    print(player.name + "You can't fire with a sunken ship, capt'n!");
+                    StartCoroutine(PauseAndTakeTurns());
                 }
             }
             else
             {
-                print(player.name + "It's not your turn, yet!");
+                player.HUD.WriteText("It's not our turn, yet, Capt'n!");
+                print(player.name + "It's not our turn, yet, Capt'n!");
             }
         }
     }
@@ -288,12 +287,12 @@ public class InputHandling : MonoBehaviour
         if (name == "Player1")
         {
             player.playerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player1", "Fleet1", "VisibleShips", "HUD1");
-            opponent.playerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player2", "Fleet1", "VisibleShips", "HUD1", "Armed");
+            opponent.playerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player2", "VisibleShips", "HUD1");
         }
         else
         {
             player.playerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player2", "Fleet2", "VisibleShips", "HUD2");
-            opponent.playerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player1", "Fleet2", "VisibleShips", "HUD2", "Armed");
+            opponent.playerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player1", "VisibleShips", "HUD2");
         }
 
         player.HUD.armed.SetActive(false);
