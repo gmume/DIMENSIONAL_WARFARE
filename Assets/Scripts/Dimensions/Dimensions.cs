@@ -8,13 +8,13 @@ public class Dimensions : ScriptableObject
 {
     private readonly ArrayList dimensions = new();
 
-    public void InitDimensions(Player player, GameObject prefabDimension, GameObject prefabCell)
+    public void InitDimensions(PlayerData player, GameObject prefabDimension, GameObject prefabCell)
     {
         InitFleet(player);
         CreateDimensions(player, prefabDimension, prefabCell);
     }
 
-    public void CreateDimensions(Player player, GameObject dimensionPrefab, GameObject cellPrefab)
+    public void CreateDimensions(PlayerData player, GameObject dimensionPrefab, GameObject cellPrefab)
     {
         for (int dimensionNo = 0; dimensionNo < OverworldData.DimensionsCount; dimensionNo++)
         {
@@ -40,7 +40,7 @@ public class Dimensions : ScriptableObject
         return dimension.GetComponent<Dimension>();
     }
 
-    public void InitFleet(Player player)
+    public void InitFleet(PlayerData player)
     {
         player.fleet = ScriptableObject.CreateInstance("Fleet") as Fleet;
         player.fleet.name = "fleet" + player.number;

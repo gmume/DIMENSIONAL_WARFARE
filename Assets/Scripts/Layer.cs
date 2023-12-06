@@ -1,7 +1,7 @@
 public static class Layer
 {
     //Leyer Player1 = 6 and Player2 = 7
-    public static int SetLayerPlayer(Player player)
+    public static int SetLayerPlayer(PlayerData player)
     {
         if (player.number == 1)
         {
@@ -14,7 +14,7 @@ public static class Layer
     }
 
     //Leyer Fleet1 = 8 and Fleet2 = 9
-    public static int SetLayerFleet(Player player)
+    public static int SetLayerFleet(PlayerData player)
     {
         if (player.number == 1)
         {

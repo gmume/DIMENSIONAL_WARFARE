@@ -8,7 +8,7 @@ public class Fleet : ScriptableObject
 {
     private readonly List<GameObject> fleet = new();
 
-    public void CreateFleet(Player player)
+    public void CreateFleet(PlayerData player)
     {
         for (int i = 0; i < OverworldData.FleetSize; i++)
         {
@@ -22,7 +22,7 @@ public class Fleet : ScriptableObject
         }
     }
 
-    public void ActivateShip(int shipNr, Player player)
+    public void ActivateShip(int shipNr, PlayerData player)
     {
         GameObject shipObj = (GameObject)fleet[shipNr];
         shipObj.GetComponent<Ship>().Activate();

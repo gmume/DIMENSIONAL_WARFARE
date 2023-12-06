@@ -8,7 +8,7 @@ using static UnityEngine.InputSystem.InputAction;
 
 public class InputHandling : MonoBehaviour
 {
-    private Player player, opponent;
+    private PlayerData player, opponent;
     private InputActionMap gameStartMap, playerMap;
     private List<GameObject> shipButtons;
 
@@ -286,13 +286,13 @@ public class InputHandling : MonoBehaviour
     {
         if (name == "Player1")
         {
-            player.playerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player1", "Fleet1", "VisibleShips", "HUD1");
-            opponent.playerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player2", "VisibleShips", "HUD1");
+            player.playerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player1", "HUD1", "VisibleHUDShips2", "VisibleShips2", "Fleet1");
+            opponent.playerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player2", "HUD2", "VisibleHUDShips1", "VisibleShips1");
         }
         else
         {
-            player.playerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player2", "Fleet2", "VisibleShips", "HUD2");
-            opponent.playerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player1", "VisibleShips", "HUD2");
+            player.playerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player2", "HUD2", "VisibleHUDShips1", "Fleet2", "VisibleShips1", "Fleet2");
+            opponent.playerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player1", "HUD1", "VisibleHUDShips2", "VisibleShips2");
         }
 
         player.HUD.armed.SetActive(false);
@@ -348,7 +348,7 @@ public class InputHandling : MonoBehaviour
 
     public void InitImputHandling()
     {
-        player = GetComponent<Player>();
+        player = GetComponent<PlayerData>();
         opponent = player.opponent;
         gameStartMap = player.input.actions.FindActionMap("GameStart");
         playerMap = player.input.actions.FindActionMap("Player");

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 217958070766985523}
   - component: {fileID: 5780164596297686407}
   - component: {fileID: 3401701938379837188}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: HUD_DimensionNo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 49045800191367946}
   - component: {fileID: 2523813533935467282}
   - component: {fileID: 5559285693228201468}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: HUD_Dimension
   m_TagString: Untagged
   m_Icon: {fileID: 0}

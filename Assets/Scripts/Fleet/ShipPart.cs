@@ -47,7 +47,7 @@ public class ShipPart : MonoBehaviour
         PartMaterial.color = colorIntact;
     }
 
-    public void InitiateShipPart(Player player, int partNo, Ship ship)
+    public void InitiateShipPart(PlayerData player, int partNo, Ship ship)
     {
         this.partNo = partNo;
         X = ship.ShipNo;

@@ -5,7 +5,7 @@ public class PlayerWorld : MonoBehaviour
     public string ShipName;
     public GameObject dimensionPrefab, cellPrefab;
 
-    private Player player;
+    private PlayerData player;
     private int currentX = 0, currentY = 0;
 
     public void SetNewDimension(int no)
@@ -53,7 +53,7 @@ public class PlayerWorld : MonoBehaviour
 
     public void InitPlayerWorld()
     {
-        player = GetComponent<Player>();
+        player = GetComponent<PlayerData>();
         
         player.dimensions = ScriptableObject.CreateInstance("Dimensions") as Dimensions;
         player.dimensions.name = "Dimensions" + player.number;
