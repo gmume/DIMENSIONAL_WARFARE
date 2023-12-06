@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Dimension : MonoBehaviour
 {
-    private Player player;
+    private PlayerData player;
     public GameObject[][] cells;
     private readonly List<GameObject> ships = new();
 
     public int DimensionNo { get; private set; }
 
-    public void InitDimension(Player player, int no, GameObject cellPrefab, List<GameObject> fleet)
+    public void InitDimension(PlayerData player, int no, GameObject cellPrefab, List<GameObject> fleet)
     {
         this.player = player;
         DimensionNo = no;

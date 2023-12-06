@@ -3,7 +3,7 @@ using static UnityEngine.InputSystem.InputAction;
 
 public class VehicleBehavior : MonoBehaviour
 {
-    private Player player;
+    private PlayerData player;
     private Vector3 vector, zoomOut, currentPosition;
     private bool zoomedOut = false;
     private int currentDimension;

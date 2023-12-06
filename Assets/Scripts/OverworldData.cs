@@ -8,6 +8,6 @@ public static class OverworldData
     public static int PlayerTurn { get; set; }
     public static bool Player1SubmittedFleet { get; set; }
     public static bool Player2SubmittedFleet { get; set; }
-    public static Player Player1 { get; set; }
-    public static Player Player2 { get; set;}
+    public static PlayerData Player1 { get; set; }
+    public static PlayerData Player2 { get; set;}
 }

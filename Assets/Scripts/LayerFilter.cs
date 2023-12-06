@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 public class LayerFilter : MonoBehaviour
@@ -16,36 +17,36 @@ public class LayerFilter : MonoBehaviour
         {
             fleetLayer = "Fleet1";
             visibleShipsLayer = "VisibleShips2";
-            layers = new string[] { "Default", "Water", "Player1", "HUD1", null, null };
+            layers = new string[] { "Default", "Water", "Player1", "HUD1", "VisibleHUDShips2", null, null };
         }
         else
         {
             fleetLayer = "Fleet2";
             visibleShipsLayer = "VisibleShips1";
-            layers = new string[] { "Default", "Water", "Player2", "HUD2", null, null };
+            layers = new string[] { "Default", "Water", "Player2", "HUD2", "VisibleHUDShips1", null, null };
         }
 
-        layers[4] = fleetLayer;
+        layers[^2] = fleetLayer;
         playerCamera.cullingMask = LayerMask.GetMask(layers);
     }
 
     public void ShowLayers(bool ownFleet, bool opponentsFleet)
     {
-        layers[4] = null;
-        layers[5] = null;
+        layers[^2] = null;
+        layers[^1] = null;
 
         if (ownFleet && !opponentsFleet)
         {
-            layers[4] = fleetLayer;
+            layers[^2] = fleetLayer;
         }
         else if (!ownFleet && opponentsFleet)
         {
-            layers[4] = visibleShipsLayer;
+            layers[^2] = visibleShipsLayer;
         }
         else if (ownFleet && opponentsFleet)
         {
-            layers[4] = fleetLayer;
-            layers[5] = visibleShipsLayer;
+            layers[^2] = fleetLayer;
+            layers[^1] = visibleShipsLayer;
         }
 
         playerCamera.cullingMask = LayerMask.GetMask(layers);

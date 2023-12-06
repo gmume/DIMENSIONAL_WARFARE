@@ -6,10 +6,10 @@ using UnityEngine.UI;
 
 public class Ship : MonoBehaviour
 {
-    private Player player;
+    private PlayerData player;
 
     private AudioPlayer audioPlayer;
-    
+
     public string ShipName { get; private set; }
     public int ShipNo { get; private set; } // 1 based
     public ShipStatus ShipStatus { get; private set; }
@@ -18,7 +18,6 @@ public class Ship : MonoBehaviour
     private Transform position;
     public Directions Orientation { get; set; }
     public int PartsCount { get; private set; }
-    private string visibleShip;
 
     public Dimension Dimension { get; set; }
     public int PivotX { get; private set; }
@@ -217,7 +216,7 @@ public class Ship : MonoBehaviour
         {
             bool opponentSunk;
             ShipPart part = opponentCell.Part;
-            
+
             Ship opponentShip = part.GetComponentInParent<Ship>();
             opponentSunk = opponentShip.TakeHit(part);
 
@@ -238,7 +237,10 @@ public class Ship : MonoBehaviour
             audioPlayer.OnShipUp();
             player.world.SetNewDimension(Dimension.DimensionNo + 1);
             player.HUD.SetHUDDimension(player.ActiveDimension.DimensionNo);
+
             player.vehicle.SetViewOnDimension(player.ActiveDimension.DimensionNo);
+            player.HUD.UpdateHUDFleet(ShipNo, player.ActiveDimension.DimensionNo, Dimension.DimensionNo);
+
             SwitchDimension(player.ActiveDimension.DimensionNo);
             SetDimension(Dimension);
             gameObject.transform.position += new Vector3(0, OverworldData.DimensionSize * 2, 0);
@@ -270,14 +272,15 @@ public class Ship : MonoBehaviour
         part.Damaged = true;
         part.PartMaterial.color += new Color(0.3f, 0, 0);
 
-        if (!gameObject.layer.Equals(visibleShip))
+        if (!gameObject.layer.Equals("VisibleShips" + player.number))
         {
-            gameObject.layer = LayerMask.NameToLayer(visibleShip);
+            gameObject.layer = LayerMask.NameToLayer("VisibleShips" + player.number);
+            player.HUD.HUD_Fleet[ShipNo].layer = LayerMask.NameToLayer("VisibleHUDShips" + player.number);
         }
 
-        if (!part.gameObject.layer.Equals(visibleShip))
+        if (!part.gameObject.layer.Equals("VisibleShips" + player.number))
         {
-            part.gameObject.layer = LayerMask.NameToLayer(visibleShip);
+            part.gameObject.layer = LayerMask.NameToLayer("VisibleShips" + player.number);
         }
 
         if (Sunk())
@@ -301,6 +304,7 @@ public class Ship : MonoBehaviour
                     List<GameObject> fleet = player.fleet.GetFleet();
 
                     player.HUD.RemoveButton(fleet.IndexOf(gameObject));
+                    Destroy(player.HUD.HUD_Fleet[ShipNo]);
                     fleet.Remove(gameObject);
                     StartCoroutine(DestroyShip());
                 }
@@ -327,7 +331,7 @@ public class Ship : MonoBehaviour
         Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(2f);
         Time.timeScale = 1f;
-        
+
         ReleaseCells();
         Destroy(gameObject);
     }
@@ -354,17 +358,23 @@ public class Ship : MonoBehaviour
 
     private void ShipDown()
     {
-            player.world.SetNewDimension(Dimension.DimensionNo - 1);
-            player.HUD.SetHUDDimension(player.ActiveDimension.DimensionNo);
-            player.vehicle.SetViewOnDimension(player.ActiveDimension.DimensionNo);
-            ShipStatus = ShipStatus.Sunk;
-            gameObject.transform.position += new Vector3(0, 0.5f, 0);
-            gameObject.layer = LayerMask.NameToLayer("Fleet" + player.number);
-            gameObject.transform.position -= new Vector3(0, OverworldData.DimensionSize * 2, 0);
-            SwitchDimension(Dimension.DimensionNo - 1);
-            SetDimension(Dimension);
-            player.inputHandling.continueGame = false;
-            StartCoroutine(ResetShip());
+        player.world.SetNewDimension(Dimension.DimensionNo - 1);
+
+        player.HUD.SetHUDDimension(player.ActiveDimension.DimensionNo);
+        player.HUD.UpdateHUDFleet(ShipNo, player.ActiveDimension.DimensionNo, Dimension.DimensionNo);
+        player.HUD.HUD_Fleet[ShipNo].layer = LayerMask.NameToLayer("HUD" + player.number);
+
+        player.vehicle.SetViewOnDimension(player.ActiveDimension.DimensionNo);
+
+        gameObject.layer = LayerMask.NameToLayer("Fleet" + player.number);
+        gameObject.transform.position += new Vector3(0, 0.5f, 0);
+        gameObject.transform.position -= new Vector3(0, OverworldData.DimensionSize * 2, 0);
+
+        SwitchDimension(Dimension.DimensionNo - 1);
+        SetDimension(Dimension);
+
+        player.inputHandling.continueGame = false;
+        StartCoroutine(ResetShip());
     }
 
     private IEnumerator ResetShip()
@@ -426,7 +436,7 @@ public class Ship : MonoBehaviour
         }
     }
 
-    public void InitiateShip(Player player, int shipNo)
+    public void InitiateShip(PlayerData player, int shipNo)
     {
         this.player = player;
         audioPlayer = player.audioManager.GetComponent<AudioPlayer>();
@@ -446,17 +456,6 @@ public class Ship : MonoBehaviour
             partObj.layer = Layer.SetLayerFleet(player);
             partObj.AddComponent<ShipPart>().InitiateShipPart(player, i, this);
             parts[i] = partObj.GetComponent<ShipPart>();
-        }
-
-        if (player.number == 1)
-        {
-            fireColor = Color.red;
-            visibleShip = "VisibleShips1";
-        }
-        else
-        {
-            fireColor = Color.yellow;
-            visibleShip = "VisibleShips2";
         }
     }
 }

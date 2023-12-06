@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class Debugging : MonoBehaviour
 {
-    public Player player1, player2;
+    public PlayerData player1, player2;
     public string GamePhase;
     public int playerTurn;
     private Camera camera1, camera2;
@@ -215,8 +215,8 @@ public class Debugging : MonoBehaviour
 
     public void InitDebugging()
     {
-        player1 = GameObject.Find("Player1").GetComponent<Player>();
-        player2 = GameObject.Find("Player2").GetComponent<Player>();
+        player1 = GameObject.Find("Player1").GetComponent<PlayerData>();
+        player2 = GameObject.Find("Player2").GetComponent<PlayerData>();
         GamePhase = OverworldData.GamePhase.ToString();
         playerTurn = OverworldData.PlayerTurn;
 

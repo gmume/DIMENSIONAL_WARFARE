@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MultiDisplay : MonoBehaviour
+public class DisplayManager : MonoBehaviour
 {
     private Camera camera1, camera2;
 

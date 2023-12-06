@@ -2,10 +2,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 
-public class Player : MonoBehaviour
+public class PlayerData : MonoBehaviour
 {
     [HideInInspector] public int number;
-                      public Player opponent;
+                      public PlayerData opponent;
     [HideInInspector] public PlayerWorld world;
 
                       public GameObject audioManager;

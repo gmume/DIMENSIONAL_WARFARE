@@ -10,7 +10,7 @@ using static UnityEngine.InputSystem.InputAction;
 
 public class HUD_Manager : MonoBehaviour
 {
-    public Player player;
+    public PlayerData player;
 
     private string x = "--", y = "--";
     private TextMeshProUGUI xCoord, yCoord;
@@ -18,10 +18,11 @@ public class HUD_Manager : MonoBehaviour
     private GameObject[] HUD_Dimensions;
     private int currentHUD_Dimension;
     public Texture2D HUD_DimensionInactive, HUD_DimensionActive;
+    public GameObject[] HUD_Fleet;
 
-    public GameObject armed;
+    [HideInInspector] public GameObject armed;
 
-    public TextMeshProUGUI crewText;
+    [HideInInspector] public TextMeshProUGUI crewText;
 
     private List<GameObject> shipButtons = new();
     public ShipButton currentButton;
@@ -130,6 +131,13 @@ public class HUD_Manager : MonoBehaviour
         HUD_Dimensions[dimension].GetComponent<RawImage>().texture = HUD_DimensionActive;
     }
 
+    public void UpdateHUDFleet(int shipNo, int toDimensionNo, int dimensionBefore)
+    {
+        HUD_Fleet[shipNo].transform.SetParent(HUD_Dimensions[toDimensionNo].transform);
+        Vector3 newPosition = new() { x = 0, y = HUD_Dimensions[toDimensionNo].transform.position.y - HUD_Dimensions[dimensionBefore].transform.position.y } ;
+        HUD_Fleet[shipNo].transform.position += newPosition;
+    }
+
     public void RemoveButton(int index)
     {
         Destroy(shipButtons[index]);
@@ -155,6 +163,7 @@ public class HUD_Manager : MonoBehaviour
                                                                    ref xCoord,
                                                                    ref yCoord,
                                                                    ref currentHUD_Dimension,
+                                                                   ref HUD_Fleet,
                                                                    ref armed,
                                                                    ref crewText,
                                                                    ref currentButton,
