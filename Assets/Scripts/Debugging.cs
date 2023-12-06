@@ -8,22 +8,23 @@ using UnityEngine.UI;
 public class Debugging : MonoBehaviour
 {
     public Player player1, player2;
-    private PlayerInput playerInput1, playerInput2;
-    private Camera camera1, camera2;
-    private Ship actShip1 = null, actShip2 = null;
-
     public string GamePhase;
     public int playerTurn;
-    public string activeShip1, activeShip2, activeCell1, activeCell2;
-    public GameObject activeDimension1, activeDimension2;
-    public bool inputEnabled1, inputEnabled2;
-    public string actionMapPlayer1, actionMapPlayer2, gamepadPlayer1, gamepadPlayer2, controlScemePlayer1, controlScemePlayer2;
-    public MultiplayerEventSystem eventSystem1, eventSystem2;
-    public GameObject currentSelectedButton1, currentSelectedButton2;
-    public InputSystemUIInputModule UIInputModulePlayer1, UIInputModulePlayer2;
+    private Camera camera1, camera2;
     public LayerMask layerMask1, layerMask2;
 
+    private PlayerInput playerInput1, playerInput2;
+    public bool inputEnabled1, inputEnabled2;
+    public InputSystemUIInputModule UIInputModulePlayer1, UIInputModulePlayer2;
+    public MultiplayerEventSystem eventSystem1, eventSystem2;
+    public string actionMapPlayer1, actionMapPlayer2, gamepadPlayer1, gamepadPlayer2, controlScemePlayer1, controlScemePlayer2;
+
+    private Ship actShip1 = null, actShip2 = null;
+    public string activeShip1, activeShip2, activeCell1, activeCell2;
+    public GameObject activeDimension1, activeDimension2;
     public GameObject currentActiveDimension = null;
+
+    public GameObject currentSelectedButton1, currentSelectedButton2;
 
     private void FixedUpdate()
     {
@@ -58,9 +59,6 @@ public class Debugging : MonoBehaviour
 
         if (player1.ActiveDimension && player2.ActiveDimension)
         {
-            //activeDimension1 = player1.ActiveDimension.gameObject;
-            //activeDimension2 = player2.ActiveDimension.gameObject;
-
             activeDimension1 = player1.ActiveDimension.gameObject;
             activeDimension2 = player2.ActiveDimension.gameObject;
         }

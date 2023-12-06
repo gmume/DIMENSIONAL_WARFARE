@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-//[CreateAssetMenu(menuName = "SceneChanger")]
-
 public class SceneChanger : MonoBehaviour
 {
     public void LoadLobby() => SceneManager.LoadSceneAsync("Assets/Scenes/Lobby.unity", LoadSceneMode.Single);

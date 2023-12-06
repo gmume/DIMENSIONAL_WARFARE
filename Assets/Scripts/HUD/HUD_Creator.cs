@@ -13,7 +13,15 @@ public class HUD_Creator : MonoBehaviour
     public GameObject HUD_DimensionsObj;
     public GameObject HUD_DimensionObj;
 
-    public void CreateHUD(ref List<GameObject> shipButtons, ref TextMeshProUGUI xCoord, ref TextMeshProUGUI yCoord,  ref GameObject armed, ref int currentHUD_Dimension, ref ShipButton currentButton, ref GameObject selectedButton,  ref GameObject[] HUD_Dimensions)
+    public void CreateHUD(ref List<GameObject> shipButtons,
+                          ref TextMeshProUGUI xCoord,
+                          ref TextMeshProUGUI yCoord,
+                          ref int currentHUD_Dimension,
+                          ref GameObject armed,
+                          ref TextMeshProUGUI crewText,
+                          ref ShipButton currentButton,
+                          ref GameObject selectedButton,
+                          ref GameObject[] HUD_Dimensions)
     {
         GameObject[] HUD_Parts;
 
@@ -36,10 +44,6 @@ public class HUD_Creator : MonoBehaviour
             {
                 yCoord = HUD_Part.GetComponent<TextMeshProUGUI>();
             }
-            else if (HUD_Part.name == "ShipButtons")
-            {
-                shipButtonsObj = HUD_Part;
-            }
             else if (HUD_Part.name == "HUD_Dimensions")
             {
                 HUD_DimensionsObj = HUD_Part;
@@ -48,6 +52,14 @@ public class HUD_Creator : MonoBehaviour
             {
                 armed = HUD_Part;
                 HUD_Part.SetActive(false);
+            }
+            else if (HUD_Part.name == "CrewText")
+            {
+                crewText = HUD_Part.GetComponent<TextMeshProUGUI>();
+            }
+            else if (HUD_Part.name == "ShipButtons")
+            {
+                shipButtonsObj = HUD_Part;
             }
         }
 

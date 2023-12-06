@@ -134,15 +134,6 @@
             "id": "964d7577-f862-4426-86f6-4365a6c45a29",
             "actions": [
                 {
-                    "name": "SubmitAttackingShip",
-                    "type": "Button",
-                    "id": "4a55198c-bbed-4ac1-85de-12aff0b234cd",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "ShipLeft",
                     "type": "Button",
                     "id": "ce8f1f41-1789-4a29-b11f-a2fba67eed1d",
@@ -155,15 +146,6 @@
                     "name": "ShipRight",
                     "type": "Button",
                     "id": "c811d7cb-8d9d-4fe9-9c25-db67fb970480",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ReturnToFleetMenu",
-                    "type": "Button",
-                    "id": "8b69f10b-ad79-4619-94fa-8d44e6cbf095",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -216,28 +198,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "9054f9ee-57d3-48fd-b4cd-999f7b3087f8",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "SubmitAttackingShip",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "12551dc4-4d98-404b-9de7-4507fbaa444b",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "ReturnToFleetMenu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "7b072a45-2f21-459b-8477-4147b51d6919",

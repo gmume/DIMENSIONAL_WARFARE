@@ -4,8 +4,10 @@ public class Overworld : MonoBehaviour
 {
     [Range(1,5)] [SerializeField]
     private int dimensionsCount;
+
     [Range(5, 19)] [SerializeField]
     private float dimensionSize; //Should be uneven!
+
     [Range(1, 5)] [SerializeField]
     private int fleetSize;
 

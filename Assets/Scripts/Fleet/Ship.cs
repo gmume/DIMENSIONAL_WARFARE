@@ -7,19 +7,22 @@ using UnityEngine.UI;
 public class Ship : MonoBehaviour
 {
     private Player player;
-    private ShipPart[] parts;
-    private Color fireColor;
-    private AudioPlayer audioPlayer;
 
+    private AudioPlayer audioPlayer;
+    
     public string ShipName { get; private set; }
     public int ShipNo { get; private set; } // 1 based
     public ShipStatus ShipStatus { get; private set; }
-    public Dimension Dimension { get; set; }
+    private ShipPart[] parts;
+    private Color fireColor;
     private Transform position;
-    public int PivotX { get; private set; }
-    public int PivotZ { get; private set; }
     public Directions Orientation { get; set; }
     public int PartsCount { get; private set; }
+    private string visibleShip;
+
+    public Dimension Dimension { get; set; }
+    public int PivotX { get; private set; }
+    public int PivotZ { get; private set; }
 
     public void GetStatus()
     {
@@ -93,11 +96,13 @@ public class Ship : MonoBehaviour
             }
             else
             {
+                player.HUD.WriteText("Capt'n, we are on collision course! Let the ship heave to!");
                 print("Capt'n, we are on collision course! Let the ship heave to!");
             }
         }
         else
         {
+            player.HUD.WriteText("Don't let your ship run aground, capt'n!");
             print("Don't let your ship run aground, capt'n!");
         }
     }
@@ -193,6 +198,7 @@ public class Ship : MonoBehaviour
         }
         else
         {
+            player.HUD.WriteText("Capt'n, we are on collision course! Let the ship heave to!");
             print("Capt'n, we are on collision course! Let the ship heave to!");
         }
     }
@@ -235,13 +241,16 @@ public class Ship : MonoBehaviour
             player.vehicle.SetViewOnDimension(player.ActiveDimension.DimensionNo);
             SwitchDimension(player.ActiveDimension.DimensionNo);
             SetDimension(Dimension);
-            this.gameObject.transform.position += new Vector3(0, OverworldData.DimensionSize * 2, 0);
+            gameObject.transform.position += new Vector3(0, OverworldData.DimensionSize * 2, 0);
             player.input.SwitchCurrentActionMap("GameStart");
+
+            player.HUD.WriteText("Capt'n " + player.number + " hide your ship!");
             print(player.name + " hide your ship!");
         }
         else
         {
             audioPlayer.OnVictory();
+            player.HUD.WriteText("Capt'n " + player.number + " wins for reaching the top dimension!");
             print(player.name + " wins for reaching the top dimension!");
             GameData.winner = player.name;
             player.GetComponent<SceneChanger>().LoadResolveGame();
@@ -251,7 +260,7 @@ public class Ship : MonoBehaviour
     private void SwitchDimension(int dimensionNr)
     {
         ReleaseCells();
-        Dimension.RemoveShip(this.gameObject);
+        Dimension.RemoveShip(gameObject);
         Dimension = player.dimensions.GetDimension(dimensionNr);
         OccupyCells();
     }
@@ -261,14 +270,14 @@ public class Ship : MonoBehaviour
         part.Damaged = true;
         part.PartMaterial.color += new Color(0.3f, 0, 0);
 
-        if (this.gameObject.layer != LayerMask.NameToLayer("VisibleShips"))
+        if (!gameObject.layer.Equals(visibleShip))
         {
-            this.gameObject.layer = LayerMask.NameToLayer("VisibleShips");
+            gameObject.layer = LayerMask.NameToLayer(visibleShip);
         }
 
-        if (part.gameObject.layer != LayerMask.NameToLayer("VisibleShips"))
+        if (!part.gameObject.layer.Equals(visibleShip))
         {
-            part.gameObject.layer = LayerMask.NameToLayer("VisibleShips");
+            part.gameObject.layer = LayerMask.NameToLayer(visibleShip);
         }
 
         if (Sunk())
@@ -298,6 +307,7 @@ public class Ship : MonoBehaviour
                 else
                 {
                     audioPlayer.OnVictory();
+                    player.HUD.WriteText("Capt'n " + player.opponent.number + " wins for destroying the opponent's fleet!");
                     print(player.opponent.name + " wins for destroying the opponent's fleet!");
                     GameData.winner = player.opponent.name;
                     player.GetComponent<SceneChanger>().LoadResolveGame();
@@ -349,8 +359,8 @@ public class Ship : MonoBehaviour
             player.vehicle.SetViewOnDimension(player.ActiveDimension.DimensionNo);
             ShipStatus = ShipStatus.Sunk;
             gameObject.transform.position += new Vector3(0, 0.5f, 0);
-            this.gameObject.layer = LayerMask.NameToLayer("Fleet" + player.number);
-            this.gameObject.transform.position -= new Vector3(0, OverworldData.DimensionSize * 2, 0);
+            gameObject.layer = LayerMask.NameToLayer("Fleet" + player.number);
+            gameObject.transform.position -= new Vector3(0, OverworldData.DimensionSize * 2, 0);
             SwitchDimension(Dimension.DimensionNo - 1);
             SetDimension(Dimension);
             player.inputHandling.continueGame = false;
@@ -370,6 +380,7 @@ public class Ship : MonoBehaviour
 
         ShipStatus = ShipStatus.Intact;
         player.input.SwitchCurrentActionMap("GameStart");
+        player.HUD.WriteText("Capt'n " + player.number + " hide your ship!");
         print(player.name + " hide your ship!");
     }
 
@@ -440,10 +451,12 @@ public class Ship : MonoBehaviour
         if (player.number == 1)
         {
             fireColor = Color.red;
+            visibleShip = "VisibleShips1";
         }
         else
         {
             fireColor = Color.yellow;
+            visibleShip = "VisibleShips2";
         }
     }
 }
