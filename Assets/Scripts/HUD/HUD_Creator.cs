@@ -8,75 +8,70 @@ public class HUD_Creator : MonoBehaviour
 {
     public PlayerData player;
 
-    public GameObject HUD_DimensionsObj;
-    public GameObject HUD_DimensionObj;
+    public GameObject HUD_DimensionsObj, HUD_DimensionsOpponentObj, HUD_DimensionObj, HUD_ShipPrefab;
     private TextMeshProUGUI HUD_DimensionNo;
-    public GameObject HUD_ShipPrefab;
     public Texture2D[] HUD_ShipTextures;
-    
+
     private Transform shipButtonsTransform;
 
     public void CreateHUD(ref List<GameObject> shipButtons,
                           ref TextMeshProUGUI xCoord,
                           ref TextMeshProUGUI yCoord,
+                          ref GameObject[] HUD_Dimensions,
                           ref int currentHUD_Dimension,
                           ref GameObject[] HUD_Fleet,
+                          ref GameObject[] HUD_DimensionsOpponent,
+                          ref int currentHUD_DimensionOpponent,
+                          ref GameObject[] HUD_FleetOpponent,
                           ref GameObject armed,
                           ref TextMeshProUGUI crewText,
                           ref ShipButton currentButton,
-                          ref GameObject selectedButton,
-                          ref GameObject[] HUD_Dimensions)
+                          ref GameObject selectedButton)
     {
-        GameObject[] HUD_Parts;
-
-        if (player.name == "Player1")
-        {
-            HUD_Parts = GameObject.FindGameObjectsWithTag("HUD1");
-        }
-        else
-        {
-            HUD_Parts = GameObject.FindGameObjectsWithTag("HUD2");
-        }
+        GameObject[] HUD_Parts = player.name == "Player1" ? GameObject.FindGameObjectsWithTag("HUD1") : GameObject.FindGameObjectsWithTag("HUD2");
 
         foreach (GameObject HUD_Part in HUD_Parts)
         {
-            if (HUD_Part.name == "X-Koordinate")
+            switch (HUD_Part.name)
             {
-                xCoord = HUD_Part.GetComponent<TextMeshProUGUI>();
-            }
-            else if (HUD_Part.name == "Y-Koordinate")
-            {
-                yCoord = HUD_Part.GetComponent<TextMeshProUGUI>();
-            }
-            else if (HUD_Part.name == "HUD_Dimensions")
-            {
-                HUD_DimensionsObj = HUD_Part;
-            }
-            else if (HUD_Part.name == "Armed")
-            {
-                armed = HUD_Part;
-                HUD_Part.SetActive(false);
-            }
-            else if (HUD_Part.name == "CrewText")
-            {
-                crewText = HUD_Part.GetComponent<TextMeshProUGUI>();
-            }
-            else if (HUD_Part.name == "ShipButtons")
-            {
-                shipButtonsTransform = HUD_Part.GetComponent<Transform>();
+                case "X-Koordinate":
+                    xCoord = HUD_Part.GetComponent<TextMeshProUGUI>();
+                    break;
+                case "Y-Koordinate":
+                    yCoord = HUD_Part.GetComponent<TextMeshProUGUI>();
+                    break;
+                case "HUD_Dimensions":
+                    HUD_DimensionsObj = HUD_Part;
+                    break;
+                case "HUD_DimensionsOpponent":
+                    HUD_DimensionsOpponentObj = HUD_Part;
+                    break;
+                case "Armed":
+                    armed = HUD_Part;
+                    HUD_Part.SetActive(false);
+                    break;
+                case "CrewText":
+                    crewText = HUD_Part.GetComponent<TextMeshProUGUI>();
+                    break;
+                case "ShipButtons":
+                    shipButtonsTransform = HUD_Part.GetComponent<Transform>();
+                    break;
             }
         }
 
-        CreateHUDDimensions(ref HUD_Dimensions, ref HUD_Fleet);
-        currentHUD_Dimension = 0;
+        string color1 = (name == "HUD1") ? "brown" : "olive";
+        string color2 = (name == "HUD1") ? "olive" : "brown";
 
-        
+        CreateHUDDimensions(ref HUD_Dimensions, HUD_DimensionsObj, ref HUD_Fleet, color1);
+        CreateHUDDimensions(ref HUD_DimensionsOpponent, HUD_DimensionsOpponentObj, ref HUD_FleetOpponent, color2);
+
+        currentHUD_Dimension = currentHUD_DimensionOpponent = 0;
 
         CreateShipButtons(ref selectedButton, ref shipButtons);
         player.fleet.ActivateShip(currentButton.ShipButtonNr, player);
     }
 
-    private void CreateHUDDimensions(ref GameObject[] HUD_Dimensions, ref GameObject[] HUD_Fleet)
+    private void CreateHUDDimensions(ref GameObject[] HUD_Dimensions, GameObject HUD_DimensionsObj, ref GameObject[] HUD_Fleet, string shipColor)
     {
         HUD_Dimensions = new GameObject[OverworldData.DimensionsCount];
 
@@ -86,7 +81,6 @@ public class HUD_Creator : MonoBehaviour
             HUD_Dimension.name = "HUDDimension0" + (i + 1);
             HUD_Dimension.transform.SetParent(HUD_DimensionsObj.transform, false);
 
-            //Debug.Log(name + " parent layer: " + transform.parent);
             HUD_Dimension.layer = HUD_DimensionsObj.layer;
             HUD_Dimension.transform.position += new Vector3(0, i * 40, 0);
             HUD_DimensionNo = HUD_Dimension.GetComponentInChildren<TextMeshProUGUI>();
@@ -96,15 +90,15 @@ public class HUD_Creator : MonoBehaviour
             if (i == 0)
             {
                 GetComponent<HUD_Manager>().SetHUDDimension(0);
-                CreateHUDFleet(ref HUD_Fleet, HUD_Dimension);
+                CreateHUDFleet(ref HUD_Fleet, HUD_Dimension, shipColor);
             }
         }
     }
 
-    private void CreateHUDFleet(ref GameObject[] HUD_Fleet, GameObject HUD_Dimension)
+    private void CreateHUDFleet(ref GameObject[] HUD_Fleet, GameObject HUD_Dimension, string shipColor)
     {
         HUD_Fleet = new GameObject[OverworldData.FleetSize];
-        
+
         for (int i = 0; i < OverworldData.FleetSize; i++)
         {
             GameObject HUD_Ship = Instantiate(HUD_ShipPrefab, HUD_Dimension.transform.position, Quaternion.identity);
@@ -112,6 +106,7 @@ public class HUD_Creator : MonoBehaviour
             HUD_Ship.transform.SetParent(HUD_Dimension.transform);
             HUD_Ship.layer = HUD_Dimension.layer;
             HUD_Ship.GetComponent<RawImage>().texture = HUD_ShipTextures[i];
+            HUD_Ship.GetComponent<RawImage>().color = (shipColor == "brown") ? new Color(0.3f, 0.12f, 0, 1) : new Color(0.3f, 0.3f, 0, 1); // brown or olive
 
             Vector3 xPosition = new(i * 30, 0, -1);
             HUD_Ship.transform.position += xPosition;
@@ -143,16 +138,8 @@ public class HUD_Creator : MonoBehaviour
 
     private void CreateButton(ref GameObject selectedButton, ref List<GameObject> shipButtons, GameObject buttonObj, Button button, int i)
     {
-        if (name == "HUD1")
-        {
-            buttonObj.name = "ShipButton" + (i + 1);
-            buttonObj.layer = 11;
-        }
-        else
-        {
-            buttonObj.name = "ShipButton" + (i + 1);
-            buttonObj.layer = 12;
-        }
+        buttonObj.name = "ShipButton" + (i + 1);
+        buttonObj.layer = (name == "HUD1") ? 11 : 12;
 
         Transform transformParent = shipButtonsTransform;
         button.transform.SetParent(transformParent, false);
@@ -195,16 +182,6 @@ public class HUD_Creator : MonoBehaviour
         shipPartImage.sprite = Resources.Load<Sprite>("HUD_Sprites/Buttons/HUD_ShipPart");
         shipPartImage.type = Image.Type.Simple;
         shipPartImage.preserveAspect = true;
-
-        if (player.number == 1)
-        {
-            shipPart.layer = 11;
-        }
-        else
-        {
-            shipPart.layer = 12;
-        }
+        shipPart.layer = (player.number == 1) ? 11 : 12;
     }
-
-    
 }

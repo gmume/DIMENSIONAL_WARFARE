@@ -15,10 +15,10 @@ public class HUD_Manager : MonoBehaviour
     private string x = "--", y = "--";
     private TextMeshProUGUI xCoord, yCoord;
 
-    private GameObject[] HUD_Dimensions;
-    private int currentHUD_Dimension;
+    private GameObject[] HUD_Dimensions, HUD_DimensionsOpponent;
+    private int currentHUD_Dimension, currentHUD_DimensionOpponent;
     public Texture2D HUD_DimensionInactive, HUD_DimensionActive;
-    public GameObject[] HUD_Fleet;
+    public GameObject[] HUD_Fleet, HUD_FleetOpponent;
 
     [HideInInspector] public GameObject armed;
 
@@ -36,31 +36,29 @@ public class HUD_Manager : MonoBehaviour
 
     public void OnDimensionUp(CallbackContext ctx)
     {
-        if (ctx.performed)
+        if (!ctx.performed) return;
+
+        if (currentHUD_Dimension + 1 < OverworldData.DimensionsCount)
         {
-            if (currentHUD_Dimension + 1 < OverworldData.DimensionsCount)
-            {
-                SetHUDDimension(currentHUD_Dimension + 1);
-            }
-            else
-            {
-                Debug.LogWarning(name + ": Desired dimension out of scope!");
-            }
+            SetHUDDimension(currentHUD_Dimension + 1);
+        }
+        else
+        {
+            Debug.LogWarning($"{name}: Desired dimension out of scope!");
         }
     }
 
     public void OnDimensionDown(CallbackContext ctx)
     {
-        if (ctx.performed)
+        if (!ctx.performed) return;
+
+        if (currentHUD_Dimension - 1 >= 0)
         {
-            if (currentHUD_Dimension - 1 >= 0)
-            {
-                SetHUDDimension(currentHUD_Dimension - 1);
-            }
-            else
-            {
-                Debug.LogWarning(name + ": Desired dimension out of scope!");
-            }
+            SetHUDDimension(currentHUD_Dimension - 1);
+        }
+        else
+        {
+            Debug.LogWarning($"{name}: Desired dimension out of scope!");
         }
     }
 
@@ -71,10 +69,7 @@ public class HUD_Manager : MonoBehaviour
 
     public void SetSelecetedButton()
     {
-        if (!selectedButton)
-        {
-            selectedButton = shipButtons[0];
-        }
+        if (!selectedButton) selectedButton = shipButtons[0];
 
         player.eventSystem.firstSelectedGameObject = selectedButton;
         player.eventSystem.SetSelectedGameObject(selectedButton);
@@ -91,8 +86,7 @@ public class HUD_Manager : MonoBehaviour
 
         GameObject HUD_DimensionToSetActive = HUD_Dimensions[toNo];
         HUD_DimensionToSetActive.GetComponent<RawImage>().texture = HUD_DimensionActive;
-        HUD_DimensionToSetActive.GetComponentInChildren<TextMeshProUGUI>().fontStyle = FontStyles.Bold;
-        HUD_DimensionToSetActive.GetComponentInChildren<TextMeshProUGUI>().fontStyle = FontStyles.Underline;
+        HUD_DimensionToSetActive.GetComponentInChildren<TextMeshProUGUI>().fontStyle = FontStyles.Bold | FontStyles.Underline;
         HUD_DimensionToSetActive.GetComponentInChildren<TextMeshProUGUI>().fontSize = 28;
 
         currentHUD_Dimension = toNo;
@@ -100,23 +94,9 @@ public class HUD_Manager : MonoBehaviour
 
     public void UpdateHUDCoords(int xCoord, int yCoord)
     {
-        if (xCoord.ToString().Length < 2)
-        {
-            x = "0" + xCoord.ToString();
-        }
-        else
-        {
-            x = xCoord.ToString();
-        }
-
-        if (yCoord.ToString().Length < 2)
-        {
-            y = "0" + yCoord.ToString();
-        }
-        else
-        {
-            y = yCoord.ToString();
-        }
+        // If string is less than 2 characters, it pads the left side with '0' characters. 
+        x = xCoord.ToString().PadLeft(2, '0');
+        y = yCoord.ToString().PadLeft(2, '0');
     }
 
     public void UpdateHUDCoords()
@@ -133,9 +113,13 @@ public class HUD_Manager : MonoBehaviour
 
     public void UpdateHUDFleet(int shipNo, int toDimensionNo, int dimensionBefore)
     {
+        Vector3 newPosition = new() { x = 0, y = HUD_Dimensions[toDimensionNo].transform.position.y - HUD_Dimensions[dimensionBefore].transform.position.y };
         HUD_Fleet[shipNo].transform.SetParent(HUD_Dimensions[toDimensionNo].transform);
-        Vector3 newPosition = new() { x = 0, y = HUD_Dimensions[toDimensionNo].transform.position.y - HUD_Dimensions[dimensionBefore].transform.position.y } ;
         HUD_Fleet[shipNo].transform.position += newPosition;
+
+        newPosition = new() { x = 0, y = HUD_DimensionsOpponent[toDimensionNo].transform.position.y - HUD_DimensionsOpponent[dimensionBefore].transform.position.y };
+        player.opponent.HUD.HUD_FleetOpponent[shipNo].transform.SetParent(player.opponent.HUD.HUD_DimensionsOpponent[toDimensionNo].transform);
+        player.opponent.HUD.HUD_FleetOpponent[shipNo].transform.position += newPosition;
     }
 
     public void RemoveButton(int index)
@@ -155,18 +139,20 @@ public class HUD_Manager : MonoBehaviour
         Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(5f);
         Time.timeScale = 1f;
-
         crewText.text = null;
     }
 
-    public void InitHUD() => GetComponent<HUD_Creator>().CreateHUD(ref shipButtons,
+    public void Initialize() => GetComponent<HUD_Creator>().CreateHUD(ref shipButtons,
                                                                    ref xCoord,
                                                                    ref yCoord,
+                                                                   ref HUD_Dimensions,
                                                                    ref currentHUD_Dimension,
                                                                    ref HUD_Fleet,
+                                                                   ref HUD_DimensionsOpponent,
+                                                                   ref currentHUD_DimensionOpponent,
+                                                                   ref HUD_FleetOpponent,
                                                                    ref armed,
                                                                    ref crewText,
                                                                    ref currentButton,
-                                                                   ref selectedButton,
-                                                                   ref HUD_Dimensions);
+                                                                   ref selectedButton);
 }

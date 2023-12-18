@@ -13,51 +13,58 @@ public class PlayerWorld : MonoBehaviour
         player.ActiveDimension = player.dimensions.GetDimension(no);
     }
 
-    public void SetNewCellRelative(int x, int y)
+    public void SetNewCellRelative(int deltaX, int deltaY)
     {
-        if (x < OverworldData.DimensionSize && y < OverworldData.DimensionSize)
-        {
-            if (player.ActiveCell != null)
-            {
-                DeactivateCell();
-            }
+        int newX = currentX + deltaX;
+        int newY = currentY + deltaY;
 
-            currentX += x;
-            currentY += y;
+        if (IsWithinDimensionBounds(newX, newY))
+        {
+            currentX = newX;
+            currentY = newY;
+
+            DeactivateCell();
             player.ActiveCell = player.dimensions.GetDimension(player.ActiveDimension.DimensionNo).GetCell(currentX, currentY).GetComponent<Cell>();
             ActivateCell();
         }
         else
         {
-            Debug.LogWarning(name + ": Cell outside of dimension!");
+            player.HUD.WriteText($"Capt'n {player.number}, target coordinates are out of range!");
         }
     }
 
-    public void SetNewCellAbsolute(int x, int y)
+    private bool IsWithinDimensionBounds(int x, int y)
+    {
+        return x >= 0 && x < OverworldData.DimensionSize && y >= 0 && y < OverworldData.DimensionSize;
+    }
+
+    public void SetNewCellAbsolute(int newX, int newY)
     {
         currentX = 0;
         currentY = 0;
 
-        SetNewCellRelative(x, y);
+        SetNewCellRelative(newX, newY);
     }
 
     public void ActivateCell()
     {
-        player.ActiveCell.gameObject.transform.position += new Vector3(0, 0.2f, 0);
+        player.ActiveCell.transform.position += new Vector3(0, 0.2f, 0);
     }
 
     public void DeactivateCell()
     {
-        player.ActiveCell.gameObject.transform.position -= new Vector3(0, 0.2f, 0);
+        if (player.ActiveCell != null)
+        {
+            player.ActiveCell.transform.position -= new Vector3(0, 0.2f, 0);
+        }
     }
 
-    public void InitPlayerWorld()
+    public void Initialize()
     {
         player = GetComponent<PlayerData>();
         
-        player.dimensions = ScriptableObject.CreateInstance("Dimensions") as Dimensions;
-        player.dimensions.name = "Dimensions" + player.number;
-        player.dimensions.InitDimensions(player, dimensionPrefab, cellPrefab);
+        player.dimensions.name = $"Dimensions{player.number}";
+        player.dimensions.Initialize();
         SetNewDimension(0);
     }
 }

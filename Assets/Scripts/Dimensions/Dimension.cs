@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,20 +9,19 @@ public class Dimension : MonoBehaviour
 
     public int DimensionNo { get; private set; }
 
-    public void InitDimension(PlayerData player, int no, GameObject cellPrefab, List<GameObject> fleet)
+    public void Initialize(PlayerData player, int dimensionNo, GameObject cellPrefab, List<GameObject> fleet)
     {
         this.player = player;
-        DimensionNo = no;
+        DimensionNo = dimensionNo;
         CreateCells(cellPrefab);
 
         if (DimensionNo == 0)
         {
             player.ActiveDimension = GetComponent<Dimension>();
 
-            for (int i = 0; i < fleet.Count; i++)
+            foreach (GameObject shipObj in fleet)
             {
-                GameObject shipObj = (GameObject)fleet[i];
-                Ship ship = shipObj.GetComponent<Ship>();
+                ShipManager ship = shipObj.GetComponent<ShipManager>();
                 ship.SetDimension(this);
                 ship.OccupyCells();
             }
@@ -44,9 +42,8 @@ public class Dimension : MonoBehaviour
             {
                 GameObject cellObj = Instantiate(cellPrefab, new Vector3(x, OverworldData.DimensionSize * DimensionNo * 2, z), Quaternion.identity);
 
-                cellObj.layer = Layer.SetLayerPlayer(player);
+                cellObj.layer = Layer.SetLayerDimensions(player);
                 cellObj.transform.parent = transform;
-
                 Cell cell = cellObj.GetComponent<Cell>();
                 cell.X = x;
                 cell.Y = z;
@@ -60,29 +57,24 @@ public class Dimension : MonoBehaviour
 
     public GameObject GetCell(int x, int y)
     {
-        try
+        if (x >= 0 && x < OverworldData.DimensionSize && y >= 0 && y < OverworldData.DimensionSize)
         {
-            if (x < OverworldData.DimensionSize && y < OverworldData.DimensionSize)
-            {
-                return cells[x][y];
-            }
+            return cells[x][y];
         }
-        catch (System.Exception)
+        else
         {
-            Debug.LogWarning(name + ": No cell found!");
-            throw;
+            Debug.LogWarning($"{name}: Invalid cell coordinates (x={x}, y={y})");
+            return null;
         }
-
-        return null;
     }
 
     public void AddShips(List<GameObject> newShips)
     {
         foreach (GameObject ship in newShips)
         {
-            if (ship.GetComponent<Ship>().Dimension == this)
+            if (ship.GetComponent<ShipManager>().dimension == this)
             {
-                ship.transform.SetParent(GetComponent<Transform>().transform, true);
+                ship.transform.SetParent(transform, true);
                 ships.Add(ship);
             }
         }
@@ -90,32 +82,14 @@ public class Dimension : MonoBehaviour
 
     public GameObject GetShipOnCell(int x, int y)
     {
-        bool found = false;
-        int i = 0;
+        foreach (GameObject shipObj in ships)
+        {
+            ShipManager ship = shipObj.GetComponent<ShipManager>();
 
-        try
-        {
-            while (!found && i < ships.Count)
-            {
-                GameObject shipObj = ships[i];
-                Ship ship = shipObj.GetComponent<Ship>();
-                if (ship.PivotX == x && ship.PivotZ == y)
-                {
-                    found = true;
-                    return shipObj;
-                }
-                else
-                {
-                    i++;
-                }
-            }
-        }
-        catch (System.Exception)
-        {
-            Debug.LogWarning(name + ": No ship found!");
-            throw;
+            if (ship.navigator.PivotX == x && ship.navigator.PivotZ == y) return shipObj;
         }
 
+        Debug.LogWarning($"{name}: No ship found on cell (x={x}, y={ y})");
         return null;
     }
 

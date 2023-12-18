@@ -1,38 +1,38 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "AudioCollection", menuName = "ScriptableObjects/AudioCollection", order = 1)]
+
 public class AudioCollection : ScriptableObject
 {
     [Header("Audio clips")]
     public Dictionary<string, AudioClip> backgroundSounds;
-    public Dictionary<string, AudioClip> SFXSounds, texts;
+    public Dictionary<string, AudioClip> sfxSounds, texts;
 
-    [Header("Audio clips")]
+    [Header("Paths")]
     public string pathForBackgroundSounds;
     public string pathForSFXSounds, pathForTexts;
 
-    public void Init()
+    public void Initialize()
     {
-        backgroundSounds = CreateDictionary(pathForBackgroundSounds);
-        SFXSounds = CreateDictionary(pathForSFXSounds);
-        texts = CreateDictionary(pathForTexts);
+        backgroundSounds = LoadAudioDictionary(pathForBackgroundSounds);
+        sfxSounds = LoadAudioDictionary(pathForSFXSounds);
+        texts = LoadAudioDictionary(pathForTexts);
     }
 
-    private Dictionary<string, AudioClip> CreateDictionary(string path)
+    private Dictionary<string, AudioClip> LoadAudioDictionary(string path)
     {
-        Dictionary<string, AudioClip> clipsDictonary = new();
-        AudioClip[] clips = Resources.LoadAll<AudioClip>(path);
+        Dictionary<string, AudioClip> audioDictionary = new();
+        AudioClip[] audioClips = Resources.LoadAll<AudioClip>(path);
         string key;
 
-        foreach (AudioClip clip in clips)
+        foreach (AudioClip clip in audioClips)
         {
             key = clip.name;
 
-            if (!clipsDictonary.ContainsKey(key))
+            if (!audioDictionary.ContainsKey(key))
             {
-                clipsDictonary.Add(key, clip);
+                audioDictionary.Add(key, clip);
             }
             else
             {
@@ -40,6 +40,6 @@ public class AudioCollection : ScriptableObject
             }
         }
 
-        return clipsDictonary;
+        return audioDictionary;
     }
 }

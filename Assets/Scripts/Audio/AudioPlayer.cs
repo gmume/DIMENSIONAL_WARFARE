@@ -9,7 +9,7 @@ public class AudioPlayer : MonoBehaviour
 {
     [Header("Audio sources")]
     public AudioSource backgroundSource;
-    public AudioSource SFXSource1, SFXSource2, textSource;
+    public AudioSource sfxSource1, sfxSource2, textSource;
 
     [Header("Path to file")]
     public string backgroundSoundFileName;
@@ -19,7 +19,7 @@ public class AudioPlayer : MonoBehaviour
 
     public void Start()
     {
-        audioCollection.Init();
+        audioCollection.Initialize();
         PlayClip(backgroundSource, audioCollection.backgroundSounds[backgroundSoundFileName]);
     }
 
@@ -44,7 +44,7 @@ public class AudioPlayer : MonoBehaviour
         }
     }
 
-    private void PlayClip(AudioSource source, AudioClip clip)
+    public void PlayClip(AudioSource source, AudioClip clip)
     {
         PlayClip(0, source, clip);
     }
@@ -52,108 +52,78 @@ public class AudioPlayer : MonoBehaviour
     //StartGame actionMap
     public void OnShipLeft(CallbackContext ctx)
     {
-        if (ctx.performed)
-        {
-            ChooseShip();
-        }
+        if (!ctx.performed) return;
+        ChooseShip();
     }
 
     public void OnShipRight(CallbackContext ctx)
     {
-        if (ctx.performed)
-        {
-            ChooseShip();
-        }
+        if (!ctx.performed) return;
+        ChooseShip();
     }
 
     private void ChooseShip()
     {
-        PlayClip(SFXSource1, audioCollection.SFXSounds["SFX_ChooseShip"]);
+        PlayClip(sfxSource1, audioCollection.sfxSounds["SFX_ChooseShip"]);
     }
 
     public void OnMoveShip(CallbackContext ctx)
     {
-        if (ctx.performed)
-        {
-
-        }
+        if (!ctx.performed) return;
     }
 
     public void OnTurnLeft(CallbackContext ctx)
     {
-        if (ctx.performed)
-        {
-
-        }
+        if (!ctx.performed) return;
     }
 
     public void OnTurnRight(CallbackContext ctx)
     {
-        if (ctx.performed)
-        {
-
-        }
+        if (!ctx.performed) return;
     }
 
     public void OnSubmitFleet(CallbackContext ctx)
     {
-        if (ctx.performed)
-        {
-
-        }
+        if (!ctx.performed) return;
     }
 
     //Player actionMap
     public void OnMoveSelection(CallbackContext ctx)
     {
-        if (ctx.performed)
-        {
-
-        }
+        if (!ctx.performed) return;
     }
 
     public void OnFire(CallbackContext ctx)
     {
-        if (ctx.performed)
-        {
-            PlayClip(SFXSource1, audioCollection.SFXSounds["SFX_NavalGun"]);
-            PlayClip(1.2f, SFXSource2, audioCollection.SFXSounds["SFX_ImpactExplosion"]);
-        }
+        if (!ctx.performed) return;
+        PlayClip(sfxSource1, audioCollection.sfxSounds["SFX_NavalGun"]);
+        PlayClip(1.2f, sfxSource2, audioCollection.sfxSounds["SFX_ImpactExplosion"]);
     }
 
     public void OnDimensionUp(CallbackContext ctx)
     {
-        if (ctx.performed)
-        {
-            ChooseDimension();
-        }
+        if (!ctx.performed) return;
+        ChooseDimension();
     }
 
     public void OnDimensionDown(CallbackContext ctx)
     {
-        if (ctx.performed)
-        {
-            ChooseDimension();
-        }
+        if (!ctx.performed) return;
+        ChooseDimension();
     }
 
     private void ChooseDimension()
     {
-        PlayClip(SFXSource1, audioCollection.SFXSounds["SFX_ChooseDimension"]);
+        PlayClip(sfxSource1, audioCollection.sfxSounds["SFX_ChooseDimension"]);
     }
 
     public void OnShipUp()
     {
-        PlayClip(SFXSource1, audioCollection.SFXSounds["SFX_ShipUp"]);
+        PlayClip(sfxSource1, audioCollection.sfxSounds["SFX_ShipUp"]);
     }
 
     public void OnVictory()
     {
-        PlayClip(SFXSource1, audioCollection.SFXSounds["SFX_VictorySound"]);
-    }
-
-    public void OnFireWithSunkenShip()
-    {
-        PlayClip(textSource, audioCollection.SFXSounds["TXT_01"]);
+        PlayClip(sfxSource1, audioCollection.sfxSounds["SFX_VictorySound"]);
     }
 }

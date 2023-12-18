@@ -21,11 +21,11 @@ public class PlayerData : MonoBehaviour
                       public VehicleBehavior vehicle;
                       public Camera playerCamera;
 
-    [HideInInspector] public Dimensions dimensions; //Is initiated by PlayerWorld
+                      public Dimensions dimensions; //Is initiated by PlayerWorld
                       public Dimension ActiveDimension { get; set; }
     [HideInInspector] public Cell ActiveCell { get; set; }
     [HideInInspector] public Fleet fleet; //Is initiated by PlayerWorld via InitDimension()
-                      public Ship ActiveShip { get; set; }
+                      public ShipManager ActiveShip { get; set; }
                       public int X { get; set; }
                       public int Y { get; set; }
 
@@ -39,15 +39,10 @@ public class PlayerData : MonoBehaviour
 
     private void Start()
     {
-        world.InitPlayerWorld();
-        HUD.InitHUD();
-        inputHandling.InitImputHandling();
-
-        if (number == 1)
-        {
-            GameObject.Find("Overworld").GetComponent<Overworld>().debug.ShowCellCoords();
-        }
-
+        world.Initialize();
+        HUD.Initialize();
+        inputHandling.Initialize();
+        if (number == 1) GameObject.Find("Overworld").GetComponent<Overworld>().debug.ShowCellCoords();
         Invoke("DebugShowShipsOwner", 0.1f);
     }
 

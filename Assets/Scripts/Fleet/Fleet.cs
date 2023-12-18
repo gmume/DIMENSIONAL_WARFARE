@@ -12,25 +12,31 @@ public class Fleet : ScriptableObject
     {
         for (int i = 0; i < OverworldData.FleetSize; i++)
         {
-            GameObject shipObj = Instantiate(Resources.Load<GameObject>("Ships/ShipPrefab" + (i + 1)), new Vector3(i, 1, 0), Quaternion.identity);
+            GameObject shipPrefab = Resources.Load<GameObject>("Ships/ShipPrefab" + (i + 1));
 
-            shipObj.name = "Ship" + player.number + "." + i;
-            Ship ship = shipObj.GetComponent<Ship>();
-            shipObj.layer = Layer.SetLayerFleet(player);
-            ship.InitiateShip(player, i);
-            fleet.Add(shipObj);
+            if (shipPrefab != null)
+            {
+                GameObject shipObj = Instantiate(shipPrefab, new Vector3(i, 1, 0), Quaternion.identity);
+
+                shipObj.name = "Ship" + player.number + "." + i;
+                ShipInitializer ship = shipObj.GetComponent<ShipInitializer>();
+                shipObj.layer = Layer.SetLayerFleet(player);
+                ship.Initialize(player, i);
+                fleet.Add(shipObj);
+            }
+            else
+            {
+                Debug.LogError($"Missing ship prefab: ShipPrefab{i + 1}");
+            }
         }
     }
 
     public void ActivateShip(int shipNr, PlayerData player)
     {
         GameObject shipObj = (GameObject)fleet[shipNr];
-        shipObj.GetComponent<Ship>().Activate();
+        shipObj.GetComponent<ShipManager>().Activate();
 
-        if (OverworldData.GamePhase == GamePhases.Battle)
-        {
-            player.inputHandling.SwitchActionMap("Player");
-        }
+        if (OverworldData.GamePhase == GamePhases.Battle) player.inputHandling.SwitchActionMap("Player");
     }
 
     public List<GameObject> GetFleet()

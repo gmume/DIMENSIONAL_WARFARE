@@ -19,10 +19,9 @@ public class Debugging : MonoBehaviour
     public MultiplayerEventSystem eventSystem1, eventSystem2;
     public string actionMapPlayer1, actionMapPlayer2, gamepadPlayer1, gamepadPlayer2, controlScemePlayer1, controlScemePlayer2;
 
-    private Ship actShip1 = null, actShip2 = null;
+    private ShipManager actShip1 = null, actShip2 = null;
     public string activeShip1, activeShip2, activeCell1, activeCell2;
     public GameObject activeDimension1, activeDimension2;
-    public GameObject currentActiveDimension = null;
 
     public GameObject currentSelectedButton1, currentSelectedButton2;
 
@@ -34,7 +33,7 @@ public class Debugging : MonoBehaviour
         actShip1 = player1.ActiveShip;
         if (player1.ActiveShip != null)
         {
-            activeShip1 = actShip1 + ": " + actShip1.PivotX + ", " + actShip1.PivotZ;
+            activeShip1 = actShip1 + ": " + actShip1.navigator.PivotX + ", " + actShip1.navigator.PivotZ;
         }
         else
         {
@@ -44,7 +43,7 @@ public class Debugging : MonoBehaviour
         actShip2 = player2.ActiveShip;
         if (player2.ActiveShip != null)
         {
-            activeShip2 = actShip2 + ": " + actShip2.PivotX + ", " + actShip2.PivotZ;
+            activeShip2 = actShip2 + ": " + actShip2.navigator.PivotX + ", " + actShip2.navigator.PivotZ;
         }
         else
         {
@@ -89,13 +88,6 @@ public class Debugging : MonoBehaviour
 
         inputEnabled1 = playerInput1.enabled;
         inputEnabled2 = playerInput2.enabled;
-
-        // Track player 2, active dimension.
-        if (name == "Player2" && currentActiveDimension != activeDimension2)
-        {
-            Debug.Log("current active diemension: " + currentActiveDimension + " new active dimension: " + activeDimension2);
-            currentActiveDimension = activeDimension2;
-        }
     }
 
     public void ShowCellCoords()
@@ -213,7 +205,7 @@ public class Debugging : MonoBehaviour
         }
     }
 
-    public void InitDebugging()
+    public void Initialize()
     {
         player1 = GameObject.Find("Player1").GetComponent<PlayerData>();
         player2 = GameObject.Find("Player2").GetComponent<PlayerData>();

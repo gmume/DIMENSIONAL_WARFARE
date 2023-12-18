@@ -3,32 +3,22 @@ public static class Layer
     //Leyer Player1 = 6 and Player2 = 7
     public static int SetLayerPlayer(PlayerData player)
     {
-        if (player.number == 1)
-        {
-            return 7;
-        }
-        else
-        {
-            return 6;
-        }
+        return (player.number == 1) ? 7 : 6;
+    }
+
+    public static int SetLayerDimensions(PlayerData player)
+    {
+        return (player.number == 1) ? 14 : 15;
     }
 
     //Leyer Fleet1 = 8 and Fleet2 = 9
     public static int SetLayerFleet(PlayerData player)
     {
-        if (player.number == 1)
-        {
-            return 8;
-        }
-        else
-        {
-            return 9;
-        }
+        return (player.number == 1) ? 8 : 9;
     }
 
-    //Leyer VisibleShip = 10
-    public static int SetShipVisible()
+    public static int SetShipVisible(PlayerData player)
     {
-        return 10;
+        return (player.number == 1) ? 10 : 11;
     }
 }

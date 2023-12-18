@@ -17,52 +17,43 @@ public class InputHandling : MonoBehaviour
     //StartGame actionMap
     public void OnShipLeft(CallbackContext ctx)
     {
-        if (ctx.performed)
+        if (!ctx.performed) return;
+
+        int shipNr = player.CurrentShipButton.ShipButtonNr;
+        int index = shipButtons.IndexOf(shipButtons[shipNr]);
+
+        if (index > 0)
         {
-            int shipNr = player.CurrentShipButton.ShipButtonNr;
-            int index = shipButtons.IndexOf(shipButtons[shipNr]);
+            player.eventSystem.SetSelectedGameObject(shipButtons[index - 1]);
 
-            if (index > 0)
-            {
-                player.eventSystem.SetSelectedGameObject(shipButtons[index - 1]);
+            player.CurrentShipButton = player.eventSystem.currentSelectedGameObject.GetComponent<ShipButton>();
+            player.fleet.ActivateShip(player.CurrentShipButton.ShipButtonNr, player);
 
-                player.CurrentShipButton = player.eventSystem.currentSelectedGameObject.GetComponent<ShipButton>();
-                player.fleet.ActivateShip(player.CurrentShipButton.ShipButtonNr, player);
-
-                if (OverworldData.GamePhase == GamePhases.Battle)
-                {
-                    UpdateActiveCellAndHUD();
-                }
-            }
+            if (OverworldData.GamePhase == GamePhases.Battle) UpdateActiveCellAndHUD();
         }
     }
 
     public void OnShipRight(CallbackContext ctx)
     {
-        if (ctx.performed)
+        if (!ctx.performed) return;
+
+        int shipNr = player.CurrentShipButton.ShipButtonNr;
+        int index = shipButtons.IndexOf(shipButtons[shipNr]);
+
+        if (index < OverworldData.FleetSize)
         {
-            int shipNr = player.CurrentShipButton.ShipButtonNr;
-            int index = shipButtons.IndexOf(shipButtons[shipNr]);
+            player.eventSystem.SetSelectedGameObject(shipButtons[index + 1]);
+            player.CurrentShipButton = player.eventSystem.currentSelectedGameObject.GetComponent<ShipButton>();
+            player.fleet.ActivateShip(player.CurrentShipButton.ShipButtonNr, player);
 
-            if (index < OverworldData.FleetSize)
-            {
-                //player.eventSystem.SetSelectedGameObject(shipButtons[shipNr + 1]);
-                player.eventSystem.SetSelectedGameObject(shipButtons[index + 1]);
-                player.CurrentShipButton = player.eventSystem.currentSelectedGameObject.GetComponent<ShipButton>();
-                player.fleet.ActivateShip(player.CurrentShipButton.ShipButtonNr, player);
-
-                if (OverworldData.GamePhase == GamePhases.Battle)
-                {
-                    UpdateActiveCellAndHUD();
-                }
-            }
+            if (OverworldData.GamePhase == GamePhases.Battle) UpdateActiveCellAndHUD();
         }
     }
 
     public void UpdateActiveCellAndHUD()
     {
-        int shipX = player.ActiveShip.PivotX;
-        int shipY = player.ActiveShip.PivotZ;
+        int shipX = player.ActiveShip.navigator.PivotX;
+        int shipY = player.ActiveShip.navigator.PivotZ;
 
         player.world.SetNewCellAbsolute(shipX, shipY);
         player.HUD.UpdateHUDCoords(shipX, shipY);
@@ -71,87 +62,67 @@ public class InputHandling : MonoBehaviour
 
     public void OnMoveShip(CallbackContext ctx)
     {
-        if (ctx.performed)
+        if (!ctx.performed) return;
+
+        Vector2 vector = ctx.ReadValue<Vector2>();
+        float x = vector.x;
+        float y = vector.y;
+
+        ShipManager ship = player.ActiveShip;
+
+        //Get axis
+        if (Math.Abs(x) > Math.Abs(y))
         {
-            Vector2 vector = ctx.ReadValue<Vector2>();
-            float x = vector.x;
-            float y = vector.y;
-
-            Ship ship = player.ActiveShip;
-
-            //Get axis
-            if (Math.Abs(x) > Math.Abs(y))
-            {
-                if (x > 0)
-                {
-                    ship.Move(1, 0);
-                }
-                else
-                {
-                    ship.Move(-1, 0);
-                }
-            }
-            else
-            {
-                if (y > 0)
-                {
-                    ship.Move(0, 1);
-                }
-                else
-                {
-                    ship.Move(0, -1);
-                }
-            }
-
-            player.HUD.UpdateHUDCoords(ship.PivotX, ship.PivotZ);
-            opponent.HUD.UpdateHUDCoords(ship.PivotX, ship.PivotZ);
+            // Returns the sign (Vorzeichen) of x. The Mathf.Sign function returns -1 for negative values, 1 for positive values, and 0 for zero. 
+            ship.Move((int)Mathf.Sign(x), 0);
         }
+        else
+        {
+            ship.Move(0, (int)Mathf.Sign(y));
+        }
+
+        player.HUD.UpdateHUDCoords(ship.navigator.PivotX, ship.navigator.PivotZ);
+        opponent.HUD.UpdateHUDCoords(ship.navigator.PivotX, ship.navigator.PivotZ);
     }
 
     public void OnTurnLeft(CallbackContext ctx)
     {
-        if (ctx.performed)
-        {
-            player.ActiveShip.QuaterTurn(false);
-        }
+        if (!ctx.performed) return;
+        player.ActiveShip.QuaterTurn(false);
     }
 
     public void OnTurnRight(CallbackContext ctx)
     {
-        if (ctx.performed)
-        {
-            player.ActiveShip.QuaterTurn(true);
-        }
+        if (!ctx.performed) return;
+        player.ActiveShip.QuaterTurn(true);
     }
 
     public void OnSubmitFleet(CallbackContext ctx)
     {
-        if (ctx.performed)
-        {
-            if (OverworldData.GamePhase == GamePhases.Start)
-            {
-                if (name == "Player1")
-                {
-                    OverworldData.Player1SubmittedFleet = true;
-                }
-                else
-                {
-                    OverworldData.Player2SubmittedFleet = true;
-                }
+        if (!ctx.performed) return;
 
-                if (!OverworldData.Player1SubmittedFleet || !OverworldData.Player2SubmittedFleet)
-                {
-                    player.HUD.WriteText("Capt'n " + player.number + " please, wait until your opponent is ready.");
-                    print("Please, wait until your opponent is ready.");
-                    player.input.enabled = false;
-                    StartCoroutine(WaitForOpponent());
-                }
+        if (OverworldData.GamePhase == GamePhases.Start)
+        {
+            if (name == "Player1")
+            {
+                OverworldData.Player1SubmittedFleet = true;
             }
             else
             {
-                player.input.SwitchCurrentActionMap("Player");
-                continueGame = true;
+                OverworldData.Player2SubmittedFleet = true;
             }
+
+            if (!OverworldData.Player1SubmittedFleet || !OverworldData.Player2SubmittedFleet)
+            {
+                player.HUD.WriteText($"Capt'n {player.number}, please wait until your opponent is ready.");
+                player.input.enabled = false;
+                StartCoroutine(WaitForOpponent());
+            }
+        }
+        else
+        {
+            player.input.SwitchCurrentActionMap("Player");
+            continueGame = true;
         }
     }
 
@@ -160,9 +131,7 @@ public class InputHandling : MonoBehaviour
         yield return new WaitUntil(() => (OverworldData.Player1SubmittedFleet && OverworldData.Player2SubmittedFleet));
 
         player.HUD.WriteText("Your opponent is ready, Capt'n. Let's go!");
-        print("Your opponent is ready. Let's go!");
         player.HUD.WriteText("Choose your attacking ship!");
-        print("Choose your attacking ship!");
 
         OverworldData.GamePhase = GamePhases.Battle;
         player.input.enabled = true;
@@ -180,83 +149,60 @@ public class InputHandling : MonoBehaviour
     //Player actionMap
     public void OnMoveSelection(CallbackContext ctx)
     {
-        if (ctx.performed)
+        if (!ctx.performed) return;
+
+        if (name == "Player1" && OverworldData.PlayerTurn == 1 || name == "Player2" && OverworldData.PlayerTurn == 2)
         {
-            if (name == "Player1" && OverworldData.PlayerTurn == 1 || name == "Player2" && OverworldData.PlayerTurn == 2)
-            {
-                //Change activeted cell
-                Vector2 vector = ctx.ReadValue<Vector2>();
-                float x = vector.x;
-                float y = vector.y;
+            //Change activeted cell
+            Vector2 vector = ctx.ReadValue<Vector2>();
+            float x = vector.x;
+            float y = vector.y;
 
-                //Get right axis
-                if (Math.Abs(x) > Math.Abs(y))
-                {
-                    //negative or positive?
-                    if (x > 0)
-                    {
-                        player.world.SetNewCellRelative(1, 0);
-                    }
-                    else
-                    {
-                        player.world.SetNewCellRelative(-1, 0);
-                    }
-                }
-                else
-                {
-                    if (y > 0)
-                    {
-                        player.world.SetNewCellRelative(0, 1);
-                    }
-                    else
-                    {
-                        player.world.SetNewCellRelative(0, -1);
-                    }
-                }
+            // Get right axis and move in correct direction
+            float moveX = (Math.Abs(x) > Math.Abs(y)) ? Mathf.Sign(x) : 0;
+            float moveY = (Math.Abs(x) > Math.Abs(y)) ? 0 : Mathf.Sign(y);
 
-                player.HUD.UpdateHUDCoords(player.ActiveCell.X, player.ActiveCell.Y);
-                opponent.HUD.UpdateHUDCoords(player.ActiveCell.X, player.ActiveCell.Y);
-            }
-            else
-            {
-                player.HUD.WriteText("It's not our turn, yet, Capt'n!");
-                print("It's not your turn!");
-            }
+            player.world.SetNewCellRelative((int)moveX, (int)moveY);
+
+            player.HUD.UpdateHUDCoords(player.ActiveCell.X, player.ActiveCell.Y);
+            opponent.HUD.UpdateHUDCoords(player.ActiveCell.X, player.ActiveCell.Y);
+        }
+        else
+        {
+            player.HUD.WriteText("It's not our turn, yet, Capt'n!");
+            print("It's not your turn!");
         }
     }
 
     public void OnFire(CallbackContext ctx)
     {
-        if (ctx.performed)
+        if (!ctx.performed) return;
+
+        if (name == "Player1" && OverworldData.PlayerTurn == 1 || name == "Player2" && OverworldData.PlayerTurn == 2)
         {
-            if (name == "Player1" && OverworldData.PlayerTurn == 1 || name == "Player2" && OverworldData.PlayerTurn == 2)
+            bool shipUp = player.ActiveShip.Fire();
+
+            if (shipUp)
             {
-                bool shipUp = player.ActiveShip.Fire();
+                player.playerCamera.GetComponent<LayerFilter>().ShowLayers(true, true, true);
 
-                if (shipUp)
-                {
-                    player.playerCamera.GetComponent<LayerFilter>().ShowLayers(true, true);
-
-                    continueGame = false;
-                    StartCoroutine(WaitBattleToContinue());
-                }
-                else
-                {
-                    StartCoroutine(PauseAndTakeTurns());
-                }
+                continueGame = false;
+                StartCoroutine(WaitBattleToContinue());
             }
             else
             {
-                player.HUD.WriteText("It's not our turn, yet, Capt'n!");
-                print(player.name + "It's not our turn, yet, Capt'n!");
+                StartCoroutine(PauseAndTakeTurns());
             }
+        }
+        else
+        {
+            player.HUD.WriteText("It's not our turn, yet, Capt'n!");
         }
     }
 
     private IEnumerator WaitBattleToContinue()
     {
         yield return new WaitUntil(() => (continueGame));
-
         StartCoroutine(PauseAndTakeTurns());
     }
 
@@ -284,16 +230,8 @@ public class InputHandling : MonoBehaviour
 
     private void UpdateGame()
     {
-        if (name == "Player1")
-        {
-            player.playerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player1", "HUD1", "VisibleHUDShips2", "VisibleShips2", "Fleet1");
-            opponent.playerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player2", "HUD2", "VisibleHUDShips1", "VisibleShips1");
-        }
-        else
-        {
-            player.playerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player2", "HUD2", "VisibleHUDShips1", "Fleet2", "VisibleShips1", "Fleet2");
-            opponent.playerCamera.cullingMask = LayerMask.GetMask("Default", "Water", "Player1", "HUD1", "VisibleHUDShips2", "VisibleShips2");
-        }
+        player.playerCamera.GetComponent<LayerFilter>().ShowLayers(false, true, true);
+        opponent.playerCamera.GetComponent<LayerFilter>().ShowLayers(true, false, true);
 
         player.HUD.armed.SetActive(false);
         opponent.HUD.armed.SetActive(true);
@@ -301,11 +239,7 @@ public class InputHandling : MonoBehaviour
 
     private void DisarmPlayer()
     {
-        if (player.ActiveShip != null)
-        {
-            player.ActiveShip.Deactivate();
-        }
-
+        if (player.ActiveShip != null) player.ActiveShip.Deactivate();
         player.eventSystem.SetSelectedGameObject(null);
     }
 
@@ -321,32 +255,20 @@ public class InputHandling : MonoBehaviour
         switch (actionMapName)
         {
             case "GameStart":
-                if (!gameStartMap.enabled)
-                {
-                    gameStartMap.Enable();
-                }
-                if (playerMap.enabled)
-                {
-                    playerMap.Disable();
-                }
+                gameStartMap.Enable();
+                playerMap.Disable();
                 break;
             case "Player":
-                if (gameStartMap.enabled)
-                {
-                    gameStartMap.Disable();
-                }
-                if (!playerMap.enabled)
-                {
-                    playerMap.Enable();
-                }
+                gameStartMap.Disable();
+                playerMap.Enable();
                 break;
             default:
-                Debug.LogWarning(name + ": No such action map!");
+                Debug.LogWarning($"{name}: No such action map!");
                 break;
         }
     }
 
-    public void InitImputHandling()
+    public void Initialize()
     {
         player = GetComponent<PlayerData>();
         opponent = player.opponent;
@@ -354,28 +276,18 @@ public class InputHandling : MonoBehaviour
         playerMap = player.input.actions.FindActionMap("Player");
         shipButtons = player.HUD.GetShipButtons();
         player.input.SwitchCurrentActionMap("GameStart");
-        ArrayList devices = new();
+        List<InputDevice> devices = new();
 
         foreach (var device in InputSystem.devices)
         {
-            if (device.ToString().Contains("Gamepad"))
-            {
-                devices.Add(device);
-            }
+            if (device.ToString().Contains("Gamepad")) devices.Add(device);
         }
 
         if (devices.Count >= 2)
         {
             player.input.user.UnpairDevices();
-
-            if (name == "Player1")
-            {
-                InputUser.PerformPairingWithDevice((InputDevice)devices[0], player.input.user);
-            }
-            else
-            {
-                InputUser.PerformPairingWithDevice((InputDevice)devices[1], player.input.user);
-            }
+            InputDevice targetDevice = (name == "Player1") ? devices[0] : devices[1];
+            InputUser.PerformPairingWithDevice(targetDevice, player.input.user);
         }
         else
         {
