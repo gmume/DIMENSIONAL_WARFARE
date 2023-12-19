@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WinnerOrLooser : MonoBehaviour
+public class VictoryAnnouncer : MonoBehaviour
 {
     private void Start()
     {

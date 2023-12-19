@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class ShipPart : MonoBehaviour
+public class ShipPartManager : MonoBehaviour
 {
     public int partNo;
     public int X { get; private set; }
     public int Y { get; private set; }
-    public Dimension Dimension { get; set; }
+    public DimensionManager Dimension { get; set; }
     public Material PartMaterial { get; private set; }
     private Color colorIntact;
     public bool Damaged { get; set; }
@@ -24,14 +24,14 @@ public class ShipPart : MonoBehaviour
 
     public void OccupyCell()
     {
-        Cell cell = Dimension.GetCell(X, Y).GetComponent<Cell>();
+        CellData cell = Dimension.GetCell(X, Y).GetComponent<CellData>();
         cell.Occupied = true;
         cell.Part = this;
     }
 
     public void ReleaseCell()
     {
-        Cell cell = Dimension.GetCell(X, Y).GetComponent<Cell>();
+        CellData cell = Dimension.GetCell(X, Y).GetComponent<CellData>();
         cell.Occupied = false;
         cell.Part = null;
     }

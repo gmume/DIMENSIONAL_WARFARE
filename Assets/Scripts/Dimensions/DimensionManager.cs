@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dimension : MonoBehaviour
+public class DimensionManager : MonoBehaviour
 {
     private PlayerData player;
     public GameObject[][] cells;
@@ -17,7 +17,7 @@ public class Dimension : MonoBehaviour
 
         if (DimensionNo == 0)
         {
-            player.ActiveDimension = GetComponent<Dimension>();
+            player.ActiveDimension = GetComponent<DimensionManager>();
 
             foreach (GameObject shipObj in fleet)
             {
@@ -42,9 +42,9 @@ public class Dimension : MonoBehaviour
             {
                 GameObject cellObj = Instantiate(cellPrefab, new Vector3(x, OverworldData.DimensionSize * DimensionNo * 2, z), Quaternion.identity);
 
-                cellObj.layer = Layer.SetLayerDimensions(player);
+                cellObj.layer = LayerSetter.SetLayerDimensions(player);
                 cellObj.transform.parent = transform;
-                Cell cell = cellObj.GetComponent<Cell>();
+                CellData cell = cellObj.GetComponent<CellData>();
                 cell.X = x;
                 cell.Y = z;
                 cell.Activated = false;

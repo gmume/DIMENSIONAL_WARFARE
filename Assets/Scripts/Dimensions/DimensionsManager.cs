@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dimensions : MonoBehaviour
+public class DimensionsManager : MonoBehaviour
 {
     public PlayerData player;
     public GameObject dimensionPrefab, cellPrefab;
@@ -22,9 +22,9 @@ public class Dimensions : MonoBehaviour
             GameObject dimension = Instantiate(dimensionPrefab, new Vector3(halfDimensionSize, OverworldData.DimensionSize * dimensionNo * 2, halfDimensionSize), Quaternion.identity);
             dimension.transform.parent = transform;
             dimension.name = $"dimension{player.number}.{dimensionNo}";
-            dimension.layer = Layer.SetLayerDimensions(player);
+            dimension.layer = LayerSetter.SetLayerDimensions(player);
             dimension.transform.localScale = new Vector3(OverworldData.DimensionDiagonal, OverworldData.DimensionDiagonal, OverworldData.DimensionDiagonal);
-            dimension.GetComponent<Dimension>().Initialize(player, dimensionNo, cellPrefab, player.fleet.GetFleet());
+            dimension.GetComponent<DimensionManager>().Initialize(player, dimensionNo, cellPrefab, player.fleet.GetFleet());
             dimensions.Add(dimension);
         }
     }
@@ -34,15 +34,15 @@ public class Dimensions : MonoBehaviour
         return dimensions;
     }
 
-    public Dimension GetDimension(int no)
+    public DimensionManager GetDimension(int no)
     {
         GameObject dimension = dimensions[no];
-        return dimension.GetComponent<Dimension>();
+        return dimension.GetComponent<DimensionManager>();
     }
 
     public void Initialize(PlayerData player)
     {
-        player.fleet = ScriptableObject.CreateInstance<Fleet>();
+        player.fleet = ScriptableObject.CreateInstance<FleetManager>();
         player.fleet.name = $"fleet{player.number}";
         player.fleet.CreateFleet(player);
     }

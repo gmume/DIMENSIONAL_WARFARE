@@ -15,7 +15,7 @@ public class AudioPlayer : MonoBehaviour
     public string backgroundSoundFileName;
 
     [Header("Audio collection")]
-    public AudioCollection audioCollection;
+    public AudioLoader audioCollection;
 
     public void Start()
     {

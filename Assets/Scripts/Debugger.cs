@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
-public class Debugging : MonoBehaviour
+public class Debugger : MonoBehaviour
 {
     public PlayerData player1, player2;
     public string GamePhase;
@@ -92,13 +92,13 @@ public class Debugging : MonoBehaviour
 
     public void ShowCellCoords()
     {
-        Dimension dimension = player1.dimensions.GetDimension(0);
+        DimensionManager dimension = player1.dimensions.GetDimension(0);
 
         for (int i = 0; i < OverworldData.DimensionSize; i++)
         {
             foreach (var cellObj in dimension.cells[i])
             {
-                Cell cell = cellObj.GetComponent<Cell>();
+                CellData cell = cellObj.GetComponent<CellData>();
                 GameObject canvasObj;
                 GameObject myText;
                 Canvas myCanvas;

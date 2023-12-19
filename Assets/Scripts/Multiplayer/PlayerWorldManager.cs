@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerWorld : MonoBehaviour
+public class PlayerWorldManager : MonoBehaviour
 {
     public string ShipName;
     public GameObject dimensionPrefab, cellPrefab;
@@ -24,7 +24,7 @@ public class PlayerWorld : MonoBehaviour
             currentY = newY;
 
             DeactivateCell();
-            player.ActiveCell = player.dimensions.GetDimension(player.ActiveDimension.DimensionNo).GetCell(currentX, currentY).GetComponent<Cell>();
+            player.ActiveCell = player.dimensions.GetDimension(player.ActiveDimension.DimensionNo).GetCell(currentX, currentY).GetComponent<CellData>();
             ActivateCell();
         }
         else

@@ -25,7 +25,7 @@ public class HUD_Manager : MonoBehaviour
     [HideInInspector] public TextMeshProUGUI crewText;
 
     private List<GameObject> shipButtons = new();
-    public ShipButton currentButton;
+    public ShipButtonData currentButton;
     public GameObject selectedButton, selectedElement;
 
     private void Update()
@@ -73,7 +73,7 @@ public class HUD_Manager : MonoBehaviour
 
         player.eventSystem.firstSelectedGameObject = selectedButton;
         player.eventSystem.SetSelectedGameObject(selectedButton);
-        currentButton = selectedButton.GetComponent<ShipButton>();
+        currentButton = selectedButton.GetComponent<ShipButtonData>();
         player.CurrentShipButton = currentButton;
     }
 

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "AudioCollection", menuName = "ScriptableObjects/AudioCollection", order = 1)]
+[CreateAssetMenu(fileName = "AudioLoader", menuName = "ScriptableObjects/AudioLoader", order = 1)]
 
-public class AudioCollection : ScriptableObject
+public class AudioLoader : ScriptableObject
 {
     [Header("Audio clips")]
     public Dictionary<string, AudioClip> backgroundSounds;

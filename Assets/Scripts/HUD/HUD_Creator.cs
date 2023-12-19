@@ -11,7 +11,6 @@ public class HUD_Creator : MonoBehaviour
     public GameObject HUD_DimensionsObj, HUD_DimensionsOpponentObj, HUD_DimensionObj, HUD_ShipPrefab;
     private TextMeshProUGUI HUD_DimensionNo;
     public Texture2D[] HUD_ShipTextures;
-
     private Transform shipButtonsTransform;
 
     public void CreateHUD(ref List<GameObject> shipButtons,
@@ -25,7 +24,7 @@ public class HUD_Creator : MonoBehaviour
                           ref GameObject[] HUD_FleetOpponent,
                           ref GameObject armed,
                           ref TextMeshProUGUI crewText,
-                          ref ShipButton currentButton,
+                          ref ShipButtonData currentButton,
                           ref GameObject selectedButton)
     {
         GameObject[] HUD_Parts = player.name == "Player1" ? GameObject.FindGameObjectsWithTag("HUD1") : GameObject.FindGameObjectsWithTag("HUD2");
@@ -145,7 +144,7 @@ public class HUD_Creator : MonoBehaviour
         button.transform.SetParent(transformParent, false);
         Navigation buttonNavigation = button.navigation;
         buttonNavigation.mode = Navigation.Mode.None;
-        buttonObj.AddComponent<ShipButton>().ShipButtonNr = i;
+        buttonObj.AddComponent<ShipButtonData>().ShipButtonNr = i;
         buttonObj.AddComponent<HorizontalLayoutGroup>().childAlignment = TextAnchor.MiddleCenter;
 
         if (i == 0)

@@ -1,4 +1,4 @@
-public static class Layer
+public static class LayerSetter
 {
     //Leyer Player1 = 6 and Player2 = 7
     public static int SetLayerPlayer(PlayerData player)

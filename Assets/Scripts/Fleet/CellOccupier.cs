@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CellOccupier : MonoBehaviour
 {
-    [HideInInspector] public ShipPart[] parts;
+    [HideInInspector] public ShipPartManager[] parts;
 
     public void OccupyCells()
     {

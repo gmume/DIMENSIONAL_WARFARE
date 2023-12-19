@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ShipButton : MonoBehaviour
+public class ShipButtonData : MonoBehaviour
 {
     public int ShipButtonNr {get; set;}
 }

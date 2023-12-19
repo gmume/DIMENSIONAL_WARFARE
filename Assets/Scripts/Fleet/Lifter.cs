@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipLifter : MonoBehaviour
+public class Lifter : MonoBehaviour
 {
     [HideInInspector] public PlayerData player;
-
     [HideInInspector] public AudioPlayer audioPlayer;
+    [HideInInspector] public ShipPartManager[] parts;
 
-    [HideInInspector] public ShipPart[] parts;
-
-   public void LiftShipUp(ref Dimension dimension, int shipNo, CellOccupier occupier)
+   public void LiftShipUp(ref DimensionManager dimension, int shipNo, CellOccupier occupier)
     {
         if (dimension.DimensionNo < OverworldData.DimensionsCount - 2)
         {
@@ -37,7 +35,7 @@ public class ShipLifter : MonoBehaviour
         }
     }
 
-    private void SwitchDimension(int dimensionNr, ref Dimension dimension, CellOccupier occupier)
+    private void SwitchDimension(int dimensionNr, ref DimensionManager dimension, CellOccupier occupier)
     {
         occupier.ReleaseCells();
         dimension.RemoveShip(gameObject);
@@ -45,7 +43,7 @@ public class ShipLifter : MonoBehaviour
         occupier.OccupyCells();
     }
 
-    public void SinkShip(ref Dimension currentDimension, int shipNo, ShipStatus status, CellOccupier occupier)
+    public void SinkShip(ref DimensionManager currentDimension, int shipNo, ShipStatus status, CellOccupier occupier)
     {
         player.world.SetNewDimension(currentDimension.DimensionNo - 1);
 
@@ -61,7 +59,7 @@ public class ShipLifter : MonoBehaviour
         SwitchDimension(currentDimension.DimensionNo - 1, ref currentDimension, occupier);
         SetDimension(player.dimensions.GetDimension(currentDimension.DimensionNo - 1), shipNo);
 
-        player.inputHandling.continueGame = false;
+        player.inputHandler.continueGame = false;
         StartCoroutine(ResetShip(status));
     }
 
@@ -71,7 +69,7 @@ public class ShipLifter : MonoBehaviour
         yield return new WaitForSecondsRealtime(2f);
         Time.timeScale = 1f;
 
-        foreach (ShipPart part in parts)
+        foreach (ShipPartManager part in parts)
         {
             part.ResetPart();
         }
@@ -83,13 +81,13 @@ public class ShipLifter : MonoBehaviour
         // To do: Wait for player to submit fleet.
     }
 
-    public void SetDimension(Dimension newDimension, int shipNo)
+    public void SetDimension(DimensionManager newDimension, int shipNo)
     {
         transform.parent = newDimension.transform;
 
         for (int i = 0; i <= shipNo; i++)
         {
-            ShipPart part = parts[i];
+            ShipPartManager part = parts[i];
             part.Dimension = newDimension;
             part.transform.parent = transform;
         }

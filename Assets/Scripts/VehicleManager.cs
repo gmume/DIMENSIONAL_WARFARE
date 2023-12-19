@@ -1,7 +1,7 @@
 using UnityEngine;
 using static UnityEngine.InputSystem.InputAction;
 
-public class VehicleBehavior : MonoBehaviour
+public class VehicleManager : MonoBehaviour
 {
     private PlayerData player;
     private Vector3 vector, zoomOut, currentPosition;
@@ -28,19 +28,11 @@ public class VehicleBehavior : MonoBehaviour
 
     public void SetViewOnDimension(int toNo)
     {
-        //if (currentDimension == player.GetActiveDimension().DimensionNo)
-        //{
-            // Calculate vector and change position
-            int vectorFactor = toNo - currentDimension;
-            transform.position += vector * vectorFactor;
-            currentDimension = toNo;
-            player.world.SetNewDimension(currentDimension);
-            //player.HUD.SetHUDDimension(currentDimension);
-        //}
-        //else
-        //{
-        //    Debug.LogWarning(name + ": Current camera dimension " + currentDimension + " and active dimension " + player.GetActiveDimension().DimensionNo + " differ!");
-        //}
+        // Calculate vector and change position
+        int vectorFactor = toNo - currentDimension;
+        transform.position += vector * vectorFactor;
+        currentDimension = toNo;
+        player.world.SetNewDimension(currentDimension);
     }
 
     public void OnDimensionUp(CallbackContext ctx)

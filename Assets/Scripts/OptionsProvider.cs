@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Overworld : MonoBehaviour
+public class OptionsProvider : MonoBehaviour
 {
     [Range(1,5)] [SerializeField]
     private int dimensionsCount;
@@ -11,7 +11,7 @@ public class Overworld : MonoBehaviour
     [Range(1, 5)] [SerializeField]
     private int fleetSize;
 
-    public Debugging debug;
+    public Debugger debug;
 
     private void Awake()
     {
@@ -28,7 +28,7 @@ public class Overworld : MonoBehaviour
 
     private void Start()
     {
-        debug = GameObject.Find("Debugging").GetComponent<Debugging>();
+        debug = GameObject.Find("Debugging").GetComponent<Debugger>();
         debug.Initialize();
     }
 

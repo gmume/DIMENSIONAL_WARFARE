@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
 using static UnityEngine.InputSystem.InputAction;
 
-public class InputHandling : MonoBehaviour
+public class InputHandler : MonoBehaviour
 {
     private PlayerData player, opponent;
     private InputActionMap gameStartMap, playerMap;
@@ -26,7 +26,7 @@ public class InputHandling : MonoBehaviour
         {
             player.eventSystem.SetSelectedGameObject(shipButtons[index - 1]);
 
-            player.CurrentShipButton = player.eventSystem.currentSelectedGameObject.GetComponent<ShipButton>();
+            player.CurrentShipButton = player.eventSystem.currentSelectedGameObject.GetComponent<ShipButtonData>();
             player.fleet.ActivateShip(player.CurrentShipButton.ShipButtonNr, player);
 
             if (OverworldData.GamePhase == GamePhases.Battle) UpdateActiveCellAndHUD();
@@ -43,7 +43,7 @@ public class InputHandling : MonoBehaviour
         if (index < OverworldData.FleetSize)
         {
             player.eventSystem.SetSelectedGameObject(shipButtons[index + 1]);
-            player.CurrentShipButton = player.eventSystem.currentSelectedGameObject.GetComponent<ShipButton>();
+            player.CurrentShipButton = player.eventSystem.currentSelectedGameObject.GetComponent<ShipButtonData>();
             player.fleet.ActivateShip(player.CurrentShipButton.ShipButtonNr, player);
 
             if (OverworldData.GamePhase == GamePhases.Battle) UpdateActiveCellAndHUD();
@@ -142,7 +142,7 @@ public class InputHandling : MonoBehaviour
         }
         else
         {
-            opponent.inputHandling.SwapPlayers();
+            opponent.inputHandler.SwapPlayers();
         }
     }
 
@@ -247,7 +247,7 @@ public class InputHandling : MonoBehaviour
     {
         opponent.HUD.SetSelecetedButton();
         opponent.fleet.ActivateShip(0, opponent);
-        opponent.inputHandling.UpdateActiveCellAndHUD();
+        opponent.inputHandler.UpdateActiveCellAndHUD();
     }
 
     public void SwitchActionMap(string actionMapName)

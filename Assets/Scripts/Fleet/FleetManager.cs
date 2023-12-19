@@ -4,7 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Fleet")]
 
-public class Fleet : ScriptableObject
+public class FleetManager : ScriptableObject
 {
     private readonly List<GameObject> fleet = new();
 
@@ -20,7 +20,7 @@ public class Fleet : ScriptableObject
 
                 shipObj.name = "Ship" + player.number + "." + i;
                 ShipInitializer ship = shipObj.GetComponent<ShipInitializer>();
-                shipObj.layer = Layer.SetLayerFleet(player);
+                shipObj.layer = LayerSetter.SetLayerFleet(player);
                 ship.Initialize(player, i);
                 fleet.Add(shipObj);
             }
@@ -36,7 +36,7 @@ public class Fleet : ScriptableObject
         GameObject shipObj = (GameObject)fleet[shipNr];
         shipObj.GetComponent<ShipManager>().Activate();
 
-        if (OverworldData.GamePhase == GamePhases.Battle) player.inputHandling.SwitchActionMap("Player");
+        if (OverworldData.GamePhase == GamePhases.Battle) player.inputHandler.SwitchActionMap("Player");
     }
 
     public List<GameObject> GetFleet()
