@@ -11,14 +11,7 @@ public class VehicleManager : MonoBehaviour
 
     public void Start()
     {
-        if (name == "CameraVehicle1")
-        {
-            player = OverworldData.Player1;
-        }
-        else
-        {
-            player = OverworldData.Player2;
-        }
+        player = (name == "CameraVehicle1") ? OverworldData.Player1 : OverworldData.Player2;
 
         transform.position += new Vector3(OverworldData.DimensionSize / 2, OverworldData.DimensionSize * 2 / 3, -OverworldData.DimensionSize);
         vector = new Vector3(0, OverworldData.DimensionSize * 2, 0);
@@ -28,7 +21,6 @@ public class VehicleManager : MonoBehaviour
 
     public void SetViewOnDimension(int toNo)
     {
-        // Calculate vector and change position
         int vectorFactor = toNo - currentDimension;
         transform.position += vector * vectorFactor;
         currentDimension = toNo;
@@ -37,10 +29,7 @@ public class VehicleManager : MonoBehaviour
 
     public void OnDimensionUp(CallbackContext ctx)
     {
-        if (ctx.performed && currentDimension < OverworldData.DimensionsCount - 1)
-        {
-            SetViewOnDimension(currentDimension + 1);
-        }
+        if (ctx.performed && currentDimension < OverworldData.DimensionsCount - 1) SetViewOnDimension(currentDimension + 1);
     }
 
     public void DimensionUp()
@@ -50,10 +39,7 @@ public class VehicleManager : MonoBehaviour
 
     public void OnDimensionDown(CallbackContext ctx)
     {
-        if (ctx.performed && currentDimension > 0)
-        {
-            SetViewOnDimension(currentDimension - 1);
-        }
+        if (ctx.performed && currentDimension > 0) SetViewOnDimension(currentDimension - 1);
     }
 
     public void DimensionDown()
@@ -63,19 +49,18 @@ public class VehicleManager : MonoBehaviour
 
     public void OnZoom(CallbackContext ctx)
     {
-        if (ctx.performed)
+        if (!ctx.performed) return;
+        
+        if (zoomedOut)
         {
-            if (zoomedOut)
-            {
-                transform.position = currentPosition;
-                zoomedOut = !zoomedOut;
-            }
-            else
-            {
-                currentPosition = transform.position;
-                transform.position = zoomOut;
-                zoomedOut = !zoomedOut;
-            }
+            transform.position = currentPosition;
+            zoomedOut = !zoomedOut;
+        }
+        else
+        {
+            currentPosition = transform.position;
+            transform.position = zoomOut;
+            zoomedOut = !zoomedOut;
         }
     }
 }

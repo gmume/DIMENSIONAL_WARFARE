@@ -7,14 +7,11 @@ public class VictoryAnnouncer : MonoBehaviour
 {
     private void Start()
     {
-        
-        if (GameData.winner == "Player1" && transform.parent.name == "HUD1" || GameData.winner == "Player2" && transform.parent.name == "HUD2")
-        {
-            GetComponent<RawImage>().texture = Resources.Load<Texture>("HUD_Sprites/Win");
-        }
-        else
-        {
-            GetComponent<RawImage>().texture = Resources.Load<Texture>("HUD_Sprites/Loose");
-        }
+        GetComponent<RawImage>().texture = (IsWinner()) ? Resources.Load<Texture>("HUD_Sprites/Win") : Resources.Load<Texture>("HUD_Sprites/Loose");
+    }
+
+    private bool IsWinner()
+    {
+        return GameData.winner == "Player1" && transform.parent.name == "HUD1" || GameData.winner == "Player2" && transform.parent.name == "HUD2";
     }
 }

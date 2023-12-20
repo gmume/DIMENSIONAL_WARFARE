@@ -9,6 +9,8 @@ public class ShipInitializer : MonoBehaviour
     private AudioPlayer audioPlayer;
 
     public ShipManager shipManager;
+
+    [Header("Manager helpers")]
     public Navigator shipNavigator;
     public Lifter shipLifter;
     public CellOccupier occupier;

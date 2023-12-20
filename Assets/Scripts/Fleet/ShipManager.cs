@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static UnityEngine.InputSystem.InputAction;
 
 public class ShipManager : MonoBehaviour
 {
@@ -30,9 +31,9 @@ public class ShipManager : MonoBehaviour
         activator.Deactivate(occupier);
     }
 
-    public void Move(int deltaX, int deltaY)
+    public void Move(Vector3 vector)
     {
-        navigator.Move(deltaX, deltaY, dimension);
+        navigator.Move(vector, dimension);
     }
 
     public void QuaterTurn(bool clockwise)

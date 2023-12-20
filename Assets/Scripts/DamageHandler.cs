@@ -49,7 +49,7 @@ public class DamageHandler : MonoBehaviour
         {
             List<GameObject> fleet = player.fleet.GetFleet();
 
-            player.HUD.RemoveButton(fleet.IndexOf(gameObject));
+            player.HUD.RemoveShipButton(fleet.IndexOf(gameObject));
             Destroy(player.HUD.HUD_Fleet[shipNo]);
             Destroy(player.opponent.HUD.HUD_FleetOpponent[shipNo]);
             fleet.Remove(gameObject);

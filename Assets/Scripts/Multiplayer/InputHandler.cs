@@ -63,24 +63,10 @@ public class InputHandler : MonoBehaviour
     public void OnMoveShip(CallbackContext ctx)
     {
         if (!ctx.performed) return;
-
         Vector2 vector = ctx.ReadValue<Vector2>();
-        float x = vector.x;
-        float y = vector.y;
-
         ShipManager ship = player.ActiveShip;
 
-        //Get axis
-        if (Math.Abs(x) > Math.Abs(y))
-        {
-            // Returns the sign (Vorzeichen) of x. The Mathf.Sign function returns -1 for negative values, 1 for positive values, and 0 for zero. 
-            ship.Move((int)Mathf.Sign(x), 0);
-        }
-        else
-        {
-            ship.Move(0, (int)Mathf.Sign(y));
-        }
-
+        ship.Move(vector);
         player.HUD.UpdateHUDCoords(ship.navigator.PivotX, ship.navigator.PivotZ);
         opponent.HUD.UpdateHUDCoords(ship.navigator.PivotX, ship.navigator.PivotZ);
     }
@@ -178,25 +164,23 @@ public class InputHandler : MonoBehaviour
     {
         if (!ctx.performed) return;
 
-        if (name == "Player1" && OverworldData.PlayerTurn == 1 || name == "Player2" && OverworldData.PlayerTurn == 2)
+        if (!(name == "Player1" && OverworldData.PlayerTurn == 1 || name == "Player2" && OverworldData.PlayerTurn == 2))
         {
-            bool shipUp = player.ActiveShip.Fire();
+            player.HUD.WriteText("It's not our turn, yet, Capt'n!");
+            return;
+        }
 
-            if (shipUp)
-            {
-                player.playerCamera.GetComponent<LayerFilter>().ShowLayers(true, true, true);
+        bool shipUp = player.ActiveShip.Fire();
 
-                continueGame = false;
-                StartCoroutine(WaitBattleToContinue());
-            }
-            else
-            {
-                StartCoroutine(PauseAndTakeTurns());
-            }
+        if (shipUp)
+        {
+            player.playerCamera.GetComponent<LayerFilter>().ShowLayers(true, true, true);
+            continueGame = false;
+            StartCoroutine(WaitBattleToContinue());
         }
         else
         {
-            player.HUD.WriteText("It's not our turn, yet, Capt'n!");
+            StartCoroutine(PauseAndTakeTurns());
         }
     }
 
@@ -211,7 +195,6 @@ public class InputHandler : MonoBehaviour
         Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(3f);
         Time.timeScale = 1f;
-
         SwapPlayers();
     }
 
