@@ -42,8 +42,7 @@ public class DimensionsManager : MonoBehaviour
 
     public void Initialize(PlayerData player)
     {
-        player.fleet = ScriptableObject.CreateInstance<FleetManager>();
-        player.fleet.name = $"fleet{player.number}";
+        //player.fleet.name = $"fleet{player.number}";
         player.fleet.CreateFleet(player);
     }
 }

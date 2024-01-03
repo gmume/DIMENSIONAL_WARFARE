@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,18 +29,39 @@ public class HUD_Manager : MonoBehaviour
         yCoord.text = y;
     }
 
-    public void OnDimensionUp(CallbackContext ctx)
+    public void ChooseDimension(int no)
     {
-        if (!ctx.performed) return;
-        hudDimensionActivator.ActivateDimensionAbove(this);
+        hudDimensionActivator.ActivateDimansionAtNo(this, no);
     }
 
-    public void OnDimensionDown(CallbackContext ctx)
+    public void ChooseLeftShip(int index)
     {
-        if (!ctx.performed) return;
-        hudDimensionActivator.ActivateDimensionBelow(this);
+        player.eventSystem.SetSelectedGameObject(hudButtonHandler.shipButtons[index]);
+        player.CurrentShipButton = player.eventSystem.currentSelectedGameObject.GetComponent<ShipButtonData>();
+        player.fleet.ActivateShip(player.CurrentShipButton.ShipButtonNr, player);
+
+        if (OverworldData.GamePhase == GamePhases.Battle) UpdateActiveCellAndHUD();
     }
-    
+
+    public void ChooseRightShip(int index)
+    {
+        player.eventSystem.SetSelectedGameObject(hudButtonHandler.shipButtons[index]);
+        player.CurrentShipButton = player.eventSystem.currentSelectedGameObject.GetComponent<ShipButtonData>();
+        player.fleet.ActivateShip(player.CurrentShipButton.ShipButtonNr, player);
+
+        if (OverworldData.GamePhase == GamePhases.Battle) UpdateActiveCellAndHUD();
+    }
+
+    public void UpdateActiveCellAndHUD()
+    {
+        int shipX = player.ActiveShip.navigator.PivotX;
+        int shipY = player.ActiveShip.navigator.PivotZ;
+
+        player.HUD.UpdateHUDCoords(shipX, shipY);
+        player.opponent.HUD.UpdateHUDCoords(shipX, shipY);
+        player.world.SetNewCellAbsolute(shipX, shipY);
+    }
+
     public void SetHUDDimension(int toNo)
     {
         hudDimensionActivator.ActivateDimansionAtNo(this, toNo);

@@ -27,26 +27,6 @@ public class VehicleManager : MonoBehaviour
         player.world.SetNewDimension(currentDimension);
     }
 
-    public void OnDimensionUp(CallbackContext ctx)
-    {
-        if (ctx.performed && currentDimension < OverworldData.DimensionsCount - 1) SetViewOnDimension(currentDimension + 1);
-    }
-
-    public void DimensionUp()
-    {
-        SetViewOnDimension(currentDimension + 1);
-    }
-
-    public void OnDimensionDown(CallbackContext ctx)
-    {
-        if (ctx.performed && currentDimension > 0) SetViewOnDimension(currentDimension - 1);
-    }
-
-    public void DimensionDown()
-    {
-        SetViewOnDimension(currentDimension - 1);
-    }
-
     public void OnZoom(CallbackContext ctx)
     {
         if (!ctx.performed) return;

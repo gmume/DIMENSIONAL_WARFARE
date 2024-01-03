@@ -1,4 +1,6 @@
+using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HUD_Initializer : MonoBehaviour
@@ -16,23 +18,31 @@ public class HUD_Initializer : MonoBehaviour
     public HUD_ButtonInitializer hudButtonInitializer;
 
     [Header("Prefabs")]
-    public GameObject HUD_DimensionsObj;
-    public GameObject HUD_DimensionsOpponentObj;
+    [HideInInspector] public GameObject HUD_DimensionsObj;
+    [HideInInspector] public GameObject HUD_DimensionsOpponentObj;
 
-    public void Initialize()
+    public void Start()
     {
+        hudManager.player = player;
         hudManager.hudDimensionActivator = this.hudDimensionActivator;
         hudManager.hudButtonHandler = this.hudButtonHandler;
 
         GetHUDParts();
         InitializeHUDDimensions();
         InitializeShipButtons();
+        
+        StartCoroutine(FleetActivateShip());
+    }
+
+    IEnumerator FleetActivateShip()
+    {
+        yield return new WaitWhile(() => player.fleet.GetFleet().Count == 0);
         player.fleet.ActivateShip(hudManager.hudButtonHandler.currentButton.ShipButtonNr, player);
     }
 
     private void GetHUDParts()
     {
-        GameObject[] HUD_Parts = player.name == "Player1" ? GameObject.FindGameObjectsWithTag("HUD1") : GameObject.FindGameObjectsWithTag("HUD2");
+        GameObject[] HUD_Parts = name == "HUD1" ? GameObject.FindGameObjectsWithTag("HUD1") : GameObject.FindGameObjectsWithTag("HUD2");
 
         foreach (GameObject HUD_Part in HUD_Parts)
         {
