@@ -17,54 +17,27 @@ public class ShipManager : MonoBehaviour
     [HideInInspector] public DamageHandler damageHandler;
 
                       public string ShipName { get; set; }
-                      public int ShipNo { get; set; } // 1 based
+                      public int ShipNo { get; set; }
     [HideInInspector] public ShipPartManager[] parts;
                       public DimensionManager dimension;
 
-    public void Activate()
-    {
-        activator.Activate(occupier, this);
-    }
+    public void Activate() => activator.Activate(occupier, this);
 
-    public void Deactivate()
-    {
-        activator.Deactivate(occupier);
-    }
+    public void Deactivate() => activator.Deactivate(occupier);
 
-    public void Move(Vector3 vector)
-    {
-        navigator.Move(vector, dimension);
-    }
+    public void Move(Vector3 vector) => navigator.Move(vector, dimension);
 
-    public void QuaterTurn(bool clockwise)
-    {
-        navigator.QuaterTurn(clockwise, dimension);
-    }
+    public void QuaterTurn(bool clockwise) => navigator.QuaterTurn(clockwise, dimension);
 
-    public bool Fire()
-    {
-        return artillerist.Fire(this, dimension);
-    }
+    public bool Fire() => artillerist.Fire(this, dimension);
 
-    public void ShipUp()
-    {
-        lifter.LiftShipUp(ref dimension, ShipNo, occupier);
-    }
+    public void ShipUp() => lifter.LiftShipUp(ref dimension, ShipNo, occupier);
 
-    public bool TakeHit(ShipPartManager part)
-    {
-        return damageHandler.TakeHit(part, ShipNo, dimension, lifter, occupier);
-    }
+    public bool TakeHit(ShipPartManager part) => damageHandler.TakeHit(part, ShipNo, dimension, lifter, occupier);
 
-    public void OccupyCells()
-    {
-        occupier.OccupyCells();
-    }
+    public void OccupyCells() => occupier.OccupyCells();
 
-    public void ReleaseCells()
-    {
-        occupier.ReleaseCells();
-    }
+    public void ReleaseCells() => occupier.ReleaseCells();
 
     public void SetDimension(DimensionManager newDimension)
     {

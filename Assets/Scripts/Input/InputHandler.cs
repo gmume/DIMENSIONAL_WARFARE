@@ -38,7 +38,7 @@ public class InputHandler : MonoBehaviour
     //StartGame and Player actionMap
     public void OnChooseRightShip(CallbackContext ctx)
     {
-        if (ctx.performed && player.ActiveShip.ShipNo < OverworldData.FleetSize) ChooseShip(player.ActiveShip.ShipNo + 1);
+        if (ctx.performed && player.ActiveShip.ShipNo < OverworldData.FleetSize - 1) ChooseShip(player.ActiveShip.ShipNo + 1);
     }
 
     public void OnChooseLeftShip(CallbackContext ctx)
@@ -48,8 +48,8 @@ public class InputHandler : MonoBehaviour
 
     private void ChooseShip(int index)
     {
+        player.HUD.ChooseShip(index);
         player.audioManager.ChooseShip();
-        player.HUD.ChooseRightShip(index);
     }
 
     //Player actionMap
@@ -93,6 +93,8 @@ public class InputHandler : MonoBehaviour
     public void OnFire(CallbackContext ctx)
     {
         if (!ctx.performed) return;
+
+        //Debug.Log(name + "-HUD_Fleet: " + player.HUD.HUD_Fleet[0] + ", " + player.HUD.HUD_Fleet[1] + "\n" + name + "-HUD_OpponentFleet: " + player.HUD.HUD_FleetOpponent[0] + ", " + player.HUD.HUD_FleetOpponent[1]);
 
         if (!(name == "Player1" && OverworldData.PlayerTurn == 1 || name == "Player2" && OverworldData.PlayerTurn == 2))
         {

@@ -13,7 +13,7 @@ public class VehicleManager : MonoBehaviour
     {
         player = (name == "CameraVehicle1") ? OverworldData.Player1 : OverworldData.Player2;
 
-        transform.position += new Vector3(OverworldData.DimensionSize / 2, OverworldData.DimensionSize * 2 / 3, -OverworldData.DimensionSize);
+        transform.position += new Vector3(OverworldData.DimensionSize / 2, OverworldData.DimensionSize / 1.2f, -OverworldData.DimensionSize * 1.3f);
         vector = new Vector3(0, OverworldData.DimensionSize * 2, 0);
         zoomOut = new Vector3(OverworldData.DimensionSize / 2, OverworldData.DimensionSize * OverworldData.DimensionsCount, -OverworldData.DimensionSize * OverworldData.DimensionsCount * 2);
         currentDimension = 0;

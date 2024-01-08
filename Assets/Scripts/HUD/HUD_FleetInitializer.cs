@@ -8,10 +8,8 @@ public class HUD_FleetInitializer : MonoBehaviour
     public GameObject HUD_ShipPrefab;
     public Texture2D[] HUD_ShipTextures;
 
-    public void InitializeHUDFleet(HUD_Manager hudManager, GameObject HUD_Dimension, Color HUD_ShipColor)
+    public void InitializeHUDFleet(HUD_Manager hudManager, GameObject HUD_Dimension, GameObject[] HUD_Fleet, Color HUD_ShipColor)
     {
-        hudManager.HUD_Fleet = new GameObject[OverworldData.FleetSize];
-
         for (int i = 0; i < OverworldData.FleetSize; i++)
         {
             GameObject HUD_Ship = Instantiate(HUD_ShipPrefab, HUD_Dimension.transform.position, Quaternion.identity);
@@ -23,7 +21,7 @@ public class HUD_FleetInitializer : MonoBehaviour
 
             Vector3 xPosition = new(i * 30, 0, -1);
             HUD_Ship.transform.position += xPosition;
-            hudManager.HUD_Fleet[i] = HUD_Ship;
+            HUD_Fleet[i] = HUD_Ship;
         }
     }
 }

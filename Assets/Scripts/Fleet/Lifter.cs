@@ -8,22 +8,13 @@ public class Lifter : MonoBehaviour
     [HideInInspector] public AudioPlayer audioPlayer;
     [HideInInspector] public ShipPartManager[] parts;
 
-   public void LiftShipUp(ref DimensionManager dimension, int shipNo, CellOccupier occupier)
+    public void LiftShipUp(ref DimensionManager currentDimension, int shipNo, CellOccupier occupier)
     {
-        if (dimension.DimensionNo < OverworldData.DimensionsCount - 2)
+        if (currentDimension.DimensionNo < OverworldData.DimensionsCount - 2)
         {
             audioPlayer.OnShipUp();
-            player.world.SetNewDimension(dimension.DimensionNo + 1);
-            player.HUD.SetHUDDimension(player.ActiveDimension.DimensionNo);
-
-            player.vehicle.SetViewOnDimension(player.ActiveDimension.DimensionNo);
-            player.HUD.UpdateHUDFleet(shipNo, player.ActiveDimension.DimensionNo, dimension.DimensionNo);
-
-            SwitchDimension(player.ActiveDimension.DimensionNo, ref dimension, occupier);
-            SetDimension(dimension, shipNo);
-            transform.position += new Vector3(0, OverworldData.DimensionSize * 2, 0);
+            ShipChangeDimension(currentDimension.DimensionNo + 1, ref currentDimension, shipNo, occupier);
             player.input.SwitchCurrentActionMap("GameStart");
-
             player.HUD.WriteText($"Capt'n {player.number} hide your ship!");
         }
         else
@@ -35,32 +26,37 @@ public class Lifter : MonoBehaviour
         }
     }
 
+    public void SinkShip(ref DimensionManager currentDimension, int shipNo, ShipStatus status, CellOccupier occupier)
+    {
+        ShipChangeDimension(currentDimension.DimensionNo - 1, ref currentDimension, shipNo, occupier);
+        transform.position += new Vector3(0, 0.5f, 0);
+        gameObject.layer = LayerMask.NameToLayer($"Fleet{player.number}");
+        player.inputHandler.continueGame = false;
+        StartCoroutine(ResetShip(status));
+    }
+
+    private void ShipChangeDimension(int newDimensionNo, ref DimensionManager dimensionBefore, int shipNo, CellOccupier occupier)
+    {
+        //Debug.Log(name + "  HUD_DimensionsOpponent[toDimensionNo]: " + player.opponent.HUD.HUD_FleetOpponent[shipNo]);
+        player.world.SetNewDimension(newDimensionNo);
+        player.vehicle.SetViewOnDimension(newDimensionNo);
+
+        player.HUD.SetHUDDimension(newDimensionNo);
+        
+        player.HUD.UpdateHUDFleets(shipNo, newDimensionNo, dimensionBefore.DimensionNo);
+
+        SwitchDimension(newDimensionNo, ref dimensionBefore, occupier);
+        SetDimension(player.dimensions.GetDimension(newDimensionNo), shipNo);
+
+        transform.position -= new Vector3(0, OverworldData.DimensionSize * 2, 0);
+    }
+
     private void SwitchDimension(int dimensionNr, ref DimensionManager dimension, CellOccupier occupier)
     {
         occupier.ReleaseCells();
         dimension.RemoveShip(gameObject);
         dimension = player.dimensions.GetDimension(dimensionNr);
         occupier.OccupyCells();
-    }
-
-    public void SinkShip(ref DimensionManager currentDimension, int shipNo, ShipStatus status, CellOccupier occupier)
-    {
-        player.world.SetNewDimension(currentDimension.DimensionNo - 1);
-
-        player.HUD.SetHUDDimension(player.ActiveDimension.DimensionNo);
-        player.HUD.UpdateHUDFleet(shipNo, player.ActiveDimension.DimensionNo, currentDimension.DimensionNo);
-
-        player.vehicle.SetViewOnDimension(player.ActiveDimension.DimensionNo);
-
-        gameObject.layer = LayerMask.NameToLayer($"Fleet{player.number}");
-        transform.position += new Vector3(0, 0.5f, 0);
-        transform.position -= new Vector3(0, OverworldData.DimensionSize * 2, 0);
-
-        SwitchDimension(currentDimension.DimensionNo - 1, ref currentDimension, occupier);
-        SetDimension(player.dimensions.GetDimension(currentDimension.DimensionNo - 1), shipNo);
-
-        player.inputHandler.continueGame = false;
-        StartCoroutine(ResetShip(status));
     }
 
     private IEnumerator ResetShip(ShipStatus status)

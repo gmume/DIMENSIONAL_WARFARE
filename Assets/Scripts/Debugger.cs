@@ -96,7 +96,7 @@ public class Debugger : MonoBehaviour
 
         for (int i = 0; i < OverworldData.DimensionSize; i++)
         {
-            foreach (var cellObj in dimension.cells[i])
+            foreach (var cellObj in dimension.Cells[i])
             {
                 CellData cell = cellObj.GetComponent<CellData>();
                 GameObject canvasObj;

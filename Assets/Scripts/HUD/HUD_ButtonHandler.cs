@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class HUD_ButtonHandler : MonoBehaviour
 {
-    [HideInInspector] public List<GameObject> shipButtons = new();
+    [HideInInspector] public readonly List<GameObject> shipButtons = new();
     [HideInInspector] public ShipButtonData currentButton;
     [HideInInspector] public GameObject selectedButton;
 
-    public List<GameObject> GetShipButtons()
-    {
-        return shipButtons;
-    }
+    public List<GameObject> GetShipButtons() => shipButtons;
 
     public void SetSelecetedButton(PlayerData player)
     {

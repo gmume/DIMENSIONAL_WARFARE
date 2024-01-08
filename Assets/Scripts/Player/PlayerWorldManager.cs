@@ -9,10 +9,7 @@ public class PlayerWorldManager : MonoBehaviour
     private PlayerData player;
     private int currentX = 0, currentY = 0;
 
-    public void SetNewDimension(int no)
-    {
-        player.ActiveDimension = player.dimensions.GetDimension(no);
-    }
+    public void SetNewDimension(int no) => player.ActiveDimension = player.dimensions.GetDimension(no);
 
     public void MoveSelection(float x, float y)
     {
@@ -40,10 +37,7 @@ public class PlayerWorldManager : MonoBehaviour
         }
     }
 
-    private bool IsWithinDimensionBounds(int x, int y)
-    {
-        return x >= 0 && x < OverworldData.DimensionSize && y >= 0 && y < OverworldData.DimensionSize;
-    }
+    private bool IsWithinDimensionBounds(int x, int y) => x >= 0 && x < OverworldData.DimensionSize && y >= 0 && y < OverworldData.DimensionSize;
 
     public void SetNewCellAbsolute(int newX, int newY)
     {
@@ -53,10 +47,7 @@ public class PlayerWorldManager : MonoBehaviour
         SetNewCellRelative(newX, newY);
     }
 
-    public void ActivateCell()
-    {
-        player.ActiveCell.transform.position += new Vector3(0, 0.2f, 0);
-    }
+    public void ActivateCell() => player.ActiveCell.transform.position += new Vector3(0, 0.2f, 0);
 
     public void DeactivateCell()
     {

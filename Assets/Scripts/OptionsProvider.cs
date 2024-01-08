@@ -32,8 +32,5 @@ public class OptionsProvider : MonoBehaviour
         debug.Initialize();
     }
 
-    void OnValidate()
-    {
-        dimensionSize = 1 + (((int)(dimensionSize + 1.0f) - 1) & 0xFFFFFFFE);
-    }
+    public void OnValidate() => dimensionSize = 1 + (((int)(dimensionSize + 1.0f) - 1) & 0xFFFFFFFE);
 }

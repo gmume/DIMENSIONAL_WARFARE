@@ -5,10 +5,7 @@ public class FleetSubmitter : MonoBehaviour
 {
     public PlayerData player;
 
-    private void Start()
-    {
-        player = GetComponent<PlayerData>();
-    }
+    private void Start() => player = GetComponent<PlayerData>();
 
     public bool SubmitFleet(PlayerData player)
     {
@@ -26,6 +23,7 @@ public class FleetSubmitter : MonoBehaviour
             if (!OverworldData.Player1SubmittedFleet || !OverworldData.Player2SubmittedFleet)
             {
                 player.HUD.WriteText($"Capt'n {player.number}, please wait until your opponent is ready.");
+                player.opponent.HUD.WriteText($"Your opponent is ready, Capt'n.");
                 player.input.enabled = false;
                 StartCoroutine(WaitForOpponent());
             }
@@ -43,11 +41,17 @@ public class FleetSubmitter : MonoBehaviour
     {
         yield return new WaitUntil(() => (OverworldData.Player1SubmittedFleet && OverworldData.Player2SubmittedFleet));
 
-        player.HUD.WriteText("Your opponent is ready, Capt'n.");
+        
 
         if(name == "Player1")
         {
-            player.HUD.WriteText("Let's go! Choose your attacking ship!");
+            player.HUD.WriteText("Your opponent is ready, Capt'n.\nLet's go! Choose your attacking ship!");
+            player.opponent.HUD.WriteText("Caution, we're under attack!");
+        }
+        else
+        {
+            player.opponent.HUD.WriteText("Let's go! Choose your attacking ship!");
+            player.HUD.WriteText("Your opponent is ready, Capt'n.\nCaution, we're under attack!");
         }
 
         OverworldData.GamePhase = GamePhases.Battle;

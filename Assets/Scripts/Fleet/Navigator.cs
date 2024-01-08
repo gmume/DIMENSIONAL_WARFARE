@@ -36,10 +36,7 @@ public class Navigator : MonoBehaviour
         return (Math.Abs(deltaX) > Math.Abs(deltaY)) ? new int[] { (int)Mathf.Sign(deltaX), 0 } : new int[] { 0, (int)Mathf.Sign(deltaY) };
     }
 
-    private bool IsValidPosition(int newX, int newY)
-    {
-        return newX >= 0 && newX < OverworldData.DimensionSize && newY >= 0 && newY < OverworldData.DimensionSize;
-    }
+    private bool IsValidPosition(int newX, int newY) => newX >= 0 && newX < OverworldData.DimensionSize && newY >= 0 && newY < OverworldData.DimensionSize;
 
     private void UpdateShipPosition(int x, int y)
     {

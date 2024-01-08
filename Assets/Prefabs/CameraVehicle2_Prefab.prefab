@@ -26,12 +26,12 @@ PrefabInstance:
     - target: {fileID: 6519724381582260679, guid: 2bc0826e54a49d64ab8109e6d316b852,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6519724381582260679, guid: 2bc0826e54a49d64ab8109e6d316b852,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6519724381582260679, guid: 2bc0826e54a49d64ab8109e6d316b852,
         type: 3}
@@ -220,7 +220,7 @@ PrefabInstance:
     - target: {fileID: 6642673552662010485, guid: ace245119d9f22d4fb2dda3fa6087fcd,
         type: 3}
       propertyPath: m_Name
-      value: CameraVehicle2
+      value: CameraVehicle2_Prefab
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

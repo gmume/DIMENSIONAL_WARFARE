@@ -39,8 +39,5 @@ public class FleetManager : ScriptableObject
         if (OverworldData.GamePhase == GamePhases.Battle) player.switcher.SwitchActionMap("Player");
     }
 
-    public List<GameObject> GetFleet()
-    {
-        return fleet;
-    }
+    public List<GameObject> GetFleet() => fleet;
 }
