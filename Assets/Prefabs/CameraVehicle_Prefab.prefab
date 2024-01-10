@@ -44,37 +44,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51ad80bb6b4d91145989699483021120, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoomCurve:
+  curve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -0.005554199
-      value: -0.0033569336
-      inSlope: 0.11326022
-      outSlope: 0.11326022
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.32316488
+      outWeight: 0
     - serializedVersion: 3
-      time: 0.83072215
-      value: 0.4471284
-      inSlope: 1.2036315
-      outSlope: 1.2036315
+      time: 0.7777592
+      value: 0.3053754
+      inSlope: 1.0555184
+      outSlope: 1.0555184
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.76555574
-      outWeight: 0.94461507
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 8.053685
-      outSlope: 8.053685
+      inSlope: 4.5733476
+      outSlope: 4.5733476
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.6311334
+      inWeight: 0.17498529
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  panDuration: 3

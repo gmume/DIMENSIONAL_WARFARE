@@ -1967,12 +1967,12 @@ PrefabInstance:
     - target: {fileID: 3108003158233280280, guid: 4fe883475d131fe4b9d2f518012734ad,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9961947
+      value: 0.9986295
       objectReference: {fileID: 0}
     - target: {fileID: 3108003158233280280, guid: 4fe883475d131fe4b9d2f518012734ad,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.08715578
+      value: 0.052335896
       objectReference: {fileID: 0}
     - target: {fileID: 3108003158233280280, guid: 4fe883475d131fe4b9d2f518012734ad,
         type: 3}
@@ -1987,97 +1987,7 @@ PrefabInstance:
     - target: {fileID: 3108003158233280280, guid: 4fe883475d131fe4b9d2f518012734ad,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5626212210490178245, guid: 4fe883475d131fe4b9d2f518012734ad,
-        type: 3}
-      propertyPath: panDuration
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5626212210490178245, guid: 4fe883475d131fe4b9d2f518012734ad,
-        type: 3}
-      propertyPath: zoomCurve.m_Curve.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5626212210490178245, guid: 4fe883475d131fe4b9d2f518012734ad,
-        type: 3}
-      propertyPath: zoomCurve.m_Curve.Array.data[0].time
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5626212210490178245, guid: 4fe883475d131fe4b9d2f518012734ad,
-        type: 3}
-      propertyPath: zoomCurve.m_Curve.Array.data[1].time
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5626212210490178245, guid: 4fe883475d131fe4b9d2f518012734ad,
-        type: 3}
-      propertyPath: zoomCurve.m_Curve.Array.data[2].time
-      value: 1.0055597
-      objectReference: {fileID: 0}
-    - target: {fileID: 5626212210490178245, guid: 4fe883475d131fe4b9d2f518012734ad,
-        type: 3}
-      propertyPath: zoomCurve.m_Curve.Array.data[0].value
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5626212210490178245, guid: 4fe883475d131fe4b9d2f518012734ad,
-        type: 3}
-      propertyPath: zoomCurve.m_Curve.Array.data[1].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5626212210490178245, guid: 4fe883475d131fe4b9d2f518012734ad,
-        type: 3}
-      propertyPath: zoomCurve.m_Curve.Array.data[2].value
-      value: 0.016776899
-      objectReference: {fileID: 0}
-    - target: {fileID: 5626212210490178245, guid: 4fe883475d131fe4b9d2f518012734ad,
-        type: 3}
-      propertyPath: zoomCurve.m_Curve.Array.data[0].inSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5626212210490178245, guid: 4fe883475d131fe4b9d2f518012734ad,
-        type: 3}
-      propertyPath: zoomCurve.m_Curve.Array.data[1].inSlope
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5626212210490178245, guid: 4fe883475d131fe4b9d2f518012734ad,
-        type: 3}
-      propertyPath: zoomCurve.m_Curve.Array.data[2].inSlope
-      value: -4.4003386
-      objectReference: {fileID: 0}
-    - target: {fileID: 5626212210490178245, guid: 4fe883475d131fe4b9d2f518012734ad,
-        type: 3}
-      propertyPath: zoomCurve.m_Curve.Array.data[0].outSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5626212210490178245, guid: 4fe883475d131fe4b9d2f518012734ad,
-        type: 3}
-      propertyPath: zoomCurve.m_Curve.Array.data[1].inWeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5626212210490178245, guid: 4fe883475d131fe4b9d2f518012734ad,
-        type: 3}
-      propertyPath: zoomCurve.m_Curve.Array.data[1].outSlope
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5626212210490178245, guid: 4fe883475d131fe4b9d2f518012734ad,
-        type: 3}
-      propertyPath: zoomCurve.m_Curve.Array.data[2].inWeight
-      value: 0.22245249
-      objectReference: {fileID: 0}
-    - target: {fileID: 5626212210490178245, guid: 4fe883475d131fe4b9d2f518012734ad,
-        type: 3}
-      propertyPath: zoomCurve.m_Curve.Array.data[2].outSlope
-      value: -4.4003386
-      objectReference: {fileID: 0}
-    - target: {fileID: 5626212210490178245, guid: 4fe883475d131fe4b9d2f518012734ad,
-        type: 3}
-      propertyPath: zoomCurve.m_Curve.Array.data[0].outWeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5626212210490178245, guid: 4fe883475d131fe4b9d2f518012734ad,
-        type: 3}
-      propertyPath: zoomCurve.m_Curve.Array.data[1].outWeight
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6602516145458755492, guid: 4fe883475d131fe4b9d2f518012734ad,
         type: 3}
@@ -2321,20 +2231,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraVehicle2
       objectReference: {fileID: 0}
-    - target: {fileID: 5718973245289242111, guid: 8cee052a86a1030499d0cbffb0ff244d,
-        type: 3}
-      propertyPath: pathCurve.m_PostInfinity
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 6009024752433545669, guid: 8cee052a86a1030499d0cbffb0ff244d,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9961947
+      value: 0.9986295
       objectReference: {fileID: 0}
     - target: {fileID: 6009024752433545669, guid: 8cee052a86a1030499d0cbffb0ff244d,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.08715578
+      value: 0.052335896
       objectReference: {fileID: 0}
     - target: {fileID: 6009024752433545669, guid: 8cee052a86a1030499d0cbffb0ff244d,
         type: 3}
@@ -2349,7 +2254,7 @@ PrefabInstance:
     - target: {fileID: 6009024752433545669, guid: 8cee052a86a1030499d0cbffb0ff244d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 10
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6550860162273333406, guid: 8cee052a86a1030499d0cbffb0ff244d,
         type: 3}
