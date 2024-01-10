@@ -79,8 +79,6 @@ public class HUD_Initializer : MonoBehaviour
         hudDimensionsInitializer.InitializeHUDDimensions(hudManager, hudFleetInitializer, HUD_DimensionsObj, player.HUD.HUD_Dimensions, player.HUD.HUD_Fleet, player.fleetColor);
         hudDimensionsInitializer.InitializeHUDDimensions(hudManager, hudFleetInitializer, HUD_DimensionsOpponentObj, player.HUD.HUD_DimensionsOpponent, player.HUD.HUD_FleetOpponent, player.opponent.fleetColor);
         hudDimensionActivator.currentHUD_Dimension = hudDimensionActivator.currentHUD_DimensionOpponent = 0;
-
-        //Debug.Log(name + "-HUD_Fleet: " + player.HUD.HUD_Fleet[0] +", "+ player.HUD.HUD_Fleet[1]+"\n"+name +"-HUD_OpponentFleet: " + player.HUD.HUD_FleetOpponent[0] + ", " + player.HUD.HUD_FleetOpponent[1]);
     }
 
     private void InitializeShipButtons() => hudButtonInitializer.InitializeShipButtons(hudManager);

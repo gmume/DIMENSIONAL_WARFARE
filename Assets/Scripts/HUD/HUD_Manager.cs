@@ -79,7 +79,6 @@ public class HUD_Manager : MonoBehaviour
 
     private void UpdateHUDFleet(int shipNo, int toDimensionNo, int dimensionBefore, GameObject[] HUD_Dimensions, GameObject[] HUD_Fleet)
     {
-        Debug.Log(name + "  player.opponent.HUD: " + player.opponent.HUD);
         Vector3 newPosition = new() { x = 0, y = HUD_Dimensions[toDimensionNo].transform.position.y - HUD_Dimensions[dimensionBefore].transform.position.y };
         HUD_Fleet[shipNo].transform.SetParent(HUD_Dimensions[toDimensionNo].transform);
         HUD_Fleet[shipNo].transform.position += newPosition;

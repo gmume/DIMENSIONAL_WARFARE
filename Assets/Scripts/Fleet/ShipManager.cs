@@ -25,15 +25,15 @@ public class ShipManager : MonoBehaviour
 
     public void Deactivate() => activator.Deactivate(occupier);
 
-    public void Move(Vector3 vector) => navigator.Move(vector, dimension);
+    public void Move(Vector3 vector) => navigator.Move(vector, dimension, occupier);
 
     public void QuaterTurn(bool clockwise) => navigator.QuaterTurn(clockwise, dimension);
 
-    public bool Fire() => artillerist.Fire(this, dimension);
+    public bool Fire() => artillerist.Fire(this, player.ActiveDimension);
 
-    public void ShipUp() => lifter.LiftShipUp(ref dimension, ShipNo, occupier);
+    public bool ShipUp() => lifter.LiftShipUp(ref dimension, ShipNo, occupier);
 
-    public bool TakeHit(ShipPartManager part) => damageHandler.TakeHit(part, ShipNo, dimension, lifter, occupier);
+    public bool TakeHit(ShipPartManager part) => damageHandler.TakeHit(part, ShipNo, ref dimension, lifter, occupier);
 
     public void OccupyCells() => occupier.OccupyCells();
 

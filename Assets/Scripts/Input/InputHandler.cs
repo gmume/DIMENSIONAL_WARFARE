@@ -68,6 +68,7 @@ public class InputHandler : MonoBehaviour
         player.audioManager.ChooseDimension();
         player.HUD.ChooseDimension(no);
         player.vehicle.SetViewOnDimension(no);
+        player.world.SetNewDimension(no);
     }
 
     public void OnMoveSelection(CallbackContext ctx)
@@ -93,8 +94,6 @@ public class InputHandler : MonoBehaviour
     public void OnFire(CallbackContext ctx)
     {
         if (!ctx.performed) return;
-
-        //Debug.Log(name + "-HUD_Fleet: " + player.HUD.HUD_Fleet[0] + ", " + player.HUD.HUD_Fleet[1] + "\n" + name + "-HUD_OpponentFleet: " + player.HUD.HUD_FleetOpponent[0] + ", " + player.HUD.HUD_FleetOpponent[1]);
 
         if (!(name == "Player1" && OverworldData.PlayerTurn == 1 || name == "Player2" && OverworldData.PlayerTurn == 2))
         {

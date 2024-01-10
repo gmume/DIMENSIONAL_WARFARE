@@ -10,7 +10,7 @@ public class Navigator : MonoBehaviour
                       public int PivotX { get; set; }
                       public int PivotZ { get; set; }
 
-    public void Move(Vector3 vector, DimensionManager dimension)
+    public void Move(Vector3 vector, DimensionManager dimension, CellOccupier occupier)
     {
         int[] deltaXY = GetAxis(vector.x, vector.y);
         int deltaX = deltaXY[0], deltaY = deltaXY[1];
@@ -27,7 +27,9 @@ public class Navigator : MonoBehaviour
             return;
         }
 
+        occupier.ReleaseCells();
         UpdateShipPosition(deltaX, deltaY);
+        occupier.OccupyCells();
     }
 
     private int[] GetAxis(float deltaX, float deltaY)

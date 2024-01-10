@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Artillerist : MonoBehaviour
@@ -9,29 +10,23 @@ public class Artillerist : MonoBehaviour
 
     public bool Fire(ShipManager shipManager, DimensionManager dimension)
     {
-        CellData activeCell = player.ActiveCell;
-        Material cellMaterial = activeCell.GetComponent<Renderer>().material;
-        cellMaterial.color = fireColor;
-        activeCell.Hitted = true;
+        CellData activeCell = HitCell();
+        CellData opponentCell = GetOpponentCell(activeCell, dimension);
 
-        DimensionManager opponentDimension = player.opponent.dimensions.GetDimension(dimension.DimensionNo);
-        CellData opponentCell = opponentDimension.GetCell(activeCell.X, activeCell.Y).GetComponent<CellData>();
-
-        if (opponentCell.Occupied)
-        {
-            bool opponentSunk;
-            ShipPartManager part = opponentCell.Part;
-
-            ShipManager opponentShip = part.GetComponentInParent<ShipManager>();
-            opponentSunk = opponentShip.TakeHit(part);
-
-            if (opponentSunk)
-            {
-                shipManager.ShipUp();
-                return true;
-            }
-        }
-
-        return false;
+        if (!CanShipAscend(opponentCell)) return false;
+        return shipManager.ShipUp();
     }
+
+    private CellData HitCell()
+    {
+        player.ActiveCell.GetComponent<Renderer>().material.color = fireColor;
+        player.ActiveCell.Hitted = true;
+        return player.ActiveCell;
+    }
+
+    private CellData GetOpponentCell(CellData activeCell, DimensionManager dimension) => player.opponent.dimensions.GetDimension(dimension.DimensionNo).GetCell(activeCell.X, activeCell.Y).GetComponent<CellData>();
+
+    private bool CanShipAscend(CellData opponentCell) => opponentCell.Occupied && IsOpponentSunk(opponentCell);
+
+    private bool IsOpponentSunk(CellData opponentCell) => opponentCell.Part.GetComponentInParent<ShipManager>().TakeHit(opponentCell.Part);
 }

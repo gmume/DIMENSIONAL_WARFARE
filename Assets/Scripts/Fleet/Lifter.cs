@@ -8,14 +8,15 @@ public class Lifter : MonoBehaviour
     [HideInInspector] public AudioPlayer audioPlayer;
     [HideInInspector] public ShipPartManager[] parts;
 
-    public void LiftShipUp(ref DimensionManager currentDimension, int shipNo, CellOccupier occupier)
+    public bool LiftShipUp(ref DimensionManager currentDimension, int shipNo, CellOccupier occupier)
     {
         if (currentDimension.DimensionNo < OverworldData.DimensionsCount - 2)
         {
             audioPlayer.OnShipUp();
-            ShipChangeDimension(currentDimension.DimensionNo + 1, ref currentDimension, shipNo, occupier);
+            ShipChangeDimension(currentDimension.DimensionNo + 1, ref currentDimension, shipNo, new Vector3(0, OverworldData.DimensionSize * 2, 0), occupier);
             player.input.SwitchCurrentActionMap("GameStart");
             player.HUD.WriteText($"Capt'n {player.number} hide your ship!");
+            return true;
         }
         else
         {
@@ -23,40 +24,50 @@ public class Lifter : MonoBehaviour
             player.HUD.WriteText($"Capt'n {player.number} wins for reaching the top dimension!");
             GameData.winner = player.name;
             player.GetComponent<SceneChanger>().LoadResolveGame();
+            return false;
         }
     }
 
     public void SinkShip(ref DimensionManager currentDimension, int shipNo, ShipStatus status, CellOccupier occupier)
     {
-        ShipChangeDimension(currentDimension.DimensionNo - 1, ref currentDimension, shipNo, occupier);
+        ShipChangeDimension(currentDimension.DimensionNo - 1, ref currentDimension, shipNo, new Vector3(0, OverworldData.DimensionSize * -2, 0), occupier);
         transform.position += new Vector3(0, 0.5f, 0);
         gameObject.layer = LayerMask.NameToLayer($"Fleet{player.number}");
         player.inputHandler.continueGame = false;
         StartCoroutine(ResetShip(status));
     }
 
-    private void ShipChangeDimension(int newDimensionNo, ref DimensionManager dimensionBefore, int shipNo, CellOccupier occupier)
+    private void ShipChangeDimension(int newDimensionNo, ref DimensionManager dimensionBefore, int shipNo, Vector3 vector, CellOccupier occupier)
     {
-        //Debug.Log(name + "  HUD_DimensionsOpponent[toDimensionNo]: " + player.opponent.HUD.HUD_FleetOpponent[shipNo]);
+        SwitchDimension(newDimensionNo, ref dimensionBefore, occupier, shipNo);
+        transform.position += vector;
+
         player.world.SetNewDimension(newDimensionNo);
         player.vehicle.SetViewOnDimension(newDimensionNo);
 
         player.HUD.SetHUDDimension(newDimensionNo);
-        
         player.HUD.UpdateHUDFleets(shipNo, newDimensionNo, dimensionBefore.DimensionNo);
-
-        SwitchDimension(newDimensionNo, ref dimensionBefore, occupier);
-        SetDimension(player.dimensions.GetDimension(newDimensionNo), shipNo);
-
-        transform.position -= new Vector3(0, OverworldData.DimensionSize * 2, 0);
     }
 
-    private void SwitchDimension(int dimensionNr, ref DimensionManager dimension, CellOccupier occupier)
+    private void SwitchDimension(int newDimensionNo, ref DimensionManager dimension, CellOccupier occupier, int shipNo)
     {
         occupier.ReleaseCells();
         dimension.RemoveShip(gameObject);
-        dimension = player.dimensions.GetDimension(dimensionNr);
+        dimension = player.dimensions.GetDimension(newDimensionNo);
+        SetDimension(dimension, shipNo);
         occupier.OccupyCells();
+    }
+
+    public void SetDimension(DimensionManager newDimension, int shipNo)
+    {
+        transform.parent = newDimension.transform;
+
+        for (int i = 0; i <= shipNo; i++)
+        {
+            ShipPartManager part = parts[i];
+            part.Dimension = newDimension;
+            part.transform.parent = transform;
+        }
     }
 
     private IEnumerator ResetShip(ShipStatus status)
@@ -75,17 +86,5 @@ public class Lifter : MonoBehaviour
         player.HUD.WriteText($"Capt'n {player.number} hide your ship!");
 
         // To do: Wait for player to submit fleet.
-    }
-
-    public void SetDimension(DimensionManager newDimension, int shipNo)
-    {
-        transform.parent = newDimension.transform;
-
-        for (int i = 0; i <= shipNo; i++)
-        {
-            ShipPartManager part = parts[i];
-            part.Dimension = newDimension;
-            part.transform.parent = transform;
-        }
     }
 }
