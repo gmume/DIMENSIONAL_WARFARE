@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 5621880413829270124, guid: cdf7d98cb71d80f459df9a6729163550,
         type: 3}
       propertyPath: m_Name
-      value: ShipPrefab
+      value: Ship1_Prefab
       objectReference: {fileID: 0}
     - target: {fileID: 5846144206686525547, guid: cdf7d98cb71d80f459df9a6729163550,
         type: 3}

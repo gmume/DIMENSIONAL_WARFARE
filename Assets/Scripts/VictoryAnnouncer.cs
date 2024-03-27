@@ -5,7 +5,19 @@ using UnityEngine.UI;
 
 public class VictoryAnnouncer : MonoBehaviour
 {
-    private void Start() => GetComponent<RawImage>().texture = (IsWinner()) ? Resources.Load<Texture>("HUD_Sprites/Win") : Resources.Load<Texture>("HUD_Sprites/Loose");
+    public AudioPlayer audioPlayer;
+
+    private void Start()
+    {
+        //GameData.winner.HUD.WriteText($"Capt'n {GameData.winner.number} wins for reaching the top dimension!");
+        GetComponent<RawImage>().texture = IsWinner() ? Resources.Load<Texture>("HUD_Sprites/Win") : Resources.Load<Texture>("HUD_Sprites/Loose");
+        Invoke("PlayVictorySound", 0.5f);
+    }
+
+    private void PlayVictorySound()
+    {
+        audioPlayer.OnVictory();
+    }
 
     private bool IsWinner() => GameData.winner == "Player1" && transform.parent.name == "HUD1" || GameData.winner == "Player2" && transform.parent.name == "HUD2";
 }

@@ -30,6 +30,9 @@ public class PlayerSwapper : MonoBehaviour
 
         player.HUD.armed.SetActive(false);
         opponent.HUD.armed.SetActive(true);
+
+        player.HUD.underAttack.SetActive(true);
+        opponent.HUD.underAttack.SetActive(false);
     }
 
     private void DisarmPlayer()

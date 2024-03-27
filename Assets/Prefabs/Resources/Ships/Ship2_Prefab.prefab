@@ -40,7 +40,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7120518049188171468}
-  m_Mesh: {fileID: 409830705578483208, guid: e223671c1ed0ce14f9c9b0a26f5d25c1, type: 3}
+  m_Mesh: {fileID: 4853158631765926052, guid: afe32a314d7554449a6337d643735d22, type: 3}
 --- !u!23 &7099438305817342213
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -91,6 +91,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 134197369319485144, guid: 700a2ef5cd5452244a7502955adfb7bf,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 409830705578483208, guid: afe32a314d7554449a6337d643735d22,
+        type: 3}
     - target: {fileID: 717507724910447580, guid: 700a2ef5cd5452244a7502955adfb7bf,
         type: 3}
       propertyPath: m_RootOrder
@@ -149,7 +155,7 @@ PrefabInstance:
     - target: {fileID: 1643912977602435547, guid: 700a2ef5cd5452244a7502955adfb7bf,
         type: 3}
       propertyPath: m_Name
-      value: ShipPrefab2
+      value: Ship2_Prefab
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

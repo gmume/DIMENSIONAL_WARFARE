@@ -10,7 +10,7 @@ public class Lifter : MonoBehaviour
 
     public bool LiftShipUp(ref DimensionManager currentDimension, int shipNo, CellOccupier occupier)
     {
-        if (currentDimension.DimensionNo < OverworldData.DimensionsCount - 2)
+        if (IsNotWinner(currentDimension))
         {
             audioPlayer.OnShipUp();
             ShipChangeDimension(currentDimension.DimensionNo + 1, ref currentDimension, shipNo, new Vector3(0, OverworldData.DimensionSize * 2, 0), occupier);
@@ -20,13 +20,15 @@ public class Lifter : MonoBehaviour
         }
         else
         {
-            audioPlayer.OnVictory();
-            player.HUD.WriteText($"Capt'n {player.number} wins for reaching the top dimension!");
-            GameData.winner = player.name;
             player.GetComponent<SceneChanger>().LoadResolveGame();
+            //player.HUD.WriteText($"Capt'n {player.number} wins for reaching the top dimension!");
+            GameData.winner = player.name;
+            //audioPlayer.OnVictory();
             return false;
         }
     }
+
+    private bool IsNotWinner(DimensionManager currentDimension) => currentDimension.DimensionNo<OverworldData.DimensionsCount - 2;
 
     public void SinkShip(ref DimensionManager currentDimension, int shipNo, ShipStatus status, CellOccupier occupier)
     {
@@ -39,14 +41,14 @@ public class Lifter : MonoBehaviour
 
     private void ShipChangeDimension(int newDimensionNo, ref DimensionManager dimensionBefore, int shipNo, Vector3 vector, CellOccupier occupier)
     {
+        player.HUD.SetHUDDimension(newDimensionNo);
+        player.HUD.UpdateHUDFleets(shipNo, newDimensionNo, dimensionBefore.DimensionNo);
+
         SwitchDimension(newDimensionNo, ref dimensionBefore, occupier, shipNo);
         transform.position += vector;
 
         player.world.SetNewDimension(newDimensionNo);
         player.vehicle.SetViewOnDimension(newDimensionNo);
-
-        player.HUD.SetHUDDimension(newDimensionNo);
-        player.HUD.UpdateHUDFleets(shipNo, newDimensionNo, dimensionBefore.DimensionNo);
     }
 
     private void SwitchDimension(int newDimensionNo, ref DimensionManager dimension, CellOccupier occupier, int shipNo)
@@ -84,6 +86,7 @@ public class Lifter : MonoBehaviour
         status = ShipStatus.Intact;
         player.input.SwitchCurrentActionMap("GameStart");
         player.HUD.WriteText($"Capt'n {player.number} hide your ship!");
+        player.ActiveShip = gameObject.GetComponent<ShipManager>();
 
         // To do: Wait for player to submit fleet.
     }

@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 171654988707244013, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_Name
-      value: HUD2
+      value: HUD2_Prefab
       objectReference: {fileID: 0}
     - target: {fileID: 171654988707244013, guid: dadfa82202b17be47b39770320522709,
         type: 3}
@@ -297,6 +297,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7324404162745596469, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7324404162745596469, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_TagString
+      value: HUD2
       objectReference: {fileID: 0}
     - target: {fileID: 8053290421002738304, guid: dadfa82202b17be47b39770320522709,
         type: 3}

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Artillerist : MonoBehaviour
@@ -14,6 +13,7 @@ public class Artillerist : MonoBehaviour
         CellData opponentCell = GetOpponentCell(activeCell, dimension);
 
         if (!CanShipAscend(opponentCell)) return false;
+        player.HUD.armed.SetActive(false);
         return shipManager.ShipUp();
     }
 

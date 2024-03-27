@@ -22,6 +22,7 @@ public class HUD_Manager : MonoBehaviour
     [HideInInspector] public GameObject[] HUD_FleetOpponent { private set; get;}
 
     [HideInInspector] public GameObject armed;
+    [HideInInspector] public GameObject underAttack;
 
     [HideInInspector] public TextMeshProUGUI crewText;
 

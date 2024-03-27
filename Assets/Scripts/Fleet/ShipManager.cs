@@ -27,7 +27,7 @@ public class ShipManager : MonoBehaviour
 
     public void Move(Vector3 vector) => navigator.Move(vector, dimension, occupier);
 
-    public void QuaterTurn(bool clockwise) => navigator.QuaterTurn(clockwise, dimension);
+    public void QuaterTurn(bool clockwise) => navigator.QuaterTurn(clockwise, dimension, occupier);
 
     public bool Fire() => artillerist.Fire(this, player.ActiveDimension);
 

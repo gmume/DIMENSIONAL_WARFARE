@@ -38,6 +38,7 @@ public class HUD_ButtonInitializer : MonoBehaviour
         Navigation buttonNavigation = button.navigation;
         buttonNavigation.mode = Navigation.Mode.None;
         buttonObj.AddComponent<ShipButtonData>().ShipButtonNr = i;
+        //buttonObj.AddComponent<HorizontalLayoutGroup>().childAlignment = TextAnchor.LowerRight;
         buttonObj.AddComponent<HorizontalLayoutGroup>().childAlignment = TextAnchor.MiddleCenter;
 
         if (i == 0)
