@@ -21,7 +21,7 @@ public class VehicleManager : MonoBehaviour
     {
         player = name[^1].ToString() == "1" ? OverworldData.Player1 : OverworldData.Player2;
         InitializePosition();
-        InitializePaning();
+        InitializePanning();
     }
 
     private void InitializePosition()
@@ -30,7 +30,7 @@ public class VehicleManager : MonoBehaviour
         currentDimension = 0;
     }
 
-    private void InitializePaning()
+    private void InitializePanning()
     {
         changeDimensionVector = new Vector3(0, OverworldData.DimensionSize * 2, 0);
         zoomedOutPosition = new Vector3(OverworldData.DimensionSize / 2, OverworldData.DimensionSize * OverworldData.DimensionsCount, -OverworldData.DimensionSize * OverworldData.DimensionsCount * 2);
@@ -43,7 +43,7 @@ public class VehicleManager : MonoBehaviour
 
     public void SetViewOnDimension(int toNo)
     {
-        InitiatePaning(1f, transform.position + changeDimensionVector * (toNo - currentDimension));
+        InitiatePanning(1f, transform.position + changeDimensionVector * (toNo - currentDimension));
         currentDimension = toNo;
     }
 
@@ -51,11 +51,11 @@ public class VehicleManager : MonoBehaviour
     {
         if (!ctx.performed) return;
         if (!zoomedOut) zoomedInPosition = transform.position;
-        InitiatePaning(1.5f, (zoomedOut) ? zoomedInPosition : zoomedOutPosition);
+        InitiatePanning(1.5f, (zoomedOut) ? zoomedInPosition : zoomedOutPosition);
         zoomedOut = !zoomedOut;
     }
 
-    private void InitiatePaning(float panDuration, Vector3 endPosition)
+    private void InitiatePanning(float panDuration, Vector3 endPosition)
     {
         DisableEnableActions(false);
         this.panDuration = panDuration;

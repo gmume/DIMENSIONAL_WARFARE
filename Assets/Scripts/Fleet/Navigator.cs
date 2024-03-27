@@ -16,6 +16,8 @@ public class Navigator : MonoBehaviour
         int deltaX = deltaXY[0], deltaY = deltaXY[1];
         int newX = PivotX + deltaX, newY = PivotZ + deltaY;
 
+        occupier.ReleaseCells();
+
         if (!IsValidPosition(newX, newY))
         {
             Warn("Don't let your ship run aground, Capt'n!", "TXT_RunAground");
@@ -24,10 +26,10 @@ public class Navigator : MonoBehaviour
         else if(CollisionCourseMove(deltaX, deltaY, dimension))
         {
             Warn("Capt'n, we are on collision course! Let the ship heave to!", "TXT_CollisionCourse");
+            occupier.OccupyCells();
             return;
         }
-
-        occupier.ReleaseCells();
+        
         UpdateShipPosition(deltaX, deltaY);
         occupier.OccupyCells();
     }
@@ -66,17 +68,7 @@ public class Navigator : MonoBehaviour
         return false;
     }
 
-    private bool CollisionCourseTurn(CellData[] cells)
-    {
-        foreach (CellData cellObj in cells)
-        {
-            if (cellObj.GetComponent<CellData>().Occupied) return true;
-        }
-
-        return false;
-    }
-
-    public void QuaterTurn(bool clockwise, DimensionManager dimension)
+    public void QuaterTurn(bool clockwise, DimensionManager dimension, CellOccupier occupier)
     {
         CellData[] cells = new CellData[parts.Length];
         int enumIndex = (int)Orientation;
@@ -86,9 +78,12 @@ public class Navigator : MonoBehaviour
             cells[i] = GetCellForPart(parts[i], clockwise, dimension);
         }
 
+        occupier.ReleaseCells();
+
         if (CollisionCourseTurn(cells))
         {
             Warn("Capt'n, we are on collision course! Let the ship heave to!", "TXT_CollisionCourse");
+            occupier.OccupyCells();
             return;
         }
 
@@ -102,6 +97,18 @@ public class Navigator : MonoBehaviour
             CellData cell = cells[i];
             parts[i].UpdateCoordinatesAbsolute(cell.X, cell.Y);
         }
+
+        occupier.OccupyCells();
+    }
+
+    private bool CollisionCourseTurn(CellData[] cells)
+    {
+        foreach (CellData cellObj in cells)
+        {
+            if (cellObj.GetComponent<CellData>().Occupied) return true;
+        }
+
+        return false;
     }
 
     private void Warn(string text, string audioFileName)

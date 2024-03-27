@@ -64,6 +64,10 @@ public class HUD_Initializer : MonoBehaviour
                     hudManager.armed = HUD_Part;
                     HUD_Part.SetActive(false);
                     break;
+                case "UnderAttack":
+                    hudManager.underAttack = HUD_Part;
+                    HUD_Part.SetActive(false);
+                    break;
                 case "CrewText":
                     hudManager.crewText = HUD_Part.GetComponent<TextMeshProUGUI>();
                     break;

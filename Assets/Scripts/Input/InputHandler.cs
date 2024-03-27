@@ -20,6 +20,8 @@ public class InputHandler : MonoBehaviour
         Vector2 vector = ctx.ReadValue<Vector2>();
         ShipManager ship = player.ActiveShip;
 
+        Debug.Log("ship: " + ship);
+        Debug.Log("vector: " + vector);
         ship.Move(vector);
         player.HUD.UpdateHUDCoords(ship.navigator.PivotX, ship.navigator.PivotZ);
         player.opponent.HUD.UpdateHUDCoords(ship.navigator.PivotX, ship.navigator.PivotZ);

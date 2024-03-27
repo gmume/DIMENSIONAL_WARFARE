@@ -41,8 +41,6 @@ public class FleetSubmitter : MonoBehaviour
     {
         yield return new WaitUntil(() => (OverworldData.Player1SubmittedFleet && OverworldData.Player2SubmittedFleet));
 
-        
-
         if(name == "Player1")
         {
             player.HUD.WriteText("Your opponent is ready, Capt'n.\nLet's go! Choose your attacking ship!");
