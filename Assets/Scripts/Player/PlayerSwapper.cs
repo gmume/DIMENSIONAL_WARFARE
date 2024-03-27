@@ -43,6 +43,7 @@ public class PlayerSwapper : MonoBehaviour
 
     private void ArmOpponent()
     {
+        opponent.inputEnabler.playerMap.Enable();
         opponent.HUD.SetSelecetedButton();
         opponent.fleet.ActivateShip(0, opponent);
         opponent.HUD.UpdateActiveCellAndHUD();

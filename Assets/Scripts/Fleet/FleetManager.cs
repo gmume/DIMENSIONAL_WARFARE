@@ -36,7 +36,7 @@ public class FleetManager : ScriptableObject
         GameObject shipObj = fleet[shipNr];
         shipObj.GetComponent<ShipManager>().Activate();
 
-        if (OverworldData.GamePhase == GamePhases.Battle) player.switcher.SwitchActionMap("Player");
+        if (OverworldData.GamePhase == GamePhases.Battle) player.inputEnabler.SwitchActionMap("Player");
     }
 
     public List<GameObject> GetFleet() => fleet;

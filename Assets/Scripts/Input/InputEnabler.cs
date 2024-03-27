@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ActionMapSwitcher : MonoBehaviour
+public class InputEnabler : MonoBehaviour
 {
     [HideInInspector] public PlayerData player;
     [HideInInspector] public InputActionMap gameStartMap, playerMap;

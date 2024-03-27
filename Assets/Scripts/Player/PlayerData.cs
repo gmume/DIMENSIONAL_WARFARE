@@ -16,7 +16,7 @@ public class PlayerData : MonoBehaviour
                       public InputHandler inputHandler;
                       public FleetSubmitter submitter;
                       public PlayerSwapper swapper;
-                      public ActionMapSwitcher switcher;
+                      public InputEnabler inputEnabler;
 
     [HideInInspector] public PlayerInput input;
                       public MultiplayerEventSystem eventSystem;
