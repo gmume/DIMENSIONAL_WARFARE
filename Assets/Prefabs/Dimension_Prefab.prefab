@@ -180,6 +180,21 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 648deefec146a35448732d53f5b14fc8, type: 2}
+    - target: {fileID: -2577548232221058511, guid: e5037834464d4fe428530cb8d1a5612c,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: -2577548232221058511, guid: e5037834464d4fe428530cb8d1a5612c,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: -2577548232221058511, guid: e5037834464d4fe428530cb8d1a5612c,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e5037834464d4fe428530cb8d1a5612c,
         type: 3}
       propertyPath: m_Name

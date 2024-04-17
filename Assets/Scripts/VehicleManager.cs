@@ -26,7 +26,7 @@ public class VehicleManager : MonoBehaviour
 
     private void InitializePosition()
     {
-        transform.position += new Vector3(OverworldData.DimensionSize / 2, OverworldData.DimensionSize / 1.2f, -OverworldData.DimensionSize * 1.3f);
+        transform.position += new Vector3(OverworldData.DimensionSize / 2, OverworldData.DimensionSize / 1.2f, -OverworldData.DimensionSize * 0.4f);
         currentDimension = 0;
     }
 

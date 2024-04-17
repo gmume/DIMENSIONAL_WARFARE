@@ -1058,7 +1058,7 @@ PrefabInstance:
     - target: {fileID: 1102007589002396378, guid: 59618a5d95df5804da18b23b7e240c47,
         type: 3}
       propertyPath: m_Name
-      value: AudioManager_Prefab
+      value: AudioManager
       objectReference: {fileID: 0}
     - target: {fileID: 2802291539025172280, guid: 59618a5d95df5804da18b23b7e240c47,
         type: 3}

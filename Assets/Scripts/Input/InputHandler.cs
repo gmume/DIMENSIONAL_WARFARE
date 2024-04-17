@@ -6,11 +6,16 @@ public class InputHandler : MonoBehaviour
 {
     [HideInInspector] public PlayerData player;
     [HideInInspector] public bool continueGame = true;
+    public GameObject onboarding;
 
     //StartGame actionMap
     public void OnSubmitFleet(CallbackContext ctx)
     {
-        if (ctx.performed) continueGame = player.submitter.SubmitFleet(player);
+        if (ctx.performed)
+        {
+            onboarding.SetActive(false);
+            continueGame = player.submitter.SubmitFleet(player);
+        }
     }
 
     public void OnMoveShip(CallbackContext ctx)

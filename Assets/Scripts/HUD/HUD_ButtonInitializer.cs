@@ -73,5 +73,4 @@ public class HUD_ButtonInitializer : MonoBehaviour
         shipPartImage.preserveAspect = true;
         shipPart.layer = (name == "HUD1") ? 11 : 12;
     }
-
 }
