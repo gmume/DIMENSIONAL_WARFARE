@@ -20,7 +20,11 @@ public class Debugger : MonoBehaviour
     public string actionMapPlayer1, actionMapPlayer2, gamepadPlayer1, gamepadPlayer2, controlScemePlayer1, controlScemePlayer2;
 
     private ShipManager actShip1 = null, actShip2 = null;
-    public string activeShip1, activeShip2, activeCell1, activeCell2;
+    public string activeShip1, activeShip2;
+    public string activeCell1;
+    public string activeCell1OnDimension;
+    public string activeCell2;
+    public string activeCell2OnDimension;
     public GameObject activeDimension1, activeDimension2;
 
     public GameObject currentSelectedButton1, currentSelectedButton2;
@@ -53,7 +57,10 @@ public class Debugger : MonoBehaviour
         if (player1.ActiveCell && player2.ActiveCell)
         {
             activeCell1 = player1.ActiveCell.X + ", " + player1.ActiveCell.Y;
+            activeCell1OnDimension = player1.ActiveCell.Dimension.name;
+            
             activeCell2 = player2.ActiveCell.X + ", " + player2.ActiveCell.Y;
+            activeCell1OnDimension = player2.ActiveCell.Dimension.name;
         }
 
         if (player1.ActiveDimension && player2.ActiveDimension)
@@ -96,7 +103,7 @@ public class Debugger : MonoBehaviour
 
         for (int i = 0; i < OverworldData.DimensionSize; i++)
         {
-            foreach (var cellObj in dimension.cells[i])
+            foreach (var cellObj in dimension.Cells[i])
             {
                 CellData cell = cellObj.GetComponent<CellData>();
                 GameObject canvasObj;

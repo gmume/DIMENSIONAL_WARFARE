@@ -9,6 +9,8 @@ public class ShipInitializer : MonoBehaviour
     private AudioPlayer audioPlayer;
 
     public ShipManager shipManager;
+
+    [Header("Manager helpers")]
     public Navigator shipNavigator;
     public Lifter shipLifter;
     public CellOccupier occupier;
@@ -71,10 +73,7 @@ public class ShipInitializer : MonoBehaviour
         shipLifter.parts =  shipManager.parts;
     }
 
-    private void InitializeCellOccupier()
-    {
-        occupier.parts = shipManager.parts;
-    }
+    private void InitializeCellOccupier() => occupier.parts = shipManager.parts;
 
     private void InitializeActivator()
     {
@@ -82,10 +81,7 @@ public class ShipInitializer : MonoBehaviour
         activator.parts = shipManager.parts;
     }
 
-    private void InitializeArtillerist()
-    {
-        artillerist.player = player;
-    }
+    private void InitializeArtillerist() => artillerist.player = player;
 
     private void InitializeDamageHandler()
     {

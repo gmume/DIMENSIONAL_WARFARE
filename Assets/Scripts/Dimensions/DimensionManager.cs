@@ -4,7 +4,7 @@ using UnityEngine;
 public class DimensionManager : MonoBehaviour
 {
     private PlayerData player;
-    public GameObject[][] cells;
+    public GameObject[][] Cells { private set; get; }
     private readonly List<GameObject> ships = new();
 
     public int DimensionNo { get; private set; }
@@ -32,11 +32,11 @@ public class DimensionManager : MonoBehaviour
 
     public void CreateCells(GameObject cellPrefab)
     {
-        cells = new GameObject[OverworldData.DimensionSize][];
+        Cells = new GameObject[OverworldData.DimensionSize][];
 
         for (int x = 0; x < OverworldData.DimensionSize; x++)
         {
-            cells[x] = new GameObject[OverworldData.DimensionSize];
+            Cells[x] = new GameObject[OverworldData.DimensionSize];
 
             for (int z = 0; z < OverworldData.DimensionSize; z++)
             {
@@ -45,12 +45,13 @@ public class DimensionManager : MonoBehaviour
                 cellObj.layer = LayerSetter.SetLayerDimensions(player);
                 cellObj.transform.parent = transform;
                 CellData cell = cellObj.GetComponent<CellData>();
+                cell.Dimension = this;
                 cell.X = x;
                 cell.Y = z;
                 cell.Activated = false;
                 cell.Occupied = false;
                 cell.Hitted = false;
-                cells[cell.X][cell.Y] = cellObj;
+                Cells[cell.X][cell.Y] = cellObj;
             }
         }
     }
@@ -59,7 +60,7 @@ public class DimensionManager : MonoBehaviour
     {
         if (x >= 0 && x < OverworldData.DimensionSize && y >= 0 && y < OverworldData.DimensionSize)
         {
-            return cells[x][y];
+            return Cells[x][y];
         }
         else
         {
@@ -93,8 +94,5 @@ public class DimensionManager : MonoBehaviour
         return null;
     }
 
-    public void RemoveShip(GameObject shipObj)
-    {
-        ships.Remove(shipObj);
-    }
+    public void RemoveShip(GameObject shipObj) => ships.Remove(shipObj);
 }

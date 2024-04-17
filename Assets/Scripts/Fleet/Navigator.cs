@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Navigator : MonoBehaviour
 {
@@ -12,27 +10,37 @@ public class Navigator : MonoBehaviour
                       public int PivotX { get; set; }
                       public int PivotZ { get; set; }
 
-    public void Move(int deltaX, int deltaY, DimensionManager dimension)
+    public void Move(Vector3 vector, DimensionManager dimension, CellOccupier occupier)
     {
-        int newX = PivotX + deltaX;
-        int newY = PivotZ + deltaY;
+        int[] deltaXY = GetAxis(vector.x, vector.y);
+        int deltaX = deltaXY[0], deltaY = deltaXY[1];
+        int newX = PivotX + deltaX, newY = PivotZ + deltaY;
 
-        if (newX < OverworldData.DimensionSize && newY < OverworldData.DimensionSize && newX >= 0 && newY >= 0)
-        {
-            if (!CollisionCourseMove(deltaX, deltaY, dimension))
-            {
-                UpdateShipPosition(deltaX, deltaY);
-            }
-            else
-            {
-                Warn("Capt'n, we are on collision course! Let the ship heave to!", "TXT_CollisionCourse");
-            }
-        }
-        else
+        occupier.ReleaseCells();
+
+        if (!IsValidPosition(newX, newY))
         {
             Warn("Don't let your ship run aground, Capt'n!", "TXT_RunAground");
+            return;
         }
+        else if(CollisionCourseMove(deltaX, deltaY, dimension))
+        {
+            Warn("Capt'n, we are on collision course! Let the ship heave to!", "TXT_CollisionCourse");
+            occupier.OccupyCells();
+            return;
+        }
+        
+        UpdateShipPosition(deltaX, deltaY);
+        occupier.OccupyCells();
     }
+
+    private int[] GetAxis(float deltaX, float deltaY)
+    {
+        // Returns the sign (Vorzeichen) of x. The Mathf.Sign function returns -1 for negative values, 1 for positive values, and 0 for zero.
+        return (Math.Abs(deltaX) > Math.Abs(deltaY)) ? new int[] { (int)Mathf.Sign(deltaX), 0 } : new int[] { 0, (int)Mathf.Sign(deltaY) };
+    }
+
+    private bool IsValidPosition(int newX, int newY) => newX >= 0 && newX < OverworldData.DimensionSize && newY >= 0 && newY < OverworldData.DimensionSize;
 
     private void UpdateShipPosition(int x, int y)
     {
@@ -49,13 +57,48 @@ public class Navigator : MonoBehaviour
 
     private bool CollisionCourseMove(int x, int y, DimensionManager dimension)
     {
+        ShipPartManager part;
+
         for (int i = 0; i < parts.Length; i++)
         {
-            ShipPartManager part = parts[i];
+            part = parts[i];
             if (dimension.GetCell(part.X + x, part.Y + y).GetComponent<CellData>().Occupied) return true;
         }
 
         return false;
+    }
+
+    public void QuaterTurn(bool clockwise, DimensionManager dimension, CellOccupier occupier)
+    {
+        CellData[] cells = new CellData[parts.Length];
+        int enumIndex = (int)Orientation;
+
+        for (int i = 0; i < parts.Length; i++)
+        {
+            cells[i] = GetCellForPart(parts[i], clockwise, dimension);
+        }
+
+        occupier.ReleaseCells();
+
+        if (CollisionCourseTurn(cells))
+        {
+            Warn("Capt'n, we are on collision course! Let the ship heave to!", "TXT_CollisionCourse");
+            occupier.OccupyCells();
+            return;
+        }
+
+        int rotation = clockwise ? 90 : -90;
+        GetComponent<Transform>().Rotate(0, rotation, 0);
+        enumIndex = (enumIndex + (clockwise ? 1 : 3)) % 4;
+        Orientation = (Directions)enumIndex;
+
+        for (int i = 0; i < cells.Length; i++)
+        {
+            CellData cell = cells[i];
+            parts[i].UpdateCoordinatesAbsolute(cell.X, cell.Y);
+        }
+
+        occupier.OccupyCells();
     }
 
     private bool CollisionCourseTurn(CellData[] cells)
@@ -66,35 +109,6 @@ public class Navigator : MonoBehaviour
         }
 
         return false;
-    }
-
-    public void QuaterTurn(bool clockwise, DimensionManager dimension)
-    {
-        CellData[] cells = new CellData[parts.Length];
-        int enumIndex = (int)Orientation;
-
-        for (int i = 0; i < parts.Length; i++)
-        {
-            cells[i] = GetCellForPart(parts[i], clockwise, dimension);
-        }
-
-        if (!CollisionCourseTurn(cells))
-        {
-            int rotation = clockwise ? 90 : -90;
-            GetComponent<Transform>().Rotate(0, rotation, 0);
-            enumIndex = (enumIndex + (clockwise ? 1 : 3)) % 4;
-            Orientation = (Directions)enumIndex;
-
-            for (int i = 0; i < cells.Length; i++)
-            {
-                CellData cell = cells[i];
-                parts[i].UpdateCoordinatesAbsolute(cell.X, cell.Y);
-            }
-        }
-        else
-        {
-            Warn("Capt'n, we are on collision course! Let the ship heave to!", "TXT_CollisionCourse");
-        }
     }
 
     private void Warn(string text, string audioFileName)

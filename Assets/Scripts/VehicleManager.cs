@@ -1,81 +1,98 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
 
 public class VehicleManager : MonoBehaviour
 {
-    private PlayerData player;
-    private Vector3 vector, zoomOut, currentPosition;
+    PlayerData player;
+    private Vector3 changeDimensionVector, endPosition, startPosition, zoomedInPosition, zoomedOutPosition;
     private bool zoomedOut = false;
     private int currentDimension;
     public AnimationCurve curve;
+    private float panDuration, journeyFraction;
+    private DateTime startTime;
+    private readonly string[] actionNames = { "DimensionDown", "DimensionUp", "Zoom" };
+    private readonly List<InputAction> actions = new();
 
     public void Start()
     {
-        if (name == "CameraVehicle1")
-        {
-            player = OverworldData.Player1;
-        }
-        else
-        {
-            player = OverworldData.Player2;
-        }
+        player = name[^1].ToString() == "1" ? OverworldData.Player1 : OverworldData.Player2;
+        InitializePosition();
+        InitializePanning();
+    }
 
-        transform.position += new Vector3(OverworldData.DimensionSize / 2, OverworldData.DimensionSize * 2 / 3, -OverworldData.DimensionSize);
-        vector = new Vector3(0, OverworldData.DimensionSize * 2, 0);
-        zoomOut = new Vector3(OverworldData.DimensionSize / 2, OverworldData.DimensionSize * OverworldData.DimensionsCount, -OverworldData.DimensionSize * OverworldData.DimensionsCount * 2);
+    private void InitializePosition()
+    {
+        transform.position += new Vector3(OverworldData.DimensionSize / 2, OverworldData.DimensionSize / 1.2f, -OverworldData.DimensionSize * 0.4f);
         currentDimension = 0;
+    }
+
+    private void InitializePanning()
+    {
+        changeDimensionVector = new Vector3(0, OverworldData.DimensionSize * 2, 0);
+        zoomedOutPosition = new Vector3(OverworldData.DimensionSize / 2, OverworldData.DimensionSize * OverworldData.DimensionsCount, -OverworldData.DimensionSize * OverworldData.DimensionsCount * 2);
+
+        for (int i = 0; i < actions.Count; i++)
+        {
+            actions[i] = player.input.actions.FindAction(actionNames[i]);
+        }
     }
 
     public void SetViewOnDimension(int toNo)
     {
-        // Calculate vector and change position
-        int vectorFactor = toNo - currentDimension;
-        transform.position += vector * vectorFactor;
+        InitiatePanning(1f, transform.position + changeDimensionVector * (toNo - currentDimension));
         currentDimension = toNo;
-        player.world.SetNewDimension(currentDimension);
-    }
-
-    public void OnDimensionUp(CallbackContext ctx)
-    {
-        if (ctx.performed && currentDimension < OverworldData.DimensionsCount - 1)
-        {
-            SetViewOnDimension(currentDimension + 1);
-        }
-    }
-
-    public void DimensionUp()
-    {
-        SetViewOnDimension(currentDimension + 1);
-    }
-
-    public void OnDimensionDown(CallbackContext ctx)
-    {
-        if (ctx.performed && currentDimension > 0)
-        {
-            SetViewOnDimension(currentDimension - 1);
-        }
-    }
-
-    public void DimensionDown()
-    {
-        SetViewOnDimension(currentDimension - 1);
     }
 
     public void OnZoom(CallbackContext ctx)
     {
-        if (ctx.performed)
+        if (!ctx.performed) return;
+        if (!zoomedOut) zoomedInPosition = transform.position;
+        InitiatePanning(1.5f, (zoomedOut) ? zoomedInPosition : zoomedOutPosition);
+        zoomedOut = !zoomedOut;
+    }
+
+    private void InitiatePanning(float panDuration, Vector3 endPosition)
+    {
+        DisableEnableActions(false);
+        this.panDuration = panDuration;
+        this.endPosition = endPosition;
+        startPosition = transform.position;
+        journeyFraction = 0f;
+        startTime = DateTime.Now;
+
+        StartCoroutine("PanCamera");
+    }
+
+    private IEnumerator PanCamera()
+    {
+        while (journeyFraction < panDuration)
         {
-            if (zoomedOut)
-            {
-                transform.position = currentPosition;
-                zoomedOut = !zoomedOut;
-            }
+            DateTime currentTime = DateTime.Now;
+            float timeRange = (float)(currentTime.Subtract(startTime).TotalMilliseconds / 1000);
+            journeyFraction = timeRange / panDuration;
+            float curveSample = curve.Evaluate(journeyFraction);
+            Vector3 newPosition = Vector3.Lerp(startPosition, endPosition, curveSample);
+            transform.position = newPosition;
+
+            yield return new WaitForSecondsRealtime(0.07f);
+        }
+
+        transform.position = endPosition;
+        DisableEnableActions(true);
+    }
+
+    private void DisableEnableActions(bool enable)
+    {
+        foreach (InputAction action in actions)
+        {
+            if (enable)
+                action.Enable();
             else
-            {
-                currentPosition = transform.position;
-                transform.position = zoomOut;
-                zoomedOut = !zoomedOut;
-            }
+                action.Disable();
         }
     }
 }

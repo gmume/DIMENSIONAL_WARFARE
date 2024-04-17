@@ -42,10 +42,7 @@ public class ShipPartManager : MonoBehaviour
         SetColorIntact();
     }
 
-    private void SetColorIntact()
-    {
-        PartMaterial.color = colorIntact;
-    }
+    private void SetColorIntact() => PartMaterial.color = colorIntact;
 
     public void Initialize(PlayerData player, int partNo, ShipManager ship)
     {
@@ -54,16 +51,7 @@ public class ShipPartManager : MonoBehaviour
         Y = partNo;
         Damaged = false;
         PartMaterial = GetComponent<Renderer>().material;
-
-        if (player.number == 1)
-        {
-            colorIntact = new Color(0.3f, 0.12f, 0, 1); // brown
-            
-        }
-        else
-        {
-            colorIntact = new Color(0.3f, 0.3f, 0, 1); // olive
-        }
+        colorIntact = player.fleetColor;
 
         SetColorIntact();
     }

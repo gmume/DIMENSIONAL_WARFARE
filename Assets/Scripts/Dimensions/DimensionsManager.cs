@@ -29,10 +29,7 @@ public class DimensionsManager : MonoBehaviour
         }
     }
 
-    public List<GameObject> GetDimensions()
-    {
-        return dimensions;
-    }
+    public List<GameObject> GetDimensions() => dimensions;
 
     public DimensionManager GetDimension(int no)
     {
@@ -40,10 +37,5 @@ public class DimensionsManager : MonoBehaviour
         return dimension.GetComponent<DimensionManager>();
     }
 
-    public void Initialize(PlayerData player)
-    {
-        player.fleet = ScriptableObject.CreateInstance<FleetManager>();
-        player.fleet.name = $"fleet{player.number}";
-        player.fleet.CreateFleet(player);
-    }
+    public void Initialize(PlayerData player) => player.fleet.CreateFleet(player);
 }

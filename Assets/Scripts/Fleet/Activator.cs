@@ -18,7 +18,7 @@ public class Activator : MonoBehaviour
                 part.PartMaterial.color += new Color(0.3f, 0.3f, 0.3f);
             }
 
-            occupier.ReleaseCells();
+            //occupier.ReleaseCells();
             Vector3 vectorUp = new(0f, 0.1f, 0f);
             transform.position += vectorUp;
             player.ActiveShip = shipManager;
@@ -32,7 +32,7 @@ public class Activator : MonoBehaviour
             part.PartMaterial.color -= new Color(0.3f, 0.3f, 0.3f);
         }
 
-        occupier.OccupyCells();
+        //occupier.OccupyCells();
         Vector3 vectorDown = new(0f, -0.1f, 0f);
         transform.position += vectorDown;
         player.ActiveShip = null;

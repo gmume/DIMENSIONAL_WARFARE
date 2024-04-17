@@ -1,0 +1,411 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3200431032573656334
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7268077016366016379}
+  - component: {fileID: 1394120640985854630}
+  - component: {fileID: -2537492309018127594}
+  - component: {fileID: 5728837721025891436}
+  - component: {fileID: -7332662916426728237}
+  - component: {fileID: 6791104342523852192}
+  - component: {fileID: 8141033843824573265}
+  - component: {fileID: 941012256338790469}
+  - component: {fileID: 747391406311119974}
+  - component: {fileID: 8043870872122323322}
+  m_Layer: 0
+  m_Name: Player_Prefab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7268077016366016379
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3200431032573656334}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.3014746, y: 2.3556697, z: 14.567497}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1394120640985854630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3200431032573656334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 7a932b947924a284e99834f0f7fe936c,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1203729781816780879, guid: dadfa82202b17be47b39770320522709,
+          type: 3}
+        m_TargetAssemblyTypeName: HUD_Manager, Assembly-CSharp
+        m_MethodName: OnDimensionUp
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0496ea3d-c236-4b05-b591-38ffc1b0b748
+    m_ActionName: Player1/DimensionUp[/DualShock4GamepadHID/dpad/up,/DualShock4GamepadHID1/dpad/up,/XInputControllerWindows/dpad/up]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1203729781816780879, guid: dadfa82202b17be47b39770320522709,
+          type: 3}
+        m_TargetAssemblyTypeName: HUD_Manager, Assembly-CSharp
+        m_MethodName: OnDimensionDown
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1cee07b4-dcdd-4ca3-9273-729512e83448
+    m_ActionName: Player1/DimensionDown[/DualShock4GamepadHID/dpad/down,/DualShock4GamepadHID1/dpad/down,/XInputControllerWindows/dpad/down]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6791104342523852192}
+        m_TargetAssemblyTypeName: PlayerControls, Assembly-CSharp
+        m_MethodName: OnMoveSelection
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8c48b6e5-82ae-44a4-a8f3-85ce098e87bb
+    m_ActionName: Player1/MoveSelection[/DualShock4GamepadHID/leftStick,/DualShock4GamepadHID1/leftStick,/XInputControllerWindows/leftStick]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6791104342523852192}
+        m_TargetAssemblyTypeName: PlayerControls, Assembly-CSharp
+        m_MethodName: OnFire
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 455dc3fa-a8b6-4632-990f-e8341f785b1a
+    m_ActionName: Player1/Fire[/DualShock4GamepadHID/rightTrigger,/DualShock4GamepadHID1/rightTrigger,/XInputControllerWindows/rightTrigger]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6791104342523852192}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
+        m_MethodName: OnSubmitFleet
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 76f151bc-9dc6-4b6b-b413-12b994a40d3c
+    m_ActionName: GameStart/Submit
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6791104342523852192}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
+        m_MethodName: OnMoveShip
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f5a7a2f6-f83f-4827-9720-a6b8a455c71f
+    m_ActionName: GameStart/MoveShip
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6791104342523852192}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
+        m_MethodName: OnTurnRight
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f805d78a-9da1-4a55-ae61-5b60cc63ee79
+    m_ActionName: GameStart/TurnRight
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6791104342523852192}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
+        m_MethodName: OnTurnLeft
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4c825c38-2ddb-43e8-8bf9-1fd3cb35d83e
+    m_ActionName: GameStart/TurnLeft
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1203729781816780879, guid: dadfa82202b17be47b39770320522709,
+          type: 3}
+        m_TargetAssemblyTypeName: HUD_Manager, Assembly-CSharp
+        m_MethodName: OnShipRight
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a6852e80-5fc8-443c-8b20-9fe1e8a4f577
+    m_ActionName: GameStart/ShipRight[/DualShock4GamepadHID/dpad/right,/DualShock4GamepadHID1/dpad/right]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1203729781816780879, guid: dadfa82202b17be47b39770320522709,
+          type: 3}
+        m_TargetAssemblyTypeName: HUD_Manager, Assembly-CSharp
+        m_MethodName: OnShipLeft
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8700d456-1c3e-4992-b37b-10593e5df6fb
+    m_ActionName: GameStart/ShipLeft[/DualShock4GamepadHID/dpad/left,/DualShock4GamepadHID1/dpad/left]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1203729781816780879, guid: dadfa82202b17be47b39770320522709,
+          type: 3}
+        m_TargetAssemblyTypeName: HUD_Manager, Assembly-CSharp
+        m_MethodName: OnShipLeft
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ce8f1f41-1789-4a29-b11f-a2fba67eed1d
+    m_ActionName: Player/ShipLeft[/DualShock4GamepadHID/dpad/left,/DualShock4GamepadHID1/dpad/left]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6791104342523852192}
+        m_TargetAssemblyTypeName: HUD_Manager, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c811d7cb-8d9d-4fe9-9c25-db67fb970480
+    m_ActionName: Player/ShipRight[/DualShock4GamepadHID/dpad/right,/DualShock4GamepadHID1/dpad/right]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1b342dca-2923-4bcd-b4d0-ec2be286f1d7
+    m_ActionName: Player/Zoom[/DualShock4GamepadHID/leftTrigger,/DualShock4GamepadHID1/leftTrigger]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Gamepad
+  m_DefaultActionMap: GameStart
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &-2537492309018127594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3200431032573656334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3ccd74a35da2e148a862fab4dfa5083, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  number: 0
+  opponent: {fileID: 0}
+  world: {fileID: 0}
+  audioManager: {fileID: 4791382618013174857, guid: 59618a5d95df5804da18b23b7e240c47,
+    type: 3}
+  inputHandler: {fileID: 0}
+  submitter: {fileID: 0}
+  swapper: {fileID: 0}
+  input: {fileID: 0}
+  eventSystem: {fileID: 0}
+  inputSystem: {fileID: 0}
+  HUD: {fileID: 0}
+  vehicle: {fileID: 0}
+  playerCamera: {fileID: 0}
+  dimensions: {fileID: 0}
+  fleet: {fileID: 11400000, guid: 4a1787ba5b19c6a42a3266b70a5764ac, type: 2}
+  fleetColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &5728837721025891436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3200431032573656334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd28fda82d7d7e64f8c9135fd93db01b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShipName: 
+  dimensionPrefab: {fileID: 868283222179364552, guid: 2db3bf0e8101ca24d8a13a3de15e3d0d,
+    type: 3}
+  cellPrefab: {fileID: 5174194419912870597, guid: 1854d0b72bf4f054393c9dcb677de0e8,
+    type: 3}
+--- !u!114 &-7332662916426728237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3200431032573656334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 918762d45cc28fb43bb63dbb0a1ef7b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  inputHandler: {fileID: 0}
+--- !u!114 &6791104342523852192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3200431032573656334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4789987dd56c8654b92fdd647889978a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  gameStartMap:
+    m_Name: Game Start Map
+    m_Id: 85681cdd-b843-47b9-966b-451ff01371c9
+    m_Asset: {fileID: 0}
+    m_Actions: []
+    m_Bindings: []
+  playerMap:
+    m_Name: Player Map
+    m_Id: 051c2db1-bc41-448a-95ec-6221530fe869
+    m_Asset: {fileID: 0}
+    m_Actions: []
+    m_Bindings: []
+  continueGame: 1
+--- !u!114 &8141033843824573265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3200431032573656334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9419c67d494fbb7448bd23292ebf6a7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &941012256338790469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3200431032573656334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25ea3c29a2c34b644b8a97cf1120e510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  opponent: {fileID: 0}
+--- !u!114 &747391406311119974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3200431032573656334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d5c3c6fdcc213479fa0d4d802ecb7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+--- !u!114 &8043870872122323322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3200431032573656334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7413c74d9af50d846ad1a181c2f62e00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
