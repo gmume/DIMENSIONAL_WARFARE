@@ -16,6 +16,8 @@ public class Lifter : MonoBehaviour
             ShipChangeDimension(currentDimension.DimensionNo + 1, ref currentDimension, shipNo, new Vector3(0, OverworldData.DimensionSize * 2, 0), occupier);
             player.input.SwitchCurrentActionMap("GameStart");
             player.HUD.WriteText($"Capt'n {player.number} hide your ship!");
+            player.onboarding.ShowTip("OwnShipUp");
+            player.opponent.onboarding.ShowTip("OpponentShipUp");
             return true;
         }
         else

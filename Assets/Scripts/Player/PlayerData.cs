@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
@@ -40,7 +41,11 @@ public class PlayerData : MonoBehaviour
                       public int X { get; set; }
                       public int Y { get; set; }
 
-    private void Awake()
+    [Header("Onboarding")]
+                      public OnboardingManager onboarding;
+    
+
+   private void Awake()
     {
         number = int.Parse(name[^1].ToString());
         world = GetComponent<PlayerWorldManager>();
