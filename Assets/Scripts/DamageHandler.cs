@@ -24,10 +24,12 @@ public class DamageHandler : MonoBehaviour
         {
             player.HUD.underAttack.SetActive(false);
             DescendShip(lifter, ref dimension, shipNo, occupier);
+            player.onboarding.ShowTip("OwnShipDown");
         }
         else
         {
             ShipOrFleetDestroyed(shipNo, occupier);
+            player.onboarding.ShowTip("OwnShipDestroyed");
         }
 
         return true;

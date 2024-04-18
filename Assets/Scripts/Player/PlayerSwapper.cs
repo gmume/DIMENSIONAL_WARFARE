@@ -1,3 +1,5 @@
+﻿using System.ComponentModel;
+using TMPro;
 using UnityEngine;
 
 public class PlayerSwapper : MonoBehaviour
@@ -10,6 +12,7 @@ public class PlayerSwapper : MonoBehaviour
         player = GetComponent<PlayerData>();
         opponent = player.opponent;
     }
+
     public void SwapPlayers()
     {
         OverworldData.PlayerTurn = 3 - OverworldData.PlayerTurn;
@@ -37,12 +40,15 @@ public class PlayerSwapper : MonoBehaviour
 
     private void DisarmPlayer()
     {
+        player.onboarding.ShowTip("UnderAttack");
+        
         if (player.ActiveShip != null) player.ActiveShip.Deactivate();
         player.eventSystem.SetSelectedGameObject(null);
     }
 
     private void ArmOpponent()
     {
+        opponent.onboarding.ShowTip("Attack");
         opponent.inputEnabler.playerMap.Enable();
         opponent.HUD.SetSelecetedButton();
         opponent.fleet.ActivateShip(0, opponent);

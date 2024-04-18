@@ -51,16 +51,12 @@ public class PlayerWorldManager : MonoBehaviour
 
     public void DeactivateCell()
     {
-        if (player.ActiveCell != null)
-        {
-            player.ActiveCell.transform.position -= new Vector3(0, 0.2f, 0);
-        }
+        if (player.ActiveCell != null) player.ActiveCell.transform.position -= new Vector3(0, 0.2f, 0);
     }
 
     public void Initialize(PlayerData player)
     {
         this.player = player;
-        
         player.dimensions.name = $"Dimensions{player.number}";
         player.dimensions.Initialize();
         SetNewDimension(0);
