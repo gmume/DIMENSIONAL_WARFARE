@@ -75,7 +75,7 @@ public class DamageHandler : MonoBehaviour
             audioPlayer.OnVictory();
             player.HUD.WriteText($"Capt'n {player.opponent.number} wins for destroying the opponent's fleet!");
             GameData.winner = player.opponent.name;
-            player.GetComponent<SceneChanger>().LoadResolveGame();
+            SceneChanger.LoadResolveGame();
         }
     }
 

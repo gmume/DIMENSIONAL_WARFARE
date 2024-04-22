@@ -22,7 +22,7 @@ public class Lifter : MonoBehaviour
         }
         else
         {
-            player.GetComponent<SceneChanger>().LoadResolveGame();
+            SceneChanger.LoadResolveGame();
             //player.HUD.WriteText($"Capt'n {player.number} wins for reaching the top dimension!");
             GameData.winner = player.name;
             //audioPlayer.OnVictory();
