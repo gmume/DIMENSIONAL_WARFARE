@@ -17,7 +17,7 @@ public class ShipManager : MonoBehaviour
     [HideInInspector] public DamageHandler damageHandler;
 
                       public string ShipName { get; set; }
-                      public int ShipNo { get; set; }
+                      public int No { get; set; }
     [HideInInspector] public ShipPartManager[] parts;
                       public DimensionManager dimension;
 
@@ -29,11 +29,11 @@ public class ShipManager : MonoBehaviour
 
     public void QuaterTurn(bool clockwise) => navigator.QuaterTurn(clockwise, dimension, occupier);
 
-    public bool Fire() => artillerist.Fire(this, player.ActiveDimension);
+    public bool Fire() => artillerist.Fire(this);
 
-    public bool ShipUp() => lifter.LiftShipUp(ref dimension, ShipNo, occupier);
+    public bool ShipUp() => lifter.LiftShipUp(ref dimension, No, occupier);
 
-    public bool TakeHit(ShipPartManager part) => damageHandler.TakeHit(part, ShipNo, ref dimension, lifter, occupier);
+    public bool TakeHit(ShipPartManager part) => damageHandler.TakeHit(part, No, ref dimension, lifter, occupier);
 
     public void OccupyCells() => occupier.OccupyCells();
 
@@ -42,6 +42,6 @@ public class ShipManager : MonoBehaviour
     public void SetDimension(DimensionManager newDimension)
     {
         dimension = newDimension;
-        lifter.SetDimension(dimension, ShipNo);
+        lifter.SetDimension(dimension, No);
     }
 }

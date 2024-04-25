@@ -42,12 +42,12 @@ public class InputHandler : MonoBehaviour
     //StartGame and Player actionMap
     public void OnChooseRightShip(CallbackContext ctx)
     {
-        if (ctx.performed && player.ActiveShip.ShipNo < OverworldData.FleetSize - 1) ChooseShip(player.ActiveShip.ShipNo + 1);
+        if (ctx.performed && player.ActiveShip.No < OverworldData.FleetSize - 1) ChooseShip(player.ActiveShip.No + 1);
     }
 
     public void OnChooseLeftShip(CallbackContext ctx)
     {
-        if (ctx.performed && player.ActiveShip.ShipNo > 0) ChooseShip(player.ActiveShip.ShipNo - 1);
+        if (ctx.performed && player.ActiveShip.No > 0) ChooseShip(player.ActiveShip.No - 1);
     }
 
     private void ChooseShip(int index)
@@ -59,12 +59,12 @@ public class InputHandler : MonoBehaviour
     //Player actionMap
     public void OnDimensionUp(CallbackContext ctx)
     {
-        if (ctx.performed && player.ActiveDimension.DimensionNo < OverworldData.DimensionsCount - 1) GoToDimension(player.ActiveDimension.DimensionNo + 1);
+        if (ctx.performed && player.ActiveDimension.No < OverworldData.DimensionsCount - 1) GoToDimension(player.ActiveDimension.No + 1);
     }
 
     public void OnDimensionDown(CallbackContext ctx)
     {
-        if (ctx.performed && player.ActiveDimension.DimensionNo > 0) GoToDimension(player.ActiveDimension.DimensionNo - 1);
+        if (ctx.performed && player.ActiveDimension.No > 0) GoToDimension(player.ActiveDimension.No - 1);
     }
 
     private void GoToDimension(int no)
@@ -86,8 +86,8 @@ public class InputHandler : MonoBehaviour
             float y = vector.y;
 
             player.world.MoveSelection(x, y);
-            player.HUD.UpdateHUDCoords(player.ActiveCell.X, player.ActiveCell.Y);
-            player.opponent.HUD.UpdateHUDCoords(player.ActiveCell.X, player.ActiveCell.Y);
+            player.HUD.UpdateHUDCoords(player.FocusedCell.X, player.FocusedCell.Y);
+            player.opponent.HUD.UpdateHUDCoords(player.FocusedCell.X, player.FocusedCell.Y);
         }
         else
         {

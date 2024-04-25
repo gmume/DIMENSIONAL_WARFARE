@@ -13,7 +13,7 @@ public class Lifter : MonoBehaviour
         if (IsNotWinner(currentDimension))
         {
             audioPlayer.OnShipUp();
-            ShipChangeDimension(currentDimension.DimensionNo + 1, ref currentDimension, shipNo, new Vector3(0, OverworldData.DimensionSize * 2, 0), occupier);
+            ShipChangeDimension(currentDimension.No + 1, ref currentDimension, shipNo, new Vector3(0, OverworldData.DimensionSize * 2, 0), occupier);
             player.input.SwitchCurrentActionMap("GameStart");
             player.HUD.WriteText($"Capt'n {player.number} hide your ship!");
             player.onboarding.ShowTip("OwnShipUp");
@@ -30,11 +30,11 @@ public class Lifter : MonoBehaviour
         }
     }
 
-    private bool IsNotWinner(DimensionManager currentDimension) => currentDimension.DimensionNo<OverworldData.DimensionsCount - 2;
+    private bool IsNotWinner(DimensionManager currentDimension) => currentDimension.No <OverworldData.DimensionsCount - 2;
 
     public void SinkShip(ref DimensionManager currentDimension, int shipNo, ShipStatus status, CellOccupier occupier)
     {
-        ShipChangeDimension(currentDimension.DimensionNo - 1, ref currentDimension, shipNo, new Vector3(0, OverworldData.DimensionSize * -2, 0), occupier);
+        ShipChangeDimension(currentDimension.No - 1, ref currentDimension, shipNo, new Vector3(0, OverworldData.DimensionSize * -2, 0), occupier);
         transform.position += new Vector3(0, 0.5f, 0);
         gameObject.layer = LayerMask.NameToLayer($"Fleet{player.number}");
         player.inputHandler.continueGame = false;
@@ -44,7 +44,7 @@ public class Lifter : MonoBehaviour
     private void ShipChangeDimension(int newDimensionNo, ref DimensionManager dimensionBefore, int shipNo, Vector3 vector, CellOccupier occupier)
     {
         player.HUD.SetHUDDimension(newDimensionNo);
-        player.HUD.UpdateHUDFleets(shipNo, newDimensionNo, dimensionBefore.DimensionNo);
+        player.HUD.UpdateHUDFleets(shipNo, newDimensionNo, dimensionBefore.No);
 
         SwitchDimension(newDimensionNo, ref dimensionBefore, occupier, shipNo);
         transform.position += vector;

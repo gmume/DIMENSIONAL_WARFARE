@@ -48,10 +48,10 @@ public class HUD_Manager : MonoBehaviour
         player.CurrentShipButton = player.eventSystem.currentSelectedGameObject.GetComponent<ShipButtonData>();
         player.fleet.ActivateShip(player.CurrentShipButton.ShipButtonNr, player);
 
-        if (OverworldData.GamePhase == GamePhases.Battle) UpdateActiveCellAndHUD();
+        if (OverworldData.GamePhase == GamePhases.Battle) UpdateFocusedCellAndHUD();
     }
 
-    public void UpdateActiveCellAndHUD()
+    public void UpdateFocusedCellAndHUD()
     {
         int shipX = player.ActiveShip.navigator.PivotX;
         int shipY = player.ActiveShip.navigator.PivotZ;

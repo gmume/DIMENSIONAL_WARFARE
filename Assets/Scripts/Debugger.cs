@@ -21,10 +21,10 @@ public class Debugger : MonoBehaviour
 
     private ShipManager actShip1 = null, actShip2 = null;
     public string activeShip1, activeShip2;
-    public string activeCell1;
-    public string activeCell1OnDimension;
-    public string activeCell2;
-    public string activeCell2OnDimension;
+    public string focusedCell1;
+    public string focusedCell11OnDimension;
+    public string focusedCell12;
+    public string focusedCell12OnDimension;
     public GameObject activeDimension1, activeDimension2;
 
     public GameObject currentSelectedButton1, currentSelectedButton2;
@@ -54,13 +54,13 @@ public class Debugger : MonoBehaviour
             activeShip2 = "";
         }
 
-        if (player1.ActiveCell && player2.ActiveCell)
+        if (player1.FocusedCell && player2.FocusedCell)
         {
-            activeCell1 = player1.ActiveCell.X + ", " + player1.ActiveCell.Y;
-            activeCell1OnDimension = player1.ActiveCell.Dimension.name;
-            
-            activeCell2 = player2.ActiveCell.X + ", " + player2.ActiveCell.Y;
-            activeCell1OnDimension = player2.ActiveCell.Dimension.name;
+            focusedCell1 = player1.FocusedCell.X + ", " + player1.FocusedCell.Y;
+            focusedCell11OnDimension = player1.FocusedCell.Dimension.name;
+
+            focusedCell12 = player2.FocusedCell.X + ", " + player2.FocusedCell.Y;
+            focusedCell11OnDimension = player2.FocusedCell.Dimension.name;
         }
 
         if (player1.ActiveDimension && player2.ActiveDimension)

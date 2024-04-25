@@ -7,11 +7,14 @@ public class DimensionsManager : MonoBehaviour
     public PlayerData player;
     public GameObject dimensionPrefab, cellPrefab;
     private readonly List<GameObject> dimensions = new();
+    private CellGroupProvider cellGroupProvider;
 
     public void Initialize()
     {
         Initialize(player);
         CreateDimensions();
+        cellGroupProvider = GetComponent<CellGroupProvider>();
+        cellGroupProvider.Initialize();
     }
 
     public void CreateDimensions()
@@ -35,6 +38,11 @@ public class DimensionsManager : MonoBehaviour
     {
         GameObject dimension = dimensions[no];
         return dimension.GetComponent<DimensionManager>();
+    }
+
+    public List<GameObject> GetCellGroup(int shipNo, int shipOnDimensionNo, int attackedDimensionNo, Vector2 focusedCellCoordinates)
+    {
+        return cellGroupProvider.GetCells(shipNo, shipOnDimensionNo, attackedDimensionNo, focusedCellCoordinates);
     }
 
     public void Initialize(PlayerData player) => player.fleet.CreateFleet(player);

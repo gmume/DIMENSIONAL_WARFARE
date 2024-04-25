@@ -47,7 +47,7 @@ public class ShipPartManager : MonoBehaviour
     public void Initialize(PlayerData player, int partNo, ShipManager ship)
     {
         this.partNo = partNo;
-        X = ship.ShipNo;
+        X = ship.No;
         Y = partNo;
         Damaged = false;
         PartMaterial = GetComponent<Renderer>().material;

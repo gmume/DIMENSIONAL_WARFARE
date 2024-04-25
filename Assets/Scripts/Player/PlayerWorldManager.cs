@@ -28,7 +28,7 @@ public class PlayerWorldManager : MonoBehaviour
             currentY = newY;
 
             DeactivateCell();
-            player.ActiveCell = player.dimensions.GetDimension(player.ActiveDimension.DimensionNo).GetCell(currentX, currentY).GetComponent<CellData>();
+            player.FocusedCell = player.dimensions.GetDimension(player.ActiveDimension.No).GetCell(currentX, currentY).GetComponent<CellData>();
             ActivateCell();
         }
         else
@@ -47,11 +47,11 @@ public class PlayerWorldManager : MonoBehaviour
         SetNewCellRelative(newX, newY);
     }
 
-    public void ActivateCell() => player.ActiveCell.transform.position += new Vector3(0, 0.2f, 0);
+    public void ActivateCell() => player.FocusedCell.transform.position += new Vector3(0, 0.2f, 0);
 
     public void DeactivateCell()
     {
-        if (player.ActiveCell != null) player.ActiveCell.transform.position -= new Vector3(0, 0.2f, 0);
+        if (player.FocusedCell != null) player.FocusedCell.transform.position -= new Vector3(0, 0.2f, 0);
     }
 
     public void Initialize(PlayerData player)
