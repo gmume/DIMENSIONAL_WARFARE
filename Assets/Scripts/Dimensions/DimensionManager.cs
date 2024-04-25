@@ -7,15 +7,15 @@ public class DimensionManager : MonoBehaviour
     public GameObject[][] Cells { private set; get; }
     private readonly List<GameObject> ships = new();
 
-    public int DimensionNo { get; private set; }
+    public int No { get; private set; }
 
     public void Initialize(PlayerData player, int dimensionNo, GameObject cellPrefab, List<GameObject> fleet)
     {
         this.player = player;
-        DimensionNo = dimensionNo;
+        No = dimensionNo;
         CreateCells(cellPrefab);
 
-        if (DimensionNo == 0)
+        if (No == 0)
         {
             player.ActiveDimension = GetComponent<DimensionManager>();
 
@@ -40,7 +40,7 @@ public class DimensionManager : MonoBehaviour
 
             for (int z = 0; z < OverworldData.DimensionSize; z++)
             {
-                GameObject cellObj = Instantiate(cellPrefab, new Vector3(x, OverworldData.DimensionSize * DimensionNo * 2, z), Quaternion.identity);
+                GameObject cellObj = Instantiate(cellPrefab, new Vector3(x, OverworldData.DimensionSize * No * 2, z), Quaternion.identity);
 
                 cellObj.layer = LayerSetter.SetLayerDimensions(player);
                 cellObj.transform.parent = transform;
@@ -48,7 +48,7 @@ public class DimensionManager : MonoBehaviour
                 cell.Dimension = this;
                 cell.X = x;
                 cell.Y = z;
-                cell.Activated = false;
+                cell.Focused = false;
                 cell.Occupied = false;
                 cell.Hitted = false;
                 Cells[cell.X][cell.Y] = cellObj;
@@ -68,6 +68,23 @@ public class DimensionManager : MonoBehaviour
             return null;
         }
     }
+
+    //public CellData[] GetCells(int[] cellCoordinates)
+    //{
+    //    CellData[] cells = null;
+
+    //    if (x >= 0 && x < OverworldData.DimensionSize && y >= 0 && y < OverworldData.DimensionSize)
+    //    {
+    //        return Cells[x][y];
+    //    }
+    //    else
+    //    {
+    //        Debug.LogWarning($"{name}: Invalid cell coordinates (x={x}, y={y})");
+    //        return null;
+    //    }
+
+    //    return cells;
+    //}
 
     public void AddShips(List<GameObject> newShips)
     {
@@ -90,7 +107,7 @@ public class DimensionManager : MonoBehaviour
             if (ship.navigator.PivotX == x && ship.navigator.PivotZ == y) return shipObj;
         }
 
-        Debug.LogWarning($"{name}: No ship found on cell (x={x}, y={ y})");
+        Debug.LogWarning($"{name}: No ship found on cell (x={x}, y={y})");
         return null;
     }
 

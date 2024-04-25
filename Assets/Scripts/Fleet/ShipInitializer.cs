@@ -43,7 +43,7 @@ public class ShipInitializer : MonoBehaviour
         shipManager.artillerist = artillerist;
         shipManager.damageHandler = damageHandler;
 
-        shipManager.ShipNo = shipNo;
+        shipManager.No = shipNo;
         shipManager.parts = new ShipPartManager[shipNo + 1];
         shipManager.ShipName = $"ship{player.number}.{shipNo}";
         

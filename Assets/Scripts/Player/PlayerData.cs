@@ -34,7 +34,7 @@ public class PlayerData : MonoBehaviour
     [Header("World")]
                       public DimensionsManager dimensions; //Is initiated by PlayerWorld
                       public DimensionManager ActiveDimension { get; set; }
-    [HideInInspector] public CellData ActiveCell { get; set; }
+    [HideInInspector] public CellData FocusedCell { get; set; }
                       public FleetManager fleet; //Is initiated by PlayerWorld via InitDimension()
                       public Color fleetColor; // Player 1: Color(0.3f, 0.12f, 0, 1) brown, Player 2: Color(0.3f, 0.3f, 0, 1); olive
                       public ShipManager ActiveShip { get; set; }

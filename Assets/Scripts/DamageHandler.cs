@@ -20,7 +20,7 @@ public class DamageHandler : MonoBehaviour
 
         if (!Sunk()) return false;
 
-        if (dimension.DimensionNo != 0)
+        if (dimension.No != 0)
         {
             player.HUD.underAttack.SetActive(false);
             DescendShip(lifter, ref dimension, shipNo, occupier);
