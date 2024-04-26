@@ -7,6 +7,6 @@ public class CellData : MonoBehaviour
     public int Y { get; set; }
     public bool Focused { get; set; }
     public bool Occupied { get; set; }
-    public ShipPartManager Part { get; set; }
+    public GameObject OccupyingObj { get; set; }
     public bool Hitted { get; set; }
 }

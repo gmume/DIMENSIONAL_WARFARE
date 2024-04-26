@@ -22,20 +22,6 @@ public class ShipPartManager : MonoBehaviour
         Y = y;
     }
 
-    public void OccupyCell()
-    {
-        CellData cell = Dimension.GetCell(X, Y).GetComponent<CellData>();
-        cell.Occupied = true;
-        cell.Part = this;
-    }
-
-    public void ReleaseCell()
-    {
-        CellData cell = Dimension.GetCell(X, Y).GetComponent<CellData>();
-        cell.Occupied = false;
-        cell.Part = null;
-    }
-
     public void ResetPart()
     {
         Damaged = false;

@@ -7,7 +7,7 @@ public class DamageHandler : MonoBehaviour
     [HideInInspector] public PlayerData player;
     [HideInInspector] public AudioPlayer audioPlayer;
                       public ShipStatus ShipStatus { get; set; }
-    [HideInInspector] public ShipPartManager[] parts;
+    [HideInInspector] public ShipManager manager;
 
     public bool TakeHit(ShipPartManager part, int shipNo, ref DimensionManager dimension, Lifter lifter, CellOccupier occupier)
     {
@@ -23,12 +23,12 @@ public class DamageHandler : MonoBehaviour
         if (dimension.No != 0)
         {
             player.HUD.underAttack.SetActive(false);
-            DescendShip(lifter, ref dimension, shipNo, occupier);
+            DescendShip(lifter, ref dimension, shipNo);
             player.onboarding.ShowTip("OwnShipDown");
         }
         else
         {
-            ShipOrFleetDestroyed(shipNo, occupier);
+            ShipOrFleetDestroyed(shipNo);
             player.onboarding.ShowTip("OwnShipDestroyed");
         }
 
@@ -37,7 +37,7 @@ public class DamageHandler : MonoBehaviour
 
     private bool Sunk()
     {
-        foreach (ShipPartManager part in parts)
+        foreach (ShipPartManager part in manager.parts)
         {
             if (!part.Damaged) return false;
         }
@@ -45,20 +45,20 @@ public class DamageHandler : MonoBehaviour
         return true;
     }
 
-    private void DescendShip(Lifter lifter, ref DimensionManager dimension, int shipNo, CellOccupier occupier)
+    private void DescendShip(Lifter lifter, ref DimensionManager dimension, int shipNo)
     {
         ShipStatus = ShipStatus.Sunk;
         transform.position -= new Vector3(0, 0.5f, 0);
 
-        foreach (ShipPartManager shipPart in parts)
+        foreach (ShipPartManager shipPart in manager.parts)
         {
             shipPart.PartMaterial.color = Color.black;
         }
 
-        lifter.SinkShip(ref dimension, shipNo, ShipStatus, occupier);
+        lifter.SinkShip(ref dimension, shipNo, ShipStatus);
     }
 
-    private void ShipOrFleetDestroyed(int shipNo, CellOccupier occupier)
+    private void ShipOrFleetDestroyed(int shipNo)
     {
         if (!FleetDestroyed())
         {
@@ -68,7 +68,7 @@ public class DamageHandler : MonoBehaviour
             Destroy(player.HUD.HUD_Fleet[shipNo]);
             Destroy(player.opponent.HUD.HUD_FleetOpponent[shipNo]);
             fleet.Remove(gameObject);
-            StartCoroutine(DestroyShip(occupier));
+            StartCoroutine(DestroyShip());
         }
         else
         {
@@ -89,13 +89,13 @@ public class DamageHandler : MonoBehaviour
         return true;
     }
 
-    private IEnumerator DestroyShip(CellOccupier occupier)
+    private IEnumerator DestroyShip()
     {
         Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(2f);
         Time.timeScale = 1f;
 
-        occupier.ReleaseCells();
+        player.dimensions.ReleaseCells(player.dimensions.GetCellGroup(manager.GetShipCoodinates(), manager.dimension.No));
         Destroy(gameObject);
     }
 }

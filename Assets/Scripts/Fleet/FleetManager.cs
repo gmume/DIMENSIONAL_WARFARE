@@ -8,8 +8,10 @@ public class FleetManager : ScriptableObject
 {
     private readonly List<GameObject> fleet = new();
 
-    public void CreateFleet(PlayerData player)
+    public void InitializeFleet(PlayerData player)
     {
+        Object[] loadedAttackPatterns = Resources.LoadAll("AttackPatterns");
+
         for (int i = 0; i < OverworldData.FleetSize; i++)
         {
             GameObject shipPrefab = Resources.Load<GameObject>($"Ships/Ship{(i + 1)}_Prefab");
@@ -21,7 +23,7 @@ public class FleetManager : ScriptableObject
                 shipObj.name = "Ship" + player.number + "." + i;
                 ShipInitializer ship = shipObj.GetComponent<ShipInitializer>();
                 shipObj.layer = LayerSetter.SetLayerFleet(player);
-                ship.Initialize(player, i);
+                ship.Initialize(player, i, (AttackPattern)loadedAttackPatterns[i]);
                 fleet.Add(shipObj);
             }
             else

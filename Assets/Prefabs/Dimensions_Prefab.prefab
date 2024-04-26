@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4858100840324755956}
   - component: {fileID: 7172458948643613551}
+  - component: {fileID: 4340064460079707284}
   - component: {fileID: 1060188976352674600}
   m_Layer: 0
   m_Name: Dimensions_Prefab
@@ -50,6 +51,18 @@ MonoBehaviour:
     type: 3}
   cellPrefab: {fileID: 5174194419912870597, guid: 1854d0b72bf4f054393c9dcb677de0e8,
     type: 3}
+--- !u!114 &4340064460079707284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7576252629588680084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9477e4cfcc9cb8448ab9b7a7f6d4c9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1060188976352674600
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,45 @@ public class DimensionManager : MonoBehaviour
     private readonly List<GameObject> ships = new();
 
     public int No { get; private set; }
+    
+    public GameObject GetCell(int x, int y)
+    {
+        if (x >= 0 && x < OverworldData.DimensionSize && y >= 0 && y < OverworldData.DimensionSize)
+        {
+            return Cells[x][y];
+        }
+        //else
+        //{
+        //    Debug.LogWarning($"{name}: Invalid cell coordinates (x={x}, y={y})");
+        return null;
+        //}
+    }
+
+    public void AddShips(List<GameObject> newShips)
+    {
+        foreach (GameObject ship in newShips)
+        {
+            if (ship.GetComponent<ShipManager>().dimension == this)
+            {
+                ship.transform.SetParent(transform, true);
+                ships.Add(ship);
+            }
+        }
+    }
+
+    public GameObject GetShipOnCell(int x, int y)
+    {
+        foreach (GameObject shipObj in ships)
+        {
+            ShipManager ship = shipObj.GetComponent<ShipManager>();
+            if (ship.navigator.PivotX == x && ship.navigator.PivotZ == y) return shipObj;
+        }
+
+        Debug.LogWarning($"{name}: No ship found on cell (x={x}, y={y})");
+        return null;
+    }
+
+    public void RemoveShip(GameObject shipObj) => ships.Remove(shipObj);
 
     public void Initialize(PlayerData player, int dimensionNo, GameObject cellPrefab, List<GameObject> fleet)
     {
@@ -23,7 +63,7 @@ public class DimensionManager : MonoBehaviour
             {
                 ShipManager ship = shipObj.GetComponent<ShipManager>();
                 ship.SetDimension(this);
-                ship.OccupyCells();
+                player.dimensions.OccupyCells(TupleListProvider.GetTuplesList(this, ship.GetShipCoodinates(), ship.partsList));
             }
 
             AddShips(fleet);
@@ -55,61 +95,4 @@ public class DimensionManager : MonoBehaviour
             }
         }
     }
-
-    public GameObject GetCell(int x, int y)
-    {
-        if (x >= 0 && x < OverworldData.DimensionSize && y >= 0 && y < OverworldData.DimensionSize)
-        {
-            return Cells[x][y];
-        }
-        else
-        {
-            Debug.LogWarning($"{name}: Invalid cell coordinates (x={x}, y={y})");
-            return null;
-        }
-    }
-
-    //public CellData[] GetCells(int[] cellCoordinates)
-    //{
-    //    CellData[] cells = null;
-
-    //    if (x >= 0 && x < OverworldData.DimensionSize && y >= 0 && y < OverworldData.DimensionSize)
-    //    {
-    //        return Cells[x][y];
-    //    }
-    //    else
-    //    {
-    //        Debug.LogWarning($"{name}: Invalid cell coordinates (x={x}, y={y})");
-    //        return null;
-    //    }
-
-    //    return cells;
-    //}
-
-    public void AddShips(List<GameObject> newShips)
-    {
-        foreach (GameObject ship in newShips)
-        {
-            if (ship.GetComponent<ShipManager>().dimension == this)
-            {
-                ship.transform.SetParent(transform, true);
-                ships.Add(ship);
-            }
-        }
-    }
-
-    public GameObject GetShipOnCell(int x, int y)
-    {
-        foreach (GameObject shipObj in ships)
-        {
-            ShipManager ship = shipObj.GetComponent<ShipManager>();
-
-            if (ship.navigator.PivotX == x && ship.navigator.PivotZ == y) return shipObj;
-        }
-
-        Debug.LogWarning($"{name}: No ship found on cell (x={x}, y={y})");
-        return null;
-    }
-
-    public void RemoveShip(GameObject shipObj) => ships.Remove(shipObj);
 }

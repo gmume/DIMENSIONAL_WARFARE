@@ -19,6 +19,7 @@ public class ShipManager : MonoBehaviour
                       public string ShipName { get; set; }
                       public int No { get; set; }
     [HideInInspector] public ShipPartManager[] parts;
+                      public List<GameObject> partsList = new();
                       public DimensionManager dimension;
 
     public void Activate() => activator.Activate(occupier, this);
@@ -35,13 +36,21 @@ public class ShipManager : MonoBehaviour
 
     public bool TakeHit(ShipPartManager part) => damageHandler.TakeHit(part, No, ref dimension, lifter, occupier);
 
-    public void OccupyCells() => occupier.OccupyCells();
-
-    public void ReleaseCells() => occupier.ReleaseCells();
-
     public void SetDimension(DimensionManager newDimension)
     {
         dimension = newDimension;
         lifter.SetDimension(dimension, No);
+    }
+
+    public List<Vector2> GetShipCoodinates()
+    {
+        List<Vector2> coodinates = new();
+
+        foreach (ShipPartManager part in parts)
+        {
+            coodinates.Add(new(part.X, part.Y));
+        }
+
+        return coodinates;
     }
 }
