@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 6487093064469642371}
   - component: {fileID: 7305039522887232262}
   - component: {fileID: -3025172389173422167}
-  - component: {fileID: 3447530624371112420}
   - component: {fileID: 3579000624139320681}
   - component: {fileID: 2283861821808610560}
   - component: {fileID: -7813494510816842948}
@@ -113,6 +112,7 @@ MonoBehaviour:
   artillerist: {fileID: 0}
   damageHandler: {fileID: 0}
   parts: []
+  partsList: []
   dimension: {fileID: 0}
 --- !u!114 &7305039522887232262
 MonoBehaviour:
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   audioPlayer: {fileID: 0}
-  parts: []
+  manager: {fileID: 0}
 --- !u!114 &-3025172389173422167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,19 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   audioPlayer: {fileID: 0}
-  parts: []
---- !u!114 &3447530624371112420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5621880413829270124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9477e4cfcc9cb8448ab9b7a7f6d4c9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  manager: {fileID: 0}
   parts: []
 --- !u!114 &3579000624139320681
 MonoBehaviour:
@@ -184,6 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  attackPattern: {fileID: 0}
 --- !u!114 &-7813494510816842948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,7 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   audioPlayer: {fileID: 0}
-  parts: []
+  manager: {fileID: 0}
 --- !u!114 &9181093503022006896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,7 +204,6 @@ MonoBehaviour:
   shipManager: {fileID: 6487093064469642371}
   shipNavigator: {fileID: 7305039522887232262}
   shipLifter: {fileID: -3025172389173422167}
-  occupier: {fileID: 3447530624371112420}
   activator: {fileID: 3579000624139320681}
   artillerist: {fileID: 2283861821808610560}
   damageHandler: {fileID: -7813494510816842948}

@@ -13,21 +13,19 @@ public class ShipInitializer : MonoBehaviour
     [Header("Manager helpers")]
     public Navigator shipNavigator;
     public Lifter shipLifter;
-    public CellOccupier occupier;
     public Activator activator;
     public Artillerist artillerist;
     public DamageHandler damageHandler;
 
-    public void Initialize(PlayerData player, int shipNo)
+    public void Initialize(PlayerData player, int shipNo, AttackPattern attackPattern)
     {
         this.player = player;
         this.audioPlayer = GameObject.Find("AudioManager").GetComponent<AudioPlayer>();
         InitializeShipManager(shipNo);
         InitializeShipNavigator();
         InitializeShipLifter();
-        InitializeCellOccupier();
         InitializeActivator();
-        InitializeArtillerist();
+        InitializeArtillerist(attackPattern);
         InitializeDamageHandler();
     }
 
@@ -38,7 +36,6 @@ public class ShipInitializer : MonoBehaviour
 
         shipManager.navigator = shipNavigator;
         shipManager.lifter = shipLifter;
-        shipManager.occupier = occupier;
         shipManager.activator = activator;
         shipManager.artillerist = artillerist;
         shipManager.damageHandler = damageHandler;
@@ -56,13 +53,27 @@ public class ShipInitializer : MonoBehaviour
             partObj.AddComponent<ShipPartManager>().Initialize(player, i, shipManager);
             shipManager.parts[i] = partObj.GetComponent<ShipPartManager>();
         }
+
+        shipManager.partsList = GetPartsList();
+    }
+
+    private List<GameObject> GetPartsList()
+    {
+        List<GameObject> partsAsList = new();
+
+        foreach (ShipPartManager part in shipManager.parts)
+        {
+            partsAsList.Add(part.gameObject);
+        }
+
+        return partsAsList;
     }
 
     private void InitializeShipNavigator()
     {
         shipNavigator.player = player;
         shipNavigator.audioPlayer = audioPlayer;
-        shipNavigator.parts = shipManager.parts;
+        shipNavigator.manager = shipManager;
         shipNavigator.Orientation = Directions.North;
     }
 
@@ -70,10 +81,9 @@ public class ShipInitializer : MonoBehaviour
     {
         shipLifter.player = player;
         shipLifter.audioPlayer = audioPlayer;
+        shipLifter.manager = shipManager;
         shipLifter.parts =  shipManager.parts;
     }
-
-    private void InitializeCellOccupier() => occupier.parts = shipManager.parts;
 
     private void InitializeActivator()
     {
@@ -81,13 +91,17 @@ public class ShipInitializer : MonoBehaviour
         activator.parts = shipManager.parts;
     }
 
-    private void InitializeArtillerist() => artillerist.player = player;
+    private void InitializeArtillerist(AttackPattern attackPattern)
+    {
+        artillerist.player = player;
+        artillerist.attackPattern = attackPattern;
+    }
 
     private void InitializeDamageHandler()
     {
         damageHandler.player = player;
         damageHandler.audioPlayer = audioPlayer;
         damageHandler.ShipStatus = ShipStatus.Intact;
-        damageHandler.parts = shipManager.parts;
+        damageHandler.manager = shipManager;
     }
 }

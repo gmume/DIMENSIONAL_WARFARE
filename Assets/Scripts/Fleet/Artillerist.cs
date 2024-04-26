@@ -5,13 +5,16 @@ using UnityEngine;
 public class Artillerist : MonoBehaviour
 {
     [HideInInspector] public PlayerData player;
-                      private Color fireColor = Color.red;
+    private Color fireColor = Color.red;
+    public AttackPattern attackPattern;
 
     public bool Fire(ShipManager shipManager)
     {
         CellData focusedCell = player.FocusedCell;
-        HitCells(focusedCell, shipManager);
-        List<GameObject> opponentCells = GetOpponentCells(focusedCell, shipManager);
+        List<Vector2> hitCellsCoordinates = GetCellCoordinates(focusedCell);
+
+        HitCells(hitCellsCoordinates, focusedCell);
+        List<GameObject> opponentCells = GetOpponentCells(hitCellsCoordinates, focusedCell);
         List<bool> sunkenShips = new();
 
         foreach (GameObject opponentCell in opponentCells)
@@ -24,10 +27,10 @@ public class Artillerist : MonoBehaviour
         player.HUD.armed.SetActive(false);
         return shipManager.ShipUp();
     }
-    
-    private CellData HitCells(CellData focusedCell, ShipManager attackingShip)
+
+    private CellData HitCells(List<Vector2> hitCellsCoordinates, CellData focusedCell)
     {
-        List<GameObject> cells = player.dimensions.GetCellGroup(attackingShip.No, attackingShip.dimension.No, focusedCell.Dimension.No, new(focusedCell.X, focusedCell.Y));
+        List<GameObject> cells = player.dimensions.GetCellGroup(hitCellsCoordinates, focusedCell.Dimension.No);
 
         foreach (GameObject cell in cells)
         {
@@ -38,9 +41,36 @@ public class Artillerist : MonoBehaviour
         return player.FocusedCell;
     }
 
-    private List<GameObject> GetOpponentCells(CellData focusedCell, ShipManager attackingShip) => player.opponent.dimensions.GetCellGroup(attackingShip.No, attackingShip .dimension.No, focusedCell.Dimension.No, new(focusedCell.X, focusedCell.Y));
+    private List<Vector2> GetCellCoordinates(CellData focusedCell)
+    {
+        List<Vector2> cellsCoodinates = new();
+        int shipLevel = GetComponent<ShipManager>().dimension.No;
 
-    private bool IsOpponentSunk(CellData opponentCell) => opponentCell.Part.GetComponentInParent<ShipManager>().TakeHit(opponentCell.Part);
+        for (int level = 0; level <= shipLevel; level++)
+        {
+            cellsCoodinates.AddRange(GetCoordinatesPerLevel(focusedCell, attackPattern.GetPatternLevel(level)));
+        }
+
+        return cellsCoodinates;
+    }
+
+    private List<Vector2> GetCoordinatesPerLevel(CellData focusedCell, List<Vector2> deltaCoordinates)
+    {
+        List<Vector2> cellCoordinatesPerLevel = new();
+
+        foreach (Vector2 deltaCoordinate in deltaCoordinates)
+        {
+            int x = focusedCell.X + (int)deltaCoordinate[0];
+            int y = focusedCell.Y + (int)deltaCoordinate[1];
+            cellCoordinatesPerLevel.Add(new Vector2(x, y));
+        }
+
+        return cellCoordinatesPerLevel;
+    }
+
+    private List<GameObject> GetOpponentCells(List<Vector2> hitCellsCoordinates, CellData focusedCell) => player.opponent.dimensions.GetCellGroup(hitCellsCoordinates, focusedCell.Dimension.No);
+
+    private bool IsOpponentSunk(CellData opponentCell) => opponentCell.OccupyingObj.GetComponentInParent<ShipManager>().TakeHit(opponentCell.OccupyingObj.GetComponent<ShipPartManager>());
 
     private bool CanShipAscend(List<bool> sunkenShips)
     {
