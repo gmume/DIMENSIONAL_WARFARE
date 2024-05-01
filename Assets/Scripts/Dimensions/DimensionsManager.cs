@@ -10,12 +10,15 @@ public class DimensionsManager : MonoBehaviour
     private readonly List<GameObject> dimensions = new();
     private CellOccupier occupier;
     private CellGroupProvider cellGroupProvider;
+    private PositionFinder finder;
 
     public List<GameObject> GetDimensions() => dimensions;
 
     public DimensionManager GetDimension(int no) => dimensions[no].GetComponent<DimensionManager>();
 
-    public List<GameObject> GetCellGroup(List<Vector2> cellCoordinates, int dimensionNo) => cellGroupProvider.GetCells(cellCoordinates, dimensionNo);
+    public List<GameObject> GetCellGroup(List<Vector2> cellCoordinates, int dimensionNo) => cellGroupProvider.GetCells(cellCoordinates, GetDimension(dimensionNo));
+
+    public List<GameObject> GetCellGroup(List<Vector2> cellCoordinates, DimensionManager dimension) => cellGroupProvider.GetCells(cellCoordinates, dimension);
 
     public GameObject GetCell(Vector2 cellCoordinates, int dimensionNo) => GetCellGroup(new() { cellCoordinates }, dimensionNo)[0];
 
@@ -23,12 +26,18 @@ public class DimensionsManager : MonoBehaviour
 
     public void ReleaseCells(List<GameObject> cells) => occupier.ReleaseCells(cells);
 
+    public int CountVacantCells(List<GameObject> cells) => finder.CountVacantCells(cells);
+
+    public List<Vector2> FindVacantCoordinates(int onDimensionNo, List<Vector2> position) => finder.FindVacantCoordinates(onDimensionNo, position);
+
     public void Initialize()
     {
         occupier = GetComponent<CellOccupier>();
         cellGroupProvider = GetComponent<CellGroupProvider>();
+        finder = GetComponent<PositionFinder>();
 
         cellGroupProvider.Initialize();
+        finder.Initialize(player.dimensions);
         player.fleet.InitializeFleet(player);
         CreateDimensions();
     }

@@ -12,27 +12,9 @@ public class DimensionManager : MonoBehaviour
     
     public GameObject GetCell(int x, int y)
     {
-        if (x >= 0 && x < OverworldData.DimensionSize && y >= 0 && y < OverworldData.DimensionSize)
-        {
-            return Cells[x][y];
-        }
-        //else
-        //{
-        //    Debug.LogWarning($"{name}: Invalid cell coordinates (x={x}, y={y})");
-        return null;
-        //}
-    }
+        if (x >= 0 && x < OverworldData.DimensionSize && y >= 0 && y < OverworldData.DimensionSize) return Cells[x][y];
 
-    public void AddShips(List<GameObject> newShips)
-    {
-        foreach (GameObject ship in newShips)
-        {
-            if (ship.GetComponent<ShipManager>().dimension == this)
-            {
-                ship.transform.SetParent(transform, true);
-                ships.Add(ship);
-            }
-        }
+        return null;
     }
 
     public GameObject GetShipOnCell(int x, int y)
@@ -54,20 +36,8 @@ public class DimensionManager : MonoBehaviour
         this.player = player;
         No = dimensionNo;
         CreateCells(cellPrefab);
-
-        if (No == 0)
-        {
-            player.ActiveDimension = GetComponent<DimensionManager>();
-
-            foreach (GameObject shipObj in fleet)
-            {
-                ShipManager ship = shipObj.GetComponent<ShipManager>();
-                ship.SetDimension(this);
-                player.dimensions.OccupyCells(TupleListProvider.GetTuplesList(this, ship.GetShipCoodinates(), ship.partsList));
-            }
-
-            AddShips(fleet);
-        }
+        if (No != 0) AddRocks();
+        if (No == 0) AddShips(fleet);
     }
 
     public void CreateCells(GameObject cellPrefab)
@@ -83,7 +53,8 @@ public class DimensionManager : MonoBehaviour
                 GameObject cellObj = Instantiate(cellPrefab, new Vector3(x, OverworldData.DimensionSize * No * 2, z), Quaternion.identity);
 
                 cellObj.layer = LayerSetter.SetLayerDimensions(player);
-                cellObj.transform.parent = transform;
+                cellObj.transform.SetParent(transform);
+                //cellObj.transform.parent = transform;
                 CellData cell = cellObj.GetComponent<CellData>();
                 cell.Dimension = this;
                 cell.X = x;
@@ -93,6 +64,35 @@ public class DimensionManager : MonoBehaviour
                 cell.Hitted = false;
                 Cells[cell.X][cell.Y] = cellObj;
             }
+        }
+    }
+
+    private void AddRocks()
+    {
+        RocksManger rocksManager = player.dimensions.GetComponent<RocksManger>();
+        List<Vector2> rocksCoordinates = rocksManager.GetRocksCoordinates(No);
+        List<GameObject> cells = player.dimensions.GetCellGroup(rocksCoordinates, this);
+        List<GameObject> rocks = new();
+
+        for (int i = 0; i < cells.Count; i++)
+        {
+            GameObject rock = rocksManager.GetRock();
+            rocks.Add(rock);
+        }
+
+        player.dimensions.OccupyCells(TupleListProvider.GetTuplesList(cells, rocks));
+    }
+
+    private void AddShips(List<GameObject> fleet)
+    {
+        player.ActiveDimension = this;
+
+        foreach (GameObject shipObj in fleet)
+        {
+            ShipManager ship = shipObj.GetComponent<ShipManager>();
+            ship.SetDimension(this);
+            player.dimensions.OccupyCells(TupleListProvider.GetTuplesList(this, ship.GetShipCoordinates(), ship.partsList));
+            if (ship.dimension == this) ships.Add(shipObj);
         }
     }
 }

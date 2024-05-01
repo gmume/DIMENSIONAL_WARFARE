@@ -36,13 +36,9 @@ public class ShipManager : MonoBehaviour
 
     public bool TakeHit(ShipPartManager part) => damageHandler.TakeHit(part, No, ref dimension, lifter, occupier);
 
-    public void SetDimension(DimensionManager newDimension)
-    {
-        dimension = newDimension;
-        lifter.SetDimension(dimension, No);
-    }
+    public void SetDimension(DimensionManager newDimension) => lifter.SetDimension(newDimension, No);
 
-    public List<Vector2> GetShipCoodinates()
+    public List<Vector2> GetShipCoordinates()
     {
         List<Vector2> coodinates = new();
 
@@ -52,5 +48,13 @@ public class ShipManager : MonoBehaviour
         }
 
         return coodinates;
+    }
+
+    public void SetShipCoordinates(List<Vector2> coordinates)
+    {
+        for (int i = 0; i < coordinates.Count; i++)
+        {
+            parts[i].UpdateCoordinatesAbsolute((int)coordinates[i].x, (int)coordinates[i].y);
+        }
     }
 }

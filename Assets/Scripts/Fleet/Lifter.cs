@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -17,6 +19,7 @@ public class Lifter : MonoBehaviour
             audioPlayer.OnShipUp();
             ShipChangeDimension(currentDimension.No + 1, ref currentDimension, shipNo, new Vector3(0, OverworldData.DimensionSize * 2, 0));
             player.input.SwitchCurrentActionMap("GameStart");
+            player.inputEnabler.DisableChoosingShips();
             player.HUD.WriteText($"Capt'n {player.number} hide your ship!");
             player.onboarding.ShowTip("OwnShipUp");
             player.opponent.onboarding.ShowTip("OpponentShipUp");
@@ -41,38 +44,47 @@ public class Lifter : MonoBehaviour
         StartCoroutine(ResetShip(status));
     }
 
-    private void ShipChangeDimension(int newDimensionNo, ref DimensionManager dimensionBefore, int shipNo, Vector3 vector)
+    private void ShipChangeDimension(int newDimensionNo, ref DimensionManager dimensionBefore, int shipNo, Vector3 upVector)
     {
         player.HUD.SetHUDDimension(newDimensionNo);
         player.HUD.UpdateHUDFleets(shipNo, newDimensionNo, dimensionBefore.No);
-
-        SwitchDimension(newDimensionNo, ref dimensionBefore, shipNo);
-        transform.position += vector;
-
+        LeaveOldDimension(ref dimensionBefore);
+        ArriveOnNewDimension(newDimensionNo, shipNo);
         player.world.SetNewDimension(newDimensionNo);
         player.vehicle.SetViewOnDimension(newDimensionNo);
     }
 
-    private void SwitchDimension(int newDimensionNo, ref DimensionManager dimension, int shipNo)
+    private void LeaveOldDimension(ref DimensionManager dimensionBefore)
     {
-        List<GameObject> cells = player.dimensions.GetCellGroup(manager.GetShipCoodinates(), manager.dimension.No);
+        player.dimensions.ReleaseCells(player.dimensions.GetCellGroup(manager.GetShipCoordinates(), dimensionBefore.No));
+        dimensionBefore.RemoveShip(gameObject);
+    }
 
-        player.dimensions.ReleaseCells(cells);
-        dimension.RemoveShip(gameObject);
-        dimension = player.dimensions.GetDimension(newDimensionNo);
-        SetDimension(dimension, shipNo);
-        player.dimensions.OccupyCells(TupleListProvider.GetTuplesList(manager.dimension, manager.GetShipCoodinates(), manager.partsList));
+    private void ArriveOnNewDimension(int newDimensionNo, int shipNo)
+    {
+        DimensionManager newDimension = player.dimensions.GetDimension(newDimensionNo);
+        List<(GameObject cell, GameObject obj)> cellsAndObjects = TupleListProvider.GetTuplesList(newDimension, manager.GetShipCoordinates(), manager.partsList);
+        int vacantCellsCount = player.dimensions.CountVacantCells(player.dimensions.GetCellGroup(manager.GetShipCoordinates(), newDimensionNo));
+
+        if (vacantCellsCount != cellsAndObjects.Count)
+        {
+            List<Vector2> vacantCoords = player.dimensions.FindVacantCoordinates(newDimensionNo, manager.GetShipCoordinates());
+            manager.SetShipCoordinates(vacantCoords);
+            cellsAndObjects = TupleListProvider.GetTuplesList(newDimension, manager.GetShipCoordinates(), manager.partsList);
+        }
+
+        SetDimension(newDimension, shipNo);
+        player.dimensions.OccupyCells(cellsAndObjects);
     }
 
     public void SetDimension(DimensionManager newDimension, int shipNo)
     {
-        transform.parent = newDimension.transform;
+        transform.SetParent(newDimension.transform);
+        manager.dimension = newDimension;
 
         for (int i = 0; i <= shipNo; i++)
         {
-            ShipPartManager part = parts[i];
-            part.Dimension = newDimension;
-            part.transform.parent = transform;
+            parts[i].Dimension = newDimension;
         }
     }
 
@@ -89,6 +101,7 @@ public class Lifter : MonoBehaviour
 
         //status = ShipStatus.Intact;
         player.input.SwitchCurrentActionMap("GameStart");
+        player.inputEnabler.DisableChoosingShips();
         player.HUD.WriteText($"Capt'n {player.number} hide your ship!");
         player.ActiveShip = gameObject.GetComponent<ShipManager>();
     }

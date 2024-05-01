@@ -16,7 +16,7 @@ public class Navigator : MonoBehaviour
         int deltaX = deltaXY[0], deltaY = deltaXY[1];
         int newX = PivotX + deltaX, newY = PivotZ + deltaY;
 
-        player.dimensions.ReleaseCells(player.dimensions.GetCellGroup(manager.GetShipCoodinates(), manager.dimension.No));
+        player.dimensions.ReleaseCells(player.dimensions.GetCellGroup(manager.GetShipCoordinates(), manager.dimension.No));
 
         if (!IsValidPosition(newX, newY))
         {
@@ -26,12 +26,12 @@ public class Navigator : MonoBehaviour
         else if(CollisionCourseMove(deltaX, deltaY, dimension))
         {
             Warn("Capt'n, we are on collision course! Let the ship heave to!", "TXT_CollisionCourse");
-            player.dimensions.OccupyCells(TupleListProvider.GetTuplesList(manager.dimension, manager.GetShipCoodinates(), manager.partsList));
+            player.dimensions.OccupyCells(TupleListProvider.GetTuplesList(manager.dimension, manager.GetShipCoordinates(), manager.partsList));
             return;
         }
         
         UpdateShipPosition(deltaX, deltaY);
-        player.dimensions.OccupyCells(TupleListProvider.GetTuplesList(manager.dimension, manager.GetShipCoodinates(), manager.partsList));
+        player.dimensions.OccupyCells(TupleListProvider.GetTuplesList(manager.dimension, manager.GetShipCoordinates(), manager.partsList));
     }
 
     private int[] GetAxis(float deltaX, float deltaY)
@@ -78,12 +78,12 @@ public class Navigator : MonoBehaviour
             cells[i] = GetCellForPart(manager.parts[i], clockwise, dimension);
         }
 
-        player.dimensions.ReleaseCells(player.dimensions.GetCellGroup(manager.GetShipCoodinates(), manager.dimension.No));
+        player.dimensions.ReleaseCells(player.dimensions.GetCellGroup(manager.GetShipCoordinates(), manager.dimension.No));
 
         if (CollisionCourseTurn(cells))
         {
             Warn("Capt'n, we are on collision course! Let the ship heave to!", "TXT_CollisionCourse");
-            player.dimensions.OccupyCells(TupleListProvider.GetTuplesList(manager.dimension, manager.GetShipCoodinates(), manager.partsList));
+            player.dimensions.OccupyCells(TupleListProvider.GetTuplesList(manager.dimension, manager.GetShipCoordinates(), manager.partsList));
             return;
         }
 
@@ -98,7 +98,7 @@ public class Navigator : MonoBehaviour
             manager.parts[i].UpdateCoordinatesAbsolute(cell.X, cell.Y);
         }
 
-        player.dimensions.OccupyCells(TupleListProvider.GetTuplesList(manager.dimension, manager.GetShipCoodinates(), manager.partsList));
+        player.dimensions.OccupyCells(TupleListProvider.GetTuplesList(manager.dimension, manager.GetShipCoordinates(), manager.partsList));
     }
 
     private bool CollisionCourseTurn(CellData[] cells)
