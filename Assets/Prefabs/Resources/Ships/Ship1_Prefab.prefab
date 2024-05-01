@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &6400939259974439863
+--- !u!1001 &219780238417993793
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -68,8 +68,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6415509181150051695, guid: cdf7d98cb71d80f459df9a6729163550,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 8857032717230758296, guid: afe32a314d7554449a6337d643735d22,
+        type: 3}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7560683509987640078, guid: cdf7d98cb71d80f459df9a6729163550, type: 3}
+    - {fileID: 3228051045104798568, guid: cdf7d98cb71d80f459df9a6729163550, type: 3}
+    - {fileID: 506325865719690980, guid: cdf7d98cb71d80f459df9a6729163550, type: 3}
+    - {fileID: 5681217669390483954, guid: cdf7d98cb71d80f459df9a6729163550, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdf7d98cb71d80f459df9a6729163550, type: 3}

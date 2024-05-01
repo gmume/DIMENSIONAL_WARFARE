@@ -95,7 +95,7 @@ public class DamageHandler : MonoBehaviour
         yield return new WaitForSecondsRealtime(2f);
         Time.timeScale = 1f;
 
-        player.dimensions.ReleaseCells(player.dimensions.GetCellGroup(manager.GetShipCoodinates(), manager.dimension.No));
+        player.dimensions.ReleaseCells(player.dimensions.GetCellGroup(manager.GetShipCoordinates(), manager.dimension.No));
         Destroy(gameObject);
     }
 }

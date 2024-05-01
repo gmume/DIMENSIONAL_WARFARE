@@ -57,7 +57,7 @@ public class PlayerData : MonoBehaviour
         world.Initialize(this);
         GetComponent<InputInitializer>().Initialize();
 
-        //if (number == 1) Invoke("DebugShowCellOnCoords", 0.1f);
+        //if (number == 1) Invoke("DebugShowCellOnCoords", 0.5f);
         //Invoke("DebugShowShipsOwner", 0.1f);
     }
 

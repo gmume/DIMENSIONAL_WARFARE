@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 7172458948643613551}
   - component: {fileID: 4340064460079707284}
   - component: {fileID: 1060188976352674600}
+  - component: {fileID: -3692579294848941497}
+  - component: {fileID: -8853715611656857494}
   m_Layer: 0
   m_Name: Dimensions_Prefab
   m_TagString: Untagged
@@ -73,5 +75,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f5a432fae57ce842bc054e8d8870576, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-3692579294848941497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7576252629588680084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 210f3f49af387e64dab42058603df0c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rockPrefab: {fileID: 2684695994064820914, guid: eb562ae6a1f40884c8f6b3f2c9a009e2,
+    type: 3}
+  rockPattern: {fileID: 11400000, guid: 2f0a9c23212d1cf419d4283170a96f62, type: 2}
+--- !u!114 &-8853715611656857494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7576252629588680084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5a99c83869aaf645a34111ad196fe89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

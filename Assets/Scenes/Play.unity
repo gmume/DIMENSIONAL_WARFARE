@@ -1739,10 +1739,10 @@ MonoBehaviour:
   controlScemePlayer2: 
   activeShip1: 
   activeShip2: 
-  activeCell1: 
-  activeCell1OnDimension: 
-  activeCell2: 
-  activeCell2OnDimension: 
+  focusedCell1: 
+  focusedCell11OnDimension: 
+  focusedCell12: 
+  focusedCell12OnDimension: 
   activeDimension1: {fileID: 0}
   activeDimension2: {fileID: 0}
   currentSelectedButton1: {fileID: 0}

@@ -99,7 +99,7 @@ public class Debugger : MonoBehaviour
 
     public void ShowCellCoords()
     {
-        DimensionManager dimension = player1.dimensions.GetDimension(0);
+        DimensionManager dimension = player1.dimensions.GetDimension(2);
 
         for (int i = 0; i < OverworldData.DimensionSize; i++)
         {

@@ -10,6 +10,7 @@ TagManager:
   - Camera
   - HUD1
   - HUD2
+  - ShipPart
   layers:
   - Default
   - TransparentFX

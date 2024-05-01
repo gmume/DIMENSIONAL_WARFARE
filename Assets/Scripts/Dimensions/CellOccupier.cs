@@ -1,24 +1,26 @@
-using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CellOccupier : MonoBehaviour
 {
-    public void OccupyCells(List<(GameObject cell, GameObject part)> cellsAndObjs)
+    public void OccupyCells(List<(GameObject cell, GameObject obj)> cellsAndObjs)
     {
-        for (int i = 0; i < cellsAndObjs.Count; i++)
-        {
-            CellData cellData = cellsAndObjs[i].Item1.GetComponent<CellData>();
-            cellData.Occupied = true;
-            cellData.OccupyingObj = cellsAndObjs[i].Item2;
-        }
-        
-        foreach ((GameObject cell, GameObject part) in cellsAndObjs)
+        foreach ((GameObject cell, GameObject obj) in cellsAndObjs)
         {
             CellData cellData = cell.GetComponent<CellData>();
             cellData.Occupied = true;
-            cellData.OccupyingObj = part;
+            cellData.OccupyingObj = obj;
+
+            if (obj.CompareTag("ShipPart"))
+            {
+                obj.transform.position = cell.transform.position;
+            } else
+            {
+                obj.transform.SetParent(cell.transform, false);
+            }
+            
+            obj.transform.position += new Vector3(0, 0.5f, 0);
         }
     }
 

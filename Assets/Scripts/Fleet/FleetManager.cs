@@ -18,7 +18,8 @@ public class FleetManager : ScriptableObject
 
             if (shipPrefab != null)
             {
-                GameObject shipObj = Instantiate(shipPrefab, new Vector3(i, 1, 0), Quaternion.identity);
+                GameObject shipObj = Instantiate(shipPrefab, new Vector3(0, 1, 0), Quaternion.identity);
+                //GameObject shipObj = Instantiate(shipPrefab, new Vector3(i, 1, 0), Quaternion.identity);
 
                 shipObj.name = "Ship" + player.number + "." + i;
                 ShipInitializer ship = shipObj.GetComponent<ShipInitializer>();
