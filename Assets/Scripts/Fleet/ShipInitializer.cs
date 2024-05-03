@@ -103,5 +103,7 @@ public class ShipInitializer : MonoBehaviour
         damageHandler.audioPlayer = audioPlayer;
         damageHandler.ShipStatus = ShipStatus.Intact;
         damageHandler.manager = shipManager;
+        damageHandler.layerFilter = player.playerCamera.GetComponent<LayerFilter>();
+        damageHandler.opponentLayerFilter = player.opponent.playerCamera.GetComponent<LayerFilter>();
     }
 }

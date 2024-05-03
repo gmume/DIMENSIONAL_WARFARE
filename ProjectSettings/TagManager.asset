@@ -22,8 +22,8 @@ TagManager:
   - Player2
   - Fleet1
   - Fleet2
-  - VisibleShips1
-  - VisibleShips2
+  - DamagedParts1
+  - DamagedParts2
   - HUD1
   - HUD2
   - Dimensions1

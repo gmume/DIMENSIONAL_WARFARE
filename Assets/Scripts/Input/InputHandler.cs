@@ -110,7 +110,11 @@ public class InputHandler : MonoBehaviour
 
         if (shipUp)
         {
-            player.playerCamera.GetComponent<LayerFilter>().ShowLayers(true, true, true);
+            bool showDamagedParts1 = player.name == "player1";
+            bool showDamagedParts2 = player.name == "player2";
+
+            player.playerCamera.GetComponent<LayerFilter>().ShowLayers(true, true, showDamagedParts1, showDamagedParts2);
+            //player.playerCamera.GetComponent<LayerFilter>().ShowLayers(true, true, true);
             continueGame = false;
             StartCoroutine(WaitBattleToContinue());
         }

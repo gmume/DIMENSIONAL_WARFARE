@@ -8,15 +8,20 @@ public class DamageHandler : MonoBehaviour
     [HideInInspector] public AudioPlayer audioPlayer;
                       public ShipStatus ShipStatus { get; set; }
     [HideInInspector] public ShipManager manager;
+    [HideInInspector] public LayerFilter layerFilter;
+    [HideInInspector] public LayerFilter opponentLayerFilter;
 
-    public bool TakeHit(ShipPartManager part, int shipNo, ref DimensionManager dimension, Lifter lifter, CellOccupier occupier)
+    public bool TakeHit(ShipPartManager part, int shipNo, ref DimensionManager dimension, Lifter lifter)
     {
         part.Damaged = true;
         part.PartMaterial.color += Color.red;
 
-        int targetLayer = LayerMask.NameToLayer("VisibleShips" + player.number);
+        int targetLayer = LayerMask.NameToLayer("DamagedParts" + player.number);
         gameObject.layer = targetLayer;
         part.gameObject.layer = targetLayer;
+
+        layerFilter.ShowLayers(true, true, true, false);
+        opponentLayerFilter.ShowLayers(true, false, false, true);
 
         if (!Sunk()) return false;
 

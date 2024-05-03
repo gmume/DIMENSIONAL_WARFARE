@@ -34,7 +34,7 @@ public class ShipManager : MonoBehaviour
 
     public bool ShipUp() => lifter.LiftShipUp(ref dimension, No, occupier);
 
-    public bool TakeHit(ShipPartManager part) => damageHandler.TakeHit(part, No, ref dimension, lifter, occupier);
+    public bool TakeHit(ShipPartManager part) => damageHandler.TakeHit(part, No, ref dimension, lifter);
 
     public void SetDimension(DimensionManager newDimension) => lifter.SetDimension(newDimension, No);
 

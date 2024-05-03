@@ -71,10 +71,7 @@ public class Artillerist : MonoBehaviour
 
     private List<GameObject> GetOpponentCells(List<Vector2> hitCellsCoordinates, CellData focusedCell) => player.opponent.dimensions.GetCellGroup(hitCellsCoordinates, focusedCell.Dimension.No);
 
-    private bool IsOpponentSunk(CellData opponentCell)
-    {
-        return opponentCell.OccupyingObj.GetComponentInParent<ShipManager>().TakeHit(opponentCell.OccupyingObj.GetComponent<ShipPartManager>());
-    }
+    private bool IsOpponentSunk(CellData opponentCell) => opponentCell.OccupyingObj.GetComponentInParent<ShipManager>().TakeHit(opponentCell.OccupyingObj.GetComponent<ShipPartManager>());
 
     private bool CanShipAscend(List<bool> sunkenShips)
     {
