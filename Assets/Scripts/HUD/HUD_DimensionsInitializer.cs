@@ -20,6 +20,9 @@ public class HUD_DimensionsInitializer : MonoBehaviour
             HUD_Dimension.transform.position += new Vector3(0, i * 40, 0);
             HUD_DimensionNo = HUD_Dimension.GetComponentInChildren<TextMeshProUGUI>();
             HUD_DimensionNo.text = "0" + (i + 1);
+
+            Debug.Log("HUD_Dimensions: " + HUD_Dimensions.Length);
+            Debug.Log("HUD_Dimension: " + HUD_Dimension);
             HUD_Dimensions[i] = HUD_Dimension;
 
             if (i == 0)

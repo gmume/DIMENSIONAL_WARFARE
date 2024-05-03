@@ -33,6 +33,26 @@ PrefabInstance:
       propertyPath: m_TagString
       value: HUD1
       objectReference: {fileID: 0}
+    - target: {fileID: 268576913397184004, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 268576913397184004, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 268576913397184004, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 268576913397184004, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
+      objectReference: {fileID: 0}
     - target: {fileID: 423810122934812997, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_Layer
@@ -98,10 +118,40 @@ PrefabInstance:
       propertyPath: HUD_Dimensions.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1882135560043891823, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882135560043891823, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_TagString
+      value: HUD1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981232355037566957, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981232355037566957, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_TagString
+      value: HUD1
+      objectReference: {fileID: 0}
     - target: {fileID: 2193121517904792103, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2592136597241214044, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2592136597241214044, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_TagString
+      value: HUD1
       objectReference: {fileID: 0}
     - target: {fileID: 2978756892363074589, guid: dadfa82202b17be47b39770320522709,
         type: 3}
@@ -124,6 +174,26 @@ PrefabInstance:
       value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4853459858211243768, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_TagString
+      value: HUD1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4867716519402795282, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4867716519402795282, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_TagString
+      value: HUD1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5094547770579949872, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5094547770579949872, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_TagString
       value: HUD1
@@ -167,6 +237,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: HUD1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6775736796643756282, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6775736796643756282, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6775736796643756282, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6775736796643756282, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
       objectReference: {fileID: 0}
     - target: {fileID: 6864978629165529910, guid: dadfa82202b17be47b39770320522709,
         type: 3}
@@ -358,12 +448,42 @@ PrefabInstance:
       propertyPath: m_TagString
       value: HUD1
       objectReference: {fileID: 0}
+    - target: {fileID: 8820920767490017569, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8820920767490017569, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_TagString
+      value: HUD1
+      objectReference: {fileID: 0}
     - target: {fileID: 8830732740648696196, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8830732740648696196, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_TagString
+      value: HUD1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8865974366954951331, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8865974366954951331, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_TagString
+      value: HUD1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8924535341982309580, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8924535341982309580, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_TagString
       value: HUD1

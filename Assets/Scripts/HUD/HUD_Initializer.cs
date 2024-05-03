@@ -1,6 +1,5 @@
 using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class HUD_Initializer : MonoBehaviour
@@ -48,11 +47,9 @@ public class HUD_Initializer : MonoBehaviour
         {
             switch (HUD_Part.name)
             {
-                case "X-Koordinate":
-                    hudManager.xCoord = HUD_Part.GetComponent<TextMeshProUGUI>();
-                    break;
-                case "Y-Koordinate":
-                    hudManager.yCoord = HUD_Part.GetComponent<TextMeshProUGUI>();
+                case "Coordinates":
+                    hudManager.xCoord = HUD_Part.transform.Find("X-Coordinate").GetComponent<TextMeshProUGUI>();
+                    hudManager.yCoord = HUD_Part.transform.Find("Y-Coordinate").GetComponent<TextMeshProUGUI>();
                     break;
                 case "HUD_Dimensions":
                     HUD_DimensionsObj = HUD_Part;

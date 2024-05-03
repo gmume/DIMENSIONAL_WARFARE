@@ -98,10 +98,40 @@ PrefabInstance:
       propertyPath: HUD_Dimensions.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1882135560043891823, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882135560043891823, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_TagString
+      value: HUD2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981232355037566957, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981232355037566957, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_TagString
+      value: HUD2
+      objectReference: {fileID: 0}
     - target: {fileID: 2193121517904792103, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_Layer
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2592136597241214044, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 2592136597241214044, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_TagString
+      value: HUD2
       objectReference: {fileID: 0}
     - target: {fileID: 2978756892363074589, guid: dadfa82202b17be47b39770320522709,
         type: 3}
@@ -124,6 +154,26 @@ PrefabInstance:
       value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4853459858211243768, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_TagString
+      value: HUD2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4867716519402795282, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 4867716519402795282, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_TagString
+      value: HUD2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5094547770579949872, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5094547770579949872, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_TagString
       value: HUD2
@@ -343,12 +393,42 @@ PrefabInstance:
       propertyPath: m_TagString
       value: HUD2
       objectReference: {fileID: 0}
+    - target: {fileID: 8820920767490017569, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8820920767490017569, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_TagString
+      value: HUD2
+      objectReference: {fileID: 0}
     - target: {fileID: 8830732740648696196, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_Layer
       value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 8830732740648696196, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_TagString
+      value: HUD2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8865974366954951331, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8865974366954951331, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_TagString
+      value: HUD2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8924535341982309580, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8924535341982309580, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_TagString
       value: HUD2
