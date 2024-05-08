@@ -28,11 +28,8 @@ public class PlayerSwapper : MonoBehaviour
 
     private void UpdateGame()
     {
-        player.playerCamera.GetComponent<LayerFilter>().ShowLayers(false, true, true, false);
-        opponent.playerCamera.GetComponent<LayerFilter>().ShowLayers(true, false, false, true);
-        
-        //player.playerCamera.GetComponent<LayerFilter>().ShowLayers(false, true, true);
-        //opponent.playerCamera.GetComponent<LayerFilter>().ShowLayers(true, false, true);
+        player.playerCamera.GetComponent<LayerFilter>().ShowLayers(true, true, true, false);
+        opponent.playerCamera.GetComponent<LayerFilter>().ShowLayers(false, false, false, true);
 
         player.HUD.armed.SetActive(false);
         opponent.HUD.armed.SetActive(true);

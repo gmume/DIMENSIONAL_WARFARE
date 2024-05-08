@@ -9,7 +9,10 @@ public class PlayerWorldManager : MonoBehaviour
     private PlayerData player;
     private int currentX = 0, currentY = 0;
 
-    public void SetNewDimension(int no) => player.ActiveDimension = player.dimensions.GetDimension(no);
+    public void SetNewDimension(int no)
+    {
+        player.ActiveDimension = player.dimensions.GetDimension(no);
+    }
 
     public void MoveSelection(float x, float y)
     {
@@ -28,7 +31,8 @@ public class PlayerWorldManager : MonoBehaviour
             currentY = newY;
 
             DeactivateCell();
-            player.FocusedCell = player.dimensions.GetDimension(player.ActiveDimension.No).GetCell(currentX, currentY).GetComponent<CellData>();
+            player.FocusedCell = player.opponent.dimensions.GetDimension(player.ActiveDimension.No).GetCell(currentX, currentY).GetComponent<CellData>();
+            //player.FocusedCell = player.dimensions.GetDimension(player.ActiveDimension.No).GetCell(currentX, currentY).GetComponent<CellData>();
             ActivateCell();
         }
         else

@@ -31,11 +31,11 @@ public class OnboardingManager : MonoBehaviour
     new()
     {
         {"DistributeShips", "Switch ships\t← →\r\nMove ship\tLeft stick\r\nTurn ship\tL1  R1\r\nReady to play\tX"},
-        {"Attack", "Switch ships\t← →\nMove aim\tLeft stick\nFire\t\tR2"},
+        {"Attack", "Switch ships\t← →\nMove aim\tLeft stick\nFire\t\tX"},
         {"UnderAttack", "Await your opponent's attack!"},
-        {"OwnShipUp", "Your ship ascended to the upper dimension!\nMove ship\tLeft stick\r\nTurn ship\tL1  R1\r\nReady to play\tX\nSwitch dimensions\t↑ ↓"},
-        {"OpponentShipUp", "Your opponent's ship ascended to the upper dimension!\nSwitch dimensions\t↑ ↓"},
-        {"OwnShipDown", "Your ship descended to the lower dimension!\nMove ship\tLeft stick\r\nTurn ship\tL1  R1\r\nReady to play\tX\nSwitch dimensions\t↑ ↓"},
+        {"OwnShipUp", "Your ship ascended\n to the upper dimension!\nMove ship\tLeft stick\r\nTurn ship\tL1  R1\r\nReady to play\tX\nSwitch dimensions\t↑ ↓"},
+        {"OpponentShipUp", "Your opponent's ship ascended\nto the upper dimension!\nSwitch dimensions\t↑ ↓"},
+        {"OwnShipDown", "Your ship descended\nto the lower dimension!\nMove ship\tLeft stick\r\nTurn ship\tL1  R1\r\nReady to play\tX\nSwitch dimensions\t↑ ↓"},
         {"OwnShipDestroyed", "Your ship is destroyed!"},
     };
 }

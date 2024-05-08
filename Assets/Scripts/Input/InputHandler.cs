@@ -69,6 +69,7 @@ public class InputHandler : MonoBehaviour
 
     private void GoToDimension(int no)
     {
+        //player.input.currentActionMap.Disable();
         player.audioManager.ChooseDimension();
         player.HUD.ChooseDimension(no);
         player.vehicle.SetViewOnDimension(no);

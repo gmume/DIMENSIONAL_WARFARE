@@ -6,7 +6,7 @@ public class PositionFinder : MonoBehaviour
 {
     DimensionsManager dimensions;
 
-    private readonly List<Vector2> searchDirections = new() { new(1, 0), new(0, 1), new(-1, 0), new(0, -1) };
+    private readonly List<Vector2> searchDirections = new() { new(1, 0), new(1, 1), new(0, 1), new(-1, 1), new(-1, 0), new(-1, -1), new(0, -1), new(1, -1) };
     List<Vector2> deltaCoords;
     bool isValidPos;
     private List<Vector2> newCoords;

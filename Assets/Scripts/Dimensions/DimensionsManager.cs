@@ -52,7 +52,6 @@ public class DimensionsManager : MonoBehaviour
             dimension.name = $"dimension{player.number}.{dimensionNo}";
             dimension.layer = LayerSetter.SetLayerDimensions(player);
             dimension.transform.localScale = new Vector3(OverworldData.DimensionDiagonal, OverworldData.DimensionDiagonal, OverworldData.DimensionDiagonal);
-
             dimension.GetComponent<DimensionManager>().Initialize(player, dimensionNo, cellPrefab, player.fleet.GetFleet());
             dimensions.Add(dimension);
         }

@@ -55,6 +55,12 @@ public class ShipManager : MonoBehaviour
         for (int i = 0; i < coordinates.Count; i++)
         {
             parts[i].UpdateCoordinatesAbsolute((int)coordinates[i].x, (int)coordinates[i].y);
+
+            if (i == 0)
+            {
+                navigator.PivotX = parts[i].X;
+                navigator.PivotZ = parts[i].Y;
+            }
         }
     }
 }

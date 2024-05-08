@@ -5,7 +5,6 @@ using UnityEngine;
 public class Artillerist : MonoBehaviour
 {
     [HideInInspector] public PlayerData player;
-    private Color fireColor = Color.red;
     public AttackPattern attackPattern;
 
     public bool Fire(ShipManager shipManager)
@@ -31,11 +30,11 @@ public class Artillerist : MonoBehaviour
 
     private CellData HitCells(List<Vector2> hitCellsCoordinates, CellData focusedCell)
     {
-        List<GameObject> cells = player.dimensions.GetCellGroup(hitCellsCoordinates, focusedCell.Dimension.No);
+        List<GameObject> cells = player.opponent.dimensions.GetCellGroup(hitCellsCoordinates, focusedCell.Dimension.No);
 
         foreach (GameObject cell in cells)
         {
-            cell.GetComponent<Renderer>().material.color = fireColor;
+            cell.GetComponent<Renderer>().material.color = Colors.hitCell;
             cell.GetComponent<CellData>().Hitted = true;
         }
 

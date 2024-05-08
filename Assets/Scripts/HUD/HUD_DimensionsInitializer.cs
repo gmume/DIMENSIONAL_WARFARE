@@ -5,14 +5,16 @@ using UnityEngine;
 
 public class HUD_DimensionsInitializer : MonoBehaviour
 {
-    public GameObject HUD_DimensionObj;
+    //public GameObject HUD_DimensionObj;
     private TextMeshProUGUI HUD_DimensionNo;
 
-    public void InitializeHUDDimensions(HUD_Manager hudManager, HUD_FleetInitializer hudFleetInitializer, GameObject HUD_DimensionsObj, GameObject[] HUD_Dimensions, GameObject[] HUD_Fleet, Color HUD_ShipColor)
+    public void InitializeHUDDimensions(HUD_Manager hudManager, HUD_FleetInitializer hudFleetInitializer, GameObject HUD_DimensionsObj, GameObject HUD_DimensionPrefab, GameObject[] HUD_Dimensions, GameObject[] HUD_Fleet, Color HUD_ShipColor)
+    //public void InitializeHUDDimensions(HUD_Manager hudManager, HUD_FleetInitializer hudFleetInitializer, GameObject HUD_DimensionsObj, GameObject[] HUD_Dimensions, GameObject[] HUD_Fleet, Color HUD_ShipColor)
     {
         for (int i = 0; i < OverworldData.DimensionsCount; i++)
         {
-            GameObject HUD_Dimension = Instantiate(HUD_DimensionObj) as GameObject;
+            GameObject HUD_Dimension = Instantiate(HUD_DimensionPrefab) as GameObject;
+            //GameObject HUD_Dimension = Instantiate(HUD_DimensionObj) as GameObject;
             HUD_Dimension.name = "HUDDimension0" + (i + 1);
             HUD_Dimension.transform.SetParent(HUD_DimensionsObj.transform, false);
 

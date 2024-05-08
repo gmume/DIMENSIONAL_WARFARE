@@ -81,10 +81,7 @@ public class AudioPlayer : MonoBehaviour
         PlayClip(1.2f, sfxSource2, audioCollection.sfxSounds["SFX_ImpactExplosion"]);
     }
 
-    public void ChooseDimension()
-    {
-        PlayClip(sfxSource1, audioCollection.sfxSounds["SFX_ChooseDimension"]);
-    }
+    public void ChooseDimension() => PlayClip(sfxSource1, audioCollection.sfxSounds["SFX_ChooseDimension"]);
 
     public void OnShipUp() => PlayClip(sfxSource1, audioCollection.sfxSounds["SFX_ShipUp"]);
 

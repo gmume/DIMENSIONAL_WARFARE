@@ -19,6 +19,8 @@ public class HUD_Initializer : MonoBehaviour
     [Header("Prefabs")]
     [HideInInspector] public GameObject HUD_DimensionsObj;
     [HideInInspector] public GameObject HUD_DimensionsOpponentObj;
+    public GameObject HUD_DimensionPrefab;
+    public GameObject HUD_DimensionOpponentPrefab;
 
     public void Start()
     {
@@ -77,8 +79,8 @@ public class HUD_Initializer : MonoBehaviour
 
     private void InitializeHUDDimensions()
     {
-        hudDimensionsInitializer.InitializeHUDDimensions(hudManager, hudFleetInitializer, HUD_DimensionsObj, player.HUD.HUD_Dimensions, player.HUD.HUD_Fleet, player.fleetColor);
-        hudDimensionsInitializer.InitializeHUDDimensions(hudManager, hudFleetInitializer, HUD_DimensionsOpponentObj, player.HUD.HUD_DimensionsOpponent, player.HUD.HUD_FleetOpponent, player.opponent.fleetColor);
+        hudDimensionsInitializer.InitializeHUDDimensions(hudManager, hudFleetInitializer, HUD_DimensionsObj, HUD_DimensionPrefab, player.HUD.HUD_Dimensions, player.HUD.HUD_Fleet, player.fleetColor);
+        hudDimensionsInitializer.InitializeHUDDimensions(hudManager, hudFleetInitializer, HUD_DimensionsOpponentObj, HUD_DimensionOpponentPrefab, player.HUD.HUD_DimensionsOpponent, player.HUD.HUD_FleetOpponent, player.opponent.fleetColor);
         hudDimensionActivator.currentHUD_Dimension = hudDimensionActivator.currentHUD_DimensionOpponent = 0;
     }
 

@@ -57,7 +57,7 @@ public class VehicleManager : MonoBehaviour
 
     private void InitiatePanning(float panDuration, Vector3 endPosition)
     {
-        DisableEnableActions(false);
+        player.input.currentActionMap.Disable();
         this.panDuration = panDuration;
         this.endPosition = endPosition;
         startPosition = transform.position;
@@ -82,17 +82,6 @@ public class VehicleManager : MonoBehaviour
         }
 
         transform.position = endPosition;
-        DisableEnableActions(true);
-    }
-
-    private void DisableEnableActions(bool enable)
-    {
-        foreach (InputAction action in actions)
-        {
-            if (enable)
-                action.Enable();
-            else
-                action.Disable();
-        }
+        player.input.currentActionMap.Enable();
     }
 }

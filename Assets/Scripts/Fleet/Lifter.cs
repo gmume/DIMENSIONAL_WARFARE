@@ -11,13 +11,15 @@ public class Lifter : MonoBehaviour
     [HideInInspector] public AudioPlayer audioPlayer;
     [HideInInspector] public ShipManager manager;
     [HideInInspector] public ShipPartManager[] parts;
+    [HideInInspector] public LayerFilter layerFilter;
 
     public bool LiftShipUp(ref DimensionManager currentDimension, int shipNo, CellOccupier occupier)
     {
         if (IsNotWinner(currentDimension))
         {
             audioPlayer.OnShipUp();
-            ShipChangeDimension(currentDimension.No + 1, ref currentDimension, shipNo, new Vector3(0, OverworldData.DimensionSize * 2, 0));
+            ShipChangeDimension(currentDimension.No + 1, ref currentDimension, shipNo);
+            layerFilter.ShowLayers(true, true, true, false);
             player.input.SwitchCurrentActionMap("GameStart");
             player.inputEnabler.DisableChoosingShips();
             player.HUD.WriteText($"Capt'n {player.number} hide your ship!");
@@ -37,14 +39,15 @@ public class Lifter : MonoBehaviour
 
     public void SinkShip(ref DimensionManager currentDimension, int shipNo, ShipStatus status)
     {
-        ShipChangeDimension(currentDimension.No - 1, ref currentDimension, shipNo, new Vector3(0, OverworldData.DimensionSize * -2, 0));
+        ShipChangeDimension(currentDimension.No - 1, ref currentDimension, shipNo);
         transform.position += new Vector3(0, 0.5f, 0);
         gameObject.layer = LayerMask.NameToLayer($"Fleet{player.number}");
+        layerFilter.ShowLayers(true, true, true, false);
         player.inputHandler.continueGame = false;
         StartCoroutine(ResetShip(status));
     }
 
-    private void ShipChangeDimension(int newDimensionNo, ref DimensionManager dimensionBefore, int shipNo, Vector3 upVector)
+    private void ShipChangeDimension(int newDimensionNo, ref DimensionManager dimensionBefore, int shipNo)
     {
         player.HUD.SetHUDDimension(newDimensionNo);
         player.HUD.UpdateHUDFleets(shipNo, newDimensionNo, dimensionBefore.No);
@@ -99,7 +102,7 @@ public class Lifter : MonoBehaviour
             part.ResetPart();
         }
 
-        //status = ShipStatus.Intact;
+        status = ShipStatus.Intact;
         player.input.SwitchCurrentActionMap("GameStart");
         player.inputEnabler.DisableChoosingShips();
         player.HUD.WriteText($"Capt'n {player.number} hide your ship!");

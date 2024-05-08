@@ -54,7 +54,6 @@ public class DimensionManager : MonoBehaviour
 
                 cellObj.layer = LayerSetter.SetLayerDimensions(player);
                 cellObj.transform.SetParent(transform);
-                //cellObj.transform.parent = transform;
                 CellData cell = cellObj.GetComponent<CellData>();
                 cell.Dimension = this;
                 cell.X = x;

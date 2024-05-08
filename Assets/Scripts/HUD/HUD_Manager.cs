@@ -1,10 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using static UnityEngine.InputSystem.InputAction;
 
 public class HUD_Manager : MonoBehaviour
 {
@@ -26,6 +24,8 @@ public class HUD_Manager : MonoBehaviour
 
     [HideInInspector] public TextMeshProUGUI crewText;
 
+    [HideInInspector] public int middleCoordNo = (int)Math.Floor((double)OverworldData.DimensionSize);
+
     private void Awake()
     {
         HUD_Dimensions = new GameObject[OverworldData.DimensionsCount];
@@ -40,7 +40,7 @@ public class HUD_Manager : MonoBehaviour
         yCoord.text = y;
     }
 
-    public void ChooseDimension(int no) => hudDimensionActivator.ActivateDimansionAtNo(this, no);
+    public void ChooseDimension(int no) => hudDimensionActivator.ActivateDimensionAtNo(this, no);
 
     public void ChooseShip(int index)
     {
@@ -53,15 +53,12 @@ public class HUD_Manager : MonoBehaviour
 
     public void UpdateFocusedCellAndHUD()
     {
-        int shipX = player.ActiveShip.navigator.PivotX;
-        int shipY = player.ActiveShip.navigator.PivotZ;
-
-        player.HUD.UpdateHUDCoords(shipX, shipY);
-        player.opponent.HUD.UpdateHUDCoords(shipX, shipY);
-        player.world.SetNewCellAbsolute(shipX, shipY);
+        player.HUD.UpdateHUDCoords(middleCoordNo, middleCoordNo);
+        player.opponent.HUD.UpdateHUDCoords(middleCoordNo, middleCoordNo);
+        player.world.SetNewCellAbsolute(middleCoordNo, middleCoordNo);
     }
-
-    public void SetHUDDimension(int toNo) => hudDimensionActivator.ActivateDimansionAtNo(this, toNo);
+    
+    public void SetHUDDimension(int toNo) => hudDimensionActivator.ActivateDimensionAtNo(this, toNo);
 
     public void UpdateHUDCoords(int xCoord, int yCoord)
     {

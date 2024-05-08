@@ -35,6 +35,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 268576913397184004, guid: dadfa82202b17be47b39770320522709,
         type: 3}
+      propertyPath: m_fontSize
+      value: 38.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 268576913397184004, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
       propertyPath: m_fontColor.b
       value: 0
       objectReference: {fileID: 0}
@@ -77,6 +82,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 894302856182202537, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 894302856182202537, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.27058825
+      objectReference: {fileID: 0}
+    - target: {fileID: 894302856182202537, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.15294118
       objectReference: {fileID: 0}
     - target: {fileID: 1037440158340254413, guid: dadfa82202b17be47b39770320522709,
         type: 3}
@@ -143,6 +163,21 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 2511737691212431244, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2511737691212431244, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2511737691212431244, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2592136597241214044, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_Layer
@@ -163,10 +198,36 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 3525422307263637074, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: HUD_DimensionObj
+      value: 
+      objectReference: {fileID: 2435093339001908417, guid: 96bb9ad403c8f3d4280bb6883822fefd,
+        type: 3}
+    - target: {fileID: 4071603505805264408, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: HUD_DimensionInactive
+      value: 
+      objectReference: {fileID: 2800000, guid: 126cd6daaf98cb34483c5e9071de134b, type: 3}
     - target: {fileID: 4083868067415641906, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4805333094485392066, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4805333094485392066, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.20394737
+      objectReference: {fileID: 0}
+    - target: {fileID: 4805333094485392066, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4853459858211243768, guid: dadfa82202b17be47b39770320522709,
         type: 3}
@@ -228,6 +289,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: HUD1
       objectReference: {fileID: 0}
+    - target: {fileID: 6656813424284549626, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 38.65
+      objectReference: {fileID: 0}
     - target: {fileID: 6709968922146174760, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_Layer
@@ -237,6 +303,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: HUD1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6775736796643756282, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 38.65
       objectReference: {fileID: 0}
     - target: {fileID: 6775736796643756282, guid: dadfa82202b17be47b39770320522709,
         type: 3}
@@ -425,9 +496,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8053290421002738304, guid: dadfa82202b17be47b39770320522709,
         type: 3}
+      propertyPath: HUD_DimensionPrefab
+      value: 
+      objectReference: {fileID: 2435093339001908417, guid: 96bb9ad403c8f3d4280bb6883822fefd,
+        type: 3}
+    - target: {fileID: 8053290421002738304, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
       propertyPath: HUD_DimensionsOpponentObj
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8053290421002738304, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: HUD_DimensionOpponentPrefab
+      value: 
+      objectReference: {fileID: 7923797187610063111, guid: 717bb90369dc5aa46a7ec88e9579aa1e,
+        type: 3}
     - target: {fileID: 8424139909344409787, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_Layer

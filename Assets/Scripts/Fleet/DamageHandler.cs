@@ -14,14 +14,14 @@ public class DamageHandler : MonoBehaviour
     public bool TakeHit(ShipPartManager part, int shipNo, ref DimensionManager dimension, Lifter lifter)
     {
         part.Damaged = true;
-        part.PartMaterial.color += Color.red;
+        //part.PartMaterial.color = Colors.damagedPart;
+        part.Explode();
 
         int targetLayer = LayerMask.NameToLayer("DamagedParts" + player.number);
         gameObject.layer = targetLayer;
         part.gameObject.layer = targetLayer;
-
-        layerFilter.ShowLayers(true, true, true, false);
-        opponentLayerFilter.ShowLayers(true, false, false, true);
+        //layerFilter.ShowLayers(true, true, true, false);
+        //opponentLayerFilter.ShowLayers(true, false, false, true);
 
         if (!Sunk()) return false;
 
@@ -57,7 +57,7 @@ public class DamageHandler : MonoBehaviour
 
         foreach (ShipPartManager shipPart in manager.parts)
         {
-            shipPart.PartMaterial.color = Color.black;
+            shipPart.PartMaterial.color = player.fleetColor + Colors.activ;
         }
 
         lifter.SinkShip(ref dimension, shipNo, ShipStatus);
