@@ -69,11 +69,11 @@ public class InputHandler : MonoBehaviour
 
     private void GoToDimension(int no)
     {
-        //player.input.currentActionMap.Disable();
         player.audioManager.ChooseDimension();
         player.HUD.ChooseDimension(no);
         player.vehicle.SetViewOnDimension(no);
         player.world.SetNewDimension(no);
+        player.world.SetNewCellRelative(0, 0);
     }
 
     public void OnMoveSelection(CallbackContext ctx)
@@ -115,7 +115,6 @@ public class InputHandler : MonoBehaviour
             bool showDamagedParts2 = player.name == "player2";
 
             player.playerCamera.GetComponent<LayerFilter>().ShowLayers(true, true, showDamagedParts1, showDamagedParts2);
-            //player.playerCamera.GetComponent<LayerFilter>().ShowLayers(true, true, true);
             continueGame = false;
             StartCoroutine(WaitBattleToContinue());
         }

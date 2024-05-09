@@ -24,8 +24,6 @@ public class HUD_Manager : MonoBehaviour
 
     [HideInInspector] public TextMeshProUGUI crewText;
 
-    [HideInInspector] public int middleCoordNo = (int)Math.Floor((double)OverworldData.DimensionSize);
-
     private void Awake()
     {
         HUD_Dimensions = new GameObject[OverworldData.DimensionsCount];
@@ -34,11 +32,11 @@ public class HUD_Manager : MonoBehaviour
         HUD_FleetOpponent = new GameObject[OverworldData.FleetSize];
     }
 
-    private void Update()
-    {
-        xCoord.text = x;
-        yCoord.text = y;
-    }
+    //private void Update()
+    //{
+    //    xCoord.text = x;
+    //    yCoord.text = y;
+    //}
 
     public void ChooseDimension(int no) => hudDimensionActivator.ActivateDimensionAtNo(this, no);
 
@@ -53,9 +51,8 @@ public class HUD_Manager : MonoBehaviour
 
     public void UpdateFocusedCellAndHUD()
     {
-        player.HUD.UpdateHUDCoords(middleCoordNo, middleCoordNo);
-        player.opponent.HUD.UpdateHUDCoords(middleCoordNo, middleCoordNo);
-        player.world.SetNewCellAbsolute(middleCoordNo, middleCoordNo);
+        player.HUD.UpdateHUDCoords(OverworldData.MiddleCoordNo, OverworldData.MiddleCoordNo);
+        player.opponent.HUD.UpdateHUDCoords(OverworldData.MiddleCoordNo, OverworldData.MiddleCoordNo);
     }
     
     public void SetHUDDimension(int toNo) => hudDimensionActivator.ActivateDimensionAtNo(this, toNo);

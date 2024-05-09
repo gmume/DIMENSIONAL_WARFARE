@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -22,9 +21,9 @@ public class Debugger : MonoBehaviour
     private ShipManager actShip1 = null, actShip2 = null;
     public string activeShip1, activeShip2;
     public string focusedCell1;
-    public string focusedCell11OnDimension;
-    public string focusedCell12;
-    public string focusedCell12OnDimension;
+    public string focusedCell1OnDimension;
+    public string focusedCell2;
+    public string focusedCell2OnDimension;
     public GameObject activeDimension1, activeDimension2;
 
     public GameObject currentSelectedButton1, currentSelectedButton2;
@@ -57,10 +56,10 @@ public class Debugger : MonoBehaviour
         if (player1.FocusedCell && player2.FocusedCell)
         {
             focusedCell1 = player1.FocusedCell.X + ", " + player1.FocusedCell.Y;
-            focusedCell11OnDimension = player1.FocusedCell.Dimension.name;
+            focusedCell1OnDimension = player1.FocusedCell.Dimension.name;
 
-            focusedCell12 = player2.FocusedCell.X + ", " + player2.FocusedCell.Y;
-            focusedCell11OnDimension = player2.FocusedCell.Dimension.name;
+            focusedCell2 = player2.FocusedCell.X + ", " + player2.FocusedCell.Y;
+            focusedCell1OnDimension = player2.FocusedCell.Dimension.name;
         }
 
         if (player1.ActiveDimension && player2.ActiveDimension)

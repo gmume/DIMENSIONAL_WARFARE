@@ -32,7 +32,6 @@ public class PlayerWorldManager : MonoBehaviour
 
             DeactivateCell();
             player.FocusedCell = player.opponent.dimensions.GetDimension(player.ActiveDimension.No).GetCell(currentX, currentY).GetComponent<CellData>();
-            //player.FocusedCell = player.dimensions.GetDimension(player.ActiveDimension.No).GetCell(currentX, currentY).GetComponent<CellData>();
             ActivateCell();
         }
         else

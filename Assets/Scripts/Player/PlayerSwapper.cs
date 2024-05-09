@@ -53,5 +53,6 @@ public class PlayerSwapper : MonoBehaviour
         opponent.HUD.SetSelecetedButton();
         opponent.fleet.ActivateShip(0, opponent);
         opponent.HUD.UpdateFocusedCellAndHUD();
+        player.opponent.world.SetNewCellAbsolute(OverworldData.MiddleCoordNo, OverworldData.MiddleCoordNo);
     }
 }

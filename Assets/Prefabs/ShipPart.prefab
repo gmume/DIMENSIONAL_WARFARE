@@ -92,6 +92,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6812052169725333989}
     m_Modifications:
+    - target: {fileID: 1472240480875237958, guid: 030c3b30cd147e54aa0a1da97cc08d33,
+        type: 3}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472240480875237958, guid: 030c3b30cd147e54aa0a1da97cc08d33,
+        type: 3}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472240480875237958, guid: 030c3b30cd147e54aa0a1da97cc08d33,
+        type: 3}
+      propertyPath: InitialModule.startRotationX.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472240480875237958, guid: 030c3b30cd147e54aa0a1da97cc08d33,
+        type: 3}
+      propertyPath: InitialModule.startRotationY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1609050086631755559, guid: 030c3b30cd147e54aa0a1da97cc08d33,
         type: 3}
       propertyPath: m_RootOrder
@@ -166,6 +186,11 @@ PrefabInstance:
         type: 3}
       propertyPath: InitialModule.startRotationY.minMaxState
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180745496429023099, guid: 030c3b30cd147e54aa0a1da97cc08d33,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8593141167061998538, guid: 030c3b30cd147e54aa0a1da97cc08d33,
         type: 3}

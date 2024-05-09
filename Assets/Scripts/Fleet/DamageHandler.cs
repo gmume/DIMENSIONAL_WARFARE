@@ -13,15 +13,11 @@ public class DamageHandler : MonoBehaviour
 
     public bool TakeHit(ShipPartManager part, int shipNo, ref DimensionManager dimension, Lifter lifter)
     {
-        part.Damaged = true;
-        //part.PartMaterial.color = Colors.damagedPart;
         part.Explode();
 
         int targetLayer = LayerMask.NameToLayer("DamagedParts" + player.number);
         gameObject.layer = targetLayer;
         part.gameObject.layer = targetLayer;
-        //layerFilter.ShowLayers(true, true, true, false);
-        //opponentLayerFilter.ShowLayers(true, false, false, true);
 
         if (!Sunk()) return false;
 

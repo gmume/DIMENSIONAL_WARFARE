@@ -18,6 +18,7 @@ public class OptionsProvider : MonoBehaviour
         OverworldData.DimensionsCount = dimensionsCount;
         OverworldData.DimensionSize = (int)dimensionSize;
         OverworldData.DimensionDiagonal = dimensionSize * Mathf.Sqrt(2);
+        OverworldData.MiddleCoordNo = Mathf.FloorToInt(dimensionSize / 2);
         OverworldData.FleetSize = fleetSize;
         OverworldData.PlayerTurn = 2;
         OverworldData.Player1SubmittedFleet = false;
