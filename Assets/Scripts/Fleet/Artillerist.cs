@@ -35,13 +35,13 @@ public class Artillerist : MonoBehaviour
         foreach (GameObject cell in cells)
         {
             cell.GetComponent<Renderer>().material.color = Colors.hitCell;
-            cell.GetComponent<CellData>().Hitted = true;
+            cell.GetComponent<CellData>().Hit = true;
         }
 
         return player.FocusedCell;
     }
 
-    private List<Vector2> GetCellCoordinates(CellData focusedCell)
+    public List<Vector2> GetCellCoordinates(CellData focusedCell)
     {
         List<Vector2> cellsCoodinates = new();
         int shipLevel = GetComponent<ShipManager>().dimension.No;

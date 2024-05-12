@@ -12,4 +12,5 @@ static class Colors
     //public static Color cellBlue  = new(0.15f, 0.6f, 1f);     // Hex 1B4EB3 blue         
     //public static Color cellTurqoise  = new(0.15f, 0.8f, 1f); // Hex 1B8FB2 turquoise    
     public static Color hitCell  = Color.red;
+    public static Color deltaColor = new(0.5f, 0.5f, 0.5f);
 }

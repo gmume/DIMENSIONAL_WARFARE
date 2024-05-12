@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerWorldManager : MonoBehaviour
@@ -50,11 +51,46 @@ public class PlayerWorldManager : MonoBehaviour
         SetNewCellRelative(newX, newY);
     }
 
-    public void ActivateCell() => player.FocusedCell.transform.position += new Vector3(0, 0.2f, 0);
+    public void ActivateCell()
+    {
+        List<Vector2> patternCoords = player.ActiveShip.GetFocusedCoordinates(player.FocusedCell);
+        List<GameObject> cells = player.opponent.dimensions.GetCellGroup(patternCoords, player.ActiveDimension.No);
+
+        foreach (GameObject cell in cells)
+        {
+            CellData cellData = cell.GetComponent<CellData>();
+            if (!cellData.Active)
+            {
+                cell.transform.position += new Vector3(0, 0.2f, 0);
+                cellData.Active = true;
+            }
+        }
+
+        //player.FocusedCell.GetComponent<Renderer>().material = Materials.cellActive;
+        //player.FocusedCell.GetComponent<Renderer>().material.color = player.CellMaterial.color + Colors.deltaColor;
+        //player.FocusedCell.transform.position += new Vector3(0, 0.2f, 0);
+    }
 
     public void DeactivateCell()
     {
-        if (player.FocusedCell != null) player.FocusedCell.transform.position -= new Vector3(0, 0.2f, 0);
+        if (player.FocusedCell == null) return;
+
+        List<Vector2> patternCoords = player.ActiveShip.GetFocusedCoordinates(player.FocusedCell);
+        List<GameObject> cells = player.opponent.dimensions.GetCellGroup(patternCoords, player.ActiveDimension.No);
+
+        foreach (GameObject cell in cells)
+        {
+            CellData cellData = cell.GetComponent<CellData>();
+
+            if (cellData.Active)
+            {
+                cell.transform.position -= new Vector3(0, 0.2f, 0);
+                cellData.Active = false;
+            }
+        }
+
+        //player.FocusedCell.transform.position -= new Vector3(0, 0.2f, 0);
+        //player.FocusedCell.GetComponent<Renderer>().material = player.CellMaterial;
     }
 
     public void Initialize(PlayerData player)

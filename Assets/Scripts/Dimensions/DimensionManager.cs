@@ -59,8 +59,9 @@ public class DimensionManager : MonoBehaviour
                 cell.X = x;
                 cell.Y = z;
                 cell.Focused = false;
+                cell.Active = false;
                 cell.Occupied = false;
-                cell.Hitted = false;
+                cell.Hit = false;
                 Cells[cell.X][cell.Y] = cellObj;
             }
         }

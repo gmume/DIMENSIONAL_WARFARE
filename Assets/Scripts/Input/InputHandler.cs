@@ -42,12 +42,22 @@ public class InputHandler : MonoBehaviour
     //StartGame and Player actionMap
     public void OnChooseRightShip(CallbackContext ctx)
     {
-        if (ctx.performed && player.ActiveShip.No < OverworldData.FleetSize - 1) ChooseShip(player.ActiveShip.No + 1);
+        if (ctx.performed && player.ActiveShip.No < OverworldData.FleetSize - 1)
+        {
+            if(player.input.currentActionMap.name == "Player") player.world.DeactivateCell();
+            ChooseShip(player.ActiveShip.No + 1);
+            if (player.input.currentActionMap.name == "Player") player.world.ActivateCell();
+        }
     }
 
     public void OnChooseLeftShip(CallbackContext ctx)
     {
-        if (ctx.performed && player.ActiveShip.No > 0) ChooseShip(player.ActiveShip.No - 1);
+        if (ctx.performed && player.ActiveShip.No > 0)
+        {
+            if (player.input.currentActionMap.name == "Player") player.world.DeactivateCell();
+            ChooseShip(player.ActiveShip.No - 1);
+            if (player.input.currentActionMap.name == "Player") player.world.ActivateCell();
+        }
     }
 
     private void ChooseShip(int index)

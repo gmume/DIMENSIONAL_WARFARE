@@ -30,6 +30,8 @@ public class ShipManager : MonoBehaviour
 
     public void QuaterTurn(bool clockwise) => navigator.QuaterTurn(clockwise, dimension, occupier);
 
+    public List<Vector2> GetFocusedCoordinates(CellData focusedCell) => artillerist.GetCellCoordinates(focusedCell);
+
     public bool Fire() => artillerist.Fire(this);
 
     public bool ShipUp() => lifter.LiftShipUp(ref dimension, No, occupier);
