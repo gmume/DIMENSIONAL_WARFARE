@@ -68,17 +68,12 @@ public class HUD_Manager : MonoBehaviour
 
     public void UpdateHUDFleets(int shipNo, int toDimensionNo, int dimensionBefore)
     {
-        UpdateHUDFleet(shipNo, toDimensionNo, dimensionBefore, HUD_Dimensions, HUD_Fleet);
-        UpdateHUDFleet(shipNo, toDimensionNo, dimensionBefore, player.opponent.HUD.HUD_DimensionsOpponent, player.opponent.HUD.HUD_FleetOpponent);
+        UpdateHUDFleet(shipNo, toDimensionNo, HUD_Dimensions, HUD_Fleet);
+        UpdateHUDFleet(shipNo, toDimensionNo, player.opponent.HUD.HUD_DimensionsOpponent, player.opponent.HUD.HUD_FleetOpponent);
     }
 
-    private void UpdateHUDFleet(int shipNo, int toDimensionNo, int dimensionBefore, GameObject[] HUD_Dimensions, GameObject[] HUD_Fleet)
-    {
-        Vector3 newPosition = new() { x = 0, y = HUD_Dimensions[toDimensionNo].transform.position.y - HUD_Dimensions[dimensionBefore].transform.position.y };
-        HUD_Fleet[shipNo].transform.SetParent(HUD_Dimensions[toDimensionNo].transform);
-        HUD_Fleet[shipNo].transform.position += newPosition;
-    }
-
+    private void UpdateHUDFleet(int shipNo, int toDimensionNo, GameObject[] HUD_Dimensions, GameObject[] HUD_Fleet) => HUD_Fleet[shipNo].transform.SetParent(HUD_Dimensions[toDimensionNo].transform, false);
+    
     public void WriteText(string text)
     {
         crewText.text = text;

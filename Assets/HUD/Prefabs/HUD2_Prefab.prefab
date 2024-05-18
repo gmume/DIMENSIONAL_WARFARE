@@ -8,6 +8,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 34027516144949157, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 34027516144949157, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_TagString
+      value: HUD2
+      objectReference: {fileID: 0}
     - target: {fileID: 171654988707244013, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_Name
@@ -38,12 +48,32 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 38.65
       objectReference: {fileID: 0}
+    - target: {fileID: 320101481487465408, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 320101481487465408, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_TagString
+      value: HUD2
+      objectReference: {fileID: 0}
     - target: {fileID: 423810122934812997, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_Layer
       value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 423810122934812997, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_TagString
+      value: HUD2
+      objectReference: {fileID: 0}
+    - target: {fileID: 548494941313136651, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 548494941313136651, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_TagString
       value: HUD2
@@ -62,6 +92,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 850091613625570092, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 850091613625570092, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_TagString
+      value: HUD2
+      objectReference: {fileID: 0}
+    - target: {fileID: 932567679329811595, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 33.85
       objectReference: {fileID: 0}
     - target: {fileID: 1037440158340254413, guid: dadfa82202b17be47b39770320522709,
         type: 3}
