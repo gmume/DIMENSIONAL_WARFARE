@@ -40,22 +40,10 @@ public class HUD_Manager : MonoBehaviour
 
     public void ChooseDimension(int no) => hudDimensionActivator.ActivateDimensionAtNo(this, no);
 
-    public void ChooseShip(int shipNo)
+    public void ChooseShip(int index)
     {
-        for (int i = 0; i < hudButtonHandler.shipButtons.Count; i++)
-        {
-            GameObject button = hudButtonHandler.shipButtons[i];
-
-            if(button.GetComponent<ShipButtonData>().No == shipNo)
-            {
-                player.eventSystem.SetSelectedGameObject(hudButtonHandler.shipButtons[i]);
-                break;
-            }
-        }
-
-        //player.eventSystem.SetSelectedGameObject(hudButtonHandler.shipButtons[index]);
+        player.eventSystem.SetSelectedGameObject(hudButtonHandler.shipButtons[index]);
         player.CurrentShipButton = player.eventSystem.currentSelectedGameObject.GetComponent<ShipButtonData>();
-        player.fleet.ActivateShip(player.CurrentShipButton.No, player);
 
         if (OverworldData.GamePhase == GamePhases.Battle)
         {
@@ -63,12 +51,6 @@ public class HUD_Manager : MonoBehaviour
             player.opponent.HUD.UpdateHUDCoords(OverworldData.MiddleCoordNo, OverworldData.MiddleCoordNo);
         }
     }
-
-    //public void UpdateHUD()
-    //{
-    //    UpdateHUDCoords(OverworldData.MiddleCoordNo, OverworldData.MiddleCoordNo);
-    //    player.opponent.HUD.UpdateHUDCoords(OverworldData.MiddleCoordNo, OverworldData.MiddleCoordNo);
-    //}
     
     public void SetHUDDimension(int toNo) => hudDimensionActivator.ActivateDimensionAtNo(this, toNo);
 
@@ -81,7 +63,7 @@ public class HUD_Manager : MonoBehaviour
 
     public void UpdateHUDCoords() => x = y = "--";
 
-    public void UpdateHUDFleets(int shipNo, int toDimensionNo, int dimensionBefore)
+    public void UpdateHUDFleets(int shipNo, int toDimensionNo)
     {
         UpdateHUDFleet(shipNo, toDimensionNo, HUD_Dimensions, HUD_Fleet);
         UpdateHUDFleet(shipNo, toDimensionNo, player.opponent.HUD.HUD_DimensionsOpponent, player.opponent.HUD.HUD_FleetOpponent);

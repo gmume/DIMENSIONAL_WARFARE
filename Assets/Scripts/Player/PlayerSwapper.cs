@@ -41,9 +41,7 @@ public class PlayerSwapper : MonoBehaviour
     private void DisarmPlayer()
     {
         player.onboarding.ShowTip("UnderAttack");
-
         player.LastActiveShip = player.ActiveShip;
-
         if (player.input.currentActionMap.name == "Player") player.world.DeactivateCells();
         if (player.ActiveShip != null) player.ActiveShip.Deactivate();
         player.FocusedCell = null;
@@ -61,11 +59,10 @@ public class PlayerSwapper : MonoBehaviour
             opponent.fleet.ActivateShip(0, opponent);
         } else
         {
-            opponent.fleet.ActivateShip(player.opponent.LastActiveShip.No, opponent);
+            opponent.fleet.ActivateShip(player.opponent.fleet.GetShipIndex(player.opponent.LastActiveShip.No), opponent);
         }
         
         opponent.HUD.UpdateHUDCoords();
-        player.opponent.dimensions.ResetCellPositions(player.ActiveDimension.No);
         player.opponent.world.SetNewCellAbsolute(OverworldData.MiddleCoordNo, OverworldData.MiddleCoordNo);
     }
 }

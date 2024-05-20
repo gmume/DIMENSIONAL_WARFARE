@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.InputSystem.InputAction;
 
@@ -42,27 +43,50 @@ public class InputHandler : MonoBehaviour
     //StartGame and Player actionMap
     public void OnChooseRightShip(CallbackContext ctx)
     {
-        if (ctx.performed && player.ActiveShip.No < OverworldData.FleetSize - 1)
+        if (!ctx.performed) return;
+
+        int activeShipIndex = player.fleet.GetShipIndex(player.ActiveShip.No);
+
+        if (activeShipIndex < player.fleet.ships.Count - 1 && activeShipIndex != -1)
         {
             player.world.DeactivateCells();
-            ChooseShip(player.ActiveShip.No + 1);
+            ChooseShip(activeShipIndex + 1);
             player.world.ActivateCells();
         }
     }
 
     public void OnChooseLeftShip(CallbackContext ctx)
     {
-        if (ctx.performed && player.ActiveShip.No > 0)
+        if (!ctx.performed) return;
+
+        int activeShipIndex = player.fleet.GetShipIndex(player.ActiveShip.No);
+
+        Debug.Log("activeShipIndex:" + activeShipIndex);
+
+        if (activeShipIndex > 0)
         {
             player.world.DeactivateCells();
-            ChooseShip(player.ActiveShip.No - 1);
+            ChooseShip(activeShipIndex - 1);
             player.world.ActivateCells();
         }
     }
 
-    private void ChooseShip(int shipNo)
+    //public int GetActiveShipIndex()
+    //{
+    //    for (int i = 0; i < player.fleet.ships.Count; i++)
+    //    {
+    //        if (player.fleet.ships[i].GetComponent<ShipManager>().No == player.ActiveShip.No) return i;
+    //    }
+
+    //    Debug.LogWarning("Ship not found!");
+    //    return -1;
+    //}
+
+    private void ChooseShip(int index)
     {
-        player.HUD.ChooseShip(shipNo);
+        Debug.Log("ChooseShip");
+        player.fleet.ActivateShip(index, player);
+        player.HUD.ChooseShip(index);
         player.audioManager.ChooseShip();
     }
 

@@ -50,7 +50,7 @@ public class Lifter : MonoBehaviour
     private void ShipChangeDimension(int newDimensionNo, ref DimensionManager dimensionBefore, int shipNo)
     {
         player.HUD.SetHUDDimension(newDimensionNo);
-        player.HUD.UpdateHUDFleets(shipNo, newDimensionNo, dimensionBefore.No);
+        player.HUD.UpdateHUDFleets(shipNo, newDimensionNo);
         LeaveOldDimension(ref dimensionBefore);
         ArriveOnNewDimension(newDimensionNo, shipNo);
         player.world.SetNewDimension(newDimensionNo);

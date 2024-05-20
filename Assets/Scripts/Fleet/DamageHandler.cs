@@ -63,7 +63,7 @@ public class DamageHandler : MonoBehaviour
     {
         if (!FleetDestroyed())
         {
-            List<GameObject> fleet = player.fleet.GetFleet();
+            List<GameObject> fleet = player.fleet.ships;
             player.HUD.RemoveShipButton(fleet.IndexOf(gameObject));
 
             if (player.LastActiveShip == GetComponent<ShipManager>()) player.world.DeactivateCells();
@@ -85,7 +85,7 @@ public class DamageHandler : MonoBehaviour
 
     private bool FleetDestroyed()
     {
-        foreach (GameObject shipObj in player.fleet.GetFleet())
+        foreach (GameObject shipObj in player.fleet.ships)
         {
             if (shipObj.GetComponent<DamageHandler>().ShipStatus == ShipStatus.Intact) return false;
         }

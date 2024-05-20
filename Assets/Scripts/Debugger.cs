@@ -139,7 +139,7 @@ public class Debugger : MonoBehaviour
 
     public void ShowShipsOwner()
     {
-        List<GameObject> fleet = player1.fleet.GetFleet();
+        List<GameObject> fleet = player1.fleet.ships;  
 
         foreach (GameObject shipObj in fleet)
         {
@@ -177,7 +177,7 @@ public class Debugger : MonoBehaviour
 
     private void ShowShipOwner2()
     {
-        List<GameObject> fleet = player2.fleet.GetFleet();
+        List<GameObject> fleet = player2.fleet.ships;
 
         foreach (GameObject shipObj in fleet)
         {
