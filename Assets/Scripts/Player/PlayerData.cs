@@ -1,3 +1,4 @@
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -35,11 +36,13 @@ public class PlayerData : MonoBehaviour
                       public DimensionsManager dimensions; //Is initiated by PlayerWorld
                       public DimensionManager ActiveDimension { get; set; }
     [HideInInspector] public CellData FocusedCell { get; set; }
+    //[HideInInspector] public Material CellMaterial { get; set; }
+
+    [Header("Fleet")]
                       public FleetManager fleet; //Is initiated by PlayerWorld via InitDimension()
-                      public Color fleetColor; // Player 1: Color(0.3f, 0.12f, 0, 1) brown, Player 2: Color(0.3f, 0.3f, 0, 1); olive
+    [HideInInspector] public Color fleetColor;
                       public ShipManager ActiveShip { get; set; }
-                      public int X { get; set; }
-                      public int Y { get; set; }
+    [HideInInspector] public ShipManager LastActiveShip { get; set; }
 
     [Header("Onboarding")]
                       public OnboardingManager onboarding;
@@ -50,6 +53,8 @@ public class PlayerData : MonoBehaviour
         number = int.Parse(name[^1].ToString());
         world = GetComponent<PlayerWorldManager>();
         input = GetComponent<PlayerInput>();
+        //CellMaterial = (number == 1) ? Materials.cellBlueMat : Materials.cellTurqoiseMat;
+        fleetColor = (number == 1) ? Colors.fleet1 : Colors.fleet2;
     }
 
     private void Start()

@@ -49,7 +49,6 @@ public class ShipInitializer : MonoBehaviour
         for (int i = 0; i <= shipNo; i++)
         {
             GameObject partObj = transform.GetChild(i).gameObject;
-            partObj.layer = LayerSetter.SetLayerFleet(player);
             partObj.AddComponent<ShipPartManager>().Initialize(player, i, shipManager);
             shipManager.parts[i] = partObj.GetComponent<ShipPartManager>();
         }
@@ -83,6 +82,7 @@ public class ShipInitializer : MonoBehaviour
         shipLifter.audioPlayer = audioPlayer;
         shipLifter.manager = shipManager;
         shipLifter.parts =  shipManager.parts;
+        shipLifter.layerFilter = player.playerCamera.GetComponent<LayerFilter>();
     }
 
     private void InitializeActivator()
@@ -103,5 +103,7 @@ public class ShipInitializer : MonoBehaviour
         damageHandler.audioPlayer = audioPlayer;
         damageHandler.ShipStatus = ShipStatus.Intact;
         damageHandler.manager = shipManager;
+        damageHandler.layerFilter = player.playerCamera.GetComponent<LayerFilter>();
+        damageHandler.opponentLayerFilter = player.opponent.playerCamera.GetComponent<LayerFilter>();
     }
 }

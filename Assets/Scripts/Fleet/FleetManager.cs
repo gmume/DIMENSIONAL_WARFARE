@@ -6,10 +6,30 @@ using UnityEngine;
 
 public class FleetManager : ScriptableObject
 {
-    private readonly List<GameObject> fleet = new();
+    private PlayerData player;
+    public readonly List<GameObject> ships = new();
+
+    public void ActivateShip(int index, PlayerData player)
+    {
+        ships[index].GetComponent<ShipManager>().Activate();
+        if (OverworldData.GamePhase == GamePhases.Battle) player.inputEnabler.SwitchActionMap("Player");
+    }
+
+    public int GetShipIndex(int ofShipNo)
+    {
+        for (int i = 0; i < ships.Count; i++)
+        {
+            if (ships[i].GetComponent<ShipManager>().No == ofShipNo) return i;
+        }
+
+        Debug.LogWarning("Ship index not found!");
+        return -1;
+    }
 
     public void InitializeFleet(PlayerData player)
     {
+        this.player = player;
+
         Object[] loadedAttackPatterns = Resources.LoadAll("AttackPatterns");
 
         for (int i = 0; i < OverworldData.FleetSize; i++)
@@ -19,28 +39,18 @@ public class FleetManager : ScriptableObject
             if (shipPrefab != null)
             {
                 GameObject shipObj = Instantiate(shipPrefab, new Vector3(0, 1, 0), Quaternion.identity);
-                //GameObject shipObj = Instantiate(shipPrefab, new Vector3(i, 1, 0), Quaternion.identity);
-
                 shipObj.name = "Ship" + player.number + "." + i;
                 ShipInitializer ship = shipObj.GetComponent<ShipInitializer>();
                 shipObj.layer = LayerSetter.SetLayerFleet(player);
                 ship.Initialize(player, i, (AttackPattern)loadedAttackPatterns[i]);
-                fleet.Add(shipObj);
+                ships.Add(shipObj);
             }
             else
             {
                 Debug.LogError($"Missing ship prefab: Ship{(i + 1)}_Prefab");
             }
+
+            if (i == 0) player.LastActiveShip = ships[0].GetComponent<ShipManager>();
         }
     }
-
-    public void ActivateShip(int shipNr, PlayerData player)
-    {
-        GameObject shipObj = fleet[shipNr];
-        shipObj.GetComponent<ShipManager>().Activate();
-
-        if (OverworldData.GamePhase == GamePhases.Battle) player.inputEnabler.SwitchActionMap("Player");
-    }
-
-    public List<GameObject> GetFleet() => fleet;
 }

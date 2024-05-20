@@ -1,3 +1,5 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ShipPartManager : MonoBehaviour
@@ -8,7 +10,9 @@ public class ShipPartManager : MonoBehaviour
     public DimensionManager Dimension { get; set; }
     public Material PartMaterial { get; private set; }
     private Color colorIntact;
+    private ExplosionTrigger explosion;
     public bool Damaged { get; set; }
+    public bool ContinueGame = false;
 
     public void UpdateCoordinatesRelative(int x, int y)
     {
@@ -20,6 +24,19 @@ public class ShipPartManager : MonoBehaviour
     {
         X = x;
         Y = y;
+    }
+
+    public void Explode()
+    {
+        explosion.Explode();
+        //PartMaterial = Materials.partHitMat;
+        PartMaterial.color = Colors.damagedPart;
+        Damaged = true;
+    }
+
+    void OnParticleSystemStopped()
+    {
+        Debug.Log("System has stopped!");
     }
 
     public void ResetPart()
@@ -36,9 +53,13 @@ public class ShipPartManager : MonoBehaviour
         X = ship.No;
         Y = partNo;
         Damaged = false;
+        
         PartMaterial = GetComponent<Renderer>().material;
         colorIntact = player.fleetColor;
+        explosion = transform.Find("Explosion").GetComponent<ExplosionTrigger>();
+        gameObject.layer = LayerSetter.SetLayerFleet(player);
 
         SetColorIntact();
+        explosion.Initialize();
     }
 }

@@ -22,6 +22,8 @@ public class DimensionsManager : MonoBehaviour
 
     public GameObject GetCell(Vector2 cellCoordinates, int dimensionNo) => GetCellGroup(new() { cellCoordinates }, dimensionNo)[0];
 
+    public void ResetCellPositions(int onDimensionNo) => dimensions[onDimensionNo].GetComponent<DimensionManager>().ResetCellPositions();
+
     public void OccupyCells(List<(GameObject cell, GameObject part)> cellsAndObjs) => occupier.OccupyCells(cellsAndObjs);
 
     public void ReleaseCells(List<GameObject> cells) => occupier.ReleaseCells(cells);
@@ -52,8 +54,7 @@ public class DimensionsManager : MonoBehaviour
             dimension.name = $"dimension{player.number}.{dimensionNo}";
             dimension.layer = LayerSetter.SetLayerDimensions(player);
             dimension.transform.localScale = new Vector3(OverworldData.DimensionDiagonal, OverworldData.DimensionDiagonal, OverworldData.DimensionDiagonal);
-
-            dimension.GetComponent<DimensionManager>().Initialize(player, dimensionNo, cellPrefab, player.fleet.GetFleet());
+            dimension.GetComponent<DimensionManager>().Initialize(player, dimensionNo, cellPrefab, player.fleet.ships);
             dimensions.Add(dimension);
         }
     }

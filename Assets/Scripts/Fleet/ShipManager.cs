@@ -22,19 +22,21 @@ public class ShipManager : MonoBehaviour
                       public List<GameObject> partsList = new();
                       public DimensionManager dimension;
 
-    public void Activate() => activator.Activate(occupier, this);
+    public void Activate() => activator.Activate(this);
 
-    public void Deactivate() => activator.Deactivate(occupier);
+    public void Deactivate() => activator.Deactivate();
 
-    public void Move(Vector3 vector) => navigator.Move(vector, dimension, occupier);
+    public void Move(Vector3 vector) => navigator.Move(vector, dimension);
 
     public void QuaterTurn(bool clockwise) => navigator.QuaterTurn(clockwise, dimension, occupier);
 
+    public List<Vector2> GetFocusedCoordinates(CellData focusedCell) => artillerist.GetCellCoordinates(focusedCell);
+
     public bool Fire() => artillerist.Fire(this);
 
-    public bool ShipUp() => lifter.LiftShipUp(ref dimension, No, occupier);
+    public bool ShipUp() => lifter.LiftShipUp(ref dimension, No);
 
-    public bool TakeHit(ShipPartManager part) => damageHandler.TakeHit(part, No, ref dimension, lifter, occupier);
+    public bool TakeHit(ShipPartManager part) => damageHandler.TakeHit(part, No, ref dimension, lifter);
 
     public void SetDimension(DimensionManager newDimension) => lifter.SetDimension(newDimension, No);
 
@@ -55,6 +57,12 @@ public class ShipManager : MonoBehaviour
         for (int i = 0; i < coordinates.Count; i++)
         {
             parts[i].UpdateCoordinatesAbsolute((int)coordinates[i].x, (int)coordinates[i].y);
+
+            if (i == 0)
+            {
+                navigator.PivotX = parts[i].X;
+                navigator.PivotZ = parts[i].Y;
+            }
         }
     }
 }

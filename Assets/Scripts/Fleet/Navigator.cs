@@ -10,7 +10,7 @@ public class Navigator : MonoBehaviour
                       public int PivotX { get; set; }
                       public int PivotZ { get; set; }
 
-    public void Move(Vector3 vector, DimensionManager dimension, CellOccupier occupier)
+    public void Move(Vector3 vector, DimensionManager dimension)
     {
         int[] deltaXY = GetAxis(vector.x, vector.y);
         int deltaX = deltaXY[0], deltaY = deltaXY[1];

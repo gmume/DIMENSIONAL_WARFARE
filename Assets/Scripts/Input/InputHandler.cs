@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.InputSystem.InputAction;
 
@@ -42,16 +43,49 @@ public class InputHandler : MonoBehaviour
     //StartGame and Player actionMap
     public void OnChooseRightShip(CallbackContext ctx)
     {
-        if (ctx.performed && player.ActiveShip.No < OverworldData.FleetSize - 1) ChooseShip(player.ActiveShip.No + 1);
+        if (!ctx.performed) return;
+
+        int activeShipIndex = player.fleet.GetShipIndex(player.ActiveShip.No);
+
+        if (activeShipIndex < player.fleet.ships.Count - 1 && activeShipIndex != -1)
+        {
+            player.world.DeactivateCells();
+            ChooseShip(activeShipIndex + 1);
+            player.world.ActivateCells();
+        }
     }
 
     public void OnChooseLeftShip(CallbackContext ctx)
     {
-        if (ctx.performed && player.ActiveShip.No > 0) ChooseShip(player.ActiveShip.No - 1);
+        if (!ctx.performed) return;
+
+        int activeShipIndex = player.fleet.GetShipIndex(player.ActiveShip.No);
+
+        Debug.Log("activeShipIndex:" + activeShipIndex);
+
+        if (activeShipIndex > 0)
+        {
+            player.world.DeactivateCells();
+            ChooseShip(activeShipIndex - 1);
+            player.world.ActivateCells();
+        }
     }
+
+    //public int GetActiveShipIndex()
+    //{
+    //    for (int i = 0; i < player.fleet.ships.Count; i++)
+    //    {
+    //        if (player.fleet.ships[i].GetComponent<ShipManager>().No == player.ActiveShip.No) return i;
+    //    }
+
+    //    Debug.LogWarning("Ship not found!");
+    //    return -1;
+    //}
 
     private void ChooseShip(int index)
     {
+        Debug.Log("ChooseShip");
+        player.fleet.ActivateShip(index, player);
         player.HUD.ChooseShip(index);
         player.audioManager.ChooseShip();
     }
@@ -73,6 +107,7 @@ public class InputHandler : MonoBehaviour
         player.HUD.ChooseDimension(no);
         player.vehicle.SetViewOnDimension(no);
         player.world.SetNewDimension(no);
+        player.world.SetNewCellRelative(0, 0);
     }
 
     public void OnMoveSelection(CallbackContext ctx)
@@ -110,7 +145,10 @@ public class InputHandler : MonoBehaviour
 
         if (shipUp)
         {
-            player.playerCamera.GetComponent<LayerFilter>().ShowLayers(true, true, true);
+            bool showDamagedParts1 = player.name == "player1";
+            bool showDamagedParts2 = player.name == "player2";
+
+            player.playerCamera.GetComponent<LayerFilter>().ShowLayers(true, true, showDamagedParts1, showDamagedParts2);
             continueGame = false;
             StartCoroutine(WaitBattleToContinue());
         }

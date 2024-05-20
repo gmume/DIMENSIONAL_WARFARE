@@ -12,7 +12,21 @@ public class HUD_ButtonHandler : MonoBehaviour
 
     public void SetSelecetedButton(PlayerData player)
     {
-        if (!selectedButton) selectedButton = shipButtons[0];
+        if (player.LastActiveShip != null)
+        {
+            for (int i = 0; i < shipButtons.Count; i++)
+            {
+                if (player.LastActiveShip.No == shipButtons[i].GetComponent<ShipButtonData>().No)
+                {
+                    selectedButton = shipButtons[i];
+                    break;
+                }
+            }
+
+        } else if (!selectedButton)
+        {
+            selectedButton = shipButtons[0];
+        }
 
         player.eventSystem.firstSelectedGameObject = selectedButton;
         player.eventSystem.SetSelectedGameObject(selectedButton);

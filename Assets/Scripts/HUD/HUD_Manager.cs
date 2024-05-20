@@ -1,10 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using static UnityEngine.InputSystem.InputAction;
 
 public class HUD_Manager : MonoBehaviour
 {
@@ -34,34 +32,27 @@ public class HUD_Manager : MonoBehaviour
         HUD_FleetOpponent = new GameObject[OverworldData.FleetSize];
     }
 
-    private void Update()
-    {
-        xCoord.text = x;
-        yCoord.text = y;
-    }
+    //private void Update()
+    //{
+    //    xCoord.text = x;
+    //    yCoord.text = y;
+    //}
 
-    public void ChooseDimension(int no) => hudDimensionActivator.ActivateDimansionAtNo(this, no);
+    public void ChooseDimension(int no) => hudDimensionActivator.ActivateDimensionAtNo(this, no);
 
     public void ChooseShip(int index)
     {
         player.eventSystem.SetSelectedGameObject(hudButtonHandler.shipButtons[index]);
         player.CurrentShipButton = player.eventSystem.currentSelectedGameObject.GetComponent<ShipButtonData>();
-        player.fleet.ActivateShip(player.CurrentShipButton.ShipButtonNr, player);
 
-        if (OverworldData.GamePhase == GamePhases.Battle) UpdateFocusedCellAndHUD();
+        if (OverworldData.GamePhase == GamePhases.Battle)
+        {
+            UpdateHUDCoords(OverworldData.MiddleCoordNo, OverworldData.MiddleCoordNo);
+            player.opponent.HUD.UpdateHUDCoords(OverworldData.MiddleCoordNo, OverworldData.MiddleCoordNo);
+        }
     }
-
-    public void UpdateFocusedCellAndHUD()
-    {
-        int shipX = player.ActiveShip.navigator.PivotX;
-        int shipY = player.ActiveShip.navigator.PivotZ;
-
-        player.HUD.UpdateHUDCoords(shipX, shipY);
-        player.opponent.HUD.UpdateHUDCoords(shipX, shipY);
-        player.world.SetNewCellAbsolute(shipX, shipY);
-    }
-
-    public void SetHUDDimension(int toNo) => hudDimensionActivator.ActivateDimansionAtNo(this, toNo);
+    
+    public void SetHUDDimension(int toNo) => hudDimensionActivator.ActivateDimensionAtNo(this, toNo);
 
     public void UpdateHUDCoords(int xCoord, int yCoord)
     {
@@ -72,19 +63,14 @@ public class HUD_Manager : MonoBehaviour
 
     public void UpdateHUDCoords() => x = y = "--";
 
-    public void UpdateHUDFleets(int shipNo, int toDimensionNo, int dimensionBefore)
+    public void UpdateHUDFleets(int shipNo, int toDimensionNo)
     {
-        UpdateHUDFleet(shipNo, toDimensionNo, dimensionBefore, HUD_Dimensions, HUD_Fleet);
-        UpdateHUDFleet(shipNo, toDimensionNo, dimensionBefore, player.opponent.HUD.HUD_DimensionsOpponent, player.opponent.HUD.HUD_FleetOpponent);
+        UpdateHUDFleet(shipNo, toDimensionNo, HUD_Dimensions, HUD_Fleet);
+        UpdateHUDFleet(shipNo, toDimensionNo, player.opponent.HUD.HUD_DimensionsOpponent, player.opponent.HUD.HUD_FleetOpponent);
     }
 
-    private void UpdateHUDFleet(int shipNo, int toDimensionNo, int dimensionBefore, GameObject[] HUD_Dimensions, GameObject[] HUD_Fleet)
-    {
-        Vector3 newPosition = new() { x = 0, y = HUD_Dimensions[toDimensionNo].transform.position.y - HUD_Dimensions[dimensionBefore].transform.position.y };
-        HUD_Fleet[shipNo].transform.SetParent(HUD_Dimensions[toDimensionNo].transform);
-        HUD_Fleet[shipNo].transform.position += newPosition;
-    }
-
+    private void UpdateHUDFleet(int shipNo, int toDimensionNo, GameObject[] HUD_Dimensions, GameObject[] HUD_Fleet) => HUD_Fleet[shipNo].transform.SetParent(HUD_Dimensions[toDimensionNo].transform, false);
+    
     public void WriteText(string text)
     {
         crewText.text = text;

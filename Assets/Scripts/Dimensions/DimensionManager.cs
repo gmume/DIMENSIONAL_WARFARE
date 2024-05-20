@@ -6,6 +6,7 @@ public class DimensionManager : MonoBehaviour
 {
     private PlayerData player;
     public GameObject[][] Cells { private set; get; }
+    private float cellDefaultYPos;
     private readonly List<GameObject> ships = new();
 
     public int No { get; private set; }
@@ -15,6 +16,22 @@ public class DimensionManager : MonoBehaviour
         if (x >= 0 && x < OverworldData.DimensionSize && y >= 0 && y < OverworldData.DimensionSize) return Cells[x][y];
 
         return null;
+    }
+
+    public void ResetCellPositions()
+    {
+        foreach (GameObject[] cells in Cells)
+        {
+            foreach(GameObject cell in cells)
+            {
+                if (cell.transform.position.y != cellDefaultYPos)
+                {
+                    Vector3 cellPosition = cell.transform.position;
+                    cellPosition = new(cellPosition.x, cellDefaultYPos, cellPosition.z);
+                    cell.transform.position = cellPosition;
+                }
+            }
+        }
     }
 
     public GameObject GetShipOnCell(int x, int y)
@@ -54,17 +71,19 @@ public class DimensionManager : MonoBehaviour
 
                 cellObj.layer = LayerSetter.SetLayerDimensions(player);
                 cellObj.transform.SetParent(transform);
-                //cellObj.transform.parent = transform;
                 CellData cell = cellObj.GetComponent<CellData>();
                 cell.Dimension = this;
                 cell.X = x;
                 cell.Y = z;
                 cell.Focused = false;
+                cell.Active = false;
                 cell.Occupied = false;
-                cell.Hitted = false;
+                cell.Hit = false;
                 Cells[cell.X][cell.Y] = cellObj;
             }
         }
+
+        cellDefaultYPos = Cells[0][0].GetComponent<Transform>().position.y;
     }
 
     private void AddRocks()

@@ -5,7 +5,6 @@ using UnityEngine;
 public class Artillerist : MonoBehaviour
 {
     [HideInInspector] public PlayerData player;
-    private Color fireColor = Color.red;
     public AttackPattern attackPattern;
 
     public bool Fire(ShipManager shipManager)
@@ -31,18 +30,18 @@ public class Artillerist : MonoBehaviour
 
     private CellData HitCells(List<Vector2> hitCellsCoordinates, CellData focusedCell)
     {
-        List<GameObject> cells = player.dimensions.GetCellGroup(hitCellsCoordinates, focusedCell.Dimension.No);
+        List<GameObject> cells = player.opponent.dimensions.GetCellGroup(hitCellsCoordinates, focusedCell.Dimension.No);
 
         foreach (GameObject cell in cells)
         {
-            cell.GetComponent<Renderer>().material.color = fireColor;
-            cell.GetComponent<CellData>().Hitted = true;
+            cell.GetComponent<Renderer>().material.color = Colors.hitCell;
+            cell.GetComponent<CellData>().Hit = true;
         }
 
         return player.FocusedCell;
     }
 
-    private List<Vector2> GetCellCoordinates(CellData focusedCell)
+    public List<Vector2> GetCellCoordinates(CellData focusedCell)
     {
         List<Vector2> cellsCoodinates = new();
         int shipLevel = GetComponent<ShipManager>().dimension.No;
@@ -71,10 +70,7 @@ public class Artillerist : MonoBehaviour
 
     private List<GameObject> GetOpponentCells(List<Vector2> hitCellsCoordinates, CellData focusedCell) => player.opponent.dimensions.GetCellGroup(hitCellsCoordinates, focusedCell.Dimension.No);
 
-    private bool IsOpponentSunk(CellData opponentCell)
-    {
-        return opponentCell.OccupyingObj.GetComponentInParent<ShipManager>().TakeHit(opponentCell.OccupyingObj.GetComponent<ShipPartManager>());
-    }
+    private bool IsOpponentSunk(CellData opponentCell) => opponentCell.OccupyingObj.GetComponentInParent<ShipManager>().TakeHit(opponentCell.OccupyingObj.GetComponent<ShipPartManager>());
 
     private bool CanShipAscend(List<bool> sunkenShips)
     {

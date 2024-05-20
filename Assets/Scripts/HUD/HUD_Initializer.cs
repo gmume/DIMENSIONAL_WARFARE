@@ -1,6 +1,5 @@
 using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class HUD_Initializer : MonoBehaviour
@@ -20,6 +19,8 @@ public class HUD_Initializer : MonoBehaviour
     [Header("Prefabs")]
     [HideInInspector] public GameObject HUD_DimensionsObj;
     [HideInInspector] public GameObject HUD_DimensionsOpponentObj;
+    public GameObject HUD_DimensionPrefab;
+    public GameObject HUD_DimensionOpponentPrefab;
 
     public void Start()
     {
@@ -36,8 +37,8 @@ public class HUD_Initializer : MonoBehaviour
 
     IEnumerator FleetActivateShip()
     {
-        yield return new WaitWhile(() => player.fleet.GetFleet().Count == 0);
-        player.fleet.ActivateShip(hudManager.hudButtonHandler.currentButton.ShipButtonNr, player);
+        yield return new WaitWhile(() => player.fleet.ships.Count == 0);
+        player.fleet.ActivateShip(hudManager.hudButtonHandler.currentButton.No, player);
     }
 
     private void GetHUDParts()
@@ -48,11 +49,9 @@ public class HUD_Initializer : MonoBehaviour
         {
             switch (HUD_Part.name)
             {
-                case "X-Koordinate":
-                    hudManager.xCoord = HUD_Part.GetComponent<TextMeshProUGUI>();
-                    break;
-                case "Y-Koordinate":
-                    hudManager.yCoord = HUD_Part.GetComponent<TextMeshProUGUI>();
+                case "Coordinates":
+                    hudManager.xCoord = HUD_Part.transform.Find("X-Coordinate").GetComponent<TextMeshProUGUI>();
+                    hudManager.yCoord = HUD_Part.transform.Find("Y-Coordinate").GetComponent<TextMeshProUGUI>();
                     break;
                 case "HUD_Dimensions":
                     HUD_DimensionsObj = HUD_Part;
@@ -80,8 +79,8 @@ public class HUD_Initializer : MonoBehaviour
 
     private void InitializeHUDDimensions()
     {
-        hudDimensionsInitializer.InitializeHUDDimensions(hudManager, hudFleetInitializer, HUD_DimensionsObj, player.HUD.HUD_Dimensions, player.HUD.HUD_Fleet, player.fleetColor);
-        hudDimensionsInitializer.InitializeHUDDimensions(hudManager, hudFleetInitializer, HUD_DimensionsOpponentObj, player.HUD.HUD_DimensionsOpponent, player.HUD.HUD_FleetOpponent, player.opponent.fleetColor);
+        hudDimensionsInitializer.InitializeHUDDimensions(hudFleetInitializer, HUD_DimensionsObj, HUD_DimensionPrefab, player.HUD.HUD_Dimensions, player.HUD.HUD_Fleet, player.fleetColor);
+        hudDimensionsInitializer.InitializeHUDDimensions(hudFleetInitializer, HUD_DimensionsOpponentObj, HUD_DimensionOpponentPrefab, player.HUD.HUD_DimensionsOpponent, player.HUD.HUD_FleetOpponent, player.opponent.fleetColor);
         hudDimensionActivator.currentHUD_Dimension = hudDimensionActivator.currentHUD_DimensionOpponent = 0;
     }
 

@@ -9,6 +9,8 @@ public class FleetSubmitter : MonoBehaviour
 
     public bool SubmitFleet(PlayerData player)
     {
+        player.LastActiveShip = player.ActiveShip;
+
         if (OverworldData.GamePhase == GamePhases.Start)
         {
             if (name == "Player1")

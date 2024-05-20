@@ -7,7 +7,7 @@ public class HUD_DimensionActivator : MonoBehaviour
     [HideInInspector] public int currentHUD_Dimension, currentHUD_DimensionOpponent;
                       public Texture2D HUD_DimensionInactive, HUD_DimensionActive;
 
-    public void ActivateDimansionAtNo(HUD_Manager hudManager, int no)
+    public void ActivateDimensionAtNo(HUD_Manager hudManager, int no)
     {
         GameObject HUD_DimensionToSetInactive = hudManager.HUD_Dimensions[currentHUD_Dimension];
         HUD_DimensionToSetInactive.GetComponent<RawImage>().texture = HUD_DimensionInactive;
