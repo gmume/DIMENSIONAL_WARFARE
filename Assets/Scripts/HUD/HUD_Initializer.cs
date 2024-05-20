@@ -38,7 +38,7 @@ public class HUD_Initializer : MonoBehaviour
     IEnumerator FleetActivateShip()
     {
         yield return new WaitWhile(() => player.fleet.GetFleet().Count == 0);
-        player.fleet.ActivateShip(hudManager.hudButtonHandler.currentButton.ShipButtonNr, player);
+        player.fleet.ActivateShip(hudManager.hudButtonHandler.currentButton.No, player);
     }
 
     private void GetHUDParts()

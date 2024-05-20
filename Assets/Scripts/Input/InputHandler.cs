@@ -44,9 +44,9 @@ public class InputHandler : MonoBehaviour
     {
         if (ctx.performed && player.ActiveShip.No < OverworldData.FleetSize - 1)
         {
-            if(player.input.currentActionMap.name == "Player") player.world.DeactivateCell();
+            player.world.DeactivateCells();
             ChooseShip(player.ActiveShip.No + 1);
-            if (player.input.currentActionMap.name == "Player") player.world.ActivateCell();
+            player.world.ActivateCells();
         }
     }
 
@@ -54,15 +54,15 @@ public class InputHandler : MonoBehaviour
     {
         if (ctx.performed && player.ActiveShip.No > 0)
         {
-            if (player.input.currentActionMap.name == "Player") player.world.DeactivateCell();
+            player.world.DeactivateCells();
             ChooseShip(player.ActiveShip.No - 1);
-            if (player.input.currentActionMap.name == "Player") player.world.ActivateCell();
+            player.world.ActivateCells();
         }
     }
 
-    private void ChooseShip(int index)
+    private void ChooseShip(int shipNo)
     {
-        player.HUD.ChooseShip(index);
+        player.HUD.ChooseShip(shipNo);
         player.audioManager.ChooseShip();
     }
 

@@ -65,7 +65,10 @@ public class DamageHandler : MonoBehaviour
         {
             List<GameObject> fleet = player.fleet.GetFleet();
             player.HUD.RemoveShipButton(fleet.IndexOf(gameObject));
-            
+
+            if (player.LastActiveShip == GetComponent<ShipManager>()) player.world.DeactivateCells();
+            player.LastActiveShip = null;
+
             Destroy(player.HUD.HUD_Fleet[shipNo]);
             Destroy(player.opponent.HUD.HUD_FleetOpponent[shipNo]);
             fleet.Remove(gameObject);

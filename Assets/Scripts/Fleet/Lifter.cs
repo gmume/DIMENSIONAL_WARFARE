@@ -13,7 +13,7 @@ public class Lifter : MonoBehaviour
     [HideInInspector] public ShipPartManager[] parts;
     [HideInInspector] public LayerFilter layerFilter;
 
-    public bool LiftShipUp(ref DimensionManager currentDimension, int shipNo, CellOccupier occupier)
+    public bool LiftShipUp(ref DimensionManager currentDimension, int shipNo)
     {
         if (IsNotWinner(currentDimension))
         {
@@ -59,6 +59,9 @@ public class Lifter : MonoBehaviour
 
     private void LeaveOldDimension(ref DimensionManager dimensionBefore)
     {
+        //player.world.DeactivateCells();
+
+        player.opponent.dimensions.ResetCellPositions(dimensionBefore.No);
         player.dimensions.ReleaseCells(player.dimensions.GetCellGroup(manager.GetShipCoordinates(), dimensionBefore.No));
         dimensionBefore.RemoveShip(gameObject);
     }
@@ -78,6 +81,7 @@ public class Lifter : MonoBehaviour
 
         SetDimension(newDimension, shipNo);
         player.dimensions.OccupyCells(cellsAndObjects);
+        player.opponent.world.ActivateCells();
     }
 
     public void SetDimension(DimensionManager newDimension, int shipNo)

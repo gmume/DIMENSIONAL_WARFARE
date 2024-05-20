@@ -31,6 +31,8 @@ public class FleetManager : ScriptableObject
             {
                 Debug.LogError($"Missing ship prefab: Ship{(i + 1)}_Prefab");
             }
+
+            if (i == 0) player.LastActiveShip = fleet[0].GetComponent<ShipManager>();
         }
     }
 

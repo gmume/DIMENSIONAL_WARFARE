@@ -42,6 +42,7 @@ public class PlayerData : MonoBehaviour
                       public FleetManager fleet; //Is initiated by PlayerWorld via InitDimension()
     [HideInInspector] public Color fleetColor;
                       public ShipManager ActiveShip { get; set; }
+    [HideInInspector] public ShipManager LastActiveShip { get; set; }
 
     [Header("Onboarding")]
                       public OnboardingManager onboarding;

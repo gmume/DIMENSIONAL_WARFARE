@@ -7,11 +7,11 @@ public class Activator : MonoBehaviour
     [HideInInspector] public PlayerData player;
     [HideInInspector] public ShipPartManager[] parts;
 
-    public void Activate(CellOccupier occupier, ShipManager shipManager)
+    public void Activate(ShipManager shipManager)
     {
         if (player.ActiveShip != this)
         {
-            if (player.ActiveShip) player.ActiveShip.activator.Deactivate(occupier);
+            if (player.ActiveShip) player.ActiveShip.activator.Deactivate();
 
             foreach (ShipPartManager part in parts)
             {
@@ -24,7 +24,7 @@ public class Activator : MonoBehaviour
         }
     }
 
-    public void Deactivate(CellOccupier occupier)
+    public void Deactivate()
     {
         foreach (ShipPartManager part in parts)
         {
@@ -33,6 +33,7 @@ public class Activator : MonoBehaviour
 
         Vector3 vectorDown = new(0f, -0.1f, 0f);
         transform.position += vectorDown;
+        player.LastActiveShip = player.ActiveShip;
         player.ActiveShip = null;
     }
 }

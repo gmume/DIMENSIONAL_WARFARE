@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerWorldManager : MonoBehaviour
 {
-    public string ShipName;
+    //public string ShipName;
     public GameObject dimensionPrefab, cellPrefab;
 
     private PlayerData player;
@@ -17,6 +17,8 @@ public class PlayerWorldManager : MonoBehaviour
 
     public void MoveSelection(float x, float y)
     {
+        DeactivateCells();
+
         // Get right axis and move in correct direction
         SetNewCellRelative((int)((Math.Abs(x) > Math.Abs(y)) ? Mathf.Sign(x) : 0), (int)((Math.Abs(x) > Math.Abs(y)) ? 0 : Mathf.Sign(y)));
     }
@@ -31,9 +33,9 @@ public class PlayerWorldManager : MonoBehaviour
             currentX = newX;
             currentY = newY;
 
-            DeactivateCell();
+            player.opponent.dimensions.ResetCellPositions(player.ActiveDimension.No);
             player.FocusedCell = player.opponent.dimensions.GetDimension(player.ActiveDimension.No).GetCell(currentX, currentY).GetComponent<CellData>();
-            ActivateCell();
+            ActivateCells();
         }
         else
         {
@@ -51,27 +53,7 @@ public class PlayerWorldManager : MonoBehaviour
         SetNewCellRelative(newX, newY);
     }
 
-    public void ActivateCell()
-    {
-        List<Vector2> patternCoords = player.ActiveShip.GetFocusedCoordinates(player.FocusedCell);
-        List<GameObject> cells = player.opponent.dimensions.GetCellGroup(patternCoords, player.ActiveDimension.No);
-
-        foreach (GameObject cell in cells)
-        {
-            CellData cellData = cell.GetComponent<CellData>();
-            if (!cellData.Active)
-            {
-                cell.transform.position += new Vector3(0, 0.2f, 0);
-                cellData.Active = true;
-            }
-        }
-
-        //player.FocusedCell.GetComponent<Renderer>().material = Materials.cellActive;
-        //player.FocusedCell.GetComponent<Renderer>().material.color = player.CellMaterial.color + Colors.deltaColor;
-        //player.FocusedCell.transform.position += new Vector3(0, 0.2f, 0);
-    }
-
-    public void DeactivateCell()
+    public void ActivateCells()
     {
         if (player.FocusedCell == null) return;
 
@@ -81,12 +63,27 @@ public class PlayerWorldManager : MonoBehaviour
         foreach (GameObject cell in cells)
         {
             CellData cellData = cell.GetComponent<CellData>();
+            cell.transform.position += new Vector3(0, 0.2f, 0);
+            cellData.Active = true;
+        }
 
-            if (cellData.Active)
-            {
-                cell.transform.position -= new Vector3(0, 0.2f, 0);
-                cellData.Active = false;
-            }
+        //player.FocusedCell.GetComponent<Renderer>().material = Materials.cellActive;
+        //player.FocusedCell.GetComponent<Renderer>().material.color = player.CellMaterial.color + Colors.deltaColor;
+        //player.FocusedCell.transform.position += new Vector3(0, 0.2f, 0);
+    }
+
+    public void DeactivateCells()
+    {
+        if (player.FocusedCell == null) return;
+
+        List<Vector2> patternCoords = player.ActiveShip.GetFocusedCoordinates(player.FocusedCell);
+        List<GameObject> cells = player.opponent.dimensions.GetCellGroup(patternCoords, player.ActiveDimension.No);
+
+        foreach (GameObject cell in cells)
+        {
+            CellData cellData = cell.GetComponent<CellData>();
+            cell.transform.position -= new Vector3(0, 0.2f, 0);
+            cellData.Active = false;
         }
 
         //player.FocusedCell.transform.position -= new Vector3(0, 0.2f, 0);

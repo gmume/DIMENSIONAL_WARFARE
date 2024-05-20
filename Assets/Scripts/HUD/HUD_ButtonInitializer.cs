@@ -30,14 +30,14 @@ public class HUD_ButtonInitializer : MonoBehaviour
 
     private void InitializeButton(HUD_Manager hudManager, GameObject buttonObj, Button button, int i)
     {
-        buttonObj.name = "ShipButton" + (i + 1);
+        buttonObj.name = "ShipButton" + (i);
         buttonObj.layer = (name == "HUD1") ? 11 : 12;
 
         button.transform.SetParent(shipButtonsTransform, false);
         button.image.SetNativeSize();
         Navigation buttonNavigation = button.navigation;
         buttonNavigation.mode = Navigation.Mode.None;
-        buttonObj.AddComponent<ShipButtonData>().ShipButtonNr = i;
+        buttonObj.AddComponent<ShipButtonData>().No = i;
         buttonObj.AddComponent<HorizontalLayoutGroup>().childAlignment = TextAnchor.MiddleCenter;
 
         if (i == 0)

@@ -22,6 +22,8 @@ public class DimensionsManager : MonoBehaviour
 
     public GameObject GetCell(Vector2 cellCoordinates, int dimensionNo) => GetCellGroup(new() { cellCoordinates }, dimensionNo)[0];
 
+    public void ResetCellPositions(int onDimensionNo) => dimensions[onDimensionNo].GetComponent<DimensionManager>().ResetCellPositions();
+
     public void OccupyCells(List<(GameObject cell, GameObject part)> cellsAndObjs) => occupier.OccupyCells(cellsAndObjs);
 
     public void ReleaseCells(List<GameObject> cells) => occupier.ReleaseCells(cells);

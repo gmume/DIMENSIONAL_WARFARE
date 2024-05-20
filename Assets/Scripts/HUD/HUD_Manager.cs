@@ -40,20 +40,35 @@ public class HUD_Manager : MonoBehaviour
 
     public void ChooseDimension(int no) => hudDimensionActivator.ActivateDimensionAtNo(this, no);
 
-    public void ChooseShip(int index)
+    public void ChooseShip(int shipNo)
     {
-        player.eventSystem.SetSelectedGameObject(hudButtonHandler.shipButtons[index]);
+        for (int i = 0; i < hudButtonHandler.shipButtons.Count; i++)
+        {
+            GameObject button = hudButtonHandler.shipButtons[i];
+
+            if(button.GetComponent<ShipButtonData>().No == shipNo)
+            {
+                player.eventSystem.SetSelectedGameObject(hudButtonHandler.shipButtons[i]);
+                break;
+            }
+        }
+
+        //player.eventSystem.SetSelectedGameObject(hudButtonHandler.shipButtons[index]);
         player.CurrentShipButton = player.eventSystem.currentSelectedGameObject.GetComponent<ShipButtonData>();
-        player.fleet.ActivateShip(player.CurrentShipButton.ShipButtonNr, player);
+        player.fleet.ActivateShip(player.CurrentShipButton.No, player);
 
-        if (OverworldData.GamePhase == GamePhases.Battle) UpdateFocusedCellAndHUD();
+        if (OverworldData.GamePhase == GamePhases.Battle)
+        {
+            UpdateHUDCoords(OverworldData.MiddleCoordNo, OverworldData.MiddleCoordNo);
+            player.opponent.HUD.UpdateHUDCoords(OverworldData.MiddleCoordNo, OverworldData.MiddleCoordNo);
+        }
     }
 
-    public void UpdateFocusedCellAndHUD()
-    {
-        player.HUD.UpdateHUDCoords(OverworldData.MiddleCoordNo, OverworldData.MiddleCoordNo);
-        player.opponent.HUD.UpdateHUDCoords(OverworldData.MiddleCoordNo, OverworldData.MiddleCoordNo);
-    }
+    //public void UpdateHUD()
+    //{
+    //    UpdateHUDCoords(OverworldData.MiddleCoordNo, OverworldData.MiddleCoordNo);
+    //    player.opponent.HUD.UpdateHUDCoords(OverworldData.MiddleCoordNo, OverworldData.MiddleCoordNo);
+    //}
     
     public void SetHUDDimension(int toNo) => hudDimensionActivator.ActivateDimensionAtNo(this, toNo);
 
