@@ -16,7 +16,7 @@ public class PlayerData : MonoBehaviour
 
     [Header("Input")]
                       public InputHandler inputHandler;
-                      public FleetSubmitter submitter;
+                      public Submitter submitter;
                       public PlayerSwapper swapper;
                       public InputEnabler inputEnabler;
 
@@ -46,9 +46,11 @@ public class PlayerData : MonoBehaviour
 
     [Header("Onboarding")]
                       public OnboardingManager onboarding;
-    
 
-   private void Awake()
+    [Header("Options")]
+                      public OptionsHandler options;
+
+    private void Awake()
     {
         number = int.Parse(name[^1].ToString());
         world = GetComponent<PlayerWorldManager>();

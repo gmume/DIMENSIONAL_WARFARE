@@ -12,6 +12,7 @@ public class Lifter : MonoBehaviour
     [HideInInspector] public ShipManager manager;
     [HideInInspector] public ShipPartManager[] parts;
     [HideInInspector] public LayerFilter layerFilter;
+    [HideInInspector] public LayerFilter opponentLayerFilter;
 
     public bool LiftShipUp(ref DimensionManager currentDimension, int shipNo)
     {
@@ -20,7 +21,8 @@ public class Lifter : MonoBehaviour
             audioPlayer.OnShipUp();
             ShipChangeDimension(currentDimension.No + 1, ref currentDimension, shipNo);
             layerFilter.ShowLayers(true, true, true, false);
-            player.input.SwitchCurrentActionMap("GameStart");
+
+            player.input.SwitchCurrentActionMap("PlaceShips");
             player.inputEnabler.DisableChoosingShips();
             player.HUD.WriteText($"Capt'n {player.number} hide your ship!");
             player.onboarding.ShowTip("OwnShipUp");
@@ -59,8 +61,6 @@ public class Lifter : MonoBehaviour
 
     private void LeaveOldDimension(ref DimensionManager dimensionBefore)
     {
-        //player.world.DeactivateCells();
-
         player.opponent.dimensions.ResetCellPositions(dimensionBefore.No);
         player.dimensions.ReleaseCells(player.dimensions.GetCellGroup(manager.GetShipCoordinates(), dimensionBefore.No));
         dimensionBefore.RemoveShip(gameObject);
@@ -92,6 +92,7 @@ public class Lifter : MonoBehaviour
         for (int i = 0; i <= shipNo; i++)
         {
             parts[i].Dimension = newDimension;
+            parts[i].gameObject.layer = LayerMask.NameToLayer($"Fleet{(player.number == 1 ? 1 : 2)}");
         }
     }
 
@@ -107,7 +108,7 @@ public class Lifter : MonoBehaviour
         }
 
         status = ShipStatus.Intact;
-        player.input.SwitchCurrentActionMap("GameStart");
+        player.input.SwitchCurrentActionMap("PlaceShips");
         player.inputEnabler.DisableChoosingShips();
         player.HUD.WriteText($"Capt'n {player.number} hide your ship!");
         player.ActiveShip = gameObject.GetComponent<ShipManager>();

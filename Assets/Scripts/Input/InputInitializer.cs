@@ -11,7 +11,7 @@ public class InputInitializer : MonoBehaviour
     public void Initialize()
     {
         inputHandler.player = player;
-        inputHandler.player.input.SwitchCurrentActionMap("GameStart");
+        inputHandler.player.input.SwitchCurrentActionMap("PlaceShips");
         List<InputDevice> devices = new();
 
         foreach (var device in InputSystem.devices)

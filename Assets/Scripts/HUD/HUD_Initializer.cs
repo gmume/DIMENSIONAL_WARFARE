@@ -1,6 +1,8 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HUD_Initializer : MonoBehaviour
 {
@@ -29,6 +31,7 @@ public class HUD_Initializer : MonoBehaviour
         hudManager.hudButtonHandler = this.hudButtonHandler;
         
         GetHUDParts();
+        InitializeHUDManger();
         InitializeHUDDimensions();
         InitializeShipButtons();
         
@@ -59,16 +62,19 @@ public class HUD_Initializer : MonoBehaviour
                 case "HUD_DimensionsOpponent":
                     HUD_DimensionsOpponentObj = HUD_Part;
                     break;
-                case "Armed":
-                    hudManager.armed = HUD_Part;
-                    HUD_Part.SetActive(false);
+                case "Instruction":
+                    hudManager.instructionImg = HUD_Part.GetComponent<RawImage>();
                     break;
-                case "UnderAttack":
-                    hudManager.underAttack = HUD_Part;
-                    HUD_Part.SetActive(false);
-                    break;
-                case "CrewText":
-                    hudManager.crewText = HUD_Part.GetComponent<TextMeshProUGUI>();
+                //case "Armed":
+                //    hudManager.armed = HUD_Part;
+                //    HUD_Part.SetActive(false);
+                //    break;
+                //case "UnderAttack":
+                //    hudManager.underAttack = HUD_Part;
+                //    HUD_Part.SetActive(false);
+                //    break;
+                case "CrewTextBackground":
+                    hudManager.crewText = HUD_Part.GetComponentInChildren<TextMeshProUGUI>();
                     break;
                 case "ShipButtons":
                     hudButtonInitializer.shipButtonsTransform = HUD_Part.transform;
@@ -76,6 +82,26 @@ public class HUD_Initializer : MonoBehaviour
             }
         }
     }
+
+    private void InitializeHUDManger()
+    {
+        hudManager.instructions = BuildDictionary();
+        hudManager.Instruct("PlaceShips");
+    }
+
+    private Dictionary<string, Texture> BuildDictionary() =>
+    new()
+    {
+        {"None", null},
+        {"PlaceShips", Resources.Load<Texture>("HUD_Sprites/Instructions/PlaceShips")},
+        {"Ready", Resources.Load<Texture>("HUD_Sprites/Instructions/Ready")},
+        {"Attack", Resources.Load<Texture>("HUD_Sprites/Instructions/Armed")},
+        {"UnderAttack", Resources.Load<Texture>("HUD_Sprites/Instructions/UnderAttack")},
+        //{"OwnShipUp", Resources.Load<Texture>("HUD_Sprites/Instructions/")},
+        //{"OpponentShipUp", Resources.Load<Texture>("HUD_Sprites/Instructions/")},
+        //{"OwnShipDown", Resources.Load<Texture>("HUD_Sprites/Instructions/")},
+        //{"OwnShipDestroyed", Resources.Load<Texture>("HUD_Sprites/Instructions/")},
+    };
 
     private void InitializeHUDDimensions()
     {

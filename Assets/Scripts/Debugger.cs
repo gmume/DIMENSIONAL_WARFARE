@@ -34,6 +34,7 @@ public class Debugger : MonoBehaviour
         playerTurn = OverworldData.PlayerTurn;
 
         actShip1 = player1.ActiveShip;
+
         if (player1.ActiveShip != null)
         {
             activeShip1 = actShip1 + ": " + actShip1.navigator.PivotX + ", " + actShip1.navigator.PivotZ;

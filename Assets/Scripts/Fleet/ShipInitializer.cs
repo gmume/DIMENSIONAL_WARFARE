@@ -83,6 +83,7 @@ public class ShipInitializer : MonoBehaviour
         shipLifter.manager = shipManager;
         shipLifter.parts =  shipManager.parts;
         shipLifter.layerFilter = player.playerCamera.GetComponent<LayerFilter>();
+        shipLifter.opponentLayerFilter = player.opponent.playerCamera.GetComponent<LayerFilter>();
     }
 
     private void InitializeActivator()

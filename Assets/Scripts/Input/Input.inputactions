@@ -2,7 +2,7 @@
     "name": "Input",
     "maps": [
         {
-            "name": "GameStart",
+            "name": "PlaceShips",
             "id": "c090e6e7-0ef5-4446-acaf-12750a00f654",
             "actions": [
                 {
@@ -51,9 +51,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SubmitFleet",
+                    "name": "Submit",
                     "type": "Button",
                     "id": "76f151bc-9dc6-4b6b-b413-12b994a40d3c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold,Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Options",
+                    "type": "Button",
+                    "id": "1fa2dffe-5350-4156-b32d-8e92ce0f115a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -79,7 +88,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "SubmitFleet",
+                    "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -126,11 +135,70 @@
                     "action": "MoveShip",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9000e33e-3006-4d55-a58c-bac9553ffae7",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Options",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
         {
-            "name": "Player",
+            "name": "SubmitFleet",
+            "id": "1df2449a-9825-4fa0-bbda-af0596ceaf3f",
+            "actions": [
+                {
+                    "name": "SubmitFleet",
+                    "type": "Button",
+                    "id": "9bc87972-73d5-4801-9089-8855ddd9596e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold,Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Return",
+                    "type": "Button",
+                    "id": "ff7b23ca-f65a-4575-acc9-5195b6701c44",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "7477f3b0-557b-4cb9-b2cb-5d942206206c",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "SubmitFleet",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2785badc-ed46-4fa6-8fae-d35b675048d7",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Return",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Battle",
             "id": "964d7577-f862-4426-86f6-4365a6c45a29",
             "actions": [
                 {
@@ -191,6 +259,15 @@
                     "name": "Zoom",
                     "type": "Button",
                     "id": "1b342dca-2923-4bcd-b4d0-ec2be286f1d7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Options",
+                    "type": "Button",
+                    "id": "4096663a-e14a-496a-87a7-7473c02e7d65",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -272,6 +349,65 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "DimensionUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "55165a8d-3106-49ce-970c-1f82c0a85cdf",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Options",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Options",
+            "id": "00854051-6865-4a50-b7db-42c9bf78e4f5",
+            "actions": [
+                {
+                    "name": "RestartGame",
+                    "type": "Button",
+                    "id": "1585148d-c3b8-437e-838c-5c7fe21fd4a5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CloseOptions",
+                    "type": "Button",
+                    "id": "1bad717b-907c-4264-8c91-f5bdf4e2f206",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f0419cfe-bd2d-40e6-8fcc-1dbf3903585c",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "RestartGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "54f6cc35-c69a-4786-91ee-b5c5e2bdc732",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CloseOptions",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

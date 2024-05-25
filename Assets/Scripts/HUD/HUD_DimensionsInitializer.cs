@@ -16,16 +16,13 @@ public class HUD_DimensionsInitializer : MonoBehaviour
             GameObject HUD_Dimension = Instantiate(HUD_DimensionPrefab) as GameObject;
             HUD_Dimension.name = "HUDDimension0" + (i + 1);
             HUD_Dimension.transform.SetParent(HUD_DimensionsObj.transform, false);
-
             HUD_Dimension.layer = HUD_DimensionsObj.layer;
-            //HUD_Dimension.transform.position += new Vector3(0, i * 60, 0);
 
             RectTransform rectTransform = HUD_Dimension.GetComponent<RectTransform>();
             rectTransform.pivot = pivots[i];
             rectTransform.anchorMin = anchorsMin[i];
             rectTransform.anchorMax = anchorsMax[i];
             rectTransform.sizeDelta = new Vector2(0,0);
-            //rectTransform.SetPositionAndRotation(rectTransform.position, Quaternion.identity);
 
             HUD_DimensionNo = HUD_Dimension.GetComponentInChildren<TextMeshProUGUI>();
             HUD_DimensionNo.text = "0" + (i + 1);

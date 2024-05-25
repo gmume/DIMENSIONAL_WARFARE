@@ -19,12 +19,11 @@ public class Artillerist : MonoBehaviour
         foreach (GameObject opponentCell in opponentCells)
         {
             CellData opponentCellData = opponentCell.GetComponent<CellData>();
-
             sunkenShips.Add(opponentCellData.Occupied && opponentCellData.OccupyingObj.CompareTag("ShipPart") && IsOpponentSunk(opponentCellData));
         }
 
         if (!CanShipAscend(sunkenShips)) return false;
-        player.HUD.armed.SetActive(false);
+        player.HUD.Instruct("Attack");
         return shipManager.ShipUp();
     }
 

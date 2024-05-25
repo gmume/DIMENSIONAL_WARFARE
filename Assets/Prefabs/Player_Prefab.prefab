@@ -266,9 +266,25 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 1b342dca-2923-4bcd-b4d0-ec2be286f1d7
     m_ActionName: Player/Zoom[/DualShock4GamepadHID/leftTrigger,/DualShock4GamepadHID1/leftTrigger]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9bc87972-73d5-4801-9089-8855ddd9596e
+    m_ActionName: SubmitFleet/SubmitFleet[/DualShock4GamepadHID1/buttonSouth,/DualShock4GamepadHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ff7b23ca-f65a-4575-acc9-5195b6701c44
+    m_ActionName: SubmitFleet/Return[/DualShock4GamepadHID1/buttonEast,/DualShock4GamepadHID/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4096663a-e14a-496a-87a7-7473c02e7d65
+    m_ActionName: Battle/Options[/DualShock4GamepadHID1/start,/DualShock4GamepadHID/start]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1585148d-c3b8-437e-838c-5c7fe21fd4a5
+    m_ActionName: Options/ResetGame[/DualShock4GamepadHID1/buttonSouth,/DualShock4GamepadHID/buttonSouth]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
-  m_DefaultActionMap: GameStart
+  m_DefaultActionMap: PlaceShips
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &-2537492309018127594
@@ -302,6 +318,7 @@ MonoBehaviour:
   fleet: {fileID: 11400000, guid: 4a1787ba5b19c6a42a3266b70a5764ac, type: 2}
   fleetColor: {r: 0, g: 0, b: 0, a: 0}
   onboarding: {fileID: 0}
+  options: {fileID: 0}
 --- !u!114 &5728837721025891436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,7 +331,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd28fda82d7d7e64f8c9135fd93db01b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShipName: 
   dimensionPrefab: {fileID: 868283222179364552, guid: 2db3bf0e8101ca24d8a13a3de15e3d0d,
     type: 3}
   cellPrefab: {fileID: 5174194419912870597, guid: 1854d0b72bf4f054393c9dcb677de0e8,
@@ -360,18 +376,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  gameStartMap:
+  placeShipsMap:
     m_Name: 
     m_Id: 
     m_Asset: {fileID: 0}
     m_Actions: []
     m_Bindings: []
-  playerMap:
+  battleMap:
     m_Name: 
     m_Id: 
     m_Asset: {fileID: 0}
     m_Actions: []
     m_Bindings: []
+  chooseLeftShip:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  chooseRightShip:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!114 &941012256338790469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -399,3 +433,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  shipsPlaced: 000000
