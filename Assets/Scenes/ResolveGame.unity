@@ -615,6 +615,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1616060915077893850, guid: 350afd7e24b7dce4ebe036507b198c17,
+        type: 3}
+      propertyPath: m_text
+      value: Restart game X
+      objectReference: {fileID: 0}
+    - target: {fileID: 1616060915077893850, guid: 350afd7e24b7dce4ebe036507b198c17,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 13.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1616060915077893850, guid: 350afd7e24b7dce4ebe036507b198c17,
+        type: 3}
+      propertyPath: m_characterSpacing
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1616060915077893850, guid: 350afd7e24b7dce4ebe036507b198c17,
+        type: 3}
+      propertyPath: m_enableWordWrapping
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1797060333571505584, guid: 350afd7e24b7dce4ebe036507b198c17,
         type: 3}
       propertyPath: m_Layer
@@ -625,6 +645,16 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 2479031031489232647, guid: 350afd7e24b7dce4ebe036507b198c17,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479031031489232647, guid: 350afd7e24b7dce4ebe036507b198c17,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 5079843236585618918, guid: 350afd7e24b7dce4ebe036507b198c17,
         type: 3}
       propertyPath: m_TargetDisplay
@@ -634,6 +664,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6729633448172770373, guid: 350afd7e24b7dce4ebe036507b198c17,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7008305817642806115, guid: 350afd7e24b7dce4ebe036507b198c17,
         type: 3}
@@ -650,8 +685,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 13
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedComponents:
+    - {fileID: 7192672514673570687, guid: 350afd7e24b7dce4ebe036507b198c17, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 8067312037373297077, guid: 350afd7e24b7dce4ebe036507b198c17, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 350afd7e24b7dce4ebe036507b198c17, type: 3}
@@ -1516,6 +1553,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1616060915077893850, guid: 350afd7e24b7dce4ebe036507b198c17,
+        type: 3}
+      propertyPath: m_text
+      value: Restart game X
+      objectReference: {fileID: 0}
+    - target: {fileID: 1616060915077893850, guid: 350afd7e24b7dce4ebe036507b198c17,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 7.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1616060915077893850, guid: 350afd7e24b7dce4ebe036507b198c17,
+        type: 3}
+      propertyPath: m_overflowMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1616060915077893850, guid: 350afd7e24b7dce4ebe036507b198c17,
+        type: 3}
+      propertyPath: m_characterSpacing
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1616060915077893850, guid: 350afd7e24b7dce4ebe036507b198c17,
+        type: 3}
+      propertyPath: m_enableWordWrapping
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1797060333571505584, guid: 350afd7e24b7dce4ebe036507b198c17,
         type: 3}
       propertyPath: m_Layer
@@ -1526,10 +1588,35 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 2479031031489232647, guid: 350afd7e24b7dce4ebe036507b198c17,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479031031489232647, guid: 350afd7e24b7dce4ebe036507b198c17,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479031031489232647, guid: 350afd7e24b7dce4ebe036507b198c17,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479031031489232647, guid: 350afd7e24b7dce4ebe036507b198c17,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5989754320354956076, guid: 350afd7e24b7dce4ebe036507b198c17,
         type: 3}
       propertyPath: m_Layer
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6729633448172770373, guid: 350afd7e24b7dce4ebe036507b198c17,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7008305817642806115, guid: 350afd7e24b7dce4ebe036507b198c17,
         type: 3}
@@ -1546,8 +1633,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedComponents:
+    - {fileID: 7192672514673570687, guid: 350afd7e24b7dce4ebe036507b198c17, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 8067312037373297077, guid: 350afd7e24b7dce4ebe036507b198c17, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 350afd7e24b7dce4ebe036507b198c17, type: 3}

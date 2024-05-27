@@ -61,7 +61,8 @@ public class Lifter : MonoBehaviour
 
     private void LeaveOldDimension(ref DimensionManager dimensionBefore)
     {
-        player.opponent.dimensions.ResetCellPositions(dimensionBefore.No);
+        player.opponent.world.DeactivateCells();
+        //player.opponent.dimensions.ResetCellPositions(dimensionBefore.No);
         player.dimensions.ReleaseCells(player.dimensions.GetCellGroup(manager.GetShipCoordinates(), dimensionBefore.No));
         dimensionBefore.RemoveShip(gameObject);
     }

@@ -38,7 +38,7 @@ public class PlayerSwapper : MonoBehaviour
     {
         player.onboarding.ShowTip("UnderAttack");
         player.LastActiveShip = player.ActiveShip;
-        if (player.input.currentActionMap.name == "Battle") player.world.DeactivateCells();
+        //if (player.input.currentActionMap.name == "Battle") player.world.DeactivateCells();
         if (player.ActiveShip != null) player.ActiveShip.Deactivate();
         player.FocusedCell = null;
         player.eventSystem.SetSelectedGameObject(null);
@@ -60,6 +60,6 @@ public class PlayerSwapper : MonoBehaviour
         }
         
         opponent.HUD.UpdateHUDCoords();
-        player.opponent.world.SetNewCellAbsolute(OverworldData.MiddleCoordNo, OverworldData.MiddleCoordNo);
+        player.opponent.world.SetNewCellAbsolute(false, OverworldData.MiddleCoordNo, OverworldData.MiddleCoordNo);
     }
 }

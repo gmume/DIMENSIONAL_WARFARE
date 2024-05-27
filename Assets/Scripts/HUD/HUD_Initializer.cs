@@ -65,14 +65,6 @@ public class HUD_Initializer : MonoBehaviour
                 case "Instruction":
                     hudManager.instructionImg = HUD_Part.GetComponent<RawImage>();
                     break;
-                //case "Armed":
-                //    hudManager.armed = HUD_Part;
-                //    HUD_Part.SetActive(false);
-                //    break;
-                //case "UnderAttack":
-                //    hudManager.underAttack = HUD_Part;
-                //    HUD_Part.SetActive(false);
-                //    break;
                 case "CrewTextBackground":
                     hudManager.crewText = HUD_Part.GetComponentInChildren<TextMeshProUGUI>();
                     break;
@@ -105,9 +97,9 @@ public class HUD_Initializer : MonoBehaviour
 
     private void InitializeHUDDimensions()
     {
+        hudDimensionsInitializer.player = this.player;
         hudDimensionsInitializer.InitializeHUDDimensions(hudFleetInitializer, HUD_DimensionsObj, HUD_DimensionPrefab, player.HUD.HUD_Dimensions, player.HUD.HUD_Fleet, player.fleetColor);
-        hudDimensionsInitializer.InitializeHUDDimensions(hudFleetInitializer, HUD_DimensionsOpponentObj, HUD_DimensionOpponentPrefab, player.HUD.HUD_DimensionsOpponent, player.HUD.HUD_FleetOpponent, player.opponent.fleetColor);
-        hudDimensionActivator.currentHUD_Dimension = hudDimensionActivator.currentHUD_DimensionOpponent = 0;
+        hudDimensionsInitializer.InitializeOpponentHUDDimensions(HUD_DimensionsOpponentObj, HUD_DimensionOpponentPrefab, player.HUD.HUD_DimensionsOpponent, player.HUD.HUD_FleetOpponent, player.opponent.fleetColor);
     }
 
     private void InitializeShipButtons() => hudButtonInitializer.InitializeShipButtons(hudManager);

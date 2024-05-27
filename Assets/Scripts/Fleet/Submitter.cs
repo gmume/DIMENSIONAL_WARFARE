@@ -105,7 +105,6 @@ public class Submitter : MonoBehaviour
 
     public bool SubmitShip(PlayerData player)
     {
-        Debug.Log("entred submit ship");
         player.LastActiveShip = player.ActiveShip;
         player.input.SwitchCurrentActionMap("Battle");
         return true;

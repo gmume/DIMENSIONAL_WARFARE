@@ -34,9 +34,11 @@ public class Artillerist : MonoBehaviour
         foreach (GameObject cell in cells)
         {
             cell.GetComponent<Renderer>().material.color = Colors.hitCell;
+            cell.GetComponent<CellData>().ColorBefore = Colors.hitCell;
             cell.GetComponent<CellData>().Hit = true;
         }
 
+        player.world.DeactivateCells();
         return player.FocusedCell;
     }
 

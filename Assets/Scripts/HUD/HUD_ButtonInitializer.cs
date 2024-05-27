@@ -39,6 +39,7 @@ public class HUD_ButtonInitializer : MonoBehaviour
         buttonNavigation.mode = Navigation.Mode.None;
         buttonObj.AddComponent<ShipButtonData>().No = i;
         buttonObj.AddComponent<HorizontalLayoutGroup>().childAlignment = TextAnchor.MiddleCenter;
+        buttonObj.AddComponent<HorizontalLayoutGroup>().childAlignment = TextAnchor.MiddleCenter;
 
         if (i == 0)
         {
@@ -67,7 +68,6 @@ public class HUD_ButtonInitializer : MonoBehaviour
         shipPart.transform.SetParent(buttonObj.transform, false);
         Image shipPartImage = shipPart.GetComponent<Image>();
         shipPartImage.sprite = Resources.Load<Sprite>("HUD_Sprites/HUD_ShipSprites/HUD_ShipPart");
-        //shipPartImage.type = Image.Type.Simple;
         shipPartImage.preserveAspect = true;
         shipPart.layer = (name == "HUD1") ? 11 : 12;
     }

@@ -110,8 +110,7 @@ public class InputHandler : MonoBehaviour
         player.audioManager.ChooseDimension();
         player.HUD.ChooseDimension(no);
         player.vehicle.SetViewOnDimension(no);
-        player.world.SetNewDimension(no);
-        player.world.SetNewCellRelative(0, 0);
+        player.world.SetNewCellRelative(no, 0, 0);
     }
 
     public void OnMoveSelection(CallbackContext ctx)
@@ -178,20 +177,17 @@ public class InputHandler : MonoBehaviour
 
     public void OnOptions(CallbackContext ctx)
     {
-        if (!ctx.performed) return;
-        player.options.ShowOptions();
+        if (ctx.performed) player.options.ShowOptions();
     }
 
     //Options actionMap
     public void OnRestartGame(CallbackContext ctx)
     {
-        if (!ctx.performed) return;
-        SceneChanger.LoadLobby();
+        if (ctx.performed) SceneChanger.LoadLobby();
     }
 
     public void OnCloseOptions(CallbackContext ctx)
     {
-        if (!ctx.performed) return;
-        player.options.CloseOptions();
+        if (ctx.performed) player.options.CloseOptions();
     }
 }

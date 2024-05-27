@@ -53,7 +53,7 @@ public class DamageHandler : MonoBehaviour
 
         foreach (ShipPartManager shipPart in manager.parts)
         {
-            shipPart.PartMaterial.color = player.fleetColor + Colors.activ;
+            shipPart.PartMaterial.color = player.fleetColor + Colors.deltaActivShip;
         }
 
         lifter.SinkShip(ref dimension, shipNo, ShipStatus);

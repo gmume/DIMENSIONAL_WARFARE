@@ -33,7 +33,6 @@ public class HUD_FleetInitializer : MonoBehaviour
             rectTransform.pivot = pivots[i];
             rectTransform.anchorMin = rectTransform.anchorMax = anchors[i];
             rectTransform.sizeDelta = sizeDelta;
-            //rectTransform.SetLocalPositionAndRotation(rectTransform.localPosition, rectTransform.localRotation);
 
             HUD_Fleet[i] = HUD_Ship;
         }
