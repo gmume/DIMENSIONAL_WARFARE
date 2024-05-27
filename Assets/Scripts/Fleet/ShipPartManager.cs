@@ -14,6 +14,8 @@ public class ShipPartManager : MonoBehaviour
     public bool Damaged { get; set; }
     public bool ContinueGame = false;
 
+    private GameObject HUD_ButtonPart;
+
     public void UpdateCoordinatesRelative(int x, int y)
     {
         X += x;
@@ -61,5 +63,12 @@ public class ShipPartManager : MonoBehaviour
 
         SetColorIntact();
         explosion.Initialize();
+
+        GameObject HUD_button = player.HUD.hudButtonHandler.shipButtons[ship.No];
+        //Debug.Log("buttonParts: " + HUD_button.GetComponent<HUD_ButtonPartsHandler>().buttonParts.Length);
+
+        //HUD_ButtonPart = HUD_button.GetComponent<HUD_ButtonPartsHandler>().buttonParts[partNo];
+
+        //Debug.Log("HUD_ButtonPart: " + HUD_ButtonPart);
     }
 }

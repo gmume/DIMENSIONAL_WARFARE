@@ -21,9 +21,11 @@ public class HUD_ButtonInitializer : MonoBehaviour
             InitializeButton(hudManager, buttonObj, button, i);
             DesignButton(button, Resources.Load<Sprite>("HUD_Sprites/HUD_ShipSprites/ShipSprite" + i), Resources.Load<Sprite>("HUD_Sprites/HUD_ShipSprites/ShipSpriteActive" + i));
 
+            GameObject[] buttonParts = buttonObj.GetComponent<HUD_ButtonPartsHandler>().buttonParts;
+
             for (int j = 0; j <= i; j++)
             {
-                InitializeHUDButtonShipPart(buttonObj);
+                buttonParts[i] = InitializeHUDButtonShipPart(buttonObj);
             }
         }
     }
@@ -39,7 +41,8 @@ public class HUD_ButtonInitializer : MonoBehaviour
         buttonNavigation.mode = Navigation.Mode.None;
         buttonObj.AddComponent<ShipButtonData>().No = i;
         buttonObj.AddComponent<HorizontalLayoutGroup>().childAlignment = TextAnchor.MiddleCenter;
-        buttonObj.AddComponent<HorizontalLayoutGroup>().childAlignment = TextAnchor.MiddleCenter;
+        HUD_ButtonPartsHandler partsHandler = buttonObj.AddComponent<HUD_ButtonPartsHandler>();
+        partsHandler.Initialize();
 
         if (i == 0)
         {
@@ -62,7 +65,7 @@ public class HUD_ButtonInitializer : MonoBehaviour
         button.spriteState = spriteState;
     }
 
-    private void InitializeHUDButtonShipPart(GameObject buttonObj)
+    private GameObject InitializeHUDButtonShipPart(GameObject buttonObj)
     {
         GameObject shipPart = new("HUD_ShipPart", typeof(CanvasRenderer), typeof(Image));
         shipPart.transform.SetParent(buttonObj.transform, false);
@@ -70,5 +73,6 @@ public class HUD_ButtonInitializer : MonoBehaviour
         shipPartImage.sprite = Resources.Load<Sprite>("HUD_Sprites/HUD_ShipSprites/HUD_ShipPart");
         shipPartImage.preserveAspect = true;
         shipPart.layer = (name == "HUD1") ? 11 : 12;
+        return shipPart;
     }
 }

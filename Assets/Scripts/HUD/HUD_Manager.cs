@@ -20,8 +20,6 @@ public class HUD_Manager : MonoBehaviour
     [HideInInspector] public GameObject[] HUD_Fleet { private set; get; }
     [HideInInspector] public GameObject[] HUD_FleetOpponent { private set; get;}
 
-    //[HideInInspector] public GameObject armed;
-    //[HideInInspector] public GameObject underAttack;
     [HideInInspector] public RawImage instructionImg;
     [HideInInspector] public Dictionary<string, Texture> instructions;
 
@@ -72,7 +70,13 @@ public class HUD_Manager : MonoBehaviour
         UpdateHUDFleet(shipNo, toDimensionNo, player.opponent.HUD.HUD_DimensionsOpponent, player.opponent.HUD.HUD_FleetOpponent);
     }
 
-    private void UpdateHUDFleet(int shipNo, int toDimensionNo, GameObject[] HUD_Dimensions, GameObject[] HUD_Fleet) => HUD_Fleet[shipNo].transform.SetParent(HUD_Dimensions[toDimensionNo].transform, false);
+    private void UpdateHUDFleet(int shipNo, int toDimensionNo, GameObject[] HUD_Dimensions, GameObject[] HUD_Fleet)
+    {
+        Debug.Log("shipNo: " + shipNo);
+        Debug.Log("HUD_Fleet: " + HUD_Fleet.Length);
+        Debug.Log("HUD_Fleet[shipNo]: " + HUD_Fleet[shipNo]);
+        HUD_Fleet[shipNo].transform.SetParent(HUD_Dimensions[toDimensionNo].transform, false);
+    }
 
     public void Instruct(string instruction)
     {

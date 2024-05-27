@@ -14,12 +14,12 @@ public class InputHandler : MonoBehaviour
     {
         if (ctx.started)
         {
-            //if(OverworldData.GamePhase.ToString() == "Start")Start timer animation
+            // To do: if(OverworldData.GamePhase.ToString() == "Start")Start timer animation
         }
 
         if (ctx.performed)
         {
-            //player.onboarding.DeactivateTip();
+            // player.onboarding.DeactivateTip(); Deactivated for Werkschau!
 
             if (OverworldData.GamePhase.ToString() == "Start")
             {

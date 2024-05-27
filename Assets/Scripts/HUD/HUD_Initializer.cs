@@ -22,7 +22,7 @@ public class HUD_Initializer : MonoBehaviour
     [HideInInspector] public GameObject HUD_DimensionsObj;
     [HideInInspector] public GameObject HUD_DimensionsOpponentObj;
     public GameObject HUD_DimensionPrefab;
-    public GameObject HUD_DimensionOpponentPrefab;
+    //public GameObject HUD_DimensionOpponentPrefab;
 
     public void Start()
     {
@@ -98,8 +98,22 @@ public class HUD_Initializer : MonoBehaviour
     private void InitializeHUDDimensions()
     {
         hudDimensionsInitializer.player = this.player;
-        hudDimensionsInitializer.InitializeHUDDimensions(hudFleetInitializer, HUD_DimensionsObj, HUD_DimensionPrefab, player.HUD.HUD_Dimensions, player.HUD.HUD_Fleet, player.fleetColor);
-        hudDimensionsInitializer.InitializeOpponentHUDDimensions(HUD_DimensionsOpponentObj, HUD_DimensionOpponentPrefab, player.HUD.HUD_DimensionsOpponent, player.HUD.HUD_FleetOpponent, player.opponent.fleetColor);
+
+        hudDimensionsInitializer.InitializeHUDDimensions(true,
+                                                         hudFleetInitializer,
+                                                         HUD_DimensionsObj,
+                                                         HUD_DimensionPrefab,
+                                                         player.HUD.HUD_Dimensions,
+                                                         player.HUD.HUD_Fleet,
+                                                         player.fleetColor);
+
+        hudDimensionsInitializer.InitializeHUDDimensions(false,
+                                                         hudFleetInitializer,
+                                                         HUD_DimensionsOpponentObj,
+                                                         HUD_DimensionPrefab,
+                                                         player.HUD.HUD_DimensionsOpponent,
+                                                         player.HUD.HUD_FleetOpponent,
+                                                         player.opponent.fleetColor);
     }
 
     private void InitializeShipButtons() => hudButtonInitializer.InitializeShipButtons(hudManager);
