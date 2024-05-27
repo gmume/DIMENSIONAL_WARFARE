@@ -16,7 +16,7 @@ public class PlayerData : MonoBehaviour
 
     [Header("Input")]
                       public InputHandler inputHandler;
-                      public FleetSubmitter submitter;
+                      public Submitter submitter;
                       public PlayerSwapper swapper;
                       public InputEnabler inputEnabler;
 
@@ -36,7 +36,8 @@ public class PlayerData : MonoBehaviour
                       public DimensionsManager dimensions; //Is initiated by PlayerWorld
                       public DimensionManager ActiveDimension { get; set; }
     [HideInInspector] public CellData FocusedCell { get; set; }
-    //[HideInInspector] public Material CellMaterial { get; set; }
+    [HideInInspector] public Color cellColor { get; set; }
+    [HideInInspector] public Material cellMaterial { get; set; }
 
     [Header("Fleet")]
                       public FleetManager fleet; //Is initiated by PlayerWorld via InitDimension()
@@ -46,14 +47,17 @@ public class PlayerData : MonoBehaviour
 
     [Header("Onboarding")]
                       public OnboardingManager onboarding;
-    
 
-   private void Awake()
+    [Header("Options")]
+                      public OptionsHandler options;
+
+    private void Awake()
     {
         number = int.Parse(name[^1].ToString());
         world = GetComponent<PlayerWorldManager>();
         input = GetComponent<PlayerInput>();
-        //CellMaterial = (number == 1) ? Materials.cellBlueMat : Materials.cellTurqoiseMat;
+        cellColor = (number == 1) ? Colors.cellTurqoise : Colors.cellBlue;
+        cellMaterial = (number == 1) ? Materials.cellBlueMat : Materials.cellTurqoiseMat;
         fleetColor = (number == 1) ? Colors.fleet1 : Colors.fleet2;
     }
 

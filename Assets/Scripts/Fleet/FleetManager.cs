@@ -6,13 +6,12 @@ using UnityEngine;
 
 public class FleetManager : ScriptableObject
 {
-    private PlayerData player;
-    public readonly List<GameObject> ships = new();
+    public  List<GameObject> ships = new();
 
     public void ActivateShip(int index, PlayerData player)
     {
         ships[index].GetComponent<ShipManager>().Activate();
-        if (OverworldData.GamePhase == GamePhases.Battle) player.inputEnabler.SwitchActionMap("Player");
+        if (OverworldData.GamePhase == GamePhases.Battle) player.inputEnabler.SwitchActionMap("Battle");
     }
 
     public int GetShipIndex(int ofShipNo)
@@ -28,9 +27,9 @@ public class FleetManager : ScriptableObject
 
     public void InitializeFleet(PlayerData player)
     {
-        this.player = player;
-
         Object[] loadedAttackPatterns = Resources.LoadAll("AttackPatterns");
+
+        if(ships.Count > 0) ships.Clear();
 
         for (int i = 0; i < OverworldData.FleetSize; i++)
         {

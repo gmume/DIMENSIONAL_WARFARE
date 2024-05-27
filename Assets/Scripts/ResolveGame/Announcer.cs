@@ -1,16 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class VictoryAnnouncer : MonoBehaviour
+public class Announcer : MonoBehaviour
 {
     public AudioPlayer audioPlayer;
+    private bool isWinner;
+    public Sprite BackgroundLoose;
+    public Sprite BackgroungWin;
+    private string win = "You win!";
+    private string loose = "You loose!";
 
     private void Start()
     {
-        //GameData.winner.HUD.WriteText($"Capt'n {GameData.winner.number} wins for reaching the top dimension!");
-        GetComponent<RawImage>().texture = IsWinner() ? Resources.Load<Texture>("HUD_Sprites/Win") : Resources.Load<Texture>("HUD_Sprites/Loose");
+        isWinner = IsWinner();
+
+        GetComponent<Image>().sprite = isWinner ? BackgroungWin : BackgroundLoose;
+        GetComponentInChildren< TextMeshProUGUI>().text = isWinner ? win : loose;
         Invoke("PlayVictorySound", 0.5f);
     }
 

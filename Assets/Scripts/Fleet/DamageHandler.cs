@@ -15,7 +15,7 @@ public class DamageHandler : MonoBehaviour
     {
         part.Explode();
 
-        int targetLayer = LayerMask.NameToLayer("DamagedParts" + player.number);
+        int targetLayer = LayerMask.NameToLayer("VisibleParts" + player.number);
         gameObject.layer = targetLayer;
         part.gameObject.layer = targetLayer;
 
@@ -23,7 +23,7 @@ public class DamageHandler : MonoBehaviour
 
         if (dimension.No != 0)
         {
-            player.HUD.underAttack.SetActive(false);
+            player.HUD.Instruct("None");
             DescendShip(lifter, ref dimension, shipNo);
             player.onboarding.ShowTip("OwnShipDown");
         }
@@ -53,7 +53,7 @@ public class DamageHandler : MonoBehaviour
 
         foreach (ShipPartManager shipPart in manager.parts)
         {
-            shipPart.PartMaterial.color = player.fleetColor + Colors.activ;
+            shipPart.PartMaterial.color = player.fleetColor + Colors.deltaActivShip;
         }
 
         lifter.SinkShip(ref dimension, shipNo, ShipStatus);

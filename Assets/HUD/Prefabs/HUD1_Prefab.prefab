@@ -178,6 +178,16 @@ PrefabInstance:
       propertyPath: HUD_Dimensions.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1692929047453941891, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1692929047453941891, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_TagString
+      value: HUD1
+      objectReference: {fileID: 0}
     - target: {fileID: 1882135560043891823, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_Layer
@@ -262,12 +272,12 @@ PrefabInstance:
     - target: {fileID: 4805333094485392066, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 0.1710526
       objectReference: {fileID: 0}
     - target: {fileID: 4805333094485392066, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.20394737
+      value: 0.30263156
       objectReference: {fileID: 0}
     - target: {fileID: 4805333094485392066, guid: dadfa82202b17be47b39770320522709,
         type: 3}
@@ -622,6 +632,16 @@ PrefabInstance:
       value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8948919650474684716, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_TagString
+      value: HUD1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9023573979498149548, guid: dadfa82202b17be47b39770320522709,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 9023573979498149548, guid: dadfa82202b17be47b39770320522709,
         type: 3}
       propertyPath: m_TagString
       value: HUD1

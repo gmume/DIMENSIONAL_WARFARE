@@ -15,7 +15,7 @@ public class Activator : MonoBehaviour
 
             foreach (ShipPartManager part in parts)
             {
-                part.PartMaterial.color += Colors.activ;
+                part.PartMaterial.color += Colors.deltaActivShip;
             }
 
             Vector3 vectorUp = new(0f, 0.1f, 0f);
@@ -28,7 +28,7 @@ public class Activator : MonoBehaviour
     {
         foreach (ShipPartManager part in parts)
         {
-            part.PartMaterial.color -= Colors.activ;
+            part.PartMaterial.color -= Colors.deltaActivShip;
         }
 
         Vector3 vectorDown = new(0f, -0.1f, 0f);

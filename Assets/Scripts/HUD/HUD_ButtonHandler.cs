@@ -23,7 +23,8 @@ public class HUD_ButtonHandler : MonoBehaviour
                 }
             }
 
-        } else if (!selectedButton)
+        }
+        else if (!selectedButton)
         {
             selectedButton = shipButtons[0];
         }

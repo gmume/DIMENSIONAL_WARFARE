@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HUD_Manager : MonoBehaviour
 {
@@ -19,8 +20,10 @@ public class HUD_Manager : MonoBehaviour
     [HideInInspector] public GameObject[] HUD_Fleet { private set; get; }
     [HideInInspector] public GameObject[] HUD_FleetOpponent { private set; get;}
 
-    [HideInInspector] public GameObject armed;
-    [HideInInspector] public GameObject underAttack;
+    //[HideInInspector] public GameObject armed;
+    //[HideInInspector] public GameObject underAttack;
+    [HideInInspector] public RawImage instructionImg;
+    [HideInInspector] public Dictionary<string, Texture> instructions;
 
     [HideInInspector] public TextMeshProUGUI crewText;
 
@@ -70,7 +73,13 @@ public class HUD_Manager : MonoBehaviour
     }
 
     private void UpdateHUDFleet(int shipNo, int toDimensionNo, GameObject[] HUD_Dimensions, GameObject[] HUD_Fleet) => HUD_Fleet[shipNo].transform.SetParent(HUD_Dimensions[toDimensionNo].transform, false);
-    
+
+    public void Instruct(string instruction)
+    {
+        instructionImg.texture = instructions[instruction];
+        instructionImg.SetNativeSize();
+    }
+
     public void WriteText(string text)
     {
         crewText.text = text;
