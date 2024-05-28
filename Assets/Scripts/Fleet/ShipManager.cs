@@ -22,6 +22,8 @@ public class ShipManager : MonoBehaviour
                       public List<GameObject> partsList = new();
                       public DimensionManager dimension;
 
+                      public HUD_ButtonPartsHandler[] HUD_buttonPartsHandler;
+
     public void Activate() => activator.Activate(this);
 
     public void Deactivate() => activator.Deactivate();
@@ -36,7 +38,11 @@ public class ShipManager : MonoBehaviour
 
     public bool ShipUp() => lifter.LiftShipUp(ref dimension, No);
 
-    public bool TakeHit(ShipPartManager part) => damageHandler.TakeHit(part, No, ref dimension, lifter);
+    public bool TakeHit(ShipPartManager part)
+    {
+        HUD_buttonPartsHandler[No].ButtonPartTakeHit(part.partNo);
+        return damageHandler.TakeHit(part, No, ref dimension, lifter);
+    }
 
     public void SetDimension(DimensionManager newDimension) => lifter.SetDimension(newDimension, No);
 

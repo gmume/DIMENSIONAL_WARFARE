@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,13 +21,6 @@ public class HUD_ButtonInitializer : MonoBehaviour
 
             InitializeButton(hudManager, buttonObj, button, i);
             DesignButton(button, Resources.Load<Sprite>("HUD_Sprites/HUD_ShipSprites/ShipSprite" + i), Resources.Load<Sprite>("HUD_Sprites/HUD_ShipSprites/ShipSpriteActive" + i));
-
-            GameObject[] buttonParts = buttonObj.GetComponent<HUD_ButtonPartsHandler>().buttonParts;
-
-            for (int j = 0; j <= i; j++)
-            {
-                buttonParts[i] = InitializeHUDButtonShipPart(buttonObj);
-            }
         }
     }
 
@@ -42,7 +36,12 @@ public class HUD_ButtonInitializer : MonoBehaviour
         buttonObj.AddComponent<ShipButtonData>().No = i;
         buttonObj.AddComponent<HorizontalLayoutGroup>().childAlignment = TextAnchor.MiddleCenter;
         HUD_ButtonPartsHandler partsHandler = buttonObj.AddComponent<HUD_ButtonPartsHandler>();
-        partsHandler.Initialize();
+        List<GameObject> buttonParts = partsHandler.buttonParts;
+
+        for (int j = 0; j <= i; j++)
+        {
+            buttonParts.Add(InitializeHUDButtonShipPart(buttonObj));
+        }
 
         if (i == 0)
         {

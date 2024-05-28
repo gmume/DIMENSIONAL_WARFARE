@@ -105,10 +105,11 @@ public class Lifter : MonoBehaviour
 
         foreach (ShipPartManager part in parts)
         {
+            manager.HUD_buttonPartsHandler[manager.No].RepairButtonPart(part.partNo);
             part.ResetPart();
         }
 
-        status = ShipStatus.Intact;
+        //status = ShipStatus.Intact;
         player.input.SwitchCurrentActionMap("PlaceShips");
         player.inputEnabler.DisableChoosingShips();
         player.HUD.WriteText($"Capt'n {player.number} hide your ship!");

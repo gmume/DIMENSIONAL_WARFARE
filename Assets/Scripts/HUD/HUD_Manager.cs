@@ -72,9 +72,6 @@ public class HUD_Manager : MonoBehaviour
 
     private void UpdateHUDFleet(int shipNo, int toDimensionNo, GameObject[] HUD_Dimensions, GameObject[] HUD_Fleet)
     {
-        Debug.Log("shipNo: " + shipNo);
-        Debug.Log("HUD_Fleet: " + HUD_Fleet.Length);
-        Debug.Log("HUD_Fleet[shipNo]: " + HUD_Fleet[shipNo]);
         HUD_Fleet[shipNo].transform.SetParent(HUD_Dimensions[toDimensionNo].transform, false);
     }
 
@@ -99,6 +96,24 @@ public class HUD_Manager : MonoBehaviour
     }
 
     public List<GameObject> GetShipButtons() => hudButtonHandler.GetShipButtons();
+
+    public HUD_ButtonPartsHandler[] GetPartsHandlerOfShipButtons()
+    {
+        HUD_ButtonPartsHandler[] partsHandler = new HUD_ButtonPartsHandler[OverworldData.FleetSize];
+        List<GameObject> shipButtons = GetShipButtons();
+
+        for (int i = 0; i < partsHandler.Length; i++)
+        {
+            partsHandler[i] = shipButtons[i].GetComponent<HUD_ButtonPartsHandler>();
+            //Debug.Log("shipButtons[i].GetComponent<HUD_ButtonPartsHandler>(): " + shipButtons[i].GetComponent<HUD_ButtonPartsHandler>());
+            //Debug.Log("buttonParts[i]: " + shipButtons[i].GetComponent<HUD_ButtonPartsHandler>().buttonParts[i]);
+        }
+
+        //Debug.Log("shipButtons[0].GetComponent<HUD_ButtonPartsHandler>(): " + shipButtons[0].GetComponent<HUD_ButtonPartsHandler>());
+        //Debug.Log("buttonParts[0]: " + shipButtons[0].GetComponent<HUD_ButtonPartsHandler>().buttonParts[0]);
+
+        return partsHandler;
+    }
 
     public void SetSelecetedButton() => hudButtonHandler.SetSelecetedButton(player);
 

@@ -22,7 +22,6 @@ public class HUD_Initializer : MonoBehaviour
     [HideInInspector] public GameObject HUD_DimensionsObj;
     [HideInInspector] public GameObject HUD_DimensionsOpponentObj;
     public GameObject HUD_DimensionPrefab;
-    //public GameObject HUD_DimensionOpponentPrefab;
 
     public void Start()
     {
