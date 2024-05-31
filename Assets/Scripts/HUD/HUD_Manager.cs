@@ -15,13 +15,11 @@ public class HUD_Manager : MonoBehaviour
     private string x = "--", y = "--";
     [HideInInspector] public TextMeshProUGUI xCoord, yCoord;
 
-    [HideInInspector] public GameObject[] HUD_Dimensions { private set; get; }
-    [HideInInspector] public GameObject[] HUD_DimensionsOpponent { private set; get; }
-    [HideInInspector] public GameObject[] HUD_Fleet { private set; get; }
-    [HideInInspector] public GameObject[] HUD_FleetOpponent { private set; get;}
+    public GameObject[] HUD_Dimensions { private set; get; }
+    public GameObject[] HUD_DimensionsOpponent { private set; get; }
+    public GameObject[] HUD_Fleet { private set; get; }
+    public GameObject[] HUD_FleetOpponent { private set; get;}
 
-    //[HideInInspector] public GameObject armed;
-    //[HideInInspector] public GameObject underAttack;
     [HideInInspector] public RawImage instructionImg;
     [HideInInspector] public Dictionary<string, Texture> instructions;
 
@@ -72,7 +70,10 @@ public class HUD_Manager : MonoBehaviour
         UpdateHUDFleet(shipNo, toDimensionNo, player.opponent.HUD.HUD_DimensionsOpponent, player.opponent.HUD.HUD_FleetOpponent);
     }
 
-    private void UpdateHUDFleet(int shipNo, int toDimensionNo, GameObject[] HUD_Dimensions, GameObject[] HUD_Fleet) => HUD_Fleet[shipNo].transform.SetParent(HUD_Dimensions[toDimensionNo].transform, false);
+    private void UpdateHUDFleet(int shipNo, int toDimensionNo, GameObject[] HUD_Dimensions, GameObject[] HUD_Fleet)
+    {
+        HUD_Fleet[shipNo].transform.SetParent(HUD_Dimensions[toDimensionNo].transform, false);
+    }
 
     public void Instruct(string instruction)
     {
@@ -95,6 +96,24 @@ public class HUD_Manager : MonoBehaviour
     }
 
     public List<GameObject> GetShipButtons() => hudButtonHandler.GetShipButtons();
+
+    public HUD_ButtonPartsHandler[] GetPartsHandlerOfShipButtons()
+    {
+        HUD_ButtonPartsHandler[] partsHandler = new HUD_ButtonPartsHandler[OverworldData.FleetSize];
+        List<GameObject> shipButtons = GetShipButtons();
+
+        for (int i = 0; i < partsHandler.Length; i++)
+        {
+            partsHandler[i] = shipButtons[i].GetComponent<HUD_ButtonPartsHandler>();
+            //Debug.Log("shipButtons[i].GetComponent<HUD_ButtonPartsHandler>(): " + shipButtons[i].GetComponent<HUD_ButtonPartsHandler>());
+            //Debug.Log("buttonParts[i]: " + shipButtons[i].GetComponent<HUD_ButtonPartsHandler>().buttonParts[i]);
+        }
+
+        //Debug.Log("shipButtons[0].GetComponent<HUD_ButtonPartsHandler>(): " + shipButtons[0].GetComponent<HUD_ButtonPartsHandler>());
+        //Debug.Log("buttonParts[0]: " + shipButtons[0].GetComponent<HUD_ButtonPartsHandler>().buttonParts[0]);
+
+        return partsHandler;
+    }
 
     public void SetSelecetedButton() => hudButtonHandler.SetSelecetedButton(player);
 

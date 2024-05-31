@@ -62,7 +62,7 @@ Canvas:
   m_GameObject: {fileID: 171654988707244013}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -131,9 +131,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHUD_Dimension: 0
   currentHUD_DimensionOpponent: 0
-  HUD_DimensionInactive: {fileID: 2800000, guid: 655c01e018d46674999898c4c5b67b80,
-    type: 3}
-  HUD_DimensionActive: {fileID: 2800000, guid: d71ae05a6964b3d44b6b5cf40d5545ce, type: 3}
 --- !u!114 &7959083778963043119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,8 +166,8 @@ MonoBehaviour:
   hudButtonInitializer: {fileID: 0}
   HUD_DimensionsObj: {fileID: 0}
   HUD_DimensionsOpponentObj: {fileID: 0}
-  HUD_DimensionPrefab: {fileID: 0}
-  HUD_DimensionOpponentPrefab: {fileID: 0}
+  HUD_DimensionPrefab: {fileID: 3955060960081108199, guid: ad3fe6dc481436745a9c23af8f4f67e4,
+    type: 3}
 --- !u!114 &4400816631223144011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,6 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab82823f3380ed24888a25ea2cac8518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!114 &7978301769002643889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -727,7 +725,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8830732740648696196}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -736,7 +734,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 478, y: 169}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &746934433001535230
@@ -1521,7 +1519,7 @@ PrefabInstance:
     - target: {fileID: 3425226534777591414, guid: e4c7ad5e79f25d44bbca2c7bc26a1e7d,
         type: 3}
       propertyPath: m_fontSize
-      value: 38.6
+      value: 38.65
       objectReference: {fileID: 0}
     - target: {fileID: 6986321474018761711, guid: e4c7ad5e79f25d44bbca2c7bc26a1e7d,
         type: 3}

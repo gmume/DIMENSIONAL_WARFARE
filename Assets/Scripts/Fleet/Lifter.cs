@@ -7,12 +7,12 @@ using UnityEngine;
 
 public class Lifter : MonoBehaviour
 {
-    [HideInInspector] public PlayerData player;
-    [HideInInspector] public AudioPlayer audioPlayer;
-    [HideInInspector] public ShipManager manager;
-    [HideInInspector] public ShipPartManager[] parts;
-    [HideInInspector] public LayerFilter layerFilter;
-    [HideInInspector] public LayerFilter opponentLayerFilter;
+    public PlayerData player;
+    public AudioPlayer audioPlayer;
+    public ShipManager manager;
+    public ShipPartManager[] parts;
+    public LayerFilter layerFilter;
+    public LayerFilter opponentLayerFilter;
 
     public bool LiftShipUp(ref DimensionManager currentDimension, int shipNo)
     {
@@ -105,10 +105,11 @@ public class Lifter : MonoBehaviour
 
         foreach (ShipPartManager part in parts)
         {
+            manager.HUD_buttonPartsHandler[manager.No].RepairButtonPart(part.partNo);
             part.ResetPart();
         }
 
-        status = ShipStatus.Intact;
+        //status = ShipStatus.Intact;
         player.input.SwitchCurrentActionMap("PlaceShips");
         player.inputEnabler.DisableChoosingShips();
         player.HUD.WriteText($"Capt'n {player.number} hide your ship!");

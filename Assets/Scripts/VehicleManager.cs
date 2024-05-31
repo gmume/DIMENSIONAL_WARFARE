@@ -12,7 +12,8 @@ public class VehicleManager : MonoBehaviour
     private bool zoomedOut = false;
     private int currentDimension;
     public AnimationCurve curve;
-    private float panDuration, journeyFraction;
+    public float panDuration = 1f;
+    private float journeyFraction;
     private DateTime startTime;
     private readonly string[] actionNames = { "DimensionDown", "DimensionUp", "Zoom" };
     private readonly List<InputAction> actions = new();

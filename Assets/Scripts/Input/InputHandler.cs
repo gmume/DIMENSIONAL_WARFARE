@@ -14,12 +14,12 @@ public class InputHandler : MonoBehaviour
     {
         if (ctx.started)
         {
-            //if(OverworldData.GamePhase.ToString() == "Start")Start timer animation
+            // To do: if(OverworldData.GamePhase.ToString() == "Start")Start timer animation
         }
 
         if (ctx.performed)
         {
-            //player.onboarding.DeactivateTip();
+            // player.onboarding.DeactivateTip(); Deactivated for Werkschau!
 
             if (OverworldData.GamePhase.ToString() == "Start")
             {
@@ -92,6 +92,8 @@ public class InputHandler : MonoBehaviour
         player.HUD.ChooseShip(index);
         player.audioManager.ChooseShip();
         player.world.ActivateCells();
+
+        if (OverworldData.PlayerTurn == player.number) player.Pointer.ShipPointAtFocussedCell();
     }
 
     //Battle actionMap
@@ -111,6 +113,8 @@ public class InputHandler : MonoBehaviour
         player.HUD.ChooseDimension(no);
         player.vehicle.SetViewOnDimension(no);
         player.world.SetNewCellRelative(no, 0, 0);
+
+        if (OverworldData.PlayerTurn == player.number) Invoke("RedirectPointer", player.vehicle.panDuration + 0.1f);
     }
 
     public void OnMoveSelection(CallbackContext ctx)
@@ -126,12 +130,17 @@ public class InputHandler : MonoBehaviour
             player.world.MoveSelection(x, y);
             player.HUD.UpdateHUDCoords(player.FocusedCell.X, player.FocusedCell.Y);
             player.opponent.HUD.UpdateHUDCoords(player.FocusedCell.X, player.FocusedCell.Y);
+            player.Pointer.ShipPointAtFocussedCell();
+
+            Invoke("RedirectPointer", 0.1f);
         }
         else
         {
             player.HUD.WriteText("It's not our turn, yet, Capt'n!");
         }
     }
+
+    private void RedirectPointer() => player.Pointer.ShipPointAtFocussedCell();
 
     public void OnFire(CallbackContext ctx)
     {

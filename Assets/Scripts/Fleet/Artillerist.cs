@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Artillerist : MonoBehaviour
 {
-    [HideInInspector] public PlayerData player;
+    public PlayerData player;
     public AttackPattern attackPattern;
 
     public bool Fire(ShipManager shipManager)

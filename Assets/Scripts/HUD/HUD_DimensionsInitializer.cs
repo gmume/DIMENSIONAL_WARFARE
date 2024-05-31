@@ -11,7 +11,7 @@ public class HUD_DimensionsInitializer : MonoBehaviour
     private readonly Vector2[] anchorsMin = { new Vector2(0f, 0f), new Vector2(0f, 0.3f), new Vector2(0f, 0.6f) };
     private readonly Vector2[] anchorsMax = { new Vector2(1f, 0.36f), new Vector2(1f, 0.66f), new Vector2(1f, 1f) };
 
-    public void InitializeHUDDimensions(HUD_FleetInitializer hudFleetInitializer, GameObject HUD_DimensionsObj, GameObject HUD_DimensionPrefab, GameObject[] HUD_Dimensions, GameObject[] HUD_Fleet, Color HUD_ShipColor)
+    public void InitializeHUDDimensions(bool ownFleet, HUD_FleetInitializer hudFleetInitializer, GameObject HUD_DimensionsObj, GameObject HUD_DimensionPrefab, GameObject[] HUD_Dimensions, GameObject[] HUD_Fleet, Color HUD_ShipColor)
     {
         for (int i = 0; i < OverworldData.DimensionsCount; i++)
         {
@@ -29,27 +29,22 @@ public class HUD_DimensionsInitializer : MonoBehaviour
             HUD_DimensionNo = HUD_Dimension.GetComponentInChildren<TextMeshProUGUI>();
             HUD_DimensionNo.text = "0" + (i + 1);
 
-            if (hudFleetInitializer)
+            HUD_Dimensions[i] = HUD_Dimension;
+
+            if (ownFleet)
             {
-                HUD_Dimension.GetComponent<RawImage>().color = player.cellColor;
+                HUD_Dimensions[i].GetComponent<RawImage>().color = player.CellColor;
             }
             else
             {
-                HUD_Dimension.GetComponent<RawImage>().color = player.opponent.cellColor;
+                HUD_Dimensions[i].GetComponent<RawImage>().color = player.opponent.CellColor;
             }
 
-            HUD_Dimensions[i] = HUD_Dimension;
-
-            if (hudFleetInitializer && i == 0)
+            if (i == 0)
             {
-                GetComponent<HUD_DimensionActivator>().ActivateDimension(GetComponent<HUD_Manager>(), 0);
+                if (ownFleet) GetComponent<HUD_DimensionActivator>().ActivateDimension(GetComponent<HUD_Manager>(), 0);
                 hudFleetInitializer.InitializeHUDFleet(HUD_Dimension, HUD_Fleet, HUD_ShipColor);
             }
         }
-    }
-
-    public void InitializeOpponentHUDDimensions(GameObject HUD_DimensionsObj, GameObject HUD_DimensionPrefab, GameObject[] HUD_Dimensions, GameObject[] HUD_Fleet, Color HUD_ShipColor)
-    {
-        InitializeHUDDimensions(null, HUD_DimensionsObj, HUD_DimensionPrefab, HUD_Dimensions, HUD_Fleet, HUD_ShipColor);
     }
 }

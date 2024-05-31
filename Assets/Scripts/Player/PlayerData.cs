@@ -7,57 +7,58 @@ using UnityEngine.InputSystem.UI;
 public class PlayerData : MonoBehaviour
 {
     [HideInInspector] public int number;
+
     [Header("Player opponent")]
-                      public PlayerData opponent;
+    public PlayerData opponent;
     [HideInInspector] public PlayerWorldManager world;
 
     [Header("Audio")]
-                      public AudioPlayer audioManager;
+    public AudioPlayer audioManager;
 
     [Header("Input")]
-                      public InputHandler inputHandler;
-                      public Submitter submitter;
-                      public PlayerSwapper swapper;
-                      public InputEnabler inputEnabler;
-
+    public InputHandler inputHandler;
+    public Submitter submitter;
+    public PlayerSwapper swapper;
+    public InputEnabler inputEnabler;
     [HideInInspector] public PlayerInput input;
-                      public MultiplayerEventSystem eventSystem;
-                      public InputSystemUIInputModule inputSystem;
+    public MultiplayerEventSystem eventSystem;
+    public InputSystemUIInputModule inputSystem;
 
     [Header("HUD")]
-                      public HUD_Manager HUD;
-                      public ShipButtonData CurrentShipButton { get; set; }
+    public HUD_Manager HUD;
+    public ShipButtonData CurrentShipButton { get; set; }
 
     [Header("Camera")]
-                      public VehicleManager vehicle;
-                      public Camera playerCamera;
+    public VehicleManager vehicle;
+    public Camera playerCamera;
 
     [Header("World")]
-                      public DimensionsManager dimensions; //Is initiated by PlayerWorld
-                      public DimensionManager ActiveDimension { get; set; }
-    [HideInInspector] public CellData FocusedCell { get; set; }
-    [HideInInspector] public Color cellColor { get; set; }
-    [HideInInspector] public Material cellMaterial { get; set; }
+    public DimensionsManager dimensions; //Is initiated by PlayerWorld
+    public DimensionManager ActiveDimension { get; set; }
+    public Pointer Pointer;
+    public CellData FocusedCell { get; set; }
+    public Color CellColor { get; set; }
+    public Material CellMaterial { get; set; }
 
     [Header("Fleet")]
-                      public FleetManager fleet; //Is initiated by PlayerWorld via InitDimension()
+    public FleetManager fleet; //Is initiated by PlayerWorld via InitDimension()
+    public ShipManager ActiveShip { get; set; }
+    public ShipManager LastActiveShip { get; set; }
     [HideInInspector] public Color fleetColor;
-                      public ShipManager ActiveShip { get; set; }
-    [HideInInspector] public ShipManager LastActiveShip { get; set; }
 
     [Header("Onboarding")]
-                      public OnboardingManager onboarding;
+    public OnboardingManager onboarding;
 
     [Header("Options")]
-                      public OptionsHandler options;
+    public OptionsHandler options;
 
     private void Awake()
     {
         number = int.Parse(name[^1].ToString());
         world = GetComponent<PlayerWorldManager>();
         input = GetComponent<PlayerInput>();
-        cellColor = (number == 1) ? Colors.cellTurqoise : Colors.cellBlue;
-        cellMaterial = (number == 1) ? Materials.cellBlueMat : Materials.cellTurqoiseMat;
+        CellColor = (number == 1) ? Colors.cellTurqoise : Colors.cellBlue;
+        CellMaterial = (number == 1) ? Materials.cellBlueMat : Materials.cellTurqoiseMat;
         fleetColor = (number == 1) ? Colors.fleet1 : Colors.fleet2;
     }
 

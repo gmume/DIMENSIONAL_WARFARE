@@ -551,12 +551,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8053290421002738304, guid: dadfa82202b17be47b39770320522709,
         type: 3}
-      propertyPath: HUD_DimensionPrefab
-      value: 
-      objectReference: {fileID: 2435093339001908417, guid: 96bb9ad403c8f3d4280bb6883822fefd,
-        type: 3}
-    - target: {fileID: 8053290421002738304, guid: dadfa82202b17be47b39770320522709,
-        type: 3}
       propertyPath: HUD_DimensionsOpponentObj
       value: 
       objectReference: {fileID: 0}

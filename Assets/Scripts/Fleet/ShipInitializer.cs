@@ -54,6 +54,7 @@ public class ShipInitializer : MonoBehaviour
         }
 
         shipManager.partsList = GetPartsList();
+        shipManager.HUD_buttonPartsHandler = player.HUD.GetPartsHandlerOfShipButtons();
     }
 
     private List<GameObject> GetPartsList()

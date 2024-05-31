@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Activator : MonoBehaviour
 {
-    [HideInInspector] public PlayerData player;
-    [HideInInspector] public ShipPartManager[] parts;
+    public PlayerData player;
+    public ShipPartManager[] parts;
 
     public void Activate(ShipManager shipManager)
     {

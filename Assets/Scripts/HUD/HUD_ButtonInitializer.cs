@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,13 +21,10 @@ public class HUD_ButtonInitializer : MonoBehaviour
 
             InitializeButton(hudManager, buttonObj, button, i);
             DesignButton(button, Resources.Load<Sprite>("HUD_Sprites/HUD_ShipSprites/ShipSprite" + i), Resources.Load<Sprite>("HUD_Sprites/HUD_ShipSprites/ShipSpriteActive" + i));
-
-            for (int j = 0; j <= i; j++)
-            {
-                InitializeHUDButtonShipPart(buttonObj);
-            }
         }
     }
+
+    //private void DisableLayoutGroup() => shipButtonsTransform.GetComponent<HorizontalLayoutGroup>().enabled = false;
 
     private void InitializeButton(HUD_Manager hudManager, GameObject buttonObj, Button button, int i)
     {
@@ -39,7 +37,13 @@ public class HUD_ButtonInitializer : MonoBehaviour
         buttonNavigation.mode = Navigation.Mode.None;
         buttonObj.AddComponent<ShipButtonData>().No = i;
         buttonObj.AddComponent<HorizontalLayoutGroup>().childAlignment = TextAnchor.MiddleCenter;
-        buttonObj.AddComponent<HorizontalLayoutGroup>().childAlignment = TextAnchor.MiddleCenter;
+        HUD_ButtonPartsHandler partsHandler = buttonObj.AddComponent<HUD_ButtonPartsHandler>();
+        List<GameObject> buttonParts = partsHandler.buttonParts;
+
+        for (int j = 0; j <= i; j++)
+        {
+            buttonParts.Add(InitializeHUDButtonShipPart(buttonObj));
+        }
 
         if (i == 0)
         {
@@ -62,13 +66,16 @@ public class HUD_ButtonInitializer : MonoBehaviour
         button.spriteState = spriteState;
     }
 
-    private void InitializeHUDButtonShipPart(GameObject buttonObj)
+    private GameObject InitializeHUDButtonShipPart(GameObject buttonObj)
     {
         GameObject shipPart = new("HUD_ShipPart", typeof(CanvasRenderer), typeof(Image));
         shipPart.transform.SetParent(buttonObj.transform, false);
         Image shipPartImage = shipPart.GetComponent<Image>();
         shipPartImage.sprite = Resources.Load<Sprite>("HUD_Sprites/HUD_ShipSprites/HUD_ShipPart");
-        shipPartImage.preserveAspect = true;
+        shipPartImage.transform.localScale = new(0.9f, 0.7f);
+        //shipPartImage.color = Colors.HUD_green;
+        shipPartImage.color = new(0.35f, 0.95f, 0.68f);
         shipPart.layer = (name == "HUD1") ? 11 : 12;
+        return shipPart;
     }
 }

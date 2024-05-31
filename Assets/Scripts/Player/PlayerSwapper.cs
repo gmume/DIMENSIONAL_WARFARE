@@ -42,6 +42,7 @@ public class PlayerSwapper : MonoBehaviour
         if (player.ActiveShip != null) player.ActiveShip.Deactivate();
         player.FocusedCell = null;
         player.eventSystem.SetSelectedGameObject(null);
+        player.Pointer.Deactivate();
     }
 
     private void ArmOpponent()
@@ -61,5 +62,6 @@ public class PlayerSwapper : MonoBehaviour
         
         opponent.HUD.UpdateHUDCoords();
         player.opponent.world.SetNewCellAbsolute(false, OverworldData.MiddleCoordNo, OverworldData.MiddleCoordNo);
+        player.opponent.Pointer.Activate();
     }
 }
