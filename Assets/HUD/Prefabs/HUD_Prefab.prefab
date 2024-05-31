@@ -62,7 +62,7 @@ Canvas:
   m_GameObject: {fileID: 171654988707244013}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -725,7 +725,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8830732740648696196}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -734,7 +734,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 478, y: 169}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &746934433001535230
@@ -1519,7 +1519,7 @@ PrefabInstance:
     - target: {fileID: 3425226534777591414, guid: e4c7ad5e79f25d44bbca2c7bc26a1e7d,
         type: 3}
       propertyPath: m_fontSize
-      value: 38.6
+      value: 38.65
       objectReference: {fileID: 0}
     - target: {fileID: 6986321474018761711, guid: e4c7ad5e79f25d44bbca2c7bc26a1e7d,
         type: 3}

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class DamageHandler : MonoBehaviour
 {
-    [HideInInspector] public PlayerData player;
-    [HideInInspector] public AudioPlayer audioPlayer;
-                      public ShipStatus ShipStatus { get; set; }
-    [HideInInspector] public ShipManager manager;
-    [HideInInspector] public LayerFilter layerFilter;
-    [HideInInspector] public LayerFilter opponentLayerFilter;
+    public PlayerData player;
+    public AudioPlayer audioPlayer;
+    public ShipStatus ShipStatus { get; set; }
+    public ShipManager manager;
+    public LayerFilter layerFilter;
+    public LayerFilter opponentLayerFilter;
 
     public bool TakeHit(ShipPartManager part, int shipNo, ref DimensionManager dimension, Lifter lifter)
     {

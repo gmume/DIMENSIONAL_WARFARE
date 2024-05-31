@@ -33,11 +33,11 @@ public class HUD_DimensionsInitializer : MonoBehaviour
 
             if (ownFleet)
             {
-                HUD_Dimensions[i].GetComponent<RawImage>().color = player.cellColor;
+                HUD_Dimensions[i].GetComponent<RawImage>().color = player.CellColor;
             }
             else
             {
-                HUD_Dimensions[i].GetComponent<RawImage>().color = player.opponent.cellColor;
+                HUD_Dimensions[i].GetComponent<RawImage>().color = player.opponent.CellColor;
             }
 
             if (i == 0)

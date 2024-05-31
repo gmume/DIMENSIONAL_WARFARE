@@ -33,9 +33,15 @@ public class HUD_Initializer : MonoBehaviour
         InitializeHUDManger();
         InitializeHUDDimensions();
         InitializeShipButtons();
-        
+
+        Invoke("DisableLayoutGroup", 0.05f);
         StartCoroutine(FleetActivateShip());
+        Invoke("EnablePointer", 0.1f);
     }
+
+    private void DisableLayoutGroup() => hudButtonInitializer.shipButtonsTransform.GetComponent<HorizontalLayoutGroup>().enabled = false;
+
+    private void EnablePointer() => player.Pointer.enabled = true;
 
     IEnumerator FleetActivateShip()
     {
@@ -116,4 +122,6 @@ public class HUD_Initializer : MonoBehaviour
     }
 
     private void InitializeShipButtons() => hudButtonInitializer.InitializeShipButtons(hudManager);
+
+
 }

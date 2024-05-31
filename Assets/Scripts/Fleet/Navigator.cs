@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class Navigator : MonoBehaviour
 {
-    [HideInInspector] public PlayerData player;
-    [HideInInspector] public AudioPlayer audioPlayer;
-    [HideInInspector] public ShipManager manager;
-                      public Directions Orientation { get; set; }
-                      public int PivotX { get; set; }
-                      public int PivotZ { get; set; }
+    public PlayerData player;
+    public AudioPlayer audioPlayer;
+    public ShipManager manager;
+    public Directions Orientation { get; set; }
+    public int PivotX { get; set; }
+    public int PivotZ { get; set; }
 
     public void Move(Vector3 vector, DimensionManager dimension)
     {

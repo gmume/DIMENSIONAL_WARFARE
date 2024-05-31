@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class Submitter : MonoBehaviour
 {
-                      public PlayerData player;
-    [HideInInspector] public bool[] shipsPlaced = new bool[] { false, false, false };
+    public PlayerData player;
+    public bool[] shipsPlaced = new bool[] { false, false, false };
 
     private void Start() => player = GetComponent<PlayerData>();
 
@@ -90,6 +90,7 @@ public class Submitter : MonoBehaviour
             player.HUD.WriteText("Your opponent is ready, Capt'n.\nCaution, we're under attack!");
         }
 
+        OverworldData.PlayerTurn = 2;
         OverworldData.GamePhase = GamePhases.Battle;
         player.input.enabled = true;
 

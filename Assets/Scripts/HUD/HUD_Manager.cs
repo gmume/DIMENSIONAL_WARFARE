@@ -15,10 +15,10 @@ public class HUD_Manager : MonoBehaviour
     private string x = "--", y = "--";
     [HideInInspector] public TextMeshProUGUI xCoord, yCoord;
 
-    [HideInInspector] public GameObject[] HUD_Dimensions { private set; get; }
-    [HideInInspector] public GameObject[] HUD_DimensionsOpponent { private set; get; }
-    [HideInInspector] public GameObject[] HUD_Fleet { private set; get; }
-    [HideInInspector] public GameObject[] HUD_FleetOpponent { private set; get;}
+    public GameObject[] HUD_Dimensions { private set; get; }
+    public GameObject[] HUD_DimensionsOpponent { private set; get; }
+    public GameObject[] HUD_Fleet { private set; get; }
+    public GameObject[] HUD_FleetOpponent { private set; get;}
 
     [HideInInspector] public RawImage instructionImg;
     [HideInInspector] public Dictionary<string, Texture> instructions;

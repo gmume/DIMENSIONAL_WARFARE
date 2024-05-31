@@ -24,6 +24,8 @@ public class HUD_ButtonInitializer : MonoBehaviour
         }
     }
 
+    //private void DisableLayoutGroup() => shipButtonsTransform.GetComponent<HorizontalLayoutGroup>().enabled = false;
+
     private void InitializeButton(HUD_Manager hudManager, GameObject buttonObj, Button button, int i)
     {
         buttonObj.name = "ShipButton" + (i);
@@ -70,7 +72,9 @@ public class HUD_ButtonInitializer : MonoBehaviour
         shipPart.transform.SetParent(buttonObj.transform, false);
         Image shipPartImage = shipPart.GetComponent<Image>();
         shipPartImage.sprite = Resources.Load<Sprite>("HUD_Sprites/HUD_ShipSprites/HUD_ShipPart");
-        shipPartImage.preserveAspect = true;
+        shipPartImage.transform.localScale = new(0.9f, 0.7f);
+        //shipPartImage.color = Colors.HUD_green;
+        shipPartImage.color = new(0.35f, 0.95f, 0.68f);
         shipPart.layer = (name == "HUD1") ? 11 : 12;
         return shipPart;
     }
