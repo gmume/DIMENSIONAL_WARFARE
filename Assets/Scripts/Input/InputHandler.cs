@@ -62,7 +62,11 @@ public class InputHandler : MonoBehaviour
             //if(OverworldData.GamePhase.ToString() == "Start")Start timer animation
         }
 
-        if (ctx.performed) player.submitter.SubmitFleet(player);
+        if (ctx.performed)
+        {
+            player.input.currentActionMap.Disable();
+            player.submitter.SubmitFleet(player);
+        }
     }
 
     public void OnReturn(CallbackContext ctx)
@@ -152,11 +156,14 @@ public class InputHandler : MonoBehaviour
             return;
         }
 
-        player.inputEnabler.battleMap.Disable();
-        bool shipUp = player.ActiveShip.Fire();
+        player.input.currentActionMap.Disable();
+        player.opponent.input.currentActionMap.Disable();
+        string shipUp = player.ActiveShip.Fire();
 
-        if (shipUp)
+        if (shipUp == "yes")
         {
+            player.HUD.Instruct("PlaceShips");
+            player.opponent.HUD.Instruct("Wait");
             bool showVisibleParts1 = player.name == "player1";
             bool showVisibleParts2 = player.name == "player2";
 
@@ -164,7 +171,7 @@ public class InputHandler : MonoBehaviour
             continueGame = false;
             StartCoroutine(WaitBattleToContinue());
         }
-        else
+        else if (shipUp == "no")
         {
             StartCoroutine(PauseAndTakeTurns());
         }

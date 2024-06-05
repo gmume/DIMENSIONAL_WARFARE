@@ -6,16 +6,15 @@ public class Artillerist : MonoBehaviour
     public PlayerData player;
     public AttackPattern attackPattern;
 
-    public bool Fire(ShipManager shipManager)
+    public string Fire(ShipManager shipManager)
     {
         CellData focusedCell = player.FocusedCell;
         List<Vector2> hitCellsCoordinates = GetCellCoordinates(focusedCell);
         HitCells(hitCellsCoordinates, focusedCell);
 
         bool sunkShips = player.opponent.fleet.SunkShips(GetOpponentCells(hitCellsCoordinates, focusedCell));
-        if (!sunkShips) return false;
+        if (!sunkShips) return "no";
 
-        player.HUD.Instruct("Attack");
         return shipManager.ShipUp();
     }
 

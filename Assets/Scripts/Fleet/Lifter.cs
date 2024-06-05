@@ -14,7 +14,7 @@ public class Lifter : MonoBehaviour
     public LayerFilter layerFilter;
     public LayerFilter opponentLayerFilter;
 
-    public bool LiftShipUp(ref DimensionManager currentDimension, int shipNo)
+    public string LiftShipUp(ref DimensionManager currentDimension, int shipNo)
     {
         if (IsNotWinner(currentDimension))
         {
@@ -27,17 +27,28 @@ public class Lifter : MonoBehaviour
             player.HUD.WriteText($"Capt'n {player.number} hide your ship!");
             player.onboarding.ShowTip("OwnShipUp");
             player.opponent.onboarding.ShowTip("OpponentShipUp");
-            return true;
+            return "yes";
         }
         else
         {
-            SceneChanger.LoadResolveGame();
-            GameData.winner = player.name;
-            return false;
+            player.input.currentActionMap.Disable();
+            player.opponent.input.currentActionMap.Disable();
+            player.Fade.StartEffect();
+            player.opponent.Fade.StartEffect();
+            StartCoroutine(ResolveGame());
         }
+
+        return "";
     }
 
     private bool IsNotWinner(DimensionManager currentDimension) => currentDimension.No <OverworldData.DimensionsCount - 2;
+
+    private IEnumerator ResolveGame()
+    {
+        yield return new WaitUntil(() => player.Fade.finished);
+        SceneChanger.LoadResolveGame();
+        GameData.winner = player.name;
+    }
 
     public void SinkShip(ref DimensionManager currentDimension, int shipNo, ShipStatus status)
     {

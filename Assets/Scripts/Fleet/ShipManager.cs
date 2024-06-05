@@ -30,9 +30,9 @@ public class ShipManager : MonoBehaviour
 
     public List<Vector2> GetFocusedCoordinates(CellData focusedCell) => artillerist.GetCellCoordinates(focusedCell);
 
-    public bool Fire() => artillerist.Fire(this);
+    public string Fire() => artillerist.Fire(this);
 
-    public bool ShipUp() => lifter.LiftShipUp(ref dimension, No);
+    public string ShipUp() => lifter.LiftShipUp(ref dimension, No);
 
     public bool Sunk() => damageHandler.Sunk();
 

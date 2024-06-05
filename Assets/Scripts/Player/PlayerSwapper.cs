@@ -18,10 +18,8 @@ public class PlayerSwapper : MonoBehaviour
     public void SwapPlayers()
     {
         player.Fade.StartEffect();
-        player.opponent.Fade.StartEffect();
-
+        opponent.Fade.StartEffect();
         OverworldData.PlayerTurn = 3 - OverworldData.PlayerTurn;
-
         StartCoroutine(UpdateAndContinue());
     }
 
@@ -29,15 +27,8 @@ public class PlayerSwapper : MonoBehaviour
     {
         updated = false;
 
-        yield return new WaitUntil(() => player.Fade.finished);
+        yield return new WaitUntil(() => player.Fade.finished && opponent.Fade.finished);
         updated = UpdateGame();
-        player.input.SwitchCurrentActionMap("Battle");
-        opponent.input.SwitchCurrentActionMap("Battle");
-        player.input.actions.FindAction("ChooseRightShip").Disable();
-        player.input.actions.FindAction("ChooseLeftShip").Disable();
-        DisarmPlayer();
-        ArmOpponent();
-
         StartCoroutine(FadeOut());
     }
 
@@ -45,7 +36,15 @@ public class PlayerSwapper : MonoBehaviour
     {
         yield return new WaitUntil(() => updated);
         player.Fade.StartEffect();
-        player.opponent.Fade.StartEffect();
+        opponent.Fade.StartEffect();
+        StartCoroutine (TakeTurn());
+    }
+
+    private IEnumerator TakeTurn()
+    {
+        yield return new WaitUntil(() => player.Fade.finished && opponent.Fade.finished);
+        DisarmPlayer();
+        ArmOpponent();
     }
 
     private bool UpdateGame()
@@ -65,6 +64,9 @@ public class PlayerSwapper : MonoBehaviour
         player.FocusedCell = null;
         player.eventSystem.SetSelectedGameObject(null);
         player.Pointer.Deactivate();
+        player.input.SwitchCurrentActionMap("Battle");
+        player.input.currentActionMap.FindAction("chooseLeftShip").Disable();
+        player.input.currentActionMap.FindAction("chooseRightShip").Disable();
     }
 
     private void ArmOpponent()
@@ -79,11 +81,12 @@ public class PlayerSwapper : MonoBehaviour
         }
         else
         {
-            opponent.fleet.ActivateShip(player.opponent.fleet.GetShipIndex(player.opponent.LastActiveShip.No), opponent);
+            opponent.fleet.ActivateShip(opponent.fleet.GetShipIndex(opponent.LastActiveShip.No), opponent);
         }
         
         opponent.HUD.UpdateHUDCoords();
         player.opponent.world.SetNewCellAbsolute(false, OverworldData.MiddleCoordNo, OverworldData.MiddleCoordNo);
         player.opponent.Pointer.Activate();
+        opponent.input.SwitchCurrentActionMap("Battle");
     }
 }

@@ -74,7 +74,6 @@ public class Submitter : MonoBehaviour
         {
             player.HUD.WriteText($"Capt'n {player.number}, please wait until your opponent is ready.");
             player.opponent.HUD.WriteText($"Your opponent is ready, Capt'n.");
-            player.input.enabled = false;
             StartCoroutine(WaitForOpponent());
         }
 
@@ -84,17 +83,6 @@ public class Submitter : MonoBehaviour
     private IEnumerator WaitForOpponent()
     {
         yield return new WaitUntil(() => (OverworldData.Player1SubmittedFleet && OverworldData.Player2SubmittedFleet));
-
-        if(name == "Player1")
-        {
-            player.HUD.WriteText("Your opponent is ready, Capt'n.\nLet's go! Choose your attacking ship!");
-            player.opponent.HUD.WriteText("Caution, we're under attack!");
-        }
-        else
-        {
-            player.opponent.HUD.WriteText("Let's go! Choose your attacking ship!");
-            player.HUD.WriteText("Your opponent is ready, Capt'n.\nCaution, we're under attack!");
-        }
 
         OverworldData.PlayerTurn = 2;
         OverworldData.GamePhase = GamePhases.Battle;
@@ -107,6 +95,17 @@ public class Submitter : MonoBehaviour
         else
         {
             player.opponent.swapper.SwapPlayers();
+        }
+
+        if (name == "Player1")
+        {
+            player.HUD.WriteText("Your opponent is ready, Capt'n.\nLet's go! Choose your attacking ship!");
+            player.opponent.HUD.WriteText("Caution, we're under attack!");
+        }
+        else
+        {
+            player.opponent.HUD.WriteText("Let's go! Choose your attacking ship!");
+            player.HUD.WriteText("Your opponent is ready, Capt'n.\nCaution, we're under attack!");
         }
     }
 
