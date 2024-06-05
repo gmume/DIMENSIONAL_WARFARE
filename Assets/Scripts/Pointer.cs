@@ -93,6 +93,4 @@ public class Pointer : MonoBehaviour
 
         if (activate) ShipPointAtFocussedCell();
     }
-
-    //public void RemoveShip(int shipIndex) => shipButtonPositions.Remove(shipButtonPositions[shipIndex]);
 }

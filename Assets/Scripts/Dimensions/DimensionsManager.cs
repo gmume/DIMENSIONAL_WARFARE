@@ -34,14 +34,15 @@ public class DimensionsManager : MonoBehaviour
 
     public void Initialize()
     {
+        name = $"Dimensions{player.number}";
+
         occupier = GetComponent<CellOccupier>();
         cellGroupProvider = GetComponent<CellGroupProvider>();
         finder = GetComponent<PositionFinder>();
 
         cellGroupProvider.Initialize();
         finder.Initialize(player.dimensions);
-        player.fleet.InitializeFleet(player);
-        CreateDimensions();
+        //CreateDimensions();
     }
 
     public void CreateDimensions()

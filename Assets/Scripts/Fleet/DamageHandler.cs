@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DamageHandler : MonoBehaviour
@@ -11,36 +10,52 @@ public class DamageHandler : MonoBehaviour
     public LayerFilter layerFilter;
     public LayerFilter opponentLayerFilter;
 
-    public bool TakeHit(ShipPartManager part, int shipNo, ref DimensionManager dimension, Lifter lifter)
+    //public void TakeHit(ShipPartManager part, int shipNo, ref DimensionManager dimension, Lifter lifter)
+    //{
+    //    part.Explode(player);
+
+    //    //int targetLayer = LayerMask.NameToLayer("VisibleParts" + player.number);
+    //    //gameObject.layer = targetLayer;
+    //    //part.gameObject.layer = targetLayer;
+
+    //    if (!Sunk()) return false;
+
+    //    if (dimension.No != 0)
+    //    {
+    //        player.HUD.Instruct("None");
+    //        DescendShip(lifter, ref dimension, shipNo);
+    //        player.onboarding.ShowTip("OwnShipDown");
+    //    }
+    //    else
+    //    {
+    //        ShipOrFleetDestroyed(shipNo);
+    //        player.onboarding.ShowTip("OwnShipDestroyed");
+    //    }
+
+    //    return true;
+    //}
+
+
+
+    public bool Sunk()
     {
-        part.Explode();
+        Debug.Log("ship " + name + ", no: " + manager.No + ", index: " + player.fleet.GetShipIndex(manager.No) + ", ships count: " + player.fleet.ships.Count);
 
-        int targetLayer = LayerMask.NameToLayer("VisibleParts" + player.number);
-        gameObject.layer = targetLayer;
-        part.gameObject.layer = targetLayer;
+        foreach (ShipPartManager part in manager.parts)
+        {
+            if (!part.Damaged) return false;
+        }
 
-        if (!Sunk()) return false;
-
-        if (dimension.No != 0)
+        if (manager.dimension.No != 0)
         {
             player.HUD.Instruct("None");
-            DescendShip(lifter, ref dimension, shipNo);
+            DescendShip(manager.lifter, ref manager.dimension, manager.No);
             player.onboarding.ShowTip("OwnShipDown");
         }
         else
         {
-            ShipOrFleetDestroyed(shipNo);
+            ShipOrFleetDestroyed(manager.No);
             player.onboarding.ShowTip("OwnShipDestroyed");
-        }
-
-        return true;
-    }
-
-    private bool Sunk()
-    {
-        foreach (ShipPartManager part in manager.parts)
-        {
-            if (!part.Damaged) return false;
         }
 
         return true;
@@ -63,15 +78,17 @@ public class DamageHandler : MonoBehaviour
     {
         if (!FleetDestroyed())
         {
-            List<GameObject> fleet = player.fleet.ships;
-            player.HUD.RemoveShipButton(fleet.IndexOf(gameObject));
+            //Debug.Log("ship " + name+", no: "+manager.No+", index: "+ player.fleet.GetShipIndex(shipNo)+", ships count: "+player.fleet.ships.Count);
+            int index = player.fleet.GetShipIndex(shipNo);
+            player.HUD.RemoveShipButton(index);
 
             if (player.LastActiveShip == GetComponent<ShipManager>()) player.world.DeactivateCells();
             player.LastActiveShip = null;
 
             Destroy(player.HUD.HUD_Fleet[shipNo]);
             Destroy(player.opponent.HUD.HUD_FleetOpponent[shipNo]);
-            fleet.Remove(gameObject);
+
+            player.fleet.RemoveShip(index);
             StartCoroutine(DestroyShip());
         }
         else

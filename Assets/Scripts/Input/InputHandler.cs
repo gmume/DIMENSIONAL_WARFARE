@@ -23,7 +23,7 @@ public class InputHandler : MonoBehaviour
 
             if (OverworldData.GamePhase.ToString() == "Start")
             {
-                player.submitter.SubmitShipAtStart(player);
+                player.submitter.SubmitAtStart(player);
             }
             else
             {

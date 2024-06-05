@@ -1,5 +1,3 @@
-using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ShipPartManager : MonoBehaviour
@@ -34,11 +32,9 @@ public class ShipPartManager : MonoBehaviour
         //PartMaterial = Materials.partHitMat;
         PartMaterial.color = Colors.damagedPart;
         Damaged = true;
-    }
-
-    void OnParticleSystemStopped()
-    {
-        Debug.Log("System has stopped!");
+        int targetLayer = LayerMask.NameToLayer("VisibleParts" + transform.parent.GetComponent<ShipManager>().player.number);
+        gameObject.transform.parent.gameObject.layer = targetLayer;
+        gameObject.layer = targetLayer;
     }
 
     public void ResetPart()
@@ -64,11 +60,9 @@ public class ShipPartManager : MonoBehaviour
         SetColorIntact();
         explosion.Initialize();
 
-        GameObject HUD_button = player.HUD.hudButtonHandler.shipButtons[ship.No];
-        //Debug.Log("buttonParts: " + HUD_button.GetComponent<HUD_ButtonPartsHandler>().buttonParts.Length);
 
+        //Debug.Log("player.HUD.hudButtonHandler.shipButtons: " + player.HUD.hudButtonHandler.shipButtons.Count);
+        //GameObject HUD_button = player.HUD.hudButtonHandler.shipButtons[ship.No];
         //HUD_ButtonPart = HUD_button.GetComponent<HUD_ButtonPartsHandler>().buttonParts[partNo];
-
-        //Debug.Log("HUD_ButtonPart: " + HUD_ButtonPart);
     }
 }

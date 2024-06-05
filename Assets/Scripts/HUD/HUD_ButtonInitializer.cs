@@ -24,8 +24,6 @@ public class HUD_ButtonInitializer : MonoBehaviour
         }
     }
 
-    //private void DisableLayoutGroup() => shipButtonsTransform.GetComponent<HorizontalLayoutGroup>().enabled = false;
-
     private void InitializeButton(HUD_Manager hudManager, GameObject buttonObj, Button button, int i)
     {
         buttonObj.name = "ShipButton" + (i);

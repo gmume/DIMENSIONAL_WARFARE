@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerSwapper : MonoBehaviour
 {
-    public PlayerData player;
-    public PlayerData opponent;
+    [HideInInspector] public PlayerData player;
+    [HideInInspector] public PlayerData opponent;
 
     private void Start()
     {

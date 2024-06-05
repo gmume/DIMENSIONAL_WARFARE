@@ -75,8 +75,8 @@ public class DimensionManager : MonoBehaviour
                 cell.Dimension = this;
                 cell.X = x;
                 cell.Y = z;
-                cell.Focused = /*cell.Active = */cell.Occupied = cell.Hit = false;
-                cell.GetComponent<Renderer>().material = cell.Material;
+                cell.Focused = cell.Occupied = cell.Hit = false;
+                cell.GetComponent<Renderer>().material = player.CellMaterial;
                 cell.GetComponent<Renderer>().material.color = player.CellColor;
                 Cells[cell.X][cell.Y] = cellObj;
             }

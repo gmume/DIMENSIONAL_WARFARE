@@ -49,10 +49,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  dimensionPrefab: {fileID: 868283222179364552, guid: 2db3bf0e8101ca24d8a13a3de15e3d0d,
-    type: 3}
-  cellPrefab: {fileID: 5174194419912870597, guid: 1854d0b72bf4f054393c9dcb677de0e8,
-    type: 3}
+  dimensionPrefab: {fileID: 0}
+  cellPrefab: {fileID: 0}
 --- !u!114 &4340064460079707284
 MonoBehaviour:
   m_ObjectHideFlags: 0

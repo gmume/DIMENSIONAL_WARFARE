@@ -11,6 +11,7 @@ public class HUD_Manager : MonoBehaviour
 
     [HideInInspector] public HUD_DimensionActivator hudDimensionActivator;
     [HideInInspector] public HUD_ButtonHandler hudButtonHandler;
+    [HideInInspector] public GameObject shipButtonsObj;
 
     private string x = "--", y = "--";
     [HideInInspector] public TextMeshProUGUI xCoord, yCoord;
@@ -118,4 +119,6 @@ public class HUD_Manager : MonoBehaviour
     public void SetSelecetedButton() => hudButtonHandler.SetSelecetedButton(player);
 
     public void RemoveShipButton(int index) => hudButtonHandler.RemoveShipButton(index);
+
+    public void DeactivateLayoutgroup() => shipButtonsObj.GetComponent<HorizontalLayoutGroup>().enabled = false;
 }

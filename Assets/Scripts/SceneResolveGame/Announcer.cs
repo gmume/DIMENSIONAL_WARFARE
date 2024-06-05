@@ -24,7 +24,7 @@ public class Announcer : MonoBehaviour
 
     private void PlayVictorySound()
     {
-        audioPlayer.OnVictory();
+        //audioPlayer.OnVictory();
     }
 
     private bool IsWinner() => GameData.winner == "Player1" && transform.parent.name == "HUD1" || GameData.winner == "Player2" && transform.parent.name == "HUD2";

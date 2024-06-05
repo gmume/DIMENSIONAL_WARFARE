@@ -12,5 +12,7 @@ public class DisplayManager : MonoBehaviour
         camera2.enabled = true;
 
         Display.displays[1].Activate();
+
+        Debug.LogError("Force console open.");
     }
 }

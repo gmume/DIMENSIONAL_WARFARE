@@ -1,14 +1,15 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Submitter : MonoBehaviour
 {
-    public PlayerData player;
-    public bool[] shipsPlaced = new bool[] { false, false, false };
+    [HideInInspector] public PlayerData player;
+    [HideInInspector] public bool[] shipsPlaced = new bool[] { false, false, false };
 
     private void Start() => player = GetComponent<PlayerData>();
 
-    public void SubmitShipAtStart(PlayerData player)
+    public void SubmitAtStart(PlayerData player)
     {
         player.LastActiveShip = player.ActiveShip;
         shipsPlaced[player.ActiveShip.No] = true;
@@ -16,10 +17,12 @@ public class Submitter : MonoBehaviour
 
         if(indexOfUnplacedShip == -1)
         {
-            player.HUD.Instruct("Ready");
+            player.HUD.DeactivateLayoutgroup();
             player.ActiveShip.Deactivate();
             player.input.SwitchCurrentActionMap("SubmitFleet");
+            player.HUD.Instruct("Ready");
             player.onboarding.ShowTip("SubmitFleet");
+            player.Pointer.enabled = true;
         } 
         else
         {
@@ -55,6 +58,9 @@ public class Submitter : MonoBehaviour
 
     public bool SubmitFleet(PlayerData player)
     {
+        player.HUD.Instruct("Wait");
+        player.onboarding.ShowTip("Wait");
+
         if (name == "Player1")
         {
             OverworldData.Player1SubmittedFleet = true;
