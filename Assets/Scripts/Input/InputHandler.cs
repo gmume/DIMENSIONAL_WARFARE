@@ -179,7 +179,7 @@ public class InputHandler : MonoBehaviour
     public IEnumerator PauseAndTakeTurns()
     {
         Time.timeScale = 0f;
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(2f);
         Time.timeScale = 1f;
         player.swapper.SwapPlayers();
     }

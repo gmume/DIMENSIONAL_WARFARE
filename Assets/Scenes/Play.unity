@@ -553,6 +553,11 @@ PrefabInstance:
       objectReference: {fileID: 892643046}
     - target: {fileID: 1349209913183037047, guid: bd6968812f6c95b48b2053bad8e9de10,
         type: 3}
+      propertyPath: Fade
+      value: 
+      objectReference: {fileID: 1675523916}
+    - target: {fileID: 1349209913183037047, guid: bd6968812f6c95b48b2053bad8e9de10,
+        type: 3}
       propertyPath: Pointer
       value: 
       objectReference: {fileID: 496171339}
@@ -1947,6 +1952,11 @@ PrefabInstance:
       propertyPath: HUD
       value: 
       objectReference: {fileID: 1773980039}
+    - target: {fileID: 8890245019422727188, guid: 0468cf9480e6c19499ba9a54d2704c38,
+        type: 3}
+      propertyPath: Fade
+      value: 
+      objectReference: {fileID: 379753357}
     - target: {fileID: 8890245019422727188, guid: 0468cf9480e6c19499ba9a54d2704c38,
         type: 3}
       propertyPath: fleet

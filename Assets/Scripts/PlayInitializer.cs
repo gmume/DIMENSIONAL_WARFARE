@@ -24,5 +24,9 @@ public class PlayInitializer : MonoBehaviour
         player.world.SetNewDimension(0);
     }
 
-    private void StartFade() => fadeEffect.StartEffect();
+    private void StartFade()
+    {
+        fadeEffect.StartEffect();
+        fadeEffect.timeEffect = 0.1f;
+    }
 }

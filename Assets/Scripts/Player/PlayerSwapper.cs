@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections;
+using System.ComponentModel;
 using TMPro;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public class PlayerSwapper : MonoBehaviour
 {
     [HideInInspector] public PlayerData player;
     [HideInInspector] public PlayerData opponent;
+    private bool updated;
 
     private void Start()
     {
@@ -15,30 +17,50 @@ public class PlayerSwapper : MonoBehaviour
 
     public void SwapPlayers()
     {
+        player.Fade.StartEffect();
+        player.opponent.Fade.StartEffect();
+
         OverworldData.PlayerTurn = 3 - OverworldData.PlayerTurn;
 
-        UpdateGame();
+        StartCoroutine(UpdateAndContinue());
+    }
+
+    private IEnumerator UpdateAndContinue()
+    {
+        updated = false;
+
+        yield return new WaitUntil(() => player.Fade.finished);
+        updated = UpdateGame();
         player.input.SwitchCurrentActionMap("Battle");
         opponent.input.SwitchCurrentActionMap("Battle");
         player.input.actions.FindAction("ChooseRightShip").Disable();
         player.input.actions.FindAction("ChooseLeftShip").Disable();
         DisarmPlayer();
         ArmOpponent();
+
+        StartCoroutine(FadeOut());
     }
 
-    private void UpdateGame()
+    private IEnumerator FadeOut()
+    {
+        yield return new WaitUntil(() => updated);
+        player.Fade.StartEffect();
+        player.opponent.Fade.StartEffect();
+    }
+
+    private bool UpdateGame()
     {
         player.playerCamera.GetComponent<LayerFilter>().ShowLayers(true, true, true, false);
         opponent.playerCamera.GetComponent<LayerFilter>().ShowLayers(false, false, false, true);
         player.HUD.Instruct("UnderAttack");
         opponent.HUD.Instruct("Attack");
+        return true;
     }
 
     private void DisarmPlayer()
     {
         player.onboarding.ShowTip("UnderAttack");
         player.LastActiveShip = player.ActiveShip;
-        //if (player.input.currentActionMap.name == "Battle") player.world.DeactivateCells();
         if (player.ActiveShip != null) player.ActiveShip.Deactivate();
         player.FocusedCell = null;
         player.eventSystem.SetSelectedGameObject(null);

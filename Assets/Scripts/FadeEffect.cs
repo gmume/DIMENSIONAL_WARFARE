@@ -5,10 +5,10 @@ public class FadeEffect : MonoBehaviour
 {
     public Color firstColor, lastColor;
     public float timeEffect;
-    public bool firstToLast;
+    public bool firstToLast, finished = false;
     private float speed, currentValue;
     private Image blackImage;
-    private bool performEffect = false, finished = false;
+    private bool performEffect = false;
 
     void Start()
     {

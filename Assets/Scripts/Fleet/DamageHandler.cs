@@ -10,37 +10,8 @@ public class DamageHandler : MonoBehaviour
     public LayerFilter layerFilter;
     public LayerFilter opponentLayerFilter;
 
-    //public void TakeHit(ShipPartManager part, int shipNo, ref DimensionManager dimension, Lifter lifter)
-    //{
-    //    part.Explode(player);
-
-    //    //int targetLayer = LayerMask.NameToLayer("VisibleParts" + player.number);
-    //    //gameObject.layer = targetLayer;
-    //    //part.gameObject.layer = targetLayer;
-
-    //    if (!Sunk()) return false;
-
-    //    if (dimension.No != 0)
-    //    {
-    //        player.HUD.Instruct("None");
-    //        DescendShip(lifter, ref dimension, shipNo);
-    //        player.onboarding.ShowTip("OwnShipDown");
-    //    }
-    //    else
-    //    {
-    //        ShipOrFleetDestroyed(shipNo);
-    //        player.onboarding.ShowTip("OwnShipDestroyed");
-    //    }
-
-    //    return true;
-    //}
-
-
-
     public bool Sunk()
     {
-        Debug.Log("ship " + name + ", no: " + manager.No + ", index: " + player.fleet.GetShipIndex(manager.No) + ", ships count: " + player.fleet.ships.Count);
-
         foreach (ShipPartManager part in manager.parts)
         {
             if (!part.Damaged) return false;
@@ -78,7 +49,6 @@ public class DamageHandler : MonoBehaviour
     {
         if (!FleetDestroyed())
         {
-            //Debug.Log("ship " + name+", no: "+manager.No+", index: "+ player.fleet.GetShipIndex(shipNo)+", ships count: "+player.fleet.ships.Count);
             int index = player.fleet.GetShipIndex(shipNo);
             player.HUD.RemoveShipButton(index);
 
