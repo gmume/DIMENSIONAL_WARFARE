@@ -26,7 +26,6 @@ public class Lifter : MonoBehaviour
             player.inputEnabler.DisableChoosingShips();
             player.HUD.WriteText($"Capt'n {player.number} hide your ship!");
             player.onboarding.ShowTip("OwnShipUp");
-            player.opponent.onboarding.ShowTip("OpponentShipUp");
             return "yes";
         }
         else
@@ -124,6 +123,9 @@ public class Lifter : MonoBehaviour
         player.input.SwitchCurrentActionMap("PlaceShips");
         player.inputEnabler.DisableChoosingShips();
         player.HUD.WriteText($"Capt'n {player.number} hide your ship!");
-        player.ActiveShip = gameObject.GetComponent<ShipManager>();
+        gameObject.GetComponent<ShipManager>().Activate();
+        
+        //player.ActiveShip = gameObject.GetComponent<ShipManager>();
+        //player.ActiveShip.Activate();
     }
 }

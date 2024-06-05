@@ -19,14 +19,13 @@ public class DamageHandler : MonoBehaviour
 
         if (manager.dimension.No != 0)
         {
-            player.HUD.Instruct("None");
             DescendShip(manager.lifter, ref manager.dimension, manager.No);
+            player.HUD.Instruct("PlaceShips");
             player.onboarding.ShowTip("OwnShipDown");
         }
         else
         {
             ShipOrFleetDestroyed(manager.No);
-            player.onboarding.ShowTip("OwnShipDestroyed");
         }
 
         return true;
@@ -49,6 +48,9 @@ public class DamageHandler : MonoBehaviour
     {
         if (!FleetDestroyed())
         {
+            player.HUD.Instruct("Wait");
+            player.onboarding.ShowTip("OwnShipDestroyed");
+
             int index = player.fleet.GetShipIndex(shipNo);
             player.HUD.RemoveShipButton(index);
 

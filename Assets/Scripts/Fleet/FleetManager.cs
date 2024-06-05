@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class FleetManager : ScriptableObject
 {
+    PlayerData player;
     public  List<GameObject> ships = new();
 
-    public void ActivateShip(int index, PlayerData player)
+    public void ActivateShip(int index)
     {
         ships[index].GetComponent<ShipManager>().Activate();
         if (OverworldData.GamePhase == GamePhases.Battle) player.inputEnabler.SwitchActionMap("Battle");
@@ -19,7 +20,10 @@ public class FleetManager : ScriptableObject
 
         foreach (ShipManager ship in hitShips)
         {
-            if(ship.Sunk()) return true;
+            if (ship.Sunk())
+            {
+                return true;
+            }
         }
 
         return false;
@@ -43,8 +47,6 @@ public class FleetManager : ScriptableObject
             }
         }
 
-
-
         return hitShips;
     }
 
@@ -63,6 +65,7 @@ public class FleetManager : ScriptableObject
 
     public void Initialize(PlayerData player)
     {
+        this.player = player;
         Object[] loadedAttackPatterns = Resources.LoadAll("AttackPatterns");
 
         if(ships.Count > 0) ships.Clear();

@@ -63,7 +63,6 @@ public class PlayerSwapper : MonoBehaviour
         if (player.ActiveShip != null) player.ActiveShip.Deactivate();
         player.FocusedCell = null;
         player.eventSystem.SetSelectedGameObject(null);
-        player.Pointer.Deactivate();
         player.input.SwitchCurrentActionMap("Battle");
         player.input.currentActionMap.FindAction("chooseLeftShip").Disable();
         player.input.currentActionMap.FindAction("chooseRightShip").Disable();
@@ -75,13 +74,13 @@ public class PlayerSwapper : MonoBehaviour
         opponent.inputEnabler.battleMap.Enable();
         opponent.HUD.SetSelecetedButton();
 
-        if(player.opponent.LastActiveShip == null)
+        if (player.opponent.LastActiveShip == null)
         {
-            opponent.fleet.ActivateShip(0, opponent);
+            opponent.fleet.ActivateShip(0);
         }
         else
         {
-            opponent.fleet.ActivateShip(opponent.fleet.GetShipIndex(opponent.LastActiveShip.No), opponent);
+            opponent.fleet.ActivateShip(opponent.fleet.GetShipIndex(opponent.LastActiveShip.No));
         }
         
         opponent.HUD.UpdateHUDCoords();

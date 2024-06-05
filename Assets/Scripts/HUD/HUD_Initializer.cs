@@ -30,10 +30,10 @@ public class HUD_Initializer : MonoBehaviour
         hudManager.hudButtonHandler = this.hudButtonHandler;
     }
 
-    IEnumerator FleetActivateShip()
+    private IEnumerator FleetActivateShip()
     {
         yield return new WaitWhile(() => player.fleet.ships.Count == 0);
-        player.fleet.ActivateShip(hudManager.hudButtonHandler.currentButton.No, player);
+        player.fleet.ActivateShip(hudManager.hudButtonHandler.currentButton.No);
     }
 
     public void Initialize()

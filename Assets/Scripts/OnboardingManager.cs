@@ -37,8 +37,7 @@ public class OnboardingManager : MonoBehaviour
         {"Attack", "Switch ships\t◄ ►\nMove aim\tLeft stick\nFire\t\tX\nSwitch dimensions\t▲ ▼"},
         {"UnderAttack", "Await your\nopponent's attack!\nSwitch dimensions\t▲ ▼"},
         {"OwnShipUp", "Your ship ascended\nto the upper dimension!\nMove ship\tLeft stick\r\nTurn ship\tL1  R1\r\nReady to play\tX\nSwitch dimensions\t▲ ▼"},
-        {"OpponentShipUp", "Caution!\nYour opponent's\nship leveled up.\nIt attacks harder now!\nWait for your opponent\nto get ready!"},
-        {"OwnShipDown", "Your ship descended\nto the lower dimension!\nMove ship\tLeft stick\r\nTurn ship\tL1  R1\r\nReady to play\tX\nSwitch dimensions\t▲ ▼"},
-        {"OwnShipDestroyed", "Your ship is destroyed!"},
+        {"OwnShipDown", "Caution!\nYour opponent's\nship leveled up.\nIt attacks harder now!\nYour ship descended\nto the lower dimension!\nMove ship\tLeft stick\r\nTurn ship\tL1  R1\r\nReady to play\tX\nSwitch dimensions\t▲ ▼"},
+        {"OwnShipDestroyed", "Your ship is destroyed!\nCaution!\nYour opponent's\nship leveled up.\nIt attacks harder now!"},
     };
 }

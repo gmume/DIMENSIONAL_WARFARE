@@ -92,7 +92,7 @@ public class InputHandler : MonoBehaviour
     public void ChooseShip(int index)
     {
         player.world.DeactivateCells();
-        player.fleet.ActivateShip(index, player);
+        player.fleet.ActivateShip(index);
         player.HUD.ChooseShip(index);
         player.audioManager.ChooseShip();
         player.world.ActivateCells();
@@ -158,12 +158,12 @@ public class InputHandler : MonoBehaviour
 
         player.input.currentActionMap.Disable();
         player.opponent.input.currentActionMap.Disable();
+        player.Pointer.Deactivate();
         string shipUp = player.ActiveShip.Fire();
 
         if (shipUp == "yes")
         {
             player.HUD.Instruct("PlaceShips");
-            player.opponent.HUD.Instruct("Wait");
             bool showVisibleParts1 = player.name == "player1";
             bool showVisibleParts2 = player.name == "player2";
 

@@ -6,6 +6,7 @@ static class Colors
     public readonly static Color fleet1 = new(0.3f, 0.3f, 0f);    // Hex 4C4C00 olive
     public readonly static Color fleet2 = new(0.3f, 0.18f, 0.1f);   // Hex 4C2E1A brown
     public readonly static Color deltaActivShip  = new(0.3f, 0.3f, 0.3f);
+    public readonly static Color intactPart = new(0.35f, 0.95f, 0.68f); // Hex 59F2AD HUD_green bright
     public readonly static Color damagedPart = new(0.5f, 0f, 0f);
 
     [Header("Dimensions")]
