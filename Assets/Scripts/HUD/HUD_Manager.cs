@@ -11,6 +11,7 @@ public class HUD_Manager : MonoBehaviour
 
     [HideInInspector] public HUD_DimensionActivator hudDimensionActivator;
     [HideInInspector] public HUD_ButtonHandler hudButtonHandler;
+    [HideInInspector] public GameObject shipButtonsObj;
 
     private string x = "--", y = "--";
     [HideInInspector] public TextMeshProUGUI xCoord, yCoord;
@@ -105,12 +106,7 @@ public class HUD_Manager : MonoBehaviour
         for (int i = 0; i < partsHandler.Length; i++)
         {
             partsHandler[i] = shipButtons[i].GetComponent<HUD_ButtonPartsHandler>();
-            //Debug.Log("shipButtons[i].GetComponent<HUD_ButtonPartsHandler>(): " + shipButtons[i].GetComponent<HUD_ButtonPartsHandler>());
-            //Debug.Log("buttonParts[i]: " + shipButtons[i].GetComponent<HUD_ButtonPartsHandler>().buttonParts[i]);
         }
-
-        //Debug.Log("shipButtons[0].GetComponent<HUD_ButtonPartsHandler>(): " + shipButtons[0].GetComponent<HUD_ButtonPartsHandler>());
-        //Debug.Log("buttonParts[0]: " + shipButtons[0].GetComponent<HUD_ButtonPartsHandler>().buttonParts[0]);
 
         return partsHandler;
     }
@@ -118,4 +114,6 @@ public class HUD_Manager : MonoBehaviour
     public void SetSelecetedButton() => hudButtonHandler.SetSelecetedButton(player);
 
     public void RemoveShipButton(int index) => hudButtonHandler.RemoveShipButton(index);
+
+    public void DeactivateLayoutgroup() => shipButtonsObj.GetComponent<HorizontalLayoutGroup>().enabled = false;
 }

@@ -23,30 +23,26 @@ public class HUD_Initializer : MonoBehaviour
     [HideInInspector] public GameObject HUD_DimensionsOpponentObj;
     public GameObject HUD_DimensionPrefab;
 
-    public void Start()
+    public void Awake()
     {
         hudManager.player = player;
         hudManager.hudDimensionActivator = this.hudDimensionActivator;
         hudManager.hudButtonHandler = this.hudButtonHandler;
-        
+    }
+
+    private IEnumerator FleetActivateShip()
+    {
+        yield return new WaitWhile(() => player.fleet.ships.Count == 0);
+        player.fleet.ActivateShip(hudManager.hudButtonHandler.currentButton.No);
+    }
+
+    public void Initialize()
+    {
         GetHUDParts();
         InitializeHUDManger();
         InitializeHUDDimensions();
         InitializeShipButtons();
-
-        Invoke("DisableLayoutGroup", 0.05f);
         StartCoroutine(FleetActivateShip());
-        Invoke("EnablePointer", 0.1f);
-    }
-
-    private void DisableLayoutGroup() => hudButtonInitializer.shipButtonsTransform.GetComponent<HorizontalLayoutGroup>().enabled = false;
-
-    private void EnablePointer() => player.Pointer.enabled = true;
-
-    IEnumerator FleetActivateShip()
-    {
-        yield return new WaitWhile(() => player.fleet.ships.Count == 0);
-        player.fleet.ActivateShip(hudManager.hudButtonHandler.currentButton.No, player);
     }
 
     private void GetHUDParts()
@@ -82,6 +78,7 @@ public class HUD_Initializer : MonoBehaviour
 
     private void InitializeHUDManger()
     {
+        hudManager.shipButtonsObj = hudButtonInitializer.shipButtonsTransform.gameObject;
         hudManager.instructions = BuildDictionary();
         hudManager.Instruct("PlaceShips");
     }
@@ -92,12 +89,9 @@ public class HUD_Initializer : MonoBehaviour
         {"None", null},
         {"PlaceShips", Resources.Load<Texture>("HUD_Sprites/Instructions/PlaceShips")},
         {"Ready", Resources.Load<Texture>("HUD_Sprites/Instructions/Ready")},
-        {"Attack", Resources.Load<Texture>("HUD_Sprites/Instructions/Armed")},
+        {"Attack", Resources.Load<Texture>("HUD_Sprites/Instructions/Fire")},
         {"UnderAttack", Resources.Load<Texture>("HUD_Sprites/Instructions/UnderAttack")},
-        //{"OwnShipUp", Resources.Load<Texture>("HUD_Sprites/Instructions/")},
-        //{"OpponentShipUp", Resources.Load<Texture>("HUD_Sprites/Instructions/")},
-        //{"OwnShipDown", Resources.Load<Texture>("HUD_Sprites/Instructions/")},
-        //{"OwnShipDestroyed", Resources.Load<Texture>("HUD_Sprites/Instructions/")},
+        {"Wait", Resources.Load<Texture>("HUD_Sprites/Instructions/Wait")},
     };
 
     private void InitializeHUDDimensions()

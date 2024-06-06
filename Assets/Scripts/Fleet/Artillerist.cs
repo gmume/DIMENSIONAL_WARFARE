@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,23 +6,15 @@ public class Artillerist : MonoBehaviour
     public PlayerData player;
     public AttackPattern attackPattern;
 
-    public bool Fire(ShipManager shipManager)
+    public string Fire(ShipManager shipManager)
     {
         CellData focusedCell = player.FocusedCell;
         List<Vector2> hitCellsCoordinates = GetCellCoordinates(focusedCell);
-
         HitCells(hitCellsCoordinates, focusedCell);
-        List<GameObject> opponentCells = GetOpponentCells(hitCellsCoordinates, focusedCell);
-        List<bool> sunkenShips = new();
 
-        foreach (GameObject opponentCell in opponentCells)
-        {
-            CellData opponentCellData = opponentCell.GetComponent<CellData>();
-            sunkenShips.Add(opponentCellData.Occupied && opponentCellData.OccupyingObj.CompareTag("ShipPart") && IsOpponentSunk(opponentCellData));
-        }
+        bool sunkShips = player.opponent.fleet.SunkShips(GetOpponentCells(hitCellsCoordinates, focusedCell));
+        if (!sunkShips) return "no";
 
-        if (!CanShipAscend(sunkenShips)) return false;
-        player.HUD.Instruct("Attack");
         return shipManager.ShipUp();
     }
 
@@ -70,16 +61,4 @@ public class Artillerist : MonoBehaviour
     }
 
     private List<GameObject> GetOpponentCells(List<Vector2> hitCellsCoordinates, CellData focusedCell) => player.opponent.dimensions.GetCellGroup(hitCellsCoordinates, focusedCell.Dimension.No);
-
-    private bool IsOpponentSunk(CellData opponentCell) => opponentCell.OccupyingObj.GetComponentInParent<ShipManager>().TakeHit(opponentCell.OccupyingObj.GetComponent<ShipPartManager>());
-
-    private bool CanShipAscend(List<bool> sunkenShips)
-    {
-        foreach (bool sunkenShip in sunkenShips)
-        {
-            if (sunkenShip) return true;
-        }
-
-        return false;
-    }
 }

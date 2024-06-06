@@ -1,14 +1,15 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Submitter : MonoBehaviour
 {
-    public PlayerData player;
-    public bool[] shipsPlaced = new bool[] { false, false, false };
+    [HideInInspector] public PlayerData player;
+    [HideInInspector] public bool[] shipsPlaced = new bool[] { false, false, false };
 
     private void Start() => player = GetComponent<PlayerData>();
 
-    public void SubmitShipAtStart(PlayerData player)
+    public void SubmitAtStart(PlayerData player)
     {
         player.LastActiveShip = player.ActiveShip;
         shipsPlaced[player.ActiveShip.No] = true;
@@ -16,10 +17,12 @@ public class Submitter : MonoBehaviour
 
         if(indexOfUnplacedShip == -1)
         {
-            player.HUD.Instruct("Ready");
+            player.HUD.DeactivateLayoutgroup();
             player.ActiveShip.Deactivate();
             player.input.SwitchCurrentActionMap("SubmitFleet");
+            player.HUD.Instruct("Ready");
             player.onboarding.ShowTip("SubmitFleet");
+            player.Pointer.enabled = true;
         } 
         else
         {
@@ -55,6 +58,9 @@ public class Submitter : MonoBehaviour
 
     public bool SubmitFleet(PlayerData player)
     {
+        player.HUD.Instruct("Wait");
+        player.onboarding.ShowTip("Wait");
+
         if (name == "Player1")
         {
             OverworldData.Player1SubmittedFleet = true;
@@ -68,7 +74,6 @@ public class Submitter : MonoBehaviour
         {
             player.HUD.WriteText($"Capt'n {player.number}, please wait until your opponent is ready.");
             player.opponent.HUD.WriteText($"Your opponent is ready, Capt'n.");
-            player.input.enabled = false;
             StartCoroutine(WaitForOpponent());
         }
 
@@ -78,17 +83,6 @@ public class Submitter : MonoBehaviour
     private IEnumerator WaitForOpponent()
     {
         yield return new WaitUntil(() => (OverworldData.Player1SubmittedFleet && OverworldData.Player2SubmittedFleet));
-
-        if(name == "Player1")
-        {
-            player.HUD.WriteText("Your opponent is ready, Capt'n.\nLet's go! Choose your attacking ship!");
-            player.opponent.HUD.WriteText("Caution, we're under attack!");
-        }
-        else
-        {
-            player.opponent.HUD.WriteText("Let's go! Choose your attacking ship!");
-            player.HUD.WriteText("Your opponent is ready, Capt'n.\nCaution, we're under attack!");
-        }
 
         OverworldData.PlayerTurn = 2;
         OverworldData.GamePhase = GamePhases.Battle;
@@ -101,6 +95,17 @@ public class Submitter : MonoBehaviour
         else
         {
             player.opponent.swapper.SwapPlayers();
+        }
+
+        if (name == "Player1")
+        {
+            player.HUD.WriteText("Your opponent is ready, Capt'n.\nLet's go! Choose your attacking ship!");
+            player.opponent.HUD.WriteText("Caution, we're under attack!");
+        }
+        else
+        {
+            player.opponent.HUD.WriteText("Let's go! Choose your attacking ship!");
+            player.HUD.WriteText("Your opponent is ready, Capt'n.\nCaution, we're under attack!");
         }
     }
 

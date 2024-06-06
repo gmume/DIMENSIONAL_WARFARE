@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 3525422307263637074}
   - component: {fileID: 7978301769002643889}
   m_Layer: 0
-  m_Name: HUD_Prefab
+  m_Name: HUD_PlayPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,6 +113,7 @@ MonoBehaviour:
   player: {fileID: 0}
   hudDimensionActivator: {fileID: 0}
   hudButtonHandler: {fileID: 0}
+  shipButtonsObj: {fileID: 0}
   xCoord: {fileID: 0}
   yCoord: {fileID: 0}
   instructionImg: {fileID: 0}
@@ -1261,7 +1262,7 @@ PrefabInstance:
     - target: {fileID: 3425226534777591414, guid: e4c7ad5e79f25d44bbca2c7bc26a1e7d,
         type: 3}
       propertyPath: m_text
-      value: Own fleet
+      value: My fleet
       objectReference: {fileID: 0}
     - target: {fileID: 3425226534777591414, guid: e4c7ad5e79f25d44bbca2c7bc26a1e7d,
         type: 3}

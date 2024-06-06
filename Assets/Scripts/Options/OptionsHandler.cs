@@ -16,18 +16,24 @@ public class OptionsHandler : MonoBehaviour
 
     public void ShowOptions()
     {
-        Debug.Log("currentActionMap: " + player.input);
-
-        lastActionMap = player.input.currentActionMap.name;
-        player.input.SwitchCurrentActionMap("Options");
-        player.onboarding.gameObject.SetActive(false);
+        if (player)
+        {
+            lastActionMap = player.input.currentActionMap.name;
+            player.input.SwitchCurrentActionMap("Options");
+            player.onboarding.gameObject.SetActive(false);
+        }
+        
         optionsList.SetActive(true);
     }
     
     public void CloseOptions()
     {
-        player.input.SwitchCurrentActionMap(lastActionMap);
-        player.onboarding.gameObject.SetActive(true);
+        if (player)
+        {
+            player.input.SwitchCurrentActionMap(lastActionMap);
+            player.onboarding.gameObject.SetActive(true);
+        }
+        
         optionsList.SetActive(false);
     }
 }

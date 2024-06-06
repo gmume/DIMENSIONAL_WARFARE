@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,12 +5,49 @@ using UnityEngine;
 
 public class FleetManager : ScriptableObject
 {
+    PlayerData player;
     public  List<GameObject> ships = new();
 
-    public void ActivateShip(int index, PlayerData player)
+    public void ActivateShip(int index)
     {
         ships[index].GetComponent<ShipManager>().Activate();
         if (OverworldData.GamePhase == GamePhases.Battle) player.inputEnabler.SwitchActionMap("Battle");
+    }
+
+    public bool SunkShips(List<GameObject> hitCells)
+    {
+        HashSet<ShipManager> hitShips = ShipsTakeHits(hitCells);
+
+        foreach (ShipManager ship in hitShips)
+        {
+            if (ship.Sunk())
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private HashSet<ShipManager> ShipsTakeHits(List<GameObject> hitCells)
+    {
+        HashSet<ShipManager> hitShips = new();
+
+        foreach (GameObject hitCell in hitCells)
+        {
+            CellData cell = hitCell.GetComponent<CellData>();
+
+            if (cell.Occupied && cell.OccupyingObj.CompareTag("ShipPart"))
+            {
+                ShipPartManager shipPart = cell.OccupyingObj.GetComponent<ShipPartManager>();
+                ShipManager ship = shipPart.transform.parent.GetComponent<ShipManager>();
+                ship.HUD_buttonPartsHandler[ship.No].ButtonPartTakeHit(shipPart.partNo);
+                shipPart.Explode();
+                hitShips.Add(shipPart.transform.parent.GetComponent<ShipManager>());
+            }
+        }
+
+        return hitShips;
     }
 
     public int GetShipIndex(int ofShipNo)
@@ -25,8 +61,11 @@ public class FleetManager : ScriptableObject
         return -1;
     }
 
-    public void InitializeFleet(PlayerData player)
+    public void RemoveShip(int atIndex) => ships.Remove(ships[atIndex]);
+
+    public void Initialize(PlayerData player)
     {
+        this.player = player;
         Object[] loadedAttackPatterns = Resources.LoadAll("AttackPatterns");
 
         if(ships.Count > 0) ships.Clear();

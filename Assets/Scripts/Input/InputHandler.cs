@@ -23,7 +23,7 @@ public class InputHandler : MonoBehaviour
 
             if (OverworldData.GamePhase.ToString() == "Start")
             {
-                player.submitter.SubmitShipAtStart(player);
+                player.submitter.SubmitAtStart(player);
             }
             else
             {
@@ -62,7 +62,11 @@ public class InputHandler : MonoBehaviour
             //if(OverworldData.GamePhase.ToString() == "Start")Start timer animation
         }
 
-        if (ctx.performed) player.submitter.SubmitFleet(player);
+        if (ctx.performed)
+        {
+            player.input.currentActionMap.Disable();
+            player.submitter.SubmitFleet(player);
+        }
     }
 
     public void OnReturn(CallbackContext ctx)
@@ -88,7 +92,7 @@ public class InputHandler : MonoBehaviour
     public void ChooseShip(int index)
     {
         player.world.DeactivateCells();
-        player.fleet.ActivateShip(index, player);
+        player.fleet.ActivateShip(index);
         player.HUD.ChooseShip(index);
         player.audioManager.ChooseShip();
         player.world.ActivateCells();
@@ -152,11 +156,14 @@ public class InputHandler : MonoBehaviour
             return;
         }
 
-        player.inputEnabler.battleMap.Disable();
-        bool shipUp = player.ActiveShip.Fire();
+        player.input.currentActionMap.Disable();
+        player.opponent.input.currentActionMap.Disable();
+        player.Pointer.Deactivate();
+        string shipUp = player.ActiveShip.Fire();
 
-        if (shipUp)
+        if (shipUp == "yes")
         {
+            player.HUD.Instruct("PlaceShips");
             bool showVisibleParts1 = player.name == "player1";
             bool showVisibleParts2 = player.name == "player2";
 
@@ -164,7 +171,7 @@ public class InputHandler : MonoBehaviour
             continueGame = false;
             StartCoroutine(WaitBattleToContinue());
         }
-        else
+        else if (shipUp == "no")
         {
             StartCoroutine(PauseAndTakeTurns());
         }
@@ -179,7 +186,7 @@ public class InputHandler : MonoBehaviour
     public IEnumerator PauseAndTakeTurns()
     {
         Time.timeScale = 0f;
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(2f);
         Time.timeScale = 1f;
         player.swapper.SwapPlayers();
     }

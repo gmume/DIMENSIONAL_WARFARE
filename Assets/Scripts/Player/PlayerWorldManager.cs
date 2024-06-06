@@ -89,8 +89,5 @@ public class PlayerWorldManager : MonoBehaviour
         this.player = player;
         Materials.cellBlueMat.color = Colors.cellBlue;
         Materials.cellTurqoiseMat.color = Colors.cellTurqoise;
-        player.dimensions.name = $"Dimensions{player.number}";
-        player.dimensions.Initialize();
-        SetNewDimension(0);
     }
 }

@@ -9,5 +9,5 @@ public class HUD_ButtonPartsHandler : MonoBehaviour
 
     public void ButtonPartTakeHit(int partIndex) => buttonParts[partIndex].GetComponent<Image>().color = Colors.hitCell;
     
-    public void RepairButtonPart(int partIndex) => buttonParts[partIndex].GetComponent<Image>().color = Color.white;
+    public void RepairButtonPart(int partIndex) => buttonParts[partIndex].GetComponent<Image>().color = Colors.intactPart;
 }

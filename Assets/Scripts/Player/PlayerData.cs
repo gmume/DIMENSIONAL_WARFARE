@@ -39,6 +39,7 @@ public class PlayerData : MonoBehaviour
     public CellData FocusedCell { get; set; }
     public Color CellColor { get; set; }
     public Material CellMaterial { get; set; }
+    public FadeEffect Fade;
 
     [Header("Fleet")]
     public FleetManager fleet; //Is initiated by PlayerWorld via InitDimension()

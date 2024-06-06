@@ -31,13 +31,13 @@ public class OnboardingManager : MonoBehaviour
     private Dictionary<string, string> BuildDictionary() =>
     new()
     {
-        {"PlaceShips", "Switch ships\t◄ ►\r\nMove ship\tLeft stick\r\nTurn ship\tL1  R1\r\nReady to play\tX"},
+        {"PlaceShips", "Switch ships\t◄ ►\r\nMove ship\tLeft stick\r\nTurn ship\tL1  R1\r\nPlace ship\tX"},
         {"SubmitFleet", "Start battle:\r\npress and hold\tX\r\nReturn\t\tO"},
-        {"Attack", "Switch ships\t◄ ►\nMove aim\tLeft stick\nFire\t\tX"},
-        {"UnderAttack", "Await your opponent's attack!"},
-        {"OwnShipUp", "Your ship ascended\n to the upper dimension!\nMove ship\tLeft stick\r\nTurn ship\tL1  R1\r\nReady to play\tX\nSwitch dimensions\t▲ ▼"},
-        {"OpponentShipUp", "Your opponent's ship ascended\nto the upper dimension!\nSwitch dimensions\t▲ ▼"},
-        {"OwnShipDown", "Your ship descended\nto the lower dimension!\nMove ship\tLeft stick\r\nTurn ship\tL1  R1\r\nReady to play\tX\nSwitch dimensions\t▲ ▼"},
-        {"OwnShipDestroyed", "Your ship is destroyed!"},
+        {"Wait", "Wait for your opponent\nto get ready!"},
+        {"Attack", "Switch ships\t◄ ►\nMove aim\tLeft stick\nFire\t\tX\nSwitch dimensions\t▲ ▼"},
+        {"UnderAttack", "Await your\nopponent's attack!\nSwitch dimensions\t▲ ▼"},
+        {"OwnShipUp", "Your ship ascended\nto the upper dimension!\nMove ship\tLeft stick\r\nTurn ship\tL1  R1\r\nReady to play\tX\nSwitch dimensions\t▲ ▼"},
+        {"OwnShipDown", "Caution!\nYour opponent's\nship leveled up.\nIt attacks harder now!\nYour ship descended\nto the lower dimension!\nMove ship\tLeft stick\r\nTurn ship\tL1  R1\r\nReady to play\tX\nSwitch dimensions\t▲ ▼"},
+        {"OwnShipDestroyed", "Your ship is destroyed!\nCaution!\nYour opponent's\nship leveled up.\nIt attacks harder now!"},
     };
 }

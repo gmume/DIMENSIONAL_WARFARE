@@ -40,6 +40,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2537492309018127594, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}
+      propertyPath: CellMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: b3abeebdaccd5114c8b0edc237830efd, type: 2}
+    - target: {fileID: -2537492309018127594, guid: 0223c2ce2ddaa984fa48db8009f197cb,
+        type: 3}
       propertyPath: audioManager
       value: 
       objectReference: {fileID: 0}
@@ -67,6 +72,31 @@ PrefabInstance:
         type: 3}
       propertyPath: playerCamera
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[17].m_ActionId
+      value: 1fa2dffe-5350-4156-b32d-8e92ce0f115a
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[18].m_ActionId
+      value: 1bad717b-907c-4264-8c91-f5bdf4e2f206
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[17].m_ActionName
+      value: PlaceShips/Options[/DualShock4GamepadHID/start,/DualShock4GamepadHID1/start]
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394120640985854630, guid: 0223c2ce2ddaa984fa48db8009f197cb,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[18].m_ActionName
+      value: Options/CloseOptions[/DualShock4GamepadHID/buttonEast,/DualShock4GamepadHID1/buttonEast]
       objectReference: {fileID: 0}
     - target: {fileID: 3200431032573656334, guid: 0223c2ce2ddaa984fa48db8009f197cb,
         type: 3}

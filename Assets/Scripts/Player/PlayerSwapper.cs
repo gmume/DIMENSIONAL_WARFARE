@@ -1,11 +1,13 @@
-﻿using System.ComponentModel;
+﻿using System.Collections;
+using System.ComponentModel;
 using TMPro;
 using UnityEngine;
 
 public class PlayerSwapper : MonoBehaviour
 {
-    public PlayerData player;
-    public PlayerData opponent;
+    [HideInInspector] public PlayerData player;
+    [HideInInspector] public PlayerData opponent;
+    private bool updated;
 
     private void Start()
     {
@@ -15,34 +17,55 @@ public class PlayerSwapper : MonoBehaviour
 
     public void SwapPlayers()
     {
+        player.Fade.StartEffect();
+        opponent.Fade.StartEffect();
         OverworldData.PlayerTurn = 3 - OverworldData.PlayerTurn;
+        StartCoroutine(UpdateAndContinue());
+    }
 
-        UpdateGame();
-        player.input.SwitchCurrentActionMap("Battle");
-        opponent.input.SwitchCurrentActionMap("Battle");
-        player.input.actions.FindAction("ChooseRightShip").Disable();
-        player.input.actions.FindAction("ChooseLeftShip").Disable();
+    private IEnumerator UpdateAndContinue()
+    {
+        updated = false;
+
+        yield return new WaitUntil(() => player.Fade.finished && opponent.Fade.finished);
+        updated = UpdateGame();
+        StartCoroutine(FadeOut());
+    }
+
+    private IEnumerator FadeOut()
+    {
+        yield return new WaitUntil(() => updated);
+        player.Fade.StartEffect();
+        opponent.Fade.StartEffect();
+        StartCoroutine (TakeTurn());
+    }
+
+    private IEnumerator TakeTurn()
+    {
+        yield return new WaitUntil(() => player.Fade.finished && opponent.Fade.finished);
         DisarmPlayer();
         ArmOpponent();
     }
 
-    private void UpdateGame()
+    private bool UpdateGame()
     {
         player.playerCamera.GetComponent<LayerFilter>().ShowLayers(true, true, true, false);
         opponent.playerCamera.GetComponent<LayerFilter>().ShowLayers(false, false, false, true);
         player.HUD.Instruct("UnderAttack");
         opponent.HUD.Instruct("Attack");
+        return true;
     }
 
     private void DisarmPlayer()
     {
         player.onboarding.ShowTip("UnderAttack");
         player.LastActiveShip = player.ActiveShip;
-        //if (player.input.currentActionMap.name == "Battle") player.world.DeactivateCells();
         if (player.ActiveShip != null) player.ActiveShip.Deactivate();
         player.FocusedCell = null;
         player.eventSystem.SetSelectedGameObject(null);
-        player.Pointer.Deactivate();
+        player.input.SwitchCurrentActionMap("Battle");
+        player.input.currentActionMap.FindAction("chooseLeftShip").Disable();
+        player.input.currentActionMap.FindAction("chooseRightShip").Disable();
     }
 
     private void ArmOpponent()
@@ -51,17 +74,18 @@ public class PlayerSwapper : MonoBehaviour
         opponent.inputEnabler.battleMap.Enable();
         opponent.HUD.SetSelecetedButton();
 
-        if(player.opponent.LastActiveShip == null)
+        if (player.opponent.LastActiveShip == null)
         {
-            opponent.fleet.ActivateShip(0, opponent);
+            opponent.fleet.ActivateShip(0);
         }
         else
         {
-            opponent.fleet.ActivateShip(player.opponent.fleet.GetShipIndex(player.opponent.LastActiveShip.No), opponent);
+            opponent.fleet.ActivateShip(opponent.fleet.GetShipIndex(opponent.LastActiveShip.No));
         }
         
         opponent.HUD.UpdateHUDCoords();
         player.opponent.world.SetNewCellAbsolute(false, OverworldData.MiddleCoordNo, OverworldData.MiddleCoordNo);
         player.opponent.Pointer.Activate();
+        opponent.input.SwitchCurrentActionMap("Battle");
     }
 }

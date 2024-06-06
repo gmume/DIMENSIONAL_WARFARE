@@ -1,9 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using static UnityEngine.InputSystem.InputAction;
 
 public class ShipManager : MonoBehaviour
 {
@@ -34,15 +30,23 @@ public class ShipManager : MonoBehaviour
 
     public List<Vector2> GetFocusedCoordinates(CellData focusedCell) => artillerist.GetCellCoordinates(focusedCell);
 
-    public bool Fire() => artillerist.Fire(this);
+    public string Fire() => artillerist.Fire(this);
 
-    public bool ShipUp() => lifter.LiftShipUp(ref dimension, No);
+    public string ShipUp() => lifter.LiftShipUp(ref dimension, No);
 
-    public bool TakeHit(ShipPartManager part)
-    {
-        HUD_buttonPartsHandler[No].ButtonPartTakeHit(part.partNo);
-        return damageHandler.TakeHit(part, No, ref dimension, lifter);
-    }
+    public bool Sunk() => damageHandler.Sunk();
+
+    //public void TakeHit(ShipPartManager part)
+    //{
+    //    HUD_buttonPartsHandler[No].ButtonPartTakeHit(part.partNo);
+    //    damageHandler.TakeHit(part, No, ref dimension, lifter);
+    //}
+
+    //public bool TakeHit(ShipPartManager part)
+    //{
+    //    HUD_buttonPartsHandler[No].ButtonPartTakeHit(part.partNo);
+    //    return damageHandler.TakeHit(part, No, ref dimension, lifter);
+    //}
 
     public void SetDimension(DimensionManager newDimension) => lifter.SetDimension(newDimension, No);
 

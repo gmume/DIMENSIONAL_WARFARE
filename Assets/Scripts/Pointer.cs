@@ -56,11 +56,6 @@ public class Pointer : MonoBehaviour
             float deltaY = curveY.Evaluate(time);
             position.y += deltaY;
             pointerObjs[i].transform.position = position;
-
-            //pointerObj[i].transform.LookAt(focussedCellWorldPos, Vector3.up);
-
-            //Vector3 directionToDest = focussedCellWorldPos - transform.position;
-            //pointerObj[i].transform.rotation = Quaternion.LookRotation(directionToDest);
             pointerObjs[i].SetActive(true);
         }
     }
@@ -93,6 +88,4 @@ public class Pointer : MonoBehaviour
 
         if (activate) ShipPointAtFocussedCell();
     }
-
-    //public void RemoveShip(int shipIndex) => shipButtonPositions.Remove(shipButtonPositions[shipIndex]);
 }

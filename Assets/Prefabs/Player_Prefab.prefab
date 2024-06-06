@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 8141033843824573265}
   - component: {fileID: 941012256338790469}
   - component: {fileID: 747391406311119974}
+  - component: {fileID: 7767613979879228410}
   m_Layer: 0
   m_Name: Player_Prefab
   m_TagString: Untagged
@@ -315,6 +316,7 @@ MonoBehaviour:
   vehicle: {fileID: 0}
   playerCamera: {fileID: 0}
   dimensions: {fileID: 0}
+  Pointer: {fileID: 0}
   fleet: {fileID: 11400000, guid: 4a1787ba5b19c6a42a3266b70a5764ac, type: 2}
   fleetColor: {r: 0, g: 0, b: 0, a: 0}
   onboarding: {fileID: 0}
@@ -434,3 +436,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   shipsPlaced: 000000
+--- !u!114 &7767613979879228410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3200431032573656334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 405ba0e0043ea97409d570dccc8fc97f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  HUD_Initializer: {fileID: 0}
+  fleet: {fileID: 0}

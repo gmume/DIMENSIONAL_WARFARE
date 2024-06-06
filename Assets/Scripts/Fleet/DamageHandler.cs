@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DamageHandler : MonoBehaviour
@@ -11,36 +10,22 @@ public class DamageHandler : MonoBehaviour
     public LayerFilter layerFilter;
     public LayerFilter opponentLayerFilter;
 
-    public bool TakeHit(ShipPartManager part, int shipNo, ref DimensionManager dimension, Lifter lifter)
-    {
-        part.Explode();
-
-        int targetLayer = LayerMask.NameToLayer("VisibleParts" + player.number);
-        gameObject.layer = targetLayer;
-        part.gameObject.layer = targetLayer;
-
-        if (!Sunk()) return false;
-
-        if (dimension.No != 0)
-        {
-            player.HUD.Instruct("None");
-            DescendShip(lifter, ref dimension, shipNo);
-            player.onboarding.ShowTip("OwnShipDown");
-        }
-        else
-        {
-            ShipOrFleetDestroyed(shipNo);
-            player.onboarding.ShowTip("OwnShipDestroyed");
-        }
-
-        return true;
-    }
-
-    private bool Sunk()
+    public bool Sunk()
     {
         foreach (ShipPartManager part in manager.parts)
         {
             if (!part.Damaged) return false;
+        }
+
+        if (manager.dimension.No != 0)
+        {
+            DescendShip(manager.lifter, ref manager.dimension, manager.No);
+            player.HUD.Instruct("PlaceShips");
+            player.onboarding.ShowTip("OwnShipDown");
+        }
+        else
+        {
+            ShipOrFleetDestroyed(manager.No);
         }
 
         return true;
@@ -63,15 +48,19 @@ public class DamageHandler : MonoBehaviour
     {
         if (!FleetDestroyed())
         {
-            List<GameObject> fleet = player.fleet.ships;
-            player.HUD.RemoveShipButton(fleet.IndexOf(gameObject));
+            player.HUD.Instruct("Wait");
+            player.onboarding.ShowTip("OwnShipDestroyed");
+
+            int index = player.fleet.GetShipIndex(shipNo);
+            player.HUD.RemoveShipButton(index);
 
             if (player.LastActiveShip == GetComponent<ShipManager>()) player.world.DeactivateCells();
             player.LastActiveShip = null;
 
             Destroy(player.HUD.HUD_Fleet[shipNo]);
             Destroy(player.opponent.HUD.HUD_FleetOpponent[shipNo]);
-            fleet.Remove(gameObject);
+
+            player.fleet.RemoveShip(index);
             StartCoroutine(DestroyShip());
         }
         else

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class HUD_DimensionsInitializer : MonoBehaviour
 {
-    public PlayerData player;
+    [HideInInspector] public PlayerData player;
     private TextMeshProUGUI HUD_DimensionNo;
 
     private readonly Vector2[] pivots = { new Vector2(0.5f, 0f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 1f) };
@@ -28,7 +28,6 @@ public class HUD_DimensionsInitializer : MonoBehaviour
 
             HUD_DimensionNo = HUD_Dimension.GetComponentInChildren<TextMeshProUGUI>();
             HUD_DimensionNo.text = "0" + (i + 1);
-
             HUD_Dimensions[i] = HUD_Dimension;
 
             if (ownFleet)
