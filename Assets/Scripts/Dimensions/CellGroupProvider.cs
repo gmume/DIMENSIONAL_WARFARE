@@ -18,7 +18,5 @@ public class CellGroupProvider : MonoBehaviour
         return cells;
     }
 
-    //public List<GameObject> GetCells(List<Vector2> cellCoordinates, int dimensionNo) => GetCells(cellCoordinates, dimensions.GetDimension(dimensionNo));
-
     public void Initialize() => dimensions = GetComponent<DimensionsManager>();
 }

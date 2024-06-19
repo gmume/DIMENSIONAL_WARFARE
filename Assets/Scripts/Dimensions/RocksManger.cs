@@ -11,11 +11,7 @@ public class RocksManger : MonoBehaviour
     public List<Vector2> GetRocksCoordinates(int onDimensionNo)
     {
         List<Vector2> rocksCoordinates = GetFixedCoordinates(onDimensionNo);
-
         //To do: Add list of random distributet rocks.
-
-        //Debug.Log("rocksCoordinates: " + rocksCoordinates);
-
         return rocksCoordinates;
     }
 

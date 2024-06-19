@@ -16,7 +16,6 @@ public class Pointer : MonoBehaviour
     private readonly List<GameObject> pointerObjs = new();
     private readonly int pointerObjCount = 30;
     [SerializeField] private GameObject spherePrefab;
-    [SerializeField] private GameObject conePrefab;
     private readonly float cellYOffset = 0.5f + 0.125f; // 0.5f = half cell hight, 0.125f = estimated half sphere hight
 
     public void OnEnable()
@@ -27,8 +26,6 @@ public class Pointer : MonoBehaviour
         {
             AddPointerObj(spherePrefab);
         }
-
-        //AddPonterObj(conePrefab);
     }
 
     private void AddPointerObj(GameObject prefab)

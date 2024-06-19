@@ -59,7 +59,7 @@ public class InputHandler : MonoBehaviour
     {
         if (ctx.started)
         {
-            //if(OverworldData.GamePhase.ToString() == "Start")Start timer animation
+            //To do: if(OverworldData.GamePhase.ToString() == "Start")Start timer animation
         }
 
         if (ctx.performed)

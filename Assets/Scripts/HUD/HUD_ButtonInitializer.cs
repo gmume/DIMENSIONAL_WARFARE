@@ -71,7 +71,6 @@ public class HUD_ButtonInitializer : MonoBehaviour
         Image shipPartImage = shipPart.GetComponent<Image>();
         shipPartImage.sprite = Resources.Load<Sprite>("HUD_Sprites/HUD_ShipSprites/HUD_ShipPart");
         shipPartImage.transform.localScale = new(0.9f, 0.7f);
-        //shipPartImage.color = Colors.HUD_green;
         shipPartImage.color = Colors.intactPart;
         shipPart.layer = (name == "HUD1") ? 11 : 12;
         return shipPart;

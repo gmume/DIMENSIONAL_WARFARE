@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.LowLevel;
 using UnityEngine.UI;
 
 public class FadeEffect : MonoBehaviour
 {
+    public PlayerData player;
     public Color firstColor, lastColor;
     public float timeEffect;
     public bool firstToLast, finished = false;
@@ -76,7 +78,9 @@ public class FadeEffect : MonoBehaviour
 
     public void StartEffect()
     {
+        if(player != null) player.input.currentActionMap.Disable();
         performEffect = true;
         finished = false;
+        if (player != null) player.input.currentActionMap.Enable();
     }
 }

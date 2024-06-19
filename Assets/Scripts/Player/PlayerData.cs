@@ -42,7 +42,7 @@ public class PlayerData : MonoBehaviour
     public FadeEffect Fade;
 
     [Header("Fleet")]
-    public FleetManager fleet; //Is initiated by PlayerWorld via InitDimension()
+    public FleetManager fleet;
     public ShipManager ActiveShip { get; set; }
     public ShipManager LastActiveShip { get; set; }
     [HideInInspector] public Color fleetColor;

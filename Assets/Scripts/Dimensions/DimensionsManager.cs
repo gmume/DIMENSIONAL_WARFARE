@@ -42,7 +42,6 @@ public class DimensionsManager : MonoBehaviour
 
         cellGroupProvider.Initialize();
         finder.Initialize(player.dimensions);
-        //CreateDimensions();
     }
 
     public void CreateDimensions()

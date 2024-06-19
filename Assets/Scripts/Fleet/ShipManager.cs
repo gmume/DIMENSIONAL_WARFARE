@@ -36,18 +36,6 @@ public class ShipManager : MonoBehaviour
 
     public bool Sunk() => damageHandler.Sunk();
 
-    //public void TakeHit(ShipPartManager part)
-    //{
-    //    HUD_buttonPartsHandler[No].ButtonPartTakeHit(part.partNo);
-    //    damageHandler.TakeHit(part, No, ref dimension, lifter);
-    //}
-
-    //public bool TakeHit(ShipPartManager part)
-    //{
-    //    HUD_buttonPartsHandler[No].ButtonPartTakeHit(part.partNo);
-    //    return damageHandler.TakeHit(part, No, ref dimension, lifter);
-    //}
-
     public void SetDimension(DimensionManager newDimension) => lifter.SetDimension(newDimension, No);
 
     public List<Vector2> GetShipCoordinates()
