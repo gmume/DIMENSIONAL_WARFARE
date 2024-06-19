@@ -10,8 +10,8 @@ public class Announcer : MonoBehaviour
     private bool isWinner;
     public Sprite BackgroundLoose;
     public Sprite BackgroungWin;
-    private string win = "You win!";
-    private string loose = "You loose!";
+    private readonly string win = "You win!";
+    private readonly string loose = "You loose!";
 
     private void Start()
     {

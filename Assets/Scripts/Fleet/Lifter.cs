@@ -30,8 +30,6 @@ public class Lifter : MonoBehaviour
         }
         else
         {
-            player.input.currentActionMap.Disable();
-            player.opponent.input.currentActionMap.Disable();
             player.Fade.StartEffect();
             player.opponent.Fade.StartEffect();
             StartCoroutine(ResolveGame());
@@ -72,7 +70,6 @@ public class Lifter : MonoBehaviour
     private void LeaveOldDimension(ref DimensionManager dimensionBefore)
     {
         player.opponent.world.DeactivateCells();
-        //player.opponent.dimensions.ResetCellPositions(dimensionBefore.No);
         player.dimensions.ReleaseCells(player.dimensions.GetCellGroup(manager.GetShipCoordinates(), dimensionBefore.No));
         dimensionBefore.RemoveShip(gameObject);
     }
@@ -119,13 +116,9 @@ public class Lifter : MonoBehaviour
             part.ResetPart();
         }
 
-        //status = ShipStatus.Intact;
         player.input.SwitchCurrentActionMap("PlaceShips");
         player.inputEnabler.DisableChoosingShips();
         player.HUD.WriteText($"Capt'n {player.number} hide your ship!");
         gameObject.GetComponent<ShipManager>().Activate();
-        
-        //player.ActiveShip = gameObject.GetComponent<ShipManager>();
-        //player.ActiveShip.Activate();
     }
 }

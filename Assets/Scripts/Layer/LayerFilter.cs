@@ -23,10 +23,8 @@ public class LayerFilter : MonoBehaviour
     }
 
     public void ShowLayers(bool opponentDimensions, bool ownFleet, bool ownVisibleParts, bool opponentsVisibleParts)
-    //public void ShowLayers(bool ownDimensions, bool ownFleet, bool ownVisibleParts, bool opponentsVisibleParts)
     {
         layers[^4] = opponentDimensions ? $"Dimensions{(isCamera1 ? 1 : 2)}" : $"Dimensions{(isCamera1 ? 2 : 1)}";
-        //layers[^4] = ownDimensions ? $"Dimensions{(isCamera1 ? 1 : 2)}" : $"Dimensions{(isCamera1 ? 2 : 1)}";
         layers[^3] = ownFleet ? fleetLayer : null;
         layers[^2] = ownVisibleParts ? ownVisiblePartsLayer : null;
         layers[^1] = opponentsVisibleParts ? opponentsVisiblePartsLayer : null;

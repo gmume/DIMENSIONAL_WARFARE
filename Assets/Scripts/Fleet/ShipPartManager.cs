@@ -8,7 +8,6 @@ public class ShipPartManager : MonoBehaviour
     public int Y { get; private set; }
     public DimensionManager Dimension { get; set; }
     public Material PartMaterial { get; private set; }
-    //private Color colorIntact;
     private ExplosionTrigger explosion;
     public bool Damaged { get; set; }
     public bool ContinueGame = false;
@@ -51,7 +50,6 @@ public class ShipPartManager : MonoBehaviour
         Damaged = false;
         
         PartMaterial = GetComponent<Renderer>().material;
-        //colorIntact = player.fleetColor;
         explosion = transform.Find("Explosion").GetComponent<ExplosionTrigger>();
         gameObject.layer = LayerSetter.SetLayerFleet(player);
 
