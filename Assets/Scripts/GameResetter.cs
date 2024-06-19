@@ -1,15 +1,16 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 public class GameResetter : MonoBehaviour
 {
-    public PlayerData player1, player2;
+    public PlayerInput input1, input2;
     float timestamp = 600.0f;
 
     public void Start()
     {
-        player1.input.onActionTriggered += OnResetTimer;
-        player2.input.onActionTriggered += OnResetTimer;
+        input1.onActionTriggered += OnResetTimer;
+        if (input2) input2.onActionTriggered += OnResetTimer;
     }
 
     public void Update()
